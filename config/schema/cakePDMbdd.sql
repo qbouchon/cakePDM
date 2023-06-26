@@ -1,0 +1,28 @@
+CREATE TABLE users
+(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	firstname VARCHAR(100),
+	lastname VARCHAR(100),
+	login VARCHAR(100),
+	email VARCHAR(255),
+	password VARCHAR(255)
+);
+
+CREATE TABLE matos
+(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	name VARCHAR(100) NOT NULL,
+	type VARCHAR(100)NOT NULL
+);
+
+CREATE TABLE reservation 
+(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	start_date DATETIME NOT NULL,
+	end_date DATETIME NOT NULL,
+	id_matos INT NOT NULL,
+	id_users INT NOT NULL,
+	FOREIGN KEY (id_matos) REFERENCES matos(id),
+	FOREIGN KEY (id_users) REFERENCES users(id)
+
+);

@@ -64,6 +64,9 @@ class Application extends BaseApplication
         }
 
         // Load more plugins here
+        $this->addPlugin('BootstrapUI');
+        $this->addPlugin('Cake/Localized');
+        //$this->addPlugin('BakeStrap');
     }
 
     /**
@@ -126,6 +129,7 @@ class Application extends BaseApplication
      */
     protected function bootstrapCli(): void
     {
+        Configure::write('Bake.theme', 'BakeStrap');
         $this->addOptionalPlugin('Cake/Repl');
         $this->addOptionalPlugin('Bake');
 

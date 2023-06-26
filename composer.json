@@ -6,9 +6,12 @@
     "license": "MIT",
     "require": {
         "php": ">=7.4",
+        "avolle/cakephp-font-awesome": "^1.1",
         "cakephp/cakephp": "4.4.*",
+        "cakephp/localized": "^4.1",
         "cakephp/migrations": "^3.2",
         "cakephp/plugin-installer": "^1.3",
+        "friendsofcake/bootstrap-ui": "^4.0",
         "mobiledetect/mobiledetectlib": "^2.8"
     },
     "require-dev": {
@@ -26,13 +29,17 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "CustomBakeTemplates\\": "plugins/CustomBakeTemplates/src/",
+            "BakeStrap\\": "plugins/BakeStrap/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "App\\Test\\": "tests/",
-            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/",
+            "CustomBakeTemplates\\Test\\": "plugins/CustomBakeTemplates/tests/",
+            "BakeStrap\\Test\\": "plugins/BakeStrap/tests/"
         }
     },
     "scripts": {

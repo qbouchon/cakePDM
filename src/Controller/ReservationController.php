@@ -37,6 +37,7 @@ class ReservationController extends AppController
         ]);
 
         $this->set(compact('reservation'));
+
     }
 
     /**

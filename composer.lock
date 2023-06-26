@@ -4,8 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cf4acc9af81e6ac2fc72dbbb514c2b0d",
+    "content-hash": "dedaeb90ae332a828a32c86904bd2efd",
     "packages": [
+        {
+            "name": "avolle/cakephp-font-awesome",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mentisy/cakephp-font-awesome.git",
+                "reference": "13d5e271ff68fdc651b0e279593693157d55cc3c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mentisy/cakephp-font-awesome/zipball/13d5e271ff68fdc651b0e279593693157d55cc3c",
+                "reference": "13d5e271ff68fdc651b0e279593693157d55cc3c",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^4.2",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "cakephp/cakephp-codesniffer": "^4.4",
+                "phpstan/phpstan": "^0.12.87",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Avolle\\FontAwesome\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Volle",
+                    "homepage": "https://avolle.com",
+                    "role": "Author"
+                }
+            ],
+            "description": "FontAwesome plugin for CakePHP",
+            "homepage": "https://github.com/mentisy/cakephp-font-awesome",
+            "keywords": [
+                "FontAwesome",
+                "cakephp",
+                "cakephp-plugin"
+            ],
+            "support": {
+                "issues": "https://github.com/mentisy/cakephp-font-awesome/issues",
+                "source": "https://github.com/mentisy/cakephp-font-awesome"
+            },
+            "time": "2022-07-30T14:59:07+00:00"
+        },
         {
             "name": "cakephp/cakephp",
             "version": "4.4.14",
@@ -175,6 +228,59 @@
                 "source": "https://github.com/cakephp/chronos"
             },
             "time": "2023-04-19T15:05:35+00:00"
+        },
+        {
+            "name": "cakephp/localized",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/localized.git",
+                "reference": "1cdfb43428cce04321135d3c31094ae6538922e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/localized/zipball/1cdfb43428cce04321135d3c31094ae6538922e5",
+                "reference": "1cdfb43428cce04321135d3c31094ae6538922e5",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^4.2.0",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "cakephp/cakephp-codesniffer": "^4.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Cake\\Localized\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/localized/graphs/contributors"
+                }
+            ],
+            "description": "CakePHP Localized Plugin",
+            "homepage": "https://github.com/cakephp/localized",
+            "keywords": [
+                "cakephp",
+                "i18n",
+                "l10n",
+                "localized"
+            ],
+            "support": {
+                "forum": "https://stackoverflow.com/tags/cakephp",
+                "issues": "https://github.com/cakephp/localized/issues",
+                "source": "https://github.com/cakephp/localized"
+            },
+            "time": "2023-01-17T00:45:36+00:00"
         },
         {
             "name": "cakephp/migrations",
@@ -360,6 +466,62 @@
                 }
             ],
             "time": "2023-06-06T12:02:59+00:00"
+        },
+        {
+            "name": "friendsofcake/bootstrap-ui",
+            "version": "4.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfCake/bootstrap-ui.git",
+                "reference": "4b60b2d5981d80d7e9f61a527dc7274d49d7c297"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfCake/bootstrap-ui/zipball/4b60b2d5981d80d7e9f61a527dc7274d49d7c297",
+                "reference": "4b60b2d5981d80d7e9f61a527dc7274d49d7c297",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^4.0"
+            },
+            "require-dev": {
+                "cakephp/bake": "^2.1",
+                "cakephp/cakephp-codesniffer": "^4.1",
+                "phpunit/phpunit": "^8.5 || ^9.3"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "BootstrapUI\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jad Bitar",
+                    "homepage": "http://jadb.io",
+                    "role": "Author"
+                },
+                {
+                    "name": "Others",
+                    "homepage": "https://github.com/friendsofcake/bootstrap-ui/graphs/contributors"
+                }
+            ],
+            "description": "Bootstrap front-end framework support for CakePHP",
+            "homepage": "http://github.com/friendsofcake/bootstrap-ui",
+            "keywords": [
+                "bootstrap",
+                "cakephp",
+                "front-end"
+            ],
+            "support": {
+                "issues": "http://github.com/friendsofcake/bootstrap-ui/issues",
+                "source": "http://github.com/friendsofcake/bootstrap-ui"
+            },
+            "time": "2022-06-26T15:58:21+00:00"
         },
         {
             "name": "laminas/laminas-diactoros",

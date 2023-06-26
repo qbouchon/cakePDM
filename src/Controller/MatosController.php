@@ -18,6 +18,10 @@ class MatosController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'limit' => 5,
+        ];
+
         $matos = $this->paginate($this->Matos);
 
         $this->set(compact('matos'));
