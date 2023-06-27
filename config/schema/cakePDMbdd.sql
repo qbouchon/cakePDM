@@ -8,40 +8,37 @@ CREATE TABLE users
 	password VARCHAR(255)
 );
 
-CREATE TABLE resources
-(
-	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	name VARCHAR(100) NOT NULL,
-	picture VARCHAR(100),
-	id_field VARCHAR(100)
-	FOREIGN KEY (id_field) REFERENCES fields(id_field),	
-);
-
-
-
-
-CREATE TABLE reservations 
-(
-	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	start_date DATETIME NOT NULL,
-	end_date DATETIME NOT NULL,
-	is_back BOOL DEFAULT 0,
-	id_matos INT NOT NULL,
-	id_users INT NOT NULL,
-	FOREIGN KEY (id_matos) REFERENCES resources(id),
-	FOREIGN KEY (id_users) REFERENCES users(id)
-
-);
-
-CREATE TABLE fields
+CREATE TABLE domains
 (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
 	picture VARCHAR(100)
 );
 
-CREATE TABLE files()
+CREATE TABLE files 
 (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	link VARCHAR(100)
-)
+);
+
+CREATE TABLE resources
+(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	name VARCHAR(100) NOT NULL,
+	picture VARCHAR(100),
+	id_domain INT,
+	FOREIGN KEY (id_domain) REFERENCES domains(id)
+);
+
+CREATE TABLE reservations 
+(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	start_date DATETIME NOT NULL,
+	end_date DATETIME NOT NULL,
+	is_back BOOLEAN DEFAULT 0,
+	id_matos INT NOT NULL,
+	id_users INT NOT NULL,
+	FOREIGN KEY (id_matos) REFERENCES resources(id),
+	FOREIGN KEY (id_users) REFERENCES users(id)
+);
+
