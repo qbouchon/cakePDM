@@ -67,6 +67,7 @@ class Application extends BaseApplication
         $this->addPlugin('BootstrapUI');
         $this->addPlugin('Cake/Localized');
         //$this->addPlugin('BakeStrap');
+        $this->addPlugin('Josegonzalez/Upload');
     }
 
     /**
