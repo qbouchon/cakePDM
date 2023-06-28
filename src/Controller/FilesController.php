@@ -18,6 +18,9 @@ class FilesController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Resources'],
+        ];
         $files = $this->paginate($this->Files);
 
         $this->set(compact('files'));
@@ -33,7 +36,7 @@ class FilesController extends AppController
     public function view($id = null)
     {
         $file = $this->Files->get($id, [
-            'contain' => [],
+            'contain' => ['Resources'],
         ]);
 
         $this->set(compact('file'));
@@ -56,7 +59,8 @@ class FilesController extends AppController
             }
             $this->Flash->error(__('The file could not be saved. Please, try again.'));
         }
-        $this->set(compact('file'));
+        $resources = $this->Files->Resources->find('list', ['limit' => 200])->all();
+        $this->set(compact('file', 'resources'));
     }
 
     /**
@@ -80,7 +84,8 @@ class FilesController extends AppController
             }
             $this->Flash->error(__('The file could not be saved. Please, try again.'));
         }
-        $this->set(compact('file'));
+        $resources = $this->Files->Resources->find('list', ['limit' => 200])->all();
+        $this->set(compact('file', 'resources'));
     }
 
     /**

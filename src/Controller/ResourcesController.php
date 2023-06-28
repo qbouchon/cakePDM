@@ -18,6 +18,9 @@ class ResourcesController extends AppController
      */
     public function index()
     {
+        $this->paginate = [
+            'contain' => ['Domains'],
+        ];
         $resources = $this->paginate($this->Resources);
 
         $this->set(compact('resources'));
@@ -33,7 +36,7 @@ class ResourcesController extends AppController
     public function view($id = null)
     {
         $resource = $this->Resources->get($id, [
-            'contain' => [],
+            'contain' => ['Domains'],
         ]);
 
         $this->set(compact('resource'));
@@ -56,7 +59,8 @@ class ResourcesController extends AppController
             }
             $this->Flash->error(__('The resource could not be saved. Please, try again.'));
         }
-        $this->set(compact('resource'));
+        $domains = $this->Resources->Domains->find('list', ['limit' => 200])->all();
+        $this->set(compact('resource', 'domains'));
     }
 
     /**
@@ -80,7 +84,8 @@ class ResourcesController extends AppController
             }
             $this->Flash->error(__('The resource could not be saved. Please, try again.'));
         }
-        $this->set(compact('resource'));
+        $domains = $this->Resources->Domains->find('list', ['limit' => 200])->all();
+        $this->set(compact('resource', 'domains'));
     }
 
     /**

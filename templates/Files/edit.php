@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\File $file
+ * @var string[]|\Cake\Collection\CollectionInterface $resources
  */
 ?>
 <div class="row">
@@ -22,7 +23,8 @@
             <fieldset>
                 <legend><?= __('Edit File') ?></legend>
                 <?php
-                    echo $this->Form->control('link');
+                    echo $this->Form->control('name');
+                    echo $this->Form->control('resource_id');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

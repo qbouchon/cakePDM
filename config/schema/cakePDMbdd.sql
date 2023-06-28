@@ -12,33 +12,38 @@ CREATE TABLE domains
 (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
-	picture VARCHAR(100)
+	picture VARCHAR(255)
 );
 
-CREATE TABLE files 
-(
-	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	link VARCHAR(100)
-);
+
 
 CREATE TABLE resources
 (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
 	picture VARCHAR(100),
-	id_domain INT,
-	FOREIGN KEY (id_domain) REFERENCES domains(id)
+	domain_id INT,
+	FOREIGN KEY (domain_id) REFERENCES domains(id)
 );
 
 CREATE TABLE reservations 
 (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	start_date DATETIME NOT NULL,
-	end_date DATETIME NOT NULL,
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL,
 	is_back BOOLEAN DEFAULT 0,
-	id_matos INT NOT NULL,
-	id_users INT NOT NULL,
-	FOREIGN KEY (id_matos) REFERENCES resources(id),
-	FOREIGN KEY (id_users) REFERENCES users(id)
+	resource_id INT NOT NULL,
+	user_id INT NOT NULL,
+	FOREIGN KEY (resource_id) REFERENCES resources(id),
+	FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE files 
+(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255),
+	resource_id INT,
+	FOREIGN KEY (resource_id) REFERENCES resources(id)
+	
 );
 

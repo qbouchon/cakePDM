@@ -11,16 +11,16 @@
             <h3 class="text-center"><?= h($reservation->id) ?></h3>
             <table class="table table-bordered table-hover table-sm table-responsive">
                 <tr>
+                    <th><?= __('User') ?></th>
+                    <td><?= $reservation->has('user') ? $this->Html->link($reservation->user->id, ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($reservation->id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id Matos') ?></th>
-                    <td><?= $this->Number->format($reservation->id_matos) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Id Users') ?></th>
-                    <td><?= $this->Number->format($reservation->id_users) ?></td>
+                    <th><?= __('Resource Id') ?></th>
+                    <td><?= $this->Number->format($reservation->resource_id) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Start Date') ?></th>

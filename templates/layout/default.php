@@ -78,7 +78,7 @@
                             <div class="nav">
 
                                <!-- Sous menu -->
-                                <div class="text-white sb-sidenav-menu-heading">Menu</div>
+                                <div class="text-white sb-sidenav-menu-heading">Menu Utilisateur</div>
 
 
                                     <a class="nav-link" href="">
@@ -151,7 +151,24 @@
                 </div>
                 <div id="layoutSidenav_content">
                     <main>
-                       <?= $this->fetch('content'); ?> 
+                     <!--    <div class="container-fluid">
+                            <div class="row">
+                                <div class="col">
+                        //$this->Html->image('Bandeau CREST.png', ['alt' => 'CREST UGA']); 
+                              </div>
+                              </div>  --> 
+                             <div class="container-fluid">
+                                <div class="row"> 
+                                    <div class="col">
+                                        <?= $this->Html->link(__('Retour'), $this->request->referer()) ?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                    <?= $this->fetch('content'); ?> 
+                                    </div>
+                                </div>
+                            </div>
                     </main>
                 </div>
             </div>

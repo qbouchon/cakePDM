@@ -11,6 +11,9 @@ use Cake\Validation\Validator;
 /**
  * Reservations Model
  *
+ * @property \App\Model\Table\ResourcesTable&\Cake\ORM\Association\BelongsTo $Resources
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ *
  * @method \App\Model\Entity\Reservation newEmptyEntity()
  * @method \App\Model\Entity\Reservation newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Reservation[] newEntities(array $data, array $options = [])
@@ -40,6 +43,15 @@ class ReservationsTable extends Table
         $this->setTable('reservations');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Resources', [
+            'foreignKey' => 'resource_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -51,29 +63,42 @@ class ReservationsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->dateTime('start_date')
+            ->date('start_date')
             ->requirePresence('start_date', 'create')
-            ->notEmptyDateTime('start_date');
+            ->notEmptyDate('start_date');
 
         $validator
-            ->dateTime('end_date')
+            ->date('end_date')
             ->requirePresence('end_date', 'create')
-            ->notEmptyDateTime('end_date');
+            ->notEmptyDate('end_date');
 
         $validator
             ->boolean('is_back')
             ->allowEmptyString('is_back');
 
         $validator
-            ->integer('id_matos')
-            ->requirePresence('id_matos', 'create')
-            ->notEmptyString('id_matos');
+            ->integer('resource_id')
+            ->notEmptyString('resource_id');
 
         $validator
-            ->integer('id_users')
-            ->requirePresence('id_users', 'create')
-            ->notEmptyString('id_users');
+            ->integer('user_id')
+            ->notEmptyString('user_id');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('resource_id', 'Resources'), ['errorField' => 'resource_id']);
+        $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
+
+        return $rules;
     }
 }

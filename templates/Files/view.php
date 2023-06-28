@@ -11,12 +11,16 @@
             <h3 class="text-center"><?= h($file->id) ?></h3>
             <table class="table table-bordered table-hover table-sm table-responsive">
                 <tr>
-                    <th><?= __('Link') ?></th>
-                    <td><?= h($file->link) ?></td>
+                    <th><?= __('Name') ?></th>
+                    <td><?= h($file->name) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($file->id) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Resource Id') ?></th>
+                    <td><?= $file->resource_id === null ? '' : $this->Number->format($file->resource_id) ?></td>
                 </tr>
             </table>
         </div>

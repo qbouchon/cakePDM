@@ -15,7 +15,7 @@
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('name') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('picture') ?></th>
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('id_domain') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('domain_id') ?></th>
                         
                         <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                     </tr>
@@ -24,18 +24,19 @@
                     <?php foreach ($resources as $resource): ?>
                     <tr>
                                     
-                    
+                                                                                                                    
                                                                                                 <td class="text-center"><?= $this->Number->format($resource->id) ?></td>
                                                                                 
-                    
+                                                                                                                    
                                                                                                 <td class="text-center"><?= h($resource->name) ?></td>
                                                                                 
-                    
+                                                                                                                    
                                                                                                 <td class="text-center"><?= h($resource->picture) ?></td>
                                                                                 
-                    
-                                                                                                <td class="text-center"><?= $resource->id_domain === null ? '' : $this->Number->format($resource->id_domain) ?></td>
-                                                                                                    <td class="actions d-flex justify-content-center">
+                                                                                                        
+                                <td class="text-center"><?= $resource->has('domain') ? $this->Html->link($resource->domain->name, ['controller' => 'Domains', 'action' => 'view', $resource->domain->id]) : '' ?></td>
+                                                                        
+                                                                            <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <?=__('Actions') ?>

@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Resource $resource
+ * @var \Cake\Collection\CollectionInterface|string[] $domains
  */
 ?>
 <div class="row">
@@ -19,7 +20,7 @@
                 <?php
                     echo $this->Form->control('name');
                     echo $this->Form->control('picture');
-                    echo $this->Form->control('id_domain');
+                    echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

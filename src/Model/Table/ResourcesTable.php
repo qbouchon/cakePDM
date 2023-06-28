@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Resources Model
  *
+ * @property \App\Model\Table\DomainsTable&\Cake\ORM\Association\BelongsTo $Domains
+ *
  * @method \App\Model\Entity\Resource newEmptyEntity()
  * @method \App\Model\Entity\Resource newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Resource[] newEntities(array $data, array $options = [])
@@ -40,6 +42,16 @@ class ResourcesTable extends Table
         $this->setTable('resources');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Domains', [
+            'foreignKey' => 'domain_id',
+        ]);
+        $this->hasMany('Files', [
+            'foreignKey' => 'resource_id',
+        ]);
+        $this->hasMany('Reservations', [
+            'foreignKey' => 'resource_id',
+        ]);
     }
 
     /**
@@ -62,9 +74,23 @@ class ResourcesTable extends Table
             ->allowEmptyString('picture');
 
         $validator
-            ->integer('id_domain')
-            ->allowEmptyString('id_domain');
+            ->integer('domain_id')
+            ->allowEmptyString('domain_id');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('domain_id', 'Domains'), ['errorField' => 'domain_id']);
+
+        return $rules;
     }
 }

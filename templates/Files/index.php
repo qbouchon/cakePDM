@@ -13,7 +13,8 @@
                 <thead>
                     <tr>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('link') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('name') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id') ?></th>
                         
                         <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                     </tr>
@@ -22,11 +23,14 @@
                     <?php foreach ($files as $file): ?>
                     <tr>
                                     
-                    
+                                                                                                                    
                                                                                                 <td class="text-center"><?= $this->Number->format($file->id) ?></td>
                                                                                 
-                    
-                                                                                                <td class="text-center"><?= h($file->link) ?></td>
+                                                                                                                    
+                                                                                                <td class="text-center"><?= h($file->name) ?></td>
+                                                                                
+                                                                                                                    
+                                                                                                <td class="text-center"><?= $file->resource_id === null ? '' : $this->Number->format($file->resource_id) ?></td>
                                                                                                     <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">

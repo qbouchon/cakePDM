@@ -25,6 +25,7 @@ class DomainsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Domains',
+        'app.Resources',
     ];
 
     /**

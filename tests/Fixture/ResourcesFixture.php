@@ -22,7 +22,7 @@ class ResourcesFixture extends TestFixture
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'picture' => 'Lorem ipsum dolor sit amet',
-                'id_domain' => 1,
+                'domain_id' => 1,
             ],
         ];
         parent::init();

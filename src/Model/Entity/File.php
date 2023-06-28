@@ -9,7 +9,10 @@ use Cake\ORM\Entity;
  * File Entity
  *
  * @property int $id
- * @property string|null $link
+ * @property string|null $name
+ * @property int|null $resource_id
+ *
+ * @property \App\Model\Entity\Resource $resource
  */
 class File extends Entity
 {
@@ -23,6 +26,8 @@ class File extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'link' => true,
+        'name' => true,
+        'resource_id' => true,
+        'resource' => true,
     ];
 }

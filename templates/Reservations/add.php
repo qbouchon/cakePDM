@@ -2,6 +2,8 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Reservation $reservation
+ * @var \Cake\Collection\CollectionInterface|string[] $resources
+ * @var \Cake\Collection\CollectionInterface|string[] $users
  */
 ?>
 <div class="row">
@@ -20,8 +22,8 @@
                     echo $this->Form->control('start_date');
                     echo $this->Form->control('end_date');
                     echo $this->Form->control('is_back');
-                    echo $this->Form->control('id_matos');
-                    echo $this->Form->control('id_users');
+                    echo $this->Form->control('resource_id');
+                    echo $this->Form->control('user_id', ['options' => $users]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

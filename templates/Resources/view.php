@@ -19,12 +19,12 @@
                     <td><?= h($resource->picture) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($resource->id) ?></td>
+                    <th><?= __('Domain') ?></th>
+                    <td><?= $resource->has('domain') ? $this->Html->link($resource->domain->name, ['controller' => 'Domains', 'action' => 'view', $resource->domain->id]) : '' ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id Domain') ?></th>
-                    <td><?= $resource->id_domain === null ? '' : $this->Number->format($resource->id_domain) ?></td>
+                    <th><?= __('Id') ?></th>
+                    <td><?= $this->Number->format($resource->id) ?></td>
                 </tr>
             </table>
         </div>

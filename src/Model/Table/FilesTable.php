@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Files Model
  *
+ * @property \App\Model\Table\ResourcesTable&\Cake\ORM\Association\BelongsTo $Resources
+ *
  * @method \App\Model\Entity\File newEmptyEntity()
  * @method \App\Model\Entity\File newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\File[] newEntities(array $data, array $options = [])
@@ -40,6 +42,10 @@ class FilesTable extends Table
         $this->setTable('files');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Resources', [
+            'foreignKey' => 'resource_id',
+        ]);
     }
 
     /**
@@ -51,10 +57,28 @@ class FilesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('link')
-            ->maxLength('link', 100)
-            ->allowEmptyString('link');
+            ->scalar('name')
+            ->maxLength('name', 255)
+            ->allowEmptyString('name');
+
+        $validator
+            ->integer('resource_id')
+            ->allowEmptyString('resource_id');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('resource_id', 'Resources'), ['errorField' => 'resource_id']);
+
+        return $rules;
     }
 }

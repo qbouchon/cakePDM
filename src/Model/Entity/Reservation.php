@@ -9,11 +9,14 @@ use Cake\ORM\Entity;
  * Reservation Entity
  *
  * @property int $id
- * @property \Cake\I18n\FrozenTime $start_date
- * @property \Cake\I18n\FrozenTime $end_date
+ * @property \Cake\I18n\FrozenDate $start_date
+ * @property \Cake\I18n\FrozenDate $end_date
  * @property bool|null $is_back
- * @property int $id_matos
- * @property int $id_users
+ * @property int $resource_id
+ * @property int $user_id
+ *
+ * @property \App\Model\Entity\Resource $resource
+ * @property \App\Model\Entity\User $user
  */
 class Reservation extends Entity
 {
@@ -30,7 +33,9 @@ class Reservation extends Entity
         'start_date' => true,
         'end_date' => true,
         'is_back' => true,
-        'id_matos' => true,
-        'id_users' => true,
+        'resource_id' => true,
+        'user_id' => true,
+        'resource' => true,
+        'user' => true,
     ];
 }

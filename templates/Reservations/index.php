@@ -16,8 +16,8 @@
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('end_date') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('is_back') ?></th>
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('id_matos') ?></th>
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('id_users') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('user_id') ?></th>
                         
                         <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                     </tr>
@@ -26,24 +26,26 @@
                     <?php foreach ($reservations as $reservation): ?>
                     <tr>
                                     
-                    
+                                                                                                                                                                        
                                                                                                 <td class="text-center"><?= $this->Number->format($reservation->id) ?></td>
                                                                                 
-                    
+                                                                                                                                                                        
                                                                                                 <td class="text-center"><?= h($reservation->start_date) ?></td>
                                                                                 
-                    
+                                                                                                                                                                        
                                                                                                 <td class="text-center"><?= h($reservation->end_date) ?></td>
                                                                                 
-                    
+                                                                                                                                                                        
                                                                                                 <td class="text-center"><?= h($reservation->is_back) ?></td>
                                                                                 
-                    
-                                                                                                <td class="text-center"><?= $this->Number->format($reservation->id_matos) ?></td>
+                                                                                                                                                                        
+                                <!-- <td class="text-center"><?= $this->Number->format($reservation->resource_name) ?></td> -->
+                                 <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
                                                                                 
-                    
-                                                                                                <td class="text-center"><?= $this->Number->format($reservation->id_users) ?></td>
-                                                                                                    <td class="actions d-flex justify-content-center">
+                                                                                                                                                            
+                                <td class="text-center"><?= $reservation->has('user') ? $this->Html->link($reservation->user->firstname." ".$reservation->user->lastname." (".$reservation->user->login.")", ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>
+                                                                        
+                                                                            <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <?=__('Actions') ?>

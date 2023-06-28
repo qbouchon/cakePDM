@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Domains Model
  *
+ * @property \App\Model\Table\ResourcesTable&\Cake\ORM\Association\HasMany $Resources
+ *
  * @method \App\Model\Entity\Domain newEmptyEntity()
  * @method \App\Model\Entity\Domain newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Domain[] newEntities(array $data, array $options = [])
@@ -40,6 +42,10 @@ class DomainsTable extends Table
         $this->setTable('domains');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('Resources', [
+            'foreignKey' => 'domain_id',
+        ]);
     }
 
     /**
@@ -58,7 +64,7 @@ class DomainsTable extends Table
 
         $validator
             ->scalar('picture')
-            ->maxLength('picture', 100)
+            ->maxLength('picture', 255)
             ->allowEmptyString('picture');
 
         return $validator;

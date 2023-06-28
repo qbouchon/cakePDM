@@ -25,6 +25,7 @@ class ResourcesTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Resources',
+        'app.Domains',
     ];
 
     /**
@@ -58,6 +59,17 @@ class ResourcesTableTest extends TestCase
      * @uses \App\Model\Table\ResourcesTable::validationDefault()
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses \App\Model\Table\ResourcesTable::buildRules()
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

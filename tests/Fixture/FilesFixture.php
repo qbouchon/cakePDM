@@ -20,7 +20,8 @@ class FilesFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'link' => 'Lorem ipsum dolor sit amet',
+                'name' => 'Lorem ipsum dolor sit amet',
+                'resource_id' => 1,
             ],
         ];
         parent::init();

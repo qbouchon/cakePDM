@@ -25,6 +25,7 @@ class FilesTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Files',
+        'app.Resources',
     ];
 
     /**
@@ -58,6 +59,17 @@ class FilesTableTest extends TestCase
      * @uses \App\Model\Table\FilesTable::validationDefault()
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses \App\Model\Table\FilesTable::buildRules()
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

@@ -11,7 +11,9 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string|null $picture
- * @property int|null $id_domain
+ * @property int|null $domain_id
+ *
+ * @property \App\Model\Entity\Domain $domain
  */
 class Resource extends Entity
 {
@@ -27,6 +29,7 @@ class Resource extends Entity
     protected $_accessible = [
         'name' => true,
         'picture' => true,
-        'id_domain' => true,
+        'domain_id' => true,
+        'domain' => true,
     ];
 }

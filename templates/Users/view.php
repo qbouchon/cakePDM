@@ -31,6 +31,39 @@
                     <td><?= $this->Number->format($user->id) ?></td>
                 </tr>
             </table>
+            <div class="related">
+                <h4><?= __('Related Reservations') ?></h4>
+                <?php if (!empty($user->reservations)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Start Date') ?></th>
+                            <th><?= __('End Date') ?></th>
+                            <th><?= __('Is Back') ?></th>
+                            <th><?= __('Resource Id') ?></th>
+                            <th><?= __('User Id') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($user->reservations as $reservations) : ?>
+                        <tr>
+                            <td><?= h($reservations->id) ?></td>
+                            <td><?= h($reservations->start_date) ?></td>
+                            <td><?= h($reservations->end_date) ?></td>
+                            <td><?= h($reservations->is_back) ?></td>
+                            <td><?= h($reservations->resource_id) ?></td>
+                            <td><?= h($reservations->user_id) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'Reservations', 'action' => 'view', $reservations->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'Reservations', 'action' => 'edit', $reservations->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Reservations', 'action' => 'delete', $reservations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reservations->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 

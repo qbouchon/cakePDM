@@ -25,6 +25,8 @@ class ReservationsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Reservations',
+        'app.Resources',
+        'app.Users',
     ];
 
     /**
@@ -58,6 +60,17 @@ class ReservationsTableTest extends TestCase
      * @uses \App\Model\Table\ReservationsTable::validationDefault()
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses \App\Model\Table\ReservationsTable::buildRules()
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
