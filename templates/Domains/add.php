@@ -8,20 +8,20 @@
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Domains'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Liste des Domaines'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="domains form content">
-            <?= $this->Form->create($domain) ?>
+            <?= $this->Form->create($domain, ['type' => 'file']) ?>
             <fieldset>
-                <legend><?= __('Add Domain') ?></legend>
+                <legend><?= __('Créer un Domaine') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('picture');
+                    echo $this->Form->control('name',['label'=>'Nom du Domaine']);
+                    echo $this->Form->control('picture',['type' => 'file', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Créer')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
