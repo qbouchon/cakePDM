@@ -5,27 +5,13 @@
 
  .card {
       position: relative;
+      transition: transform 0.3s ease;
     }
     .card-img-top {
       object-fit: cover;
       height: 200px; /* Adjust the desired height for the cropped images */
     }
-/*    .tile-content {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      background-color: rgba(0, 0, 0, 0.5); 
-      color: #fff;
-      padding: 10px;
-      text-align: center;
-    }
-*/
+
     .tile-content {
       position: absolute;
       top: 20px;
@@ -38,4 +24,8 @@
     }
     .tile-content h3 {
       margin: 0;
+    }
+
+    .card:hover {
+      transform: translateY(-10px); /* Adjust the desired amount of upward movement */
     }

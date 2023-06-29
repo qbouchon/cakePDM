@@ -14,6 +14,7 @@
 <div class="container h-100 d-flex flex-column">          
     <div class = "row">
 
+        <!-- Affichage des tuiles de domaines. Pas super fier de ça. -->
         <?php   
                 $count = 1;
                 foreach ($domains as $domain):
@@ -27,23 +28,25 @@
         <?php       
                     endif; 
         ?>
- 
-                     <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="card h-100">
-                          <?= $this->Html->image('./domains/'.$domain->picture,['class'=>'card-img-top']) ?>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                    
+                    <?= $this->Html->link('                     
+                        <div class="card h-100">' .
+                            $this->Html->image('./domains/'.$domain->picture,['class'=>'card-img-top'])  . 
+                                '<div class="card-body">
+                                    <div class="tile-content"><h4> ' .
+                                        $domain->name . 
+                                    '</h4></div>
+                                </div>
+                        </div>', ['action' => 'view', $domain->id], ['escape' => false]) ?>
 
-                          <div class="card-body">
-                            <div class="tile-content">
-                              <h4 class="card-title"><?= $domain->name ?></h4>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    </div>
+               
         <?php   
                     $count++;   
                     endforeach;
         ?>   
-
+        <!-- fin tuiles -->
 
   
 
