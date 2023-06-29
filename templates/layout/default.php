@@ -24,6 +24,9 @@
     <?= $this->Html->script('sideNav'); ?>
     <?= $this->Html->css('sideNav'); ?>
 
+    <!-- css pour l'affichage des domaines -->
+    <?= $this->Html->css('domains'); ?>
+
     <!-- fontAwesome (trouver une manière plus propre ?) -->
     <?= $this->Html->script('../Fontawesome/js/all'); ?>
     <?= $this->Html->css('../Fontawesome./css/all'); ?>
