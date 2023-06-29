@@ -36,7 +36,7 @@ class ResourcesController extends AppController
     public function view($id = null)
     {
         $resource = $this->Resources->get($id, [
-            'contain' => ['Domains'],
+            'contain' => ['Domains', 'Files', 'Reservations'],
         ]);
 
         $this->set(compact('resource'));

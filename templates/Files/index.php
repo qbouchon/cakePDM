@@ -29,9 +29,10 @@
                                                                                                                     
                                                                                                 <td class="text-center"><?= h($file->name) ?></td>
                                                                                 
-                                                                                                                    
-                                                                                                <td class="text-center"><?= $file->resource_id === null ? '' : $this->Number->format($file->resource_id) ?></td>
-                                                                                                    <td class="actions d-flex justify-content-center">
+                                                                                                        
+                                <td class="text-center"><?= $file->has('resource') ? $this->Html->link($file->resource->name, ['controller' => 'Resources', 'action' => 'view', $file->resource->id]) : '' ?></td>
+                                                                        
+                                                                            <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <?=__('Actions') ?>

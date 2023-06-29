@@ -38,12 +38,12 @@
                                                                                                                                                                         
                                                                                                 <td class="text-center"><?= h($reservation->is_back) ?></td>
                                                                                 
-                                                                                                                                                                        
-                                <!-- <td class="text-center"><?= $this->Number->format($reservation->resource_name) ?></td> -->
-                                 <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
-                                                                                
+                                                                                                        
+                                <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
+                                                                                                                            
+                                                        
                                                                                                                                                             
-                                <td class="text-center"><?= $reservation->has('user') ? $this->Html->link($reservation->user->firstname." ".$reservation->user->lastname." (".$reservation->user->login.")", ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>
+                                <td class="text-center"><?= $reservation->has('user') ? $this->Html->link($reservation->user->id, ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>
                                                                         
                                                                             <td class="actions d-flex justify-content-center">
                             <div class="dropdown">

@@ -30,7 +30,7 @@
                                                                                                 <td class="text-center"><?= h($domain->name) ?></td>
                                                                                 
                     
-                                                                                                <td class="text-center"><?= h($domain->picture) ?></td>
+                           <td class="text-center"><?= $this->Html->image('./domains/'.$domain->picture) ?></td>
                                                                                                     <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">

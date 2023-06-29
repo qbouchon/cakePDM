@@ -24,6 +24,8 @@ class ResourcesControllerTest extends TestCase
     protected $fixtures = [
         'app.Resources',
         'app.Domains',
+        'app.Files',
+        'app.Reservations',
     ];
 
     /**

@@ -32,7 +32,9 @@
                             <th><?= __('Id') ?></th>
                             <th><?= __('Name') ?></th>
                             <th><?= __('Picture') ?></th>
+                            <th><?= __('Description') ?></th>
                             <th><?= __('Domain Id') ?></th>
+                            <th><?= __('Archive') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($domain->resources as $resources) : ?>
@@ -40,7 +42,9 @@
                             <td><?= h($resources->id) ?></td>
                             <td><?= h($resources->name) ?></td>
                             <td><?= h($resources->picture) ?></td>
+                            <td><?= h($resources->description) ?></td>
                             <td><?= h($resources->domain_id) ?></td>
+                            <td><?= h($resources->archive) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Resources', 'action' => 'view', $resources->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'Resources', 'action' => 'edit', $resources->id]) ?>

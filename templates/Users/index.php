@@ -17,6 +17,7 @@
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('lastname') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('login') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('email') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('active') ?></th>
                         
                         <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                     </tr>
@@ -39,6 +40,9 @@
                                                                                 
                     
                                                                                                 <td class="text-center"><?= h($user->email) ?></td>
+                                                                                
+                    
+                                                                                                <td class="text-center"><?= h($user->active) ?></td>
                                                                                                     <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">

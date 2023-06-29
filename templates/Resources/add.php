@@ -20,7 +20,9 @@
                 <?php
                     echo $this->Form->control('name');
                     echo $this->Form->control('picture');
+                    echo $this->Form->control('description');
                     echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);
+                    echo $this->Form->control('archive');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

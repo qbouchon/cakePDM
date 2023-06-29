@@ -15,12 +15,12 @@
                     <td><?= h($file->name) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($file->id) ?></td>
+                    <th><?= __('Resource') ?></th>
+                    <td><?= $file->has('resource') ? $this->Html->link($file->resource->name, ['controller' => 'Resources', 'action' => 'view', $file->resource->id]) : '' ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Resource Id') ?></th>
-                    <td><?= $file->resource_id === null ? '' : $this->Number->format($file->resource_id) ?></td>
+                    <th><?= __('Id') ?></th>
+                    <td><?= $this->Number->format($file->id) ?></td>
                 </tr>
             </table>
         </div>

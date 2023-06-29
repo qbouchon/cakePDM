@@ -46,10 +46,6 @@ class DomainsTable extends Table
         $this->hasMany('Resources', [
             'foreignKey' => 'domain_id',
         ]);
-
-        // $this->addBehavior('Josegonzalez/Upload.Upload', [
-        //     'picture' => [],
-        // ]);
     }
 
     /**
@@ -66,15 +62,6 @@ class DomainsTable extends Table
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
-    //     $validator->setProvider('upload', \Josegonzalez\Upload\Validation\ImageValidation::class);
-    //     $validator->add('picture', 'customName', [
-    //     'rule' => 'nameOfTheRule',
-    //     'message' => 'yourErrorMessage',
-    //     'provider' => 'upload',
-    //     'on' => function($context) {
-    //         return !empty($context['data']['file']) && $context['data']['file']['error'] == UPLOAD_ERR_OK;
-    //     }
-    // ]);
         // $validator
         //     ->scalar('picture')
         //     ->maxLength('picture', 255)
@@ -93,7 +80,7 @@ class DomainsTable extends Table
                     ],
                 ])
                 ->allowEmptyFile('picture');
-
+                
         return $validator;
     }
 }

@@ -12,6 +12,8 @@ use Cake\Validation\Validator;
  * Resources Model
  *
  * @property \App\Model\Table\DomainsTable&\Cake\ORM\Association\BelongsTo $Domains
+ * @property \App\Model\Table\FilesTable&\Cake\ORM\Association\HasMany $Files
+ * @property \App\Model\Table\ReservationsTable&\Cake\ORM\Association\HasMany $Reservations
  *
  * @method \App\Model\Entity\Resource newEmptyEntity()
  * @method \App\Model\Entity\Resource newEntity(array $data, array $options = [])
@@ -74,8 +76,16 @@ class ResourcesTable extends Table
             ->allowEmptyString('picture');
 
         $validator
+            ->scalar('description')
+            ->allowEmptyString('description');
+
+        $validator
             ->integer('domain_id')
             ->allowEmptyString('domain_id');
+
+        $validator
+            ->boolean('archive')
+            ->allowEmptyString('archive');
 
         return $validator;
     }

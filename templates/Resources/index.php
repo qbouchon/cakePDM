@@ -16,6 +16,7 @@
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('name') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('picture') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('domain_id') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('archive') ?></th>
                         
                         <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                     </tr>
@@ -36,7 +37,10 @@
                                                                                                         
                                 <td class="text-center"><?= $resource->has('domain') ? $this->Html->link($resource->domain->name, ['controller' => 'Domains', 'action' => 'view', $resource->domain->id]) : '' ?></td>
                                                                         
-                                                                            <td class="actions d-flex justify-content-center">
+                                                        
+                                                                                                                    
+                                                                                                <td class="text-center"><?= h($resource->archive) ?></td>
+                                                                                                    <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <?=__('Actions') ?>

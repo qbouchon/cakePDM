@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string|null $login
  * @property string|null $email
  * @property string|null $password
+ * @property bool|null $active
  *
  * @property \App\Model\Entity\Reservation[] $reservations
  */
@@ -34,6 +35,7 @@ class User extends Entity
         'login' => true,
         'email' => true,
         'password' => true,
+        'active' => true,
         'reservations' => true,
     ];
 

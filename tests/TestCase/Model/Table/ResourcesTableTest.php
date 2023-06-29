@@ -26,6 +26,8 @@ class ResourcesTableTest extends TestCase
     protected $fixtures = [
         'app.Resources',
         'app.Domains',
+        'app.Files',
+        'app.Reservations',
     ];
 
     /**

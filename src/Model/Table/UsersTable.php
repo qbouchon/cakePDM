@@ -80,6 +80,10 @@ class UsersTable extends Table
             ->maxLength('password', 255)
             ->allowEmptyString('password');
 
+        $validator
+            ->boolean('active')
+            ->allowEmptyString('active');
+
         return $validator;
     }
 

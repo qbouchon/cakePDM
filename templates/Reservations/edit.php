@@ -27,7 +27,7 @@
                     echo $this->Form->control('start_date');
                     echo $this->Form->control('end_date');
                     echo $this->Form->control('is_back');
-                    echo $this->Form->control('resource_id');
+                    echo $this->Form->control('resource_id', ['options' => $resources]);
                     echo $this->Form->control('user_id', ['options' => $users]);
                 ?>
             </fieldset>

@@ -5,7 +5,8 @@ CREATE TABLE users
 	lastname VARCHAR(100),
 	login VARCHAR(100),
 	email VARCHAR(255),
-	password VARCHAR(255)
+	password VARCHAR(255),
+	active BOOLEAN DEFAULT 1 
 );
 
 CREATE TABLE domains
@@ -22,8 +23,10 @@ CREATE TABLE resources
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
 	picture VARCHAR(100),
-	domain_id INT,
-	FOREIGN KEY (domain_id) REFERENCES domains(id)
+	description TEXT,
+	domain_id,
+	archive BOOLEAN DEFAULT 0,
+	FOREIGN KEY (domain_id) REFERENCES domains(id) 
 );
 
 CREATE TABLE reservations 
@@ -46,4 +49,3 @@ CREATE TABLE files
 	FOREIGN KEY (resource_id) REFERENCES resources(id)
 	
 );
-

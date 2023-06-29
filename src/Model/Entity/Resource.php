@@ -11,9 +11,13 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string|null $picture
+ * @property string|null $description
  * @property int|null $domain_id
+ * @property bool|null $archive
  *
  * @property \App\Model\Entity\Domain $domain
+ * @property \App\Model\Entity\File[] $files
+ * @property \App\Model\Entity\Reservation[] $reservations
  */
 class Resource extends Entity
 {
@@ -29,7 +33,11 @@ class Resource extends Entity
     protected $_accessible = [
         'name' => true,
         'picture' => true,
+        'description' => true,
         'domain_id' => true,
+        'archive' => true,
         'domain' => true,
+        'files' => true,
+        'reservations' => true,
     ];
 }
