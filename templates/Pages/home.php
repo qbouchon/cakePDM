@@ -20,7 +20,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Error\Debugger;
 use Cake\Http\Exception\NotFoundException;
 
-$this->disableAutoLayout();
+//$this->disableAutoLayout();
 
 $checkConnection = function (string $name) {
     $error = null;

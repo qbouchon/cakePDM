@@ -55,8 +55,8 @@ class DomainsController extends AppController
             if(!$domain->getErrors) {
 
                 $picture = $this->request->getData('picture');
-                $fileName = $domain->id.$picture->getClientFilename();
-                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$fileName;
+                $fileName = $picture->getClientFilename();
+                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$domain->id.$fileName;
 
                         if($fileName) {
                                        
@@ -104,7 +104,41 @@ class DomainsController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $domain = $this->Domains->patchEntity($domain, $this->request->getData());
+
+
+
+            //$domain = $this->Domains->patchEntity($domain, $this->request->getData());
+
+            $domain->set('name',$this->request->getData('name'));
+
+            if(!$domain->getErrors) {
+
+                $picture = $this->request->getData('picture');
+                $fileName = $picture->getClientFilename();
+                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$domain->id.$fileName;
+
+                        if($fileName) {     
+                            //check si c'est une image
+                            $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
+                            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+                            $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
+                                        
+                            if (!in_array($detected_type, $allowed_types)) {
+
+                                die ( 'Please upload a pdf or an image ' );
+                            }
+                            else {
+
+                                finfo_close( $fileInfo );
+
+                                $picture->moveTo($targetPath);
+                                $domain->set('picture', $fileName); 
+                            }
+                                  
+                        }
+            }
+
+
             if ($this->Domains->save($domain)) {
                 $this->Flash->success(__('The domain has been saved.'));
 

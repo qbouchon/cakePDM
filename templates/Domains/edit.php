@@ -18,12 +18,12 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="domains form content">
-            <?= $this->Form->create($domain) ?>
+            <?= $this->Form->create($domain, ['type' => 'file']) ?>
             <fieldset>
                 <legend><?= __('Edit Domain') ?></legend>
                 <?php
                     echo $this->Form->control('name');
-                    echo $this->Form->control('picture');
+                    echo $this->Form->control('picture',['type' => 'file', 'label' => 'Importer une image (.png, .jpg, .jpeg) / Fichier actuel : '.$domain->picture, 'accept' => 'image/*']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

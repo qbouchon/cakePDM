@@ -6,6 +6,8 @@
  .card {
       position: relative;
       transition: transform 0.3s ease;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .card-img-top {
       object-fit: cover;
@@ -21,11 +23,16 @@
       padding-top: 4px;
       padding-left: 4px;
       padding-right: 6px;
+      display: inline;
+      white-space: nowrap;
     }
-    .tile-content h3 {
-      margin: 0;
-    }
+
 
     .card:hover {
       transform: translateY(-10px); /* Adjust the desired amount of upward movement */
     }
+
+    .card-spacing {
+    margin-top: 20px;
+    }
+

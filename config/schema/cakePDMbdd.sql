@@ -13,7 +13,8 @@ CREATE TABLE domains
 (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
-	picture VARCHAR(255)
+	picture VARCHAR(255),
+	description TEXT
 );
 
 
