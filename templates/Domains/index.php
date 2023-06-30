@@ -14,22 +14,10 @@
 <div class="container h-100 d-flex flex-column">          
     <div class = "row card-spacing">
 
-        <!-- Affichage des tuiles de domaines. Pas super fier de ça. -->
-        <?php   
-                // $count = 1;
-                foreach ($domains as $domain):
-                    
-                    // if($count>6):
-                    //     $count = 1;
-        ?>
-                        <!-- </div> -->
-                        <!-- <div class="row card-spacing"> -->
-
-        <?php       
-                    // endif; 
-        ?>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                    
+        
+        <?php foreach ($domains as $domain): ?>
+                    <!-- Affichage des tuiles des domaines.-->      
+                    <div class="col-lg-3 col-md-6 col-sm-12">              
                     <?= $this->Html->link('                     
                         <div class="card h-100 ">' .
                             $this->Html->image('./domains/'.$domain->picture,['class'=>'card-img-top'])  . 
@@ -39,13 +27,9 @@
                                     '</h4></span></div>
                                 </div>
                         </div>', ['action' => 'view', $domain->id], ['escape' => false]) ?>
-
                     </div>
-               
-        <?php   
-                    // $count++;   
-                    endforeach;
-        ?>   
+            
+        <?php  endforeach; ?>   
         <!-- fin tuiles -->
 
   

@@ -51,6 +51,8 @@ class DomainsController extends AppController
         if ($this->request->is('post')) {
 
             $domain->set('name',$this->request->getData('name'));
+            $domain->set('description',$this->request->getData('description'));
+
 
             if(!$domain->getErrors) {
 
@@ -110,6 +112,7 @@ class DomainsController extends AppController
             //$domain = $this->Domains->patchEntity($domain, $this->request->getData());
 
             $domain->set('name',$this->request->getData('name'));
+            $domain->set('description',$this->request->getData('description'));
 
             if(!$domain->getErrors) {
 

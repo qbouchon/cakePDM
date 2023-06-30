@@ -22,6 +22,10 @@
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($domain->id) ?></td>
                 </tr>
+                 <tr>
+                    <th><?= __('Description') ?></th>
+                    <td><?= h($domain->description) ?></td>
+                </tr>
             </table>
             <div class="related">
                 <h4><?= __('Related Resources') ?></h4>

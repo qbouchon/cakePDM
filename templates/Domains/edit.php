@@ -24,7 +24,9 @@
                 <?php
                     echo $this->Form->control('name');
                     echo $this->Form->control('picture',['type' => 'file', 'label' => 'Importer une image (.png, .jpg, .jpeg) / Fichier actuel : '.$domain->picture, 'accept' => 'image/*']);
+                    echo $this->Form->control('description',['label'=>'Description :']);
                 ?>
+
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
