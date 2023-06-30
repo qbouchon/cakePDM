@@ -51,7 +51,45 @@ class ResourcesController extends AppController
     {
         $resource = $this->Resources->newEmptyEntity();
         if ($this->request->is('post')) {
-            $resource = $this->Resources->patchEntity($resource, $this->request->getData());
+
+            //$resource = $this->Resources->patchEntity($resource, $this->request->getData());
+            $resource->set('name', $this->request->getData('name'));
+            $resource->set('description', $this->request->getData('description'));
+            $resource->set('domain_id', $this->request->getData('domain_id'));
+            $resource->set('archive', $this->request->getData('archive'));
+
+            //gestion de l'upload de l'image
+             if(!$resource->getErrors) {
+
+                $picture = $this->request->getData('picture');
+                $fileName = $picture->getClientFilename();
+                $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$resource->id.$fileName;
+
+                        if($fileName) {
+                                       
+                            //check si c'est une image
+                            $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
+                            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+                            $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
+                                        
+                            if (!in_array($detected_type, $allowed_types)) {
+
+                                die ( 'Please upload a pdf or an image ' );
+                            }
+                            else {
+
+                                finfo_close( $fileInfo );
+
+                                $picture->moveTo($targetPath);
+                                $resource->set('picture', $fileName); 
+                            }
+                                  
+                        }
+            }
+
+
+
+
             if ($this->Resources->save($resource)) {
                 $this->Flash->success(__('The resource has been saved.'));
 
@@ -76,7 +114,43 @@ class ResourcesController extends AppController
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $resource = $this->Resources->patchEntity($resource, $this->request->getData());
+
+           // $resource = $this->Resources->patchEntity($resource, $this->request->getData());
+            $resource->set('name', $this->request->getData('name'));
+            $resource->set('description', $this->request->getData('description'));
+            $resource->set('domain_id', $this->request->getData('domain_id'));
+            $resource->set('archive', $this->request->getData('archive'));
+
+             //gestion de l'upload de l'image
+             if(!$resource->getErrors) {
+
+                $picture = $this->request->getData('picture');
+                $fileName = $picture->getClientFilename();
+                $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$resource->id.$fileName;
+
+                        if($fileName) {
+                                       
+                            //check si c'est une image
+                            $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
+                            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+                            $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
+                                        
+                            if (!in_array($detected_type, $allowed_types)) {
+
+                                die ( 'Please upload a pdf or an image ' );
+                            }
+                            else {
+
+                                finfo_close( $fileInfo );
+
+                                $picture->moveTo($targetPath);
+                                $resource->set('picture', $fileName); 
+                            }
+                                  
+                        }
+            }
+
+
             if ($this->Resources->save($resource)) {
                 $this->Flash->success(__('The resource has been saved.'));
 

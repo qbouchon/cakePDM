@@ -19,12 +19,12 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="resources form content">
-            <?= $this->Form->create($resource) ?>
+            <?= $this->Form->create($resource,['type' => 'file']) ?>
             <fieldset>
                 <legend><?= __('Edit Resource') ?></legend>
                 <?php
                     echo $this->Form->control('name');
-                    echo $this->Form->control('picture');
+                    echo $this->Form->control('picture',['type' => 'file', 'label' => 'Importer une image (.png, .jpg, .jpeg) / fichier actuel : '.$resource->picture, 'accept' => 'image/*']);
                     echo $this->Form->control('description');
                     echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);
                     echo $this->Form->control('archive');
