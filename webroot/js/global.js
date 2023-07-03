@@ -30,7 +30,7 @@ $( document ).ready(function() {
 
     //Gestion d'un boutton pour ajouter un input file pour l'upload de plusieurs fichiers (resources)
     $('#addFileInput').click(function() {
-        $('#inputFileDiv').append('<input id="file" class="form-control" type="file" name="file[]"" accept="*">');
+        $('#inputFileDiv').append('<input id="file" class="form-control mb-3" type="file" name="files[]" accept="*">');
     });
 
 

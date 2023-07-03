@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
-
 namespace App\Controller;
+
+use App\Model\Entity\File;
+use App\Model\Table\FilesTable;
 
 /**
  * Resources Controller
@@ -58,9 +60,10 @@ class ResourcesController extends AppController
             $resource->set('domain_id', $this->request->getData('domain_id'));
             $resource->set('archive', $this->request->getData('archive'));
 
-            //gestion de l'upload de l'image
-             if(!$resource->getErrors) {
+            //gestion de l'upload de Fichiers
+            if(!$resource->getErrors) {
 
+                //Gestion de l'upload d'image
                 $picture = $this->request->getData('picture');
                 $fileName = $picture->getClientFilename();
                 $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$resource->id.$fileName;
@@ -69,12 +72,13 @@ class ResourcesController extends AppController
                                        
                             //check si c'est une image
                             $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
+                            //Verification du type de fichier
                             $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-                            $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
-                                        
+                            $detected_type = finfo_file( $fileInfo, $picture->getStream()->getMetadata('uri') );
+       
                             if (!in_array($detected_type, $allowed_types)) {
 
-                                die ( 'Please upload a pdf or an image ' );
+                                die ( 'Please upload an image ' );
                             }
                             else {
 
@@ -85,7 +89,83 @@ class ResourcesController extends AppController
                             }
                                   
                         }
+
+                //Gestion de l'upload de fichiers
+                $filesTable = $this->getTableLocator()->get('Files');
+                $resourceFiles = $this->request->getData('files');
+                // $rallowed_types = array ( 'image/', 'application/pdf', 'text/' );
+                $rallowed_types = array(
+                        'image' => array('image/jpeg', 'image/png'),
+                        'pdf' => array('application/pdf'),
+                        'text' => array('text/plain'),
+                        'office' => array(
+                        'application/vnd.ms-office',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  // .docx
+                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
+                        'application/vnd.openxmlformats-officedocument.presentationml.presentation',  // .pptx
+                        'application/msword',  // .doc
+                        'application/vnd.ms-excel',  // .xls
+                        'application/vnd.ms-powerpoint',  // .ppt
+                        ),
+                        'openoffice' => array(
+                            'application/vnd.oasis.opendocument.text',  // .odt
+                            'application/vnd.oasis.opendocument.spreadsheet',  // .ods
+                            'application/vnd.oasis.opendocument.presentation',  // .odp
+                        ),
+                        'libreoffice' => array(
+                            'application/vnd.libreoffice.text',  // .odt
+                            'application/vnd.libreoffice.spreadsheet',  // .ods
+                            'application/vnd.libreoffice.presentation',  // .odp
+                        )
+
+                );
+
+                if($resourceFiles)
+                {
+                    foreach($resourceFiles as $rF)
+                    {   
+
+                        //Sauvegarde du fichier sur le serveur
+                        $rFileName = $rF->getClientFilename();
+                        $rTargetPath =  WWW_ROOT.'ressourcesfiles'.DS.$resource->id.$rFileName;
+
+                        if($rFileName)
+                        {
+                                //Verification du type de fichier
+                                $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+                                $detected_type = finfo_file( $fileInfo, $rF->getStream()->getMetadata('uri') );
+
+                                if (!in_array($detected_type, array_merge(...array_values($rallowed_types)))) {
+
+                                        die ( $rFileName.' : Type non accepté. Type : '.$detected_type );
+                                    }
+                                else {
+
+                                        finfo_close( $fileInfo );
+
+                                        $rF->moveTo($rTargetPath);
+                                        // Sauvegarde dans la base
+                                        $fileEntity = $filesTable->newEmptyEntity();
+                                        $fileEntity->set('resource', $resource);
+                                        $fileEntity->set('name', $rFileName);
+
+                                        if ($filesTable->save($fileEntity)) {
+                                            echo 'file entity saved';
+                                        } 
+                                        else {
+                                            echo 'file entity unsaved';
+                                        }
+                                }
+
+
+                        }
+                        
+                        
+                    }
+                }
             }
+
+            //Gestion de l'upload de fichiers
 
 
 
@@ -127,10 +207,8 @@ class ResourcesController extends AppController
                 $resource->set('picture',null);
             }
 
-
-
-             //gestion de l'upload de l'image
-             if(!$resource->getErrors) {
+            //gestion de l'upload de l'image
+            if(!$resource->getErrors) {
 
                 $picture = $this->request->getData('picture');
                 $fileName = $picture->getClientFilename();
@@ -157,6 +235,10 @@ class ResourcesController extends AppController
                                   
                         }
             }
+
+
+
+
 
 
             if ($this->Resources->save($resource)) {

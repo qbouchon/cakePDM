@@ -173,19 +173,19 @@
                                 <div class="row">
                                     <div class="col">
                                     <?= $this->fetch('content'); ?> 
+                                    <div class="mb-5"></div>
                                     </div>
                                 </div>
                             </div>
                     </main>
                 </div>
             </div>
-
         </div>
 
     <footer>
          <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div id ="signature" class="text-muted text-center">PDM@ptitbouchon 2023</div>
+                            <div id ="signature" class=" text-center">PDM@ptitbouchon 2023</div>
                         </div>
          </div>
     </footer>

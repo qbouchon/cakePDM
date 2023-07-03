@@ -22,18 +22,20 @@
 
                     <div class='d-flex align-items-center'>
                         <?php echo $this->Form->control('picture',['type' => 'file', 'class'=>'d-inline', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']); ?>
-                        <div id='rResetPicture' class = invisible>
-                        <button class="btn fa-solid fa-xmark fa-xl"> </button>
+                        <div id="rResetPicture" class = "invisible">
+                             <button class="btn fa-solid fa-xmark fa-xl"> </button>
                         </div>
                     </div>
                 <?php    
                     echo $this->Form->control('description');
                     echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);
                     echo $this->Form->control('archive');
-                    echo $this->Form->control('file[]', ['type' => 'file', 'label' => 'Importer un fichier (.png, .jpg, .jpeg, .pdf, .txt, .doc)', 'accept' => '*'])
+                    echo $this->Form->control('files[]', ['type' => 'file', 'label' => 'Importer un fichier (image, pdf, document office, openoffice, libreoffice)', 'accept' => '*'])
                 ?>   
-                <div id="inputFileDiv"></div>     
-                <button id="addFileInput" class="fa-solid fa-plus"> </button>                  
+                <div id="inputFileDiv"></div> 
+                <div class="d-flex justify-content-center">    
+                    <button id="addFileInput" class="btn fa-solid fa-plus fa-2xl"> </button> 
+                </div>                
                     
                 
             </fieldset>
