@@ -18,12 +18,25 @@
             <fieldset>
                 <legend><?= __('Add Resource') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('picture',['type' => 'file', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']);
+                    echo $this->Form->control('name');?>
+
+                    <div class='d-flex align-items-center'>
+                        <?php echo $this->Form->control('picture',['type' => 'file', 'class'=>'d-inline', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']); ?>
+                        <div id='rResetPicture' class = invisible>
+                        <button class="btn fa-solid fa-xmark fa-xl"> </button>
+                        </div>
+                    </div>
+                <?php    
                     echo $this->Form->control('description');
                     echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);
                     echo $this->Form->control('archive');
-                ?>
+                ?>        
+                    
+                 <!--    echo $this->Form->control('file1', ['type' => 'file', 'label' => 'Importer un fichier (.png, .jpg, .jpeg, .pdf, .txt, .doc)', 'accept' => '*']);
+
+                    echo $this->Form->control('file2', ['type' => 'file', 'label' => 'Importer une image (.png, .jpg, .jpeg, .pdf, .txt, .doc)', 'accept' => '*']);
+ -->
+                
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>

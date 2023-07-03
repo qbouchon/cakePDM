@@ -27,6 +27,10 @@
     <!-- css pour l'affichage des domaines -->
     <?= $this->Html->css('domains'); ?>
 
+    <!-- js global -->
+    <?= $this->Html->script('global'); ?>
+
+
     <!-- fontAwesome (trouver une manière plus propre ?) -->
     <?= $this->Html->script('../Fontawesome/js/all'); ?>
     <?= $this->Html->css('../Fontawesome./css/all'); ?>

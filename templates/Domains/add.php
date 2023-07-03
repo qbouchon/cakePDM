@@ -16,11 +16,18 @@
             <?= $this->Form->create($domain, ['type' => 'file']) ?>
             <fieldset>
                 <legend><?= __('Créer un Domaine') ?></legend>
-                <?php
-                    echo $this->Form->control('name',['label'=>'Nom du Domaine']);                   
-                    echo $this->Form->control('picture',['type' => 'file', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']);
-                    echo $this->Form->control('description',['label'=>'Si vous souhaitez ajouter une description :']);
-                ?>
+
+                <?php echo $this->Form->control('name',['label'=>'Nom du Domaine']); ?> 
+                <div class='d-flex align-items-center'>
+                    <?php 
+                        echo $this->Form->control('picture',['type' => 'file', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*'])                     
+                    ?>
+                    <div id='rResetPicture' class = invisible>
+                            <button class="btn fa-solid fa-xmark fa-xl"> </button>
+                    </div>                   
+                </div>
+                    <?php echo $this->Form->control('description',['label'=>'Si vous souhaitez ajouter une description :']); 
+                    ?>
             </fieldset>
             <?= $this->Form->button(__('Créer')) ?>
             <?= $this->Form->end() ?>
