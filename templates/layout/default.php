@@ -45,7 +45,7 @@
                 <!-- Sidebar Toggle-->
                 <button class="btn btn-link btn-sm order-1 order-lg-0 ms-2 me-4 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="flex icon fas fa-bars fa-2x "></i></button>
                 <!-- Navbar Brand-->
-                <a class="ps-2 h3 text-white text-decoration-none " href="">CakePDM</a>
+                <a class="ps-2 h3 text-white text-decoration-none " href="">CREST</a>
                 <!-- Navbar Search-->
                 <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                     <div class="input-group">

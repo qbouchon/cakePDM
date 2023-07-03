@@ -6,7 +6,7 @@
 ?>
 <div class="container">
     <div class="domains index content">
-            <?= $this->Html->link(__('Créer un Domaine'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+
             <h3 class="text-center font-weight-bold"><?= __('Domaines') ?></h3>
     <div>
 </div>

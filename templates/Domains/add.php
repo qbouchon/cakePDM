@@ -22,7 +22,7 @@
                     <?php 
                         echo $this->Form->control('picture',['type' => 'file', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*'])                     
                     ?>
-                    <div id='rResetPicture' class = invisible>
+                    <div id="rResetPicture" class ="invisible">
                             <button class="btn fa-solid fa-xmark fa-xl"> </button>
                     </div>                   
                 </div>
