@@ -114,6 +114,13 @@ class DomainsController extends AppController
             $domain->set('name',$this->request->getData('name'));
             $domain->set('description',$this->request->getData('description'));
 
+              //Gestion de la suppression de l'image
+            if(!empty($this->request->getData('deleteFile')))
+            {
+                $domain->set('picture',null);
+            }
+
+            //gestion de l'upload de l'image
             if(!$domain->getErrors) {
 
                 $picture = $this->request->getData('picture');

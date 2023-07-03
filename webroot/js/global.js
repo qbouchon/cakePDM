@@ -37,8 +37,10 @@ $( document ).ready(function() {
 
     $('#rDeletePicture').click(function() {
 
-       $('#deleteFileToggle').attr('checked',true);
-       $('#cancelDeleteFile').html('<i>fichier supprimé</i> <a href="#" class="link-danger d-inline">Annuler</a>');
+      // $('#deleteFileToggler').attr('checked',true);
+         $('#deleteFileToggler').prop('checked',true);
+      // $('#deleteFileToggler').val(true);
+       $('#cancelDeleteFile').html('<i>Le fichier sera supprimé à la validation du formulaire</i> <a href="#" class="link-danger d-inline">Annuler</a>');
        $('#cancelDeleteFile').toggleClass('invisible');
        $('#PictureManagement').toggleClass('invisible');
     });
@@ -47,7 +49,9 @@ $( document ).ready(function() {
     $('#cancelDeleteFile').click(function() {
 
 
-       $('#deleteFileToggle').attr('checked',false);
+      // $('#deleteFileToggler').attr('checked',false);
+        $('#deleteFileToggler').prop('checked',false);
+      // $('#deleteFileToggler').val(false);
        $('#cancelDeleteFile').html("");
        $('#cancelDeleteFile').toggleClass('invisible');
        $('#PictureManagement').toggleClass('invisible');

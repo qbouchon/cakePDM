@@ -121,6 +121,14 @@ class ResourcesController extends AppController
             $resource->set('domain_id', $this->request->getData('domain_id'));
             $resource->set('archive', $this->request->getData('archive'));
 
+             //Gestion de la suppression de l'image
+            if(!empty($this->request->getData('deleteFile')))
+            {
+                $resource->set('picture',null);
+            }
+
+
+
              //gestion de l'upload de l'image
              if(!$resource->getErrors) {
 

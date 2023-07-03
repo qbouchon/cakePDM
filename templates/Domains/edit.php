@@ -41,7 +41,7 @@
                         echo '<div id="PictureManagement" class="d-inline">';
                         echo 'fichier actuel : '.$domain->picture;
                         echo '<div id="rDeletePicture" class="d-inline"><button class="btn fa-solid fa-xmark fa-xl"> </button></div>';
-                        echo '<input type="checkbox" id="deleteFileToggle" name="deleteFile" class="invisible">';
+                        echo '<input type="checkbox" id="deleteFileToggler" name="deleteFile" class="invisible">';
                         echo '</div>';
                         echo '</div>';
                     }
