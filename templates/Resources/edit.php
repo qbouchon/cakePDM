@@ -26,11 +26,27 @@
                     echo $this->Form->control('name');?>
 
                     <div class='d-flex align-items-center'>
-                        <?php echo $this->Form->control('picture',['type' => 'file', 'class'=>'d-inline', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg) / fichier actuel : '.$resource->picture, 'accept' => 'image/*']); ?>
+                        <?php echo $this->Form->control('picture',['type' => 'file',  'class'=>'d-inline', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']); 
+                        ?>
+                      
                         <div id='rResetPicture' class = invisible>
-                        <button class="btn fa-solid fa-xmark fa-xl"> </button>
-                        </div>
+                            <button class="btn fa-solid fa-xmark fa-xl"> </button>
+                        </div>                       
                     </div>
+                <?php
+                    //Gestion de la suppression à refactorer voir global.js
+                    if($resource->picture)
+                    {
+                        echo '<div id="PictureManagementBlock">';
+                        echo '<div id="cancelDeleteFile" class="invisible d-inline"></div>';
+                        echo '<div id="PictureManagement" class="d-inline">';
+                        echo 'fichier actuel : '.$resource->picture;
+                        echo '<div id="rDeletePicture" class="d-inline"><button class="btn fa-solid fa-xmark fa-xl"> </button></div>';
+                        echo '<input type="checkbox" id="deleteFileToggle" name="deleteFile" class="invisible">';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                ?>
                 <?php    
                     echo $this->Form->control('description');
                     echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);

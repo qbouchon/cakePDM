@@ -30,12 +30,11 @@
                     echo $this->Form->control('description');
                     echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);
                     echo $this->Form->control('archive');
-                ?>        
+                    echo $this->Form->control('file[]', ['type' => 'file', 'label' => 'Importer un fichier (.png, .jpg, .jpeg, .pdf, .txt, .doc)', 'accept' => '*'])
+                ?>   
+                <div id="inputFileDiv"></div>     
+                <button id="addFileInput" class="fa-solid fa-plus"> </button>                  
                     
-                 <!--    echo $this->Form->control('file1', ['type' => 'file', 'label' => 'Importer un fichier (.png, .jpg, .jpeg, .pdf, .txt, .doc)', 'accept' => '*']);
-
-                    echo $this->Form->control('file2', ['type' => 'file', 'label' => 'Importer une image (.png, .jpg, .jpeg, .pdf, .txt, .doc)', 'accept' => '*']);
- -->
                 
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
