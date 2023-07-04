@@ -99,12 +99,19 @@ class FilesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $file = $this->Files->get($id);
+
+        //Suppression du fichier sur le serveur
+        $fileToDeletePath = WWW_ROOT.'ressourcesfiles'.DS.$file->file_path;
+        if(file_exists($fileToDeletePath))
+        {
+            unlink($fileToDeletePath);
+        }
+
         if ($this->Files->delete($file)) {
             $this->Flash->success(__('The file has been deleted.'));
         } else {
             $this->Flash->error(__('The file could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }

@@ -230,7 +230,14 @@ class ResourcesController extends AppController
                 foreach($deleteFiles as $dFId)
                 {
                     //supp le fichier en physique
-                    $this->Resources->Files->delete($this->Resources->Files->get($dFId));
+                    $fileToDelete = $this->Resources->Files->get($dFId);
+                    $fileToDeletePath = WWW_ROOT.'ressourcesfiles'.DS.$fileToDelete->file_path;
+                    if(file_exists($fileToDeletePath))
+                    {
+                            unlink($fileToDeletePath);
+                    }
+
+                    $this->Resources->Files->delete($fileToDelete);
                 }
 
             }
