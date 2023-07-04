@@ -24,7 +24,7 @@ $( document ).ready(function() {
         else
         {
     	    $('#rResetPicture').addClass('invisible');
-            $('#cancelDeleteFile').addClass('invisible');
+            $('#cancelDeletePicture').addClass('invisible');
         }
 
     });
@@ -45,23 +45,26 @@ $( document ).ready(function() {
     });
 
 
-
+    //Gestion de la supp d'image dans edit resource et edit domain
     $('#rDeletePicture').click(function() {
 
-       $('#deleteFileToggler').prop('checked',true);
-       $('#cancelDeleteFile').html('<i>Le fichier sera supprimé à la validation du formulaire</i> <a href="#" class="link-danger d-inline">Annuler</a>');
-       $('#cancelDeleteFile').toggleClass('invisible');
+
+       $('#deletePictureToggler').prop('checked',true);
+       //alert($('#deletePictureToggler').prop('checked'));
+       $('#cancelDeletePicture').html('<i>Le fichier sera supprimé à la validation du formulaire</i> <a href="#" class="link-danger d-inline">Annuler</a>');
+       $('#cancelDeletePicture').toggleClass('invisible');
        $('#PictureManagement').toggleClass('invisible');
 
     });
 
 
-    $('#cancelDeleteFile').click(function() {
+    $('#cancelDeletePicture').click(function(e) {
 
-       $('#deleteFileToggler').prop('checked',false);
-       $('#cancelDeleteFile').html("");
-       $('#cancelDeleteFile').toggleClass('invisible');
-       $('#PictureManagement').toggleClass('invisible');
+        e.preventDefault()
+        $('#deletePictureToggler').prop('checked',false);
+        $('#cancelDeletePicture').html("");
+        $('#cancelDeletePicture').toggleClass('invisible');
+        $('#PictureManagement').toggleClass('invisible');
 
     });
 
@@ -101,7 +104,37 @@ $( document ).ready(function() {
 
     });
 
+    //Gestion de la supp de files dans edit resource
+    $(document).on('click','.rDeleteFile', function() {
 
+       
+
+       rId = $(this).attr('data-toggle');
+       cancelDeleteFileId = '#cancelDeleteFile'+rId;
+       FileManagementId = '#FileManagement'+rId;
+       deleteFileTogglerId = '#deleteFileToggler'+rId;
+
+       $(deleteFileTogglerId).prop('disabled',false);
+       $(cancelDeleteFileId).html('<i>Le fichier sera supprimé à la validation du formulaire</i> <a href="#" class="link-danger d-inline">Annuler</a>');
+       $(cancelDeleteFileId).toggleClass('invisible');
+       $(FileManagementId).toggleClass('invisible');
+
+    });
+
+    $(document).on('click','.cancelDeleteFile', function(e) {
+
+        e.preventDefault()
+        rId = $(this).attr('data-toggle');
+        cancelDeleteFileId = '#cancelDeleteFile'+rId;
+        FileManagementId = '#FileManagement'+rId;
+        deleteFileTogglerId = '#deleteFileToggler'+rId;
+
+        $(deleteFileTogglerId).prop('disabled',true);
+        $(cancelDeleteFileId).html("");
+        $(cancelDeleteFileId).toggleClass('invisible');
+        $(FileManagementId).toggleClass('invisible');
+
+    });
 
 
 

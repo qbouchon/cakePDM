@@ -37,11 +37,11 @@
                     if($domain->picture)
                     {
                         echo '<div id="PictureManagementBlock">';
-                        echo '<div id="cancelDeleteFile" class="invisible d-inline"></div>';
+                        echo '<div id="cancelDeletePicture" class="invisible d-inline"></div>';
                         echo '<div id="PictureManagement" class="d-inline">';
                         echo 'fichier actuel : '.$domain->picture;
-                        echo '<div id="rDeletePicture" class="d-inline"><button class="btn fa-solid fa-xmark fa-xl"> </button></div>';
-                        echo '<input type="checkbox" id="deleteFileToggler" name="deleteFile" class="invisible">';
+                        echo '<div id="rDeletePicture" class="d-inline"><button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button></div>';
+                        echo '<input type="checkbox" id="deletePictureToggler" name="deletePicture" class="invisible">';
                         echo '</div>';
                         echo '</div>';
                     }

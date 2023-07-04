@@ -29,7 +29,7 @@
                 <?php    
                     echo $this->Form->control('description');
                     echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);
-                    echo $this->Form->control('archive');
+                    //echo $this->Form->control('archive');
                 ?>
                 <div class="d-flex align-items-center">
                     <?php

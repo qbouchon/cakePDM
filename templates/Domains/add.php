@@ -23,7 +23,7 @@
                         echo $this->Form->control('picture',['type' => 'file', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*'])                     
                     ?>
                     <div id="rResetPicture" class ="invisible">
-                            <button class="btn fa-solid fa-xmark fa-xl"> </button>
+                            <button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button>
                     </div>                   
                 </div>
                     <?php echo $this->Form->control('description',['label'=>'Si vous souhaitez ajouter une description :']); 
