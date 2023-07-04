@@ -67,7 +67,7 @@ class ResourcesController extends AppController
                 $picture = $this->request->getData('picture');
                 $fileName = $picture->getClientFilename();
                 $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$resource->id.$fileName;
-
+                
                         if($fileName) {
                                        
                             //check si c'est une image
@@ -122,6 +122,28 @@ class ResourcesController extends AppController
 
                 if($resourceFiles)
                 {
+                    //première boucle pour vérifier tous les fichiers avant d'enregistrer sur le serveur et bdd
+                    foreach($resourceFiles as $rF)
+                    { 
+                        $rFileName = $rF->getClientFilename();
+                        if($rFileName)
+                        {                           
+                            //Verification du type de fichier
+                                $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+                                $detected_type = finfo_file( $fileInfo, $rF->getStream()->getMetadata('uri') );
+
+                                if (!in_array($detected_type, array_merge(...array_values($rallowed_types)))) {
+
+                                        die ( $rFileName.' : Type non accepté. Type : '.$detected_type );
+                                    }
+                                else
+                                {
+                                    finfo_close( $fileInfo );
+                                }
+                        }
+                    }
+
+                    //Seconde pour enregistrer
                     foreach($resourceFiles as $rF)
                     {   
 
@@ -131,36 +153,24 @@ class ResourcesController extends AppController
 
                         if($rFileName)
                         {
-                                //Verification du type de fichier
-                                $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-                                $detected_type = finfo_file( $fileInfo, $rF->getStream()->getMetadata('uri') );
+                                
+                            //sauvegarde sur le server
+                            $rF->moveTo($rTargetPath);
+                            // Sauvegarde dans la base
+                            $fileEntity = $filesTable->newEmptyEntity();
+                            $fileEntity->set('resource', $resource);
+                            $fileEntity->set('name', $rFileName);
 
-                                if (!in_array($detected_type, array_merge(...array_values($rallowed_types)))) {
-
-                                        die ( $rFileName.' : Type non accepté. Type : '.$detected_type );
-                                    }
-                                else {
-
-                                        finfo_close( $fileInfo );
-
-                                        $rF->moveTo($rTargetPath);
-                                        // Sauvegarde dans la base
-                                        $fileEntity = $filesTable->newEmptyEntity();
-                                        $fileEntity->set('resource', $resource);
-                                        $fileEntity->set('name', $rFileName);
-
-                                        if ($filesTable->save($fileEntity)) {
-                                            echo 'file entity saved';
-                                        } 
-                                        else {
-                                            echo 'file entity unsaved';
-                                        }
-                                }
-
+                            if ($filesTable->save($fileEntity))
+                            {
+                                echo 'file entity saved';
+                            } 
+                            else {
+                                echo 'file entity unsaved';
+                            }          
 
                         }
-                        
-                        
+                                               
                     }
                 }
             }

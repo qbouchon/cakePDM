@@ -33,9 +33,9 @@
                 ?>
                 <div class="d-flex align-items-center">
                     <?php
-                        echo $this->Form->control('files[]', ['type' => 'file', 'id'=>'file1', 'class'=>'d-inline', 'label' => 'Importer un fichier (image, pdf, document office, openoffice, libreoffice)', 'accept' => '*'])
+                        echo $this->Form->control('files[]', ['type' => 'file', 'id'=>'File', 'class'=>'iFile d-inline', 'label' => 'Importer un fichier (image, pdf, document office, openoffice, libreoffice)', 'accept' => '*'])
                     ?>  
-                    <div class ="rResetFile" data-toggle="file1">
+                    <div id="rFile" class ="rResetFile invisible" data-toggle="File">
                         <button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button>
                     </div>
                 </div>

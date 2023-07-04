@@ -58,7 +58,8 @@ class DomainsController extends AppController
 
                 $picture = $this->request->getData('picture');
                 $fileName = $picture->getClientFilename();
-                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$domain->id.$fileName;
+                $targetfileID = uniqid(rand(),true);
+                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$targetfileID.$fileName;
 
                         if($fileName) {
                                        
@@ -77,6 +78,7 @@ class DomainsController extends AppController
 
                                 $picture->moveTo($targetPath);
                                 $domain->set('picture', $fileName); 
+                                $domain->set('picture_path', $targetfileID.$fileName); 
                             }
                                   
                         }
@@ -125,7 +127,8 @@ class DomainsController extends AppController
 
                 $picture = $this->request->getData('picture');
                 $fileName = $picture->getClientFilename();
-                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$domain->id.$fileName;
+                $targetfileID = uniqid(rand(),true);
+                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$targetfileID.$fileName;
 
                         if($fileName) {     
                             //check si c'est une image
@@ -143,6 +146,7 @@ class DomainsController extends AppController
 
                                 $picture->moveTo($targetPath);
                                 $domain->set('picture', $fileName); 
+                                $domain->set('picture_path', $targetfileID.$fileName); 
                             }
                                   
                         }

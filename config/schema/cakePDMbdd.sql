@@ -14,6 +14,7 @@ CREATE TABLE domains
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
 	picture VARCHAR(255),
+	picture_path VARCHAR(255),
 	description TEXT
 );
 
@@ -46,6 +47,7 @@ CREATE TABLE files
 (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	name VARCHAR(255),
+	file_path VARCHAR(255),
 	resource_id INT,
 	FOREIGN KEY (resource_id) REFERENCES resources(id)
 	

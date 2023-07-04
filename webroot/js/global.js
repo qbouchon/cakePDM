@@ -1,5 +1,6 @@
 $( document ).ready(function() {
     
+
     //init reset button visibility
     if($('#rAddPicture').val())
         $('#rResetPicture').removeClass('invisible');
@@ -29,16 +30,18 @@ $( document ).ready(function() {
     });
 
     //Gestion d'un boutton pour ajouter un input file pour l'upload de plusieurs fichiers (resources)
+    inputCount = 1;
     $('#addFileInput').click(function() {
 
         appendContent =     '<div class="d-flex align-items-center">'
                             +'<div class="">'
-                            +'<label class="form-label" for"file">Importer un fichier (image, pdf, document office, openoffice, libreoffice)</label>'
-                            +'<input id="file" class="form-control mb-3" type="file" name="files[]" accept="*">'
+                            +'<label class="form-label" for"File'+inputCount+'">Importer un fichier (image, pdf, document office, openoffice, libreoffice)</label>'
+                            +'<input id="File'+inputCount+'" class="form-control mb-3 iFile" type="file" name="files[]" accept="*">'
                             +'</div>'                   
-                            +'<div class="rResetFile" data-toggle="file1"><button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button></div>'
+                            +'<div id="rFile'+inputCount+'" class="rResetFile invisible" data-toggle="File'+inputCount+'"><button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button></div>'
                             +'</div>';
         $('#inputFileDiv').append(appendContent);
+        inputCount++;
     });
 
 
@@ -65,6 +68,38 @@ $( document ).ready(function() {
 
 
     //Gestion des boutons de reset de fichier uploadé
+
+    //init reset button visibility pour le premier input file
+    if($('#iFile').val())
+        $('#rFile').removeClass('invisible');
+
+
+    $(document).on('click','.rResetFile', function() {
+
+        idInput = '#'+$(this).attr('data-toggle');
+        $(idInput).val("");
+        $(this).addClass("invisible");
+
+    });
+
+    $(document).on('change','.iFile', function() {
+
+        idInput = $(this).attr('id');
+        idResetFile = '#r'+idInput
+
+        //alert('idInput    '+idInput+'   idResetFile   ' + idResetFile + ' val '+$(this).val());
+
+        if($(this).val())
+        {
+            $(idResetFile).removeClass("invisible");
+        }
+        else
+        {
+            $(idResetFile).addClass("invisible");
+        }
+
+
+    });
 
 
 
