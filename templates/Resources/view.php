@@ -16,7 +16,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Picture') ?></th>
-                    <td><?= h($resource->picture) ?> <?= $this->Html->image('./resources/'.$resource->picture_path) ?> </td>
+                    <td><?= h($resource->picture) ?> <?= $this->Html->image('resources/'.$resource->picture_path) ?> </td>
                 </tr>
                 <tr>
                     <th><?= __('Domain') ?></th>

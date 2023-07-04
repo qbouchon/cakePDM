@@ -63,120 +63,12 @@ class ResourcesController extends AppController
             //gestion de l'upload de Fichiers
             if(!$resource->getErrors) {
 
-                //Gestion de l'upload d'image
-                $picture = $this->request->getData('picture');
-                $fileName = $picture->getClientFilename();
-                $targetfileID = uniqid((string)rand(),true);
-                $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$targetfileID.$fileName;
+                //ajout de l'image
+                $resource->addPicture($this->request->getData('picture'));
 
-                        if($fileName) {
-                                       
-                            //check si c'est une image
-                            $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
-                            //Verification du type de fichier
-                            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-                            $detected_type = finfo_file( $fileInfo, $picture->getStream()->getMetadata('uri') );
-       
-                            if (!in_array($detected_type, $allowed_types)) {
-
-                                die ( 'Please upload an image ' );
-                            }
-                            else {
-
-                                finfo_close( $fileInfo );
-
-                                $picture->moveTo($targetPath);
-                                $resource->set('picture', $fileName); 
-                                $resource->set('picture_path', $targetfileID.$fileName); 
-                            }
-                                  
-                        }
-
-                //Gestion de l'upload de fichiers
-                $filesTable = $this->getTableLocator()->get('Files');
-                $resourceFiles = $this->request->getData('files');
-                // $rallowed_types = array ( 'image/', 'application/pdf', 'text/' );
-                $rallowed_types = array(
-                        'image' => array('image/jpeg', 'image/png'),
-                        'pdf' => array('application/pdf'),
-                        'text' => array('text/plain'),
-                        'office' => array(
-                        'application/vnd.ms-office',
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  // .docx
-                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
-                        'application/vnd.openxmlformats-officedocument.presentationml.presentation',  // .pptx
-                        'application/msword',  // .doc
-                        'application/vnd.ms-excel',  // .xls
-                        'application/vnd.ms-powerpoint',  // .ppt
-                        ),
-                        'openoffice' => array(
-                            'application/vnd.oasis.opendocument.text',  // .odt
-                            'application/vnd.oasis.opendocument.spreadsheet',  // .ods
-                            'application/vnd.oasis.opendocument.presentation',  // .odp
-                        ),
-                        'libreoffice' => array(
-                            'application/vnd.libreoffice.text',  // .odt
-                            'application/vnd.libreoffice.spreadsheet',  // .ods
-                            'application/vnd.libreoffice.presentation',  // .odp
-                        )
-
-                );
-
-                if($resourceFiles)
-                {
-                    //première boucle pour vérifier tous les fichiers avant d'enregistrer sur le serveur et bdd
-                    foreach($resourceFiles as $rF)
-                    { 
-                        $rFileName = $rF->getClientFilename();
-                        if($rFileName)
-                        {                           
-                            //Verification du type de fichier
-                                $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-                                $detected_type = finfo_file( $fileInfo, $rF->getStream()->getMetadata('uri') );
-
-                                if (!in_array($detected_type, array_merge(...array_values($rallowed_types)))) {
-
-                                        die ( $rFileName.' : Type non accepté. Type : '.$detected_type );
-                                    }
-                                else
-                                {
-                                    finfo_close( $fileInfo );
-                                }
-                        }
-                    }
-
-                    //Seconde pour enregistrer
-                    foreach($resourceFiles as $rF)
-                    {   
-
-                        //Sauvegarde du fichier sur le serveur
-                        $rFileName = $rF->getClientFilename();
-                        $rTargetfileID = uniqid((string)rand(),true);
-                        $rTargetPath =  WWW_ROOT.'ressourcesfiles'.DS.$rTargetfileID.$rFileName;
-
-                        if($rFileName)
-                        {
-                                
-                            //sauvegarde sur le server
-                            $rF->moveTo($rTargetPath);
-                            // Sauvegarde dans la base
-                            $fileEntity = $filesTable->newEmptyEntity();
-                            $fileEntity->set('resource', $resource);
-                            $fileEntity->set('name', $rFileName);
-                            $fileEntity->set('file_path', $rTargetfileID.$rFileName);
-
-                            if ($filesTable->save($fileEntity))
-                            {
-                                echo 'file entity saved';
-                            } 
-                            else {
-                                echo 'file entity unsaved';
-                            }          
-
-                        }
-                                               
-                    }
-                }
+                //Upload des fichiers 
+                $resource->addFiles($this->request->getData('files'),$this->getTableLocator()->get('Files'));
+                
             }
 
 

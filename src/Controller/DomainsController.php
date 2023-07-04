@@ -55,33 +55,8 @@ class DomainsController extends AppController
 
 
             if(!$domain->getErrors) {
-
-                $picture = $this->request->getData('picture');
-                $fileName = $picture->getClientFilename();
-                $targetfileID = uniqid((string)rand(),true);
-                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$targetfileID.$fileName;
-
-                        if($fileName) {
-                                       
-                            //check si c'est une image
-                            $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
-                            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-                            $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
-                                        
-                            if (!in_array($detected_type, $allowed_types)) {
-
-                                die ( 'Please upload a pdf or an image ' );
-                            }
-                            else {
-
-                                finfo_close( $fileInfo );
-
-                                $picture->moveTo($targetPath);
-                                $domain->set('picture', $fileName); 
-                                $domain->set('picture_path', $targetfileID.$fileName); 
-                            }
-                                  
-                        }
+                
+                $domain->addPicture($this->request->getData('picture'));
             }
             
                  
@@ -107,11 +82,8 @@ class DomainsController extends AppController
         $domain = $this->Domains->get($id, [
             'contain' => [],
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
-
-
-
-            //$domain = $this->Domains->patchEntity($domain, $this->request->getData());
 
             $domain->set('name',$this->request->getData('name'));
             $domain->set('description',$this->request->getData('description'));
@@ -121,53 +93,20 @@ class DomainsController extends AppController
             {
                 //Suppression de l'image du serveur
                 $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
-                if(file_exists($oldPicture))
-                {
-                    unlink($oldPicture);
-                }
-
-                $domain->set('picture',null);
-                $domain->set('picture_path',null);
+                $domain->deletePicture($oldPicture);
             }
 
             //gestion de l'upload de l'image
             if(!$domain->getErrors) {
 
-                $picture = $this->request->getData('picture');
-                $fileName = $picture->getClientFilename();
-                $targetfileID = uniqid((string)rand(),true);
-                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$targetfileID.$fileName;
+                 //Si une image est déjà présente, on la supprime
+                 if($domain->picture_path)
+                 {
+                    $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
+                    $domain->deletePicture($oldPicture);
+                 }
 
-                        if($fileName) {     
-                            //check si c'est une image
-                            $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
-                            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-                            $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
-                                        
-                            if (!in_array($detected_type, $allowed_types)) {
-
-                                die ( 'Please upload a pdf or an image ' );
-                            }
-                            else {
-
-                                finfo_close( $fileInfo );
-                                //Suppression de la précédente image du serveur si il y en avait une
-                                if($domain->picture_path)
-                                {
-                                    $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
-                                    if(file_exists($oldPicture))
-                                    {
-                                        unlink($oldPicture);
-                                        //die('yes '. WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path);
-                                    }
-                                }
-
-                                $picture->moveTo($targetPath);
-                                $domain->set('picture', $fileName); 
-                                $domain->set('picture_path', $targetfileID.$fileName); 
-                            }
-                                  
-                        }
+                $domain->addPicture($this->request->getData('picture'));
             }
 
 
@@ -192,6 +131,17 @@ class DomainsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $domain = $this->Domains->get($id);
+
+        //Gestion de la suppression de l'image sur le serveur
+        if($domain->picture_path)
+        {
+           $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
+           $domain->deletePicture($oldPicture);
+        }
+
+
+
+
         if ($this->Domains->delete($domain)) {
             $this->Flash->success(__('The domain has been deleted.'));
         } else {

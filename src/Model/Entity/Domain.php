@@ -34,4 +34,49 @@ class Domain extends Entity
         'description' => true,
         'resources' => true,
     ];
+
+
+    //Add Picture both on bdd and on server
+    public function addPicture($newPicture){
+
+                $fileName = $newPicture->getClientFilename();
+                $targetfileID = uniqid((string)rand(),true);
+                $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$targetfileID.$fileName;
+
+                        if($fileName) {
+                                       
+                            //check si c'est une image
+                            $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
+                            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+                            $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
+                                        
+                            if (!in_array($detected_type, $allowed_types)) {
+
+                                die ( 'Please upload a pdf or an image ' );
+                            }
+                            else {
+
+                                finfo_close( $fileInfo );
+
+                                $newPicture->moveTo($targetPath);
+                                $this->set('picture', $fileName); 
+                                $this->set('picture_path', $targetfileID.$fileName); 
+                            }
+                                  
+                        }
+
+
+    }
+
+
+    public function deletePicture($picturePath){
+
+        if(file_exists($picturePath))
+        {
+             unlink($picturePath);
+        }
+
+        $this->set('picture',null);
+        $this->set('picture_path',null);
+    }
 }
