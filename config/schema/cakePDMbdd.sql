@@ -24,9 +24,10 @@ CREATE TABLE resources
 (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	name VARCHAR(100) NOT NULL,
-	picture VARCHAR(100),
+	picture VARCHAR(255),
+	picture_path VARCHAR(255),
 	description TEXT,
-	domain_id,
+	domain_id INT,
 	archive BOOLEAN DEFAULT 0,
 	FOREIGN KEY (domain_id) REFERENCES domains(id) 
 );

@@ -66,8 +66,9 @@ class ResourcesController extends AppController
                 //Gestion de l'upload d'image
                 $picture = $this->request->getData('picture');
                 $fileName = $picture->getClientFilename();
-                $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$resource->id.$fileName;
-                
+                $targetfileID = uniqid((string)rand(),true);
+                $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$targetfileID.$fileName;
+
                         if($fileName) {
                                        
                             //check si c'est une image
@@ -86,6 +87,7 @@ class ResourcesController extends AppController
 
                                 $picture->moveTo($targetPath);
                                 $resource->set('picture', $fileName); 
+                                $resource->set('picture_path', $targetfileID.$fileName); 
                             }
                                   
                         }
@@ -222,7 +224,8 @@ class ResourcesController extends AppController
 
                 $picture = $this->request->getData('picture');
                 $fileName = $picture->getClientFilename();
-                $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$resource->id.$fileName;
+                $targetfileID = uniqid((string)rand(),true);
+                $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$targetfileID.$fileName;
 
                         if($fileName) {
                                        
@@ -241,6 +244,7 @@ class ResourcesController extends AppController
 
                                 $picture->moveTo($targetPath);
                                 $resource->set('picture', $fileName); 
+                                $resource->set('picture_path', $targetfileID.$fileName);
                             }
                                   
                         }

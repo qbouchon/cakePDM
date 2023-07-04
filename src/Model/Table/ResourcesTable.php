@@ -72,8 +72,13 @@ class ResourcesTable extends Table
 
         $validator
             ->scalar('picture')
-            ->maxLength('picture', 100)
+            ->maxLength('picture', 255)
             ->allowEmptyString('picture');
+
+        $validator
+            ->scalar('picture_path')
+            ->maxLength('picture_path', 255)
+            ->allowEmptyString('picture_path');
 
         $validator
             ->scalar('description')

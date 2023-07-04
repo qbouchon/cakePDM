@@ -21,6 +21,7 @@ class FilesFixture extends TestFixture
             [
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
+                'file_path' => 'Lorem ipsum dolor sit amet',
                 'resource_id' => 1,
             ],
         ];

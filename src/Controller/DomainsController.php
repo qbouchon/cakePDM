@@ -58,7 +58,7 @@ class DomainsController extends AppController
 
                 $picture = $this->request->getData('picture');
                 $fileName = $picture->getClientFilename();
-                $targetfileID = uniqid(rand(),true);
+                $targetfileID = uniqid((string)rand(),true);
                 $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$targetfileID.$fileName;
 
                         if($fileName) {
@@ -120,6 +120,7 @@ class DomainsController extends AppController
             if(!empty($this->request->getData('deleteFile')))
             {
                 $domain->set('picture',null);
+                $domain->set('picture_path',null);
             }
 
             //gestion de l'upload de l'image
@@ -127,7 +128,7 @@ class DomainsController extends AppController
 
                 $picture = $this->request->getData('picture');
                 $fileName = $picture->getClientFilename();
-                $targetfileID = uniqid(rand(),true);
+                $targetfileID = uniqid((string)rand(),true);
                 $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$targetfileID.$fileName;
 
                         if($fileName) {     

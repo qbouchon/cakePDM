@@ -62,6 +62,11 @@ class FilesTable extends Table
             ->allowEmptyString('name');
 
         $validator
+            ->scalar('file_path')
+            ->maxLength('file_path', 255)
+            ->allowEmptyFile('file_path');
+
+        $validator
             ->integer('resource_id')
             ->allowEmptyString('resource_id');
 

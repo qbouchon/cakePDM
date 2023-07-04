@@ -62,25 +62,20 @@ class DomainsTable extends Table
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
-        // $validator
-        //     ->scalar('picture')
-        //     ->maxLength('picture', 255)
-        //     ->allowEmptyString('picture');
+        $validator
+            ->scalar('picture')
+            ->maxLength('picture', 255)
+            ->allowEmptyString('picture');
 
-            $validator               
-                ->add('picture', [
-                    'uploadError' => [
-                        'rule' => 'uploadError',
-                        'message' => __d('clients', 'upload failed.'),
-                        'last' => true
-                    ],
-                    'mimeType' => [
-                        'rule' => ['mimeType', ['image/jpg','image/png','image/jpeg']],
-                        'message' => 'Format invalide',
-                    ],
-                ])
-                ->allowEmptyFile('picture');
-                
+        $validator
+            ->scalar('picture_path')
+            ->maxLength('picture_path', 255)
+            ->allowEmptyString('picture_path');
+
+        $validator
+            ->scalar('description')
+            ->allowEmptyString('description');
+
         return $validator;
     }
 }

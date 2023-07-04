@@ -10,6 +10,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $name
+ * @property string|null $file_path
  * @property int|null $resource_id
  *
  * @property \App\Model\Entity\Resource $resource
@@ -27,6 +28,7 @@ class File extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'file_path' => true,
         'resource_id' => true,
         'resource' => true,
     ];

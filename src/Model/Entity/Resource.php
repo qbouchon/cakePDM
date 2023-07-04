@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $name
  * @property string|null $picture
+ * @property string|null $picture_path
  * @property string|null $description
  * @property int|null $domain_id
  * @property bool|null $archive
@@ -33,6 +34,7 @@ class Resource extends Entity
     protected $_accessible = [
         'name' => true,
         'picture' => true,
+        'picture_path' => true,
         'description' => true,
         'domain_id' => true,
         'archive' => true,
