@@ -214,6 +214,11 @@ class ResourcesController extends AppController
              //Gestion de la suppression de l'image
             if(!empty($this->request->getData('deletePicture')))
             {
+                $oldPicture = WWW_ROOT.'img'.DS.'resources'.DS.$resource->picture_path;
+                if(file_exists($oldPicture))
+                {
+                  unlink($oldPicture);
+                }
                 $resource->set('picture',null);
                 $resource->set('picture_path',null);
                 //ajouter la suppression du fichier
@@ -252,6 +257,16 @@ class ResourcesController extends AppController
                             else {
 
                                 finfo_close( $fileInfo );
+
+                                //Suppression de la précédente image du serveur si il y en avait une
+                                if($resource->picture_path)
+                                {
+                                    $oldPicture = WWW_ROOT.'img'.DS.'resources'.DS.$resource->picture_path;
+                                    if(file_exists($oldPicture))
+                                    {
+                                        unlink($oldPicture);
+                                    }
+                                }
 
                                 $picture->moveTo($targetPath);
                                 $resource->set('picture', $fileName); 

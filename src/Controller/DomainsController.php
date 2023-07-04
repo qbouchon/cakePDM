@@ -116,9 +116,16 @@ class DomainsController extends AppController
             $domain->set('name',$this->request->getData('name'));
             $domain->set('description',$this->request->getData('description'));
 
-              //Gestion de la suppression de l'image
+            //Gestion de la suppression de l'image
             if(!empty($this->request->getData('deletePicture')))
             {
+                //Suppression de l'image du serveur
+                $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
+                if(file_exists($oldPicture))
+                {
+                    unlink($oldPicture);
+                }
+
                 $domain->set('picture',null);
                 $domain->set('picture_path',null);
             }
@@ -144,6 +151,16 @@ class DomainsController extends AppController
                             else {
 
                                 finfo_close( $fileInfo );
+                                //Suppression de la précédente image du serveur si il y en avait une
+                                if($domain->picture_path)
+                                {
+                                    $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
+                                    if(file_exists($oldPicture))
+                                    {
+                                        unlink($oldPicture);
+                                        //die('yes '. WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path);
+                                    }
+                                }
 
                                 $picture->moveTo($targetPath);
                                 $domain->set('picture', $fileName); 
