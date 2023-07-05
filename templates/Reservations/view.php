@@ -39,7 +39,7 @@
     </div>
 
     <aside class="column">
-       <div class="text-center">
+     <div class="text-center">
         <?= $this->Html->link(__('List Reservations'), ['action' => 'index'], ['class' => 'side-nav-item']) ?> 
         <?= $this->Html->link(__('Edit Reservation'), ['action' => 'edit', $reservation->id], ['class' => '']) ?> 
         <?= $this->Form->postLink(__('Delete Reservation'), ['action' => 'delete', $reservation->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reservation->id), 'class' => 'text-danger']) ?>

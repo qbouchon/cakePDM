@@ -23,8 +23,8 @@
             <fieldset>
                 <legend><?= __('Edit File') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('resource_id', ['options' => $resources, 'empty' => true]);
+                echo $this->Form->control('name');
+                echo $this->Form->control('resource_id', ['options' => $resources, 'empty' => true]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

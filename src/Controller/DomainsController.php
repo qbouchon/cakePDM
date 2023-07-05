@@ -44,7 +44,7 @@ class DomainsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-   public function add()
+    public function add()
     {
         $domain = $this->Domains->newEmptyEntity();
 
@@ -59,7 +59,7 @@ class DomainsController extends AppController
                 $domain->addPicture($this->request->getData('picture'));
             }
             
-                 
+            
             if ($this->Domains->save($domain)) {
                 $this->Flash->success(__('The domain has been saved.'));
 
@@ -100,25 +100,25 @@ class DomainsController extends AppController
             if(!$domain->getErrors) {
 
                  //Si une image est déjà présente, on la supprime
-                 if($domain->picture_path)
-                 {
-                    $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
-                    $domain->deletePicture($oldPicture);
-                 }
-
-                $domain->addPicture($this->request->getData('picture'));
+               if($domain->picture_path)
+               {
+                $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
+                $domain->deletePicture($oldPicture);
             }
 
-
-            if ($this->Domains->save($domain)) {
-                $this->Flash->success(__('The domain has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The domain could not be saved. Please, try again.'));
+            $domain->addPicture($this->request->getData('picture'));
         }
-        $this->set(compact('domain'));
+
+
+        if ($this->Domains->save($domain)) {
+            $this->Flash->success(__('The domain has been saved.'));
+
+            return $this->redirect(['action' => 'index']);
+        }
+        $this->Flash->error(__('The domain could not be saved. Please, try again.'));
     }
+    $this->set(compact('domain'));
+}
 
     /**
      * Delete method
@@ -135,19 +135,19 @@ class DomainsController extends AppController
         //Gestion de la suppression de l'image sur le serveur
         if($domain->picture_path)
         {
-           $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
-           $domain->deletePicture($oldPicture);
-        }
+         $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
+         $domain->deletePicture($oldPicture);
+     }
 
 
 
 
-        if ($this->Domains->delete($domain)) {
-            $this->Flash->success(__('The domain has been deleted.'));
-        } else {
-            $this->Flash->error(__('The domain could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
+     if ($this->Domains->delete($domain)) {
+        $this->Flash->success(__('The domain has been deleted.'));
+    } else {
+        $this->Flash->error(__('The domain could not be deleted. Please, try again.'));
     }
+
+    return $this->redirect(['action' => 'index']);
+}
 }

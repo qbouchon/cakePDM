@@ -47,31 +47,31 @@ class Resource extends Entity
 
     public function addPicture($newPicture){
 
-                $fileName = $newPicture->getClientFilename();
-                $targetfileID = uniqid((string)rand(),true);
-                $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$targetfileID.$fileName;
+        $fileName = $newPicture->getClientFilename();
+        $targetfileID = uniqid((string)rand(),true);
+        $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$targetfileID.$fileName;
 
-                        if($fileName) {
-                                       
+        if($fileName) {
+
                             //check si c'est une image
-                            $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
-                            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-                            $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
-                                        
-                            if (!in_array($detected_type, $allowed_types)) {
+            $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
+            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+            $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
 
-                                die ( 'Please upload a pdf or an image ' );
-                            }
-                            else {
+            if (!in_array($detected_type, $allowed_types)) {
 
-                                finfo_close( $fileInfo );
+                die ( 'Please upload a pdf or an image ' );
+            }
+            else {
 
-                                $newPicture->moveTo($targetPath);
-                                $this->set('picture', $fileName); 
-                                $this->set('picture_path', $targetfileID.$fileName); 
-                            }
-                                  
-                        }
+                finfo_close( $fileInfo );
+
+                $newPicture->moveTo($targetPath);
+                $this->set('picture', $fileName); 
+                $this->set('picture_path', $targetfileID.$fileName); 
+            }
+
+        }
 
 
     }
@@ -92,10 +92,10 @@ class Resource extends Entity
 
 
         $rallowed_types = array(
-                        'image' => array('image/jpeg', 'image/png'),
-                        'pdf' => array('application/pdf'),
-                        'text' => array('text/plain'),
-                        'office' => array(
+            'image' => array('image/jpeg', 'image/png'),
+            'pdf' => array('application/pdf'),
+            'text' => array('text/plain'),
+            'office' => array(
                         'application/vnd.ms-office',
                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  // .docx
                         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
@@ -103,13 +103,13 @@ class Resource extends Entity
                         'application/msword',  // .doc
                         'application/vnd.ms-excel',  // .xls
                         'application/vnd.ms-powerpoint',  // .ppt
-                        ),
-                        'openoffice' => array(
+                    ),
+            'openoffice' => array(
                             'application/vnd.oasis.opendocument.text',  // .odt
                             'application/vnd.oasis.opendocument.spreadsheet',  // .ods
                             'application/vnd.oasis.opendocument.presentation',  // .odp
                         ),
-                        'libreoffice' => array(
+            'libreoffice' => array(
                             'application/vnd.libreoffice.text',  // .odt
                             'application/vnd.libreoffice.spreadsheet',  // .ods
                             'application/vnd.libreoffice.presentation',  // .odp
@@ -152,7 +152,7 @@ class Resource extends Entity
 
                 if($rFileName)
                 {
-                                
+
                     //sauvegarde sur le server
                     $rF->moveTo($rTargetPath);
 
@@ -172,10 +172,10 @@ class Resource extends Entity
                     }          
 
                 }
-                                               
+
             }
         }
-            
+
 
     }
 }

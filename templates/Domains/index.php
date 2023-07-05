@@ -7,33 +7,33 @@
 <div class="container">
     <div class="domains index content">
 
-            <h3 class="text-center font-weight-bold"><?= __('Domaines') ?></h3>
-    <div>
-</div>
+        <h3 class="text-center font-weight-bold"><?= __('Domaines') ?></h3>
+        <div>
+        </div>
 
-<div class="container h-100 d-flex flex-column">          
-    <div class = "row card-spacing">
+        <div class="container h-100 d-flex flex-column">          
+            <div class = "row card-spacing">
 
-        
-        <?php foreach ($domains as $domain): ?>
+                
+                <?php foreach ($domains as $domain): ?>
                     <!-- Affichage des tuiles des domaines.-->      
                     <div class="col-lg-3 col-md-6 col-sm-12">              
-                    <?= $this->Html->link('                     
-                        <div class="card h-100 ">' .
+                        <?= $this->Html->link('                     
+                            <div class="card h-100 ">' .
                             $this->Html->image('domains/'.$domain->picture_path,['class'=>'card-img-top'])  . 
-                                '<div class="card-body">
-                                    <div class="tile-content"><span class="title-wrapper"><h4> ' .
-                                        $domain->name . 
-                                    '</h4></span></div>
-                                </div>
-                        </div>', ['action' => 'view', $domain->id], ['escape' => false]) ?>
-                    </div>
-            
-        <?php  endforeach; ?>   
-        <!-- fin tuiles -->
+                            '<div class="card-body">
+                            <div class="tile-content"><span class="title-wrapper"><h4> ' .
+                            $domain->name . 
+                            '</h4></span></div>
+                            </div>
+                            </div>', ['action' => 'view', $domain->id], ['escape' => false]) ?>
+                        </div>
+                        
+                    <?php  endforeach; ?>   
+                    <!-- fin tuiles -->
 
-  
+                    
 
-    </div>
+                </div>
 
-</div>
+            </div>

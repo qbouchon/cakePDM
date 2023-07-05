@@ -38,41 +38,41 @@
             <div class="related">
                 <h4><?= __('Related Reservations') ?></h4>
                 <?php if (!empty($user->reservations)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Start Date') ?></th>
-                            <th><?= __('End Date') ?></th>
-                            <th><?= __('Is Back') ?></th>
-                            <th><?= __('Resource Id') ?></th>
-                            <th><?= __('User Id') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($user->reservations as $reservations) : ?>
-                        <tr>
-                            <td><?= h($reservations->id) ?></td>
-                            <td><?= h($reservations->start_date) ?></td>
-                            <td><?= h($reservations->end_date) ?></td>
-                            <td><?= h($reservations->is_back) ?></td>
-                            <td><?= h($reservations->resource_id) ?></td>
-                            <td><?= h($reservations->user_id) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Reservations', 'action' => 'view', $reservations->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Reservations', 'action' => 'edit', $reservations->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Reservations', 'action' => 'delete', $reservations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reservations->id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
-                </div>
+                    <div class="table-responsive">
+                        <table>
+                            <tr>
+                                <th><?= __('Id') ?></th>
+                                <th><?= __('Start Date') ?></th>
+                                <th><?= __('End Date') ?></th>
+                                <th><?= __('Is Back') ?></th>
+                                <th><?= __('Resource Id') ?></th>
+                                <th><?= __('User Id') ?></th>
+                                <th class="actions"><?= __('Actions') ?></th>
+                            </tr>
+                            <?php foreach ($user->reservations as $reservations) : ?>
+                                <tr>
+                                    <td><?= h($reservations->id) ?></td>
+                                    <td><?= h($reservations->start_date) ?></td>
+                                    <td><?= h($reservations->end_date) ?></td>
+                                    <td><?= h($reservations->is_back) ?></td>
+                                    <td><?= h($reservations->resource_id) ?></td>
+                                    <td><?= h($reservations->user_id) ?></td>
+                                    <td class="actions">
+                                        <?= $this->Html->link(__('View'), ['controller' => 'Reservations', 'action' => 'view', $reservations->id]) ?>
+                                        <?= $this->Html->link(__('Edit'), ['controller' => 'Reservations', 'action' => 'edit', $reservations->id]) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Reservations', 'action' => 'delete', $reservations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reservations->id)]) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
     </div>
 
     <aside class="column">
-       <div class="text-center">
+     <div class="text-center">
         <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?> 
         <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id], ['class' => '']) ?> 
         <?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id), 'class' => 'text-danger']) ?>

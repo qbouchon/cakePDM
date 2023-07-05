@@ -27,7 +27,7 @@
     </div>
 
     <aside class="column">
-       <div class="text-center">
+     <div class="text-center">
         <?= $this->Html->link(__('List Files'), ['action' => 'index'], ['class' => 'side-nav-item']) ?> 
         <?= $this->Html->link(__('Edit File'), ['action' => 'edit', $file->id], ['class' => '']) ?> 
         <?= $this->Form->postLink(__('Delete File'), ['action' => 'delete', $file->id], ['confirm' => __('Are you sure you want to delete # {0}?', $file->id), 'class' => 'text-danger']) ?>
