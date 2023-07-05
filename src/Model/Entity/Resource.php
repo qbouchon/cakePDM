@@ -221,7 +221,6 @@ class Resource extends Entity
     //$filesToDelete => array of Files
     public function deleteFiles($filesToDelete, $filesTable){
 
-
          if(!empty($filesToDelete))
             {
                 foreach($filesToDelete as $fileToDelete)

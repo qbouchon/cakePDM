@@ -104,7 +104,7 @@
      <div class="text-center">
         <?= $this->Html->link(__('List Resources'), ['action' => 'index'], ['class' => 'side-nav-item']) ?> 
         <?= $this->Html->link(__('Edit Resource'), ['action' => 'edit', $resource->id], ['class' => '']) ?> 
-        <?= $this->Form->postLink(__('Delete Resource'), ['action' => 'delete', $resource->id], ['confirm' => __('Are you sure you want to delete # {0}?', $resource->id), 'class' => 'text-danger']) ?>
+        <?= $this->Form->postLink(__('Delete Resource'), ['action' => 'delete', $resource->id], ['confirm' => __("Attention, si vous supprimez cette ressource, toutes les réservations et fichiers associés seront supprimés. Si vous souhaitez que cette resource ne soit plus disponible mais conserver les réservations passées et fichiers, considérez d'utiliser \"archiver\" à la place.", $resource->id), 'button' => ['text' => 'Supprimer', 'class' => 'btn btn-danger'], 'class' => 'text-danger']) ?>
     </div>
 </aside>
 </div>

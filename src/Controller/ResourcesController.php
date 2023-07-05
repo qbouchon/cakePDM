@@ -154,8 +154,7 @@ class ResourcesController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $resource = $this->Resources->get($id, [
-            'contain' => ['Files'],
-            'contain' => ['Reservations'],
+            'contain' => ['Files', 'Reservations'],
         ]);
 
         //Gestion de la suppression de l'image sur le serveur
@@ -171,6 +170,40 @@ class ResourcesController extends AppController
         $resource->deleteReservations($resource->reservations, $this->getTableLocator()->get('Reservations') );
 
         if ($this->Resources->delete($resource)) {
+            $this->Flash->success(__('The resource has been deleted.'));
+        } else {
+            $this->Flash->error(__('The resource could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function archive($id = null)
+    {
+        $this->request->allowMethod(['post', 'put', 'patch']);
+        $resource = $this->Resources->get($id, [
+        ]);
+
+            $resource->set('archive',true);
+
+        if ($this->Resources->save($resource)) {
+            $this->Flash->success(__('The resource has been deleted.'));
+        } else {
+            $this->Flash->error(__('The resource could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+    public function unArchive($id = null)
+    {
+        $this->request->allowMethod(['post', 'put', 'patch']);
+        $resource = $this->Resources->get($id, [
+        ]);
+
+            $resource->set('archive',false);
+
+        if ($this->Resources->save($resource)) {
             $this->Flash->success(__('The resource has been deleted.'));
         } else {
             $this->Flash->error(__('The resource could not be deleted. Please, try again.'));
