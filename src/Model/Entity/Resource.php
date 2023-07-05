@@ -45,6 +45,9 @@ class Resource extends Entity
         'reservations' => true,
     ];
 
+    /*add picture both on server and entity (call save after calling this to update db)
+    * eventually delete old picture
+    */
     public function addPicture($newPicture){
 
         $fileName = $newPicture->getClientFilename();
@@ -53,7 +56,7 @@ class Resource extends Entity
 
         if($fileName) {
 
-                            //check si c'est une image
+            //check si c'est une image
             $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
             $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
             $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
@@ -66,6 +69,13 @@ class Resource extends Entity
 
                 finfo_close( $fileInfo );
 
+
+                //Si une image est déjà présente, on la supprime
+                if($this->picture_path)
+                {
+                    $this->deletePicture();
+                }
+
                 $newPicture->moveTo($targetPath);
                 $this->set('picture', $fileName); 
                 $this->set('picture_path', $targetfileID.$fileName); 
@@ -76,18 +86,24 @@ class Resource extends Entity
 
     }
 
+    //delete picture both on server and entity (call save after calling this to update db)
+    public function deletePicture(){
 
-    public function deletePicture($picturePath){
+        $oldPicture = WWW_ROOT.'img'.DS.'resources'.DS.$this->picture_path;
 
-        if(file_exists($picturePath))
+        if(file_exists($oldPicture))
         {
-            unlink($picturePath);
+            unlink($oldPicture);
         }
 
         $this->set('picture',null);
         $this->set('picture_path',null);
     }
 
+
+    /** add files both on server and entities (call save on resource after calling this to update db)
+    * Also create a File entity for each files in newFiles and save them into db
+    */ 
     public function addFiles($newFiles, $filesTable){
 
 
@@ -178,4 +194,62 @@ class Resource extends Entity
 
 
     }
+
+    //$filesToDeleteIds => array of files ids
+    public function deleteFilesByIds($filesToDeleteIds, $filesTable){
+
+
+         if(!empty($filesToDeleteIds))
+            {
+                foreach($filesToDeleteIds as $dFId)
+                {
+                    //supp le fichier en physique
+                    $fileToDelete = $filesTable->get($dFId);
+                    $fileToDeletePath = WWW_ROOT.'ressourcesfiles'.DS.$fileToDelete->file_path;
+                    if(file_exists($fileToDeletePath))
+                    {
+                        unlink($fileToDeletePath);
+                    }
+
+                    $filesTable->delete($fileToDelete);
+                }
+
+            }
+
+    }
+
+    //$filesToDelete => array of Files
+    public function deleteFiles($filesToDelete, $filesTable){
+
+
+         if(!empty($filesToDelete))
+            {
+                foreach($filesToDelete as $fileToDelete)
+                {
+                    //supp le fichier en physique
+                    $fileToDeletePath = WWW_ROOT.'ressourcesfiles'.DS.$fileToDelete->file_path;
+                    if(file_exists($fileToDeletePath))
+                    {
+                        unlink($fileToDeletePath);
+                    }
+
+                    $filesTable->delete($fileToDelete);
+                }
+
+            }
+
+    }
+
+    public function deleteReservations($reservationsToDelete, $reservationsTable)
+    {
+        if(!empty($reservationsToDelete))
+            {
+                foreach($reservationsToDelete as $reservationToDelete)
+                {
+                    $reservationsTable->delete($reservationToDelete);
+                }
+
+            }
+    }
+
 }

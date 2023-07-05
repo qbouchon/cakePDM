@@ -55,7 +55,7 @@ class DomainsController extends AppController
 
 
             if(!$domain->getErrors) {
-                
+
                 $domain->addPicture($this->request->getData('picture'));
             }
             
@@ -85,40 +85,38 @@ class DomainsController extends AppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
 
-            $domain->set('name',$this->request->getData('name'));
-            $domain->set('description',$this->request->getData('description'));
 
-            //Gestion de la suppression de l'image
-            if(!empty($this->request->getData('deletePicture')))
-            {
-                //Suppression de l'image du serveur
-                $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
-                $domain->deletePicture($oldPicture);
-            }
-
-            //gestion de l'upload de l'image
             if(!$domain->getErrors) {
 
-                 //Si une image est déjà présente, on la supprime
-               if($domain->picture_path)
-               {
-                $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
-                $domain->deletePicture($oldPicture);
+                $domain->set('name',$this->request->getData('name'));
+                $domain->set('description',$this->request->getData('description'));
+
+
+                //Gestion de la suppression de l'image
+                if(!empty($this->request->getData('deletePicture')))
+                {               
+                    $domain->deletePicture();
+                }
+
+                //gestion de l'upload de l'image
+                $domain->addPicture($this->request->getData('picture'));
+                    
+
+                if ($this->Domains->save($domain)) {
+
+                     $this->Flash->success(__('The domain has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                }
+               
+                $this->Flash->error(__('The domain could not be saved. Please, try again.'));
+
             }
 
-            $domain->addPicture($this->request->getData('picture'));
+
+            
         }
-
-
-        if ($this->Domains->save($domain)) {
-            $this->Flash->success(__('The domain has been saved.'));
-
-            return $this->redirect(['action' => 'index']);
-        }
-        $this->Flash->error(__('The domain could not be saved. Please, try again.'));
+        $this->set(compact('domain'));
     }
-    $this->set(compact('domain'));
-}
 
     /**
      * Delete method
@@ -135,19 +133,14 @@ class DomainsController extends AppController
         //Gestion de la suppression de l'image sur le serveur
         if($domain->picture_path)
         {
-         $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$domain->picture_path;
-         $domain->deletePicture($oldPicture);
-     }
+            $domain->deletePicture();
+        }
+        if ($this->Domains->delete($domain)) {
+            $this->Flash->success(__('The domain has been deleted.'));
+        } else {
+            $this->Flash->error(__('The domain could not be deleted. Please, try again.'));
+        }
 
-
-
-
-     if ($this->Domains->delete($domain)) {
-        $this->Flash->success(__('The domain has been deleted.'));
-    } else {
-        $this->Flash->error(__('The domain could not be deleted. Please, try again.'));
+        return $this->redirect(['action' => 'index']);
     }
-
-    return $this->redirect(['action' => 'index']);
-}
 }

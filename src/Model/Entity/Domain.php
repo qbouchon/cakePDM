@@ -36,16 +36,18 @@ class Domain extends Entity
     ];
 
 
-    //Add Picture both on bdd and on server
-    public function addPicture($newPicture){
+    /*add picture both on server and entity (call save after calling this to update db)
+    * eventually delete old picture
+    */
+    public function addPicture($newPicture){       
 
         $fileName = $newPicture->getClientFilename();
         $targetfileID = uniqid((string)rand(),true);
         $targetPath = WWW_ROOT.'img'.DS.'domains'.DS.$targetfileID.$fileName;
 
         if($fileName) {
-         
-                            //check si c'est une image
+
+            //check si c'est une image
             $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
             $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
             $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
@@ -58,6 +60,12 @@ class Domain extends Entity
 
                 finfo_close( $fileInfo );
 
+                //Si une image est déjà présente, on la supprime
+                if($this->picture_path)
+                {
+                    $this->deletePicture();
+                }
+
                 $newPicture->moveTo($targetPath);
                 $this->set('picture', $fileName); 
                 $this->set('picture_path', $targetfileID.$fileName); 
@@ -68,15 +76,17 @@ class Domain extends Entity
 
     }
 
+    //delete picture both on server and entity (call save after calling this to update db)
+    public function deletePicture(){
 
-    public function deletePicture($picturePath){
+        $oldPicture = WWW_ROOT.'img'.DS.'domains'.DS.$this->picture_path;
 
-        if(file_exists($picturePath))
+        if(file_exists($oldPicture))
         {
-           unlink($picturePath);
-       }
+            unlink($oldPicture);
+        }
 
-       $this->set('picture',null);
-       $this->set('picture_path',null);
-   }
+        $this->set('picture',null);
+        $this->set('picture_path',null);
+    }
 }

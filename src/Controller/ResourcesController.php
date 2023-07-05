@@ -52,33 +52,36 @@ class ResourcesController extends AppController
     public function add()
     {
         $resource = $this->Resources->newEmptyEntity();
+
         if ($this->request->is('post')) {
 
-            //$resource = $this->Resources->patchEntity($resource, $this->request->getData());
-            $resource->set('name', $this->request->getData('name'));
-            $resource->set('description', $this->request->getData('description'));
-            $resource->set('domain_id', $this->request->getData('domain_id'));
-            $resource->set('archive', $this->request->getData('archive'));
 
-            //gestion de l'upload de Fichiers
             if(!$resource->getErrors) {
+
+                $resource->set('name', $this->request->getData('name'));
+                $resource->set('description', $this->request->getData('description'));
+                $resource->set('domain_id', $this->request->getData('domain_id'));
+                $resource->set('archive', $this->request->getData('archive'));
 
                 //ajout de l'image
                 $resource->addPicture($this->request->getData('picture'));
 
                 //Upload des fichiers 
                 $resource->addFiles($this->request->getData('files'),$this->getTableLocator()->get('Files'));
+
+                if ($this->Resources->save($resource)) {
+
+                    $this->Flash->success(__('The resource has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+
+                $this->Flash->error(__('The resource could not be saved. Please, try again.'));
                 
             }
-
-
-            if ($this->Resources->save($resource)) {
-                $this->Flash->success(__('The resource has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The resource could not be saved. Please, try again.'));
+     
         }
+
         $domains = $this->Resources->Domains->find('list', ['limit' => 200])->all();
         $this->set(compact('resource', 'domains'));
     }
@@ -95,186 +98,50 @@ class ResourcesController extends AppController
         $resource = $this->Resources->get($id, [
             'contain' => ['Files'],
         ]);
+
+
         if ($this->request->is(['patch', 'post', 'put'])) {
+     
+            if(!$resource->getErrors) {
 
-           // $resource = $this->Resources->patchEntity($resource, $this->request->getData());
-            $resource->set('name', $this->request->getData('name'));
-            $resource->set('description', $this->request->getData('description'));
-            $resource->set('domain_id', $this->request->getData('domain_id'));
-            $resource->set('archive', $this->request->getData('archive'));
+                $resource->set('name', $this->request->getData('name'));
+                $resource->set('description', $this->request->getData('description'));
+                $resource->set('domain_id', $this->request->getData('domain_id'));
+                $resource->set('archive', $this->request->getData('archive'));
 
-             //Gestion de la suppression de l'image
-            if(!empty($this->request->getData('deletePicture')))
-            {
-                $oldPicture = WWW_ROOT.'img'.DS.'resources'.DS.$resource->picture_path;
-                if(file_exists($oldPicture))
-                {
-                  unlink($oldPicture);
-              }
-              $resource->set('picture',null);
-              $resource->set('picture_path',null);
-                //ajouter la suppression du fichier
-          }
-            //gestion de la suppression des fichiers
-          $deleteFiles = $this->request->getData('deleteFile');
-          if(!empty($deleteFiles))
-          {
-            foreach($deleteFiles as $dFId)
-            {
-                    //supp le fichier en physique
-                $fileToDelete = $this->Resources->Files->get($dFId);
-                $fileToDeletePath = WWW_ROOT.'ressourcesfiles'.DS.$fileToDelete->file_path;
-                if(file_exists($fileToDeletePath))
-                {
-                    unlink($fileToDeletePath);
+                //Gestion de la suppression de l'image
+                if(!empty($this->request->getData('deletePicture')))
+                {             
+                    $resource->deletePicture();
                 }
 
-                $this->Resources->Files->delete($fileToDelete);
-            }
+                //gestion de la suppression des fichiers
+                $resource->deleteFilesByIds($this->request->getData('deleteFile'),$this->getTableLocator()->get('Files'));
 
-        }
 
-            //gestion de l'upload de l'image
-        if(!$resource->getErrors) {
+                //gestion de l'upload de l'image
+                $resource->addPicture($this->request->getData('picture'));
 
-            $picture = $this->request->getData('picture');
-            $fileName = $picture->getClientFilename();
-            $targetfileID = uniqid((string)rand(),true);
-            $targetPath = WWW_ROOT.'img'.DS.'resources'.DS.$targetfileID.$fileName;
-
-            if($fileName) {
-               
-                            //check si c'est une image
-                $allowed_types = array ( 'image/jpeg', 'image/png', 'image/jpg' );
-                $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-                $detected_type = finfo_file( $fileInfo, $_FILES['picture']['tmp_name'] );
-                
-                if (!in_array($detected_type, $allowed_types)) {
-
-                    die ( 'Please upload a pdf or an image ' );
-                }
-                else {
-
-                    finfo_close( $fileInfo );
-
-                                //Suppression de la précédente image du serveur si il y en avait une
-                    if($resource->picture_path)
-                    {
-                        $oldPicture = WWW_ROOT.'img'.DS.'resources'.DS.$resource->picture_path;
-                        if(file_exists($oldPicture))
-                        {
-                            unlink($oldPicture);
-                        }
-                    }
-
-                    $picture->moveTo($targetPath);
-                    $resource->set('picture', $fileName); 
-                    $resource->set('picture_path', $targetfileID.$fileName);
-                }
-                
-            }
                 //Gestion de l'upload de fichiers
-            $filesTable = $this->getTableLocator()->get('Files');
-            $resourceFiles = $this->request->getData('files');
-                // $rallowed_types = array ( 'image/', 'application/pdf', 'text/' );
-            $rallowed_types = array(
-                'image' => array('image/jpeg', 'image/png'),
-                'pdf' => array('application/pdf'),
-                'text' => array('text/plain'),
-                'office' => array(
-                    'application/vnd.ms-office',
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',  // .docx
-                        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
-                        'application/vnd.openxmlformats-officedocument.presentationml.presentation',  // .pptx
-                        'application/msword',  // .doc
-                        'application/vnd.ms-excel',  // .xls
-                        'application/vnd.ms-powerpoint',  // .ppt
-                    ),
-                'openoffice' => array(
-                            'application/vnd.oasis.opendocument.text',  // .odt
-                            'application/vnd.oasis.opendocument.spreadsheet',  // .ods
-                            'application/vnd.oasis.opendocument.presentation',  // .odp
-                        ),
-                'libreoffice' => array(
-                            'application/vnd.libreoffice.text',  // .odt
-                            'application/vnd.libreoffice.spreadsheet',  // .ods
-                            'application/vnd.libreoffice.presentation',  // .odp
-                        )
+                $resource->addFiles($this->request->getData('files'),$this->getTableLocator()->get('Files'));
 
-            );
 
-            if($resourceFiles)
-            {
-                    //première boucle pour vérifier tous les fichiers avant d'enregistrer sur le serveur et bdd
-                foreach($resourceFiles as $rF)
-                { 
-                    $rFileName = $rF->getClientFilename();
-                    if($rFileName)
-                    {                           
-                            //Verification du type de fichier
-                        $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-                        $detected_type = finfo_file( $fileInfo, $rF->getStream()->getMetadata('uri') );
 
-                        if (!in_array($detected_type, array_merge(...array_values($rallowed_types)))) {
+                if ($this->Resources->save($resource)) {
 
-                            die ( $rFileName.' : Type non accepté. Type : '.$detected_type );
-                        }
-                        else
-                        {
-                            finfo_close( $fileInfo );
-                        }
-                    }
+                    $this->Flash->success(__('The resource has been saved.'));
+                    return $this->redirect(['action' => 'index']);
                 }
 
-                    //Seconde pour enregistrer
-                foreach($resourceFiles as $rF)
-                {   
-
-                        //Sauvegarde du fichier sur le serveur
-                    $rFileName = $rF->getClientFilename();
-                    $rTargetfileID = uniqid((string)rand(),true);
-                    $rTargetPath =  WWW_ROOT.'ressourcesfiles'.DS.$rTargetfileID.$rFileName;
-
-                    if($rFileName)
-                    {
-                        
-                            //sauvegarde sur le server
-                        $rF->moveTo($rTargetPath);
-                            // Sauvegarde dans la base
-                        $fileEntity = $filesTable->newEmptyEntity();
-                        $fileEntity->set('resource', $resource);
-                        $fileEntity->set('name', $rFileName);
-                        $fileEntity->set('file_path', $rTargetfileID.$rFileName);
-
-                        if ($filesTable->save($fileEntity))
-                        {
-                            echo 'file entity saved';
-                        } 
-                        else {
-                            echo 'file entity unsaved';
-                        }          
-
-                    }
+                $this->Flash->error(__('The resource could not be saved. Please, try again.'));
                     
-                }
             }
+
         }
 
-
-
-
-
-
-        if ($this->Resources->save($resource)) {
-            $this->Flash->success(__('The resource has been saved.'));
-
-            return $this->redirect(['action' => 'index']);
-        }
-        $this->Flash->error(__('The resource could not be saved. Please, try again.'));
+        $domains = $this->Resources->Domains->find('list', ['limit' => 200])->all();
+        $this->set(compact('resource', 'domains'));
     }
-    $domains = $this->Resources->Domains->find('list', ['limit' => 200])->all();
-    $this->set(compact('resource', 'domains'));
-}
 
     /**
      * Delete method
@@ -286,7 +153,23 @@ class ResourcesController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $resource = $this->Resources->get($id);
+        $resource = $this->Resources->get($id, [
+            'contain' => ['Files'],
+            'contain' => ['Reservations'],
+        ]);
+
+        //Gestion de la suppression de l'image sur le serveur
+        if($resource->picture_path)
+        {
+            $resource->deletePicture();
+        }
+
+        //Supression des fichiers
+        $resource->deleteFiles($resource->files, $this->getTableLocator()->get('Files'));
+
+        //Suppression des réservations
+        $resource->deleteReservations($resource->reservations, $this->getTableLocator()->get('Reservations') );
+
         if ($this->Resources->delete($resource)) {
             $this->Flash->success(__('The resource has been deleted.'));
         } else {
