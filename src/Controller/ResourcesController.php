@@ -38,14 +38,6 @@ class ResourcesController extends AppController
     public function view($id = null)
     {
 
-
-        //gestion fil d'Ariane
-        // $this->Breadcrumbs->add(
-        //             'Liste des ressources ',
-        //              ['controller' => 'Resources', 'action' => 'view']
-        // );
-
-
         $resource = $this->Resources->get($id, [
             'contain' => ['Domains', 'Files', 'Reservations'],
         ]);
@@ -60,15 +52,6 @@ class ResourcesController extends AppController
      */
     public function add()
     {
-
-
-        // //gestion fil d'Ariane
-        // $this->Breadcrumbs->add(
-        //             'Créer une ressource ',
-        //              ['controller' => 'Resources', 'action' => 'add']
-        // );
-
-
 
         $resource = $this->Resources->newEmptyEntity();
 
@@ -114,14 +97,6 @@ class ResourcesController extends AppController
      */
     public function edit($id = null)
     {
-
-        // //gestion fil d'Ariane
-        // $this->Breadcrumbs->add(
-        //             'Editer '.$resource->name,
-        //              ['controller' => 'Resources', 'action' => 'edit']
-        // );
-
-
 
         $resource = $this->Resources->get($id, [
             'contain' => ['Files'],

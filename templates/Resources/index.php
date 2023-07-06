@@ -15,18 +15,24 @@
  */
 
 ?>
-<div class="container">
-    <div class="resources index content">      
-        <h3 class="text-center font-weight-bold"><?= __('Ressources') ?></h3>
+<div class="container mt-5">
+    <div class="resources index content">
+
+        <div class="d-flex justify-content-beetwen align-items-center">
+
+            <h3 class=" font-weight-bold mx-auto"><?= __('Ressources') ?></h3>
+
+        </div>
+
+        <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl" style="color: #385996;"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn ','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une ressource','escape' =>false]); ?>
+
         <div>
-            <table class="table table-bordered table-hover table-sm table-responsive table-light">
+            <table class="table table-bordered table-hover table-sm  table-light table-responsive  align-middle">
                 <thead>
                     <tr>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('name') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('picture') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('domain_id') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('archive') ?></th>
+                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('Nom') ?></th>
+                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('image') ?></th>
+                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('Domaine') ?></th>
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                    </tr>
@@ -41,10 +47,7 @@
                 ?>
                     <tr>
                         
-                        
-                        <td class="text-center"><?= $this->Number->format($resource->id) ?></td>
-                        
-                        
+
                         <td class="text-center"><?= h($resource->name) ?></td>
                         
                         
@@ -55,7 +58,6 @@
                         
                         
                         
-                        <td class="text-center"><?= h($resource->archive) ?></td>
                         <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -120,14 +122,12 @@
             <!-- Ressources archivées -->
             <h3 class="text-center font-weight-bold"><?= __('Ressources archivées') ?></h3>
             <div>
-                <table class="table table-bordered table-hover table-sm table-responsive table-light">
+                <table class="table table-bordered table-hover table-sm table-light table-responsive align-middle">
                     <thead>
                         <tr>
-                           <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
-                           <th scope="col" class="text-center"><?= $this->Paginator->sort('name') ?></th>
-                           <th scope="col" class="text-center"><?= $this->Paginator->sort('picture') ?></th>
-                           <th scope="col" class="text-center"><?= $this->Paginator->sort('domain_id') ?></th>
-                           <th scope="col" class="text-center"><?= $this->Paginator->sort('archive') ?></th>
+                           <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('name') ?></th>
+                           <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('picture') ?></th>
+                           <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('domain_id') ?></th>
                            
                            <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                        </tr>
@@ -143,9 +143,6 @@
                         <tr>
                             
                             
-                            <td class="text-center"><?= $this->Number->format($resource->id) ?></td>
-                            
-                            
                             <td class="text-center"><?= h($resource->name) ?></td>
                             
                             
@@ -156,7 +153,6 @@
                             
                             
                             
-                            <td class="text-center"><?= h($resource->archive) ?></td>
                             <td class="actions d-flex justify-content-center">
                                 <div class="dropdown">
                                     <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">

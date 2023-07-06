@@ -17,8 +17,8 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Resources'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <!-- <h4 class="heading"><?= __('Actions') ?></h4> -->
+            <?= $this->Html->link(__('Liste des Ressources'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -37,8 +37,8 @@
                </div>
                <?php    
                echo $this->Form->control('description');
-               echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);
-                    //echo $this->Form->control('archive');
+               echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true, 'label' => 'Domaine']);
+               echo $this->Form->control('archive');
                ?>
                <div class="d-flex align-items-center">
                 <?php
