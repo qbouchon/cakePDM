@@ -1,16 +1,17 @@
 <?php
+    $this->Breadcrumbs->add(
+    'resources',
+    ['controller' => 'resources', 'action' => 'index']
+);
+?>
+
+
+<?php
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Resource $resource
  * @var \Cake\Collection\CollectionInterface|string[] $domains
  */
-
-$this->Breadcrumbs->add([
-         ['title' => 'Add', 'url' => ['controller' => 'resources', 'action' => 'add']],
-         ['title' => 'Add', 'url' => ['controller' => 'resources', 'action' => 'add']]
-
-
-     ]);
 
 ?>
 <div class="row">

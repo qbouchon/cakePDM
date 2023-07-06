@@ -1,12 +1,18 @@
 <?php
+  $this->Breadcrumbs->add(
+    'Home',
+    ['controller' => 'Pages', 'action' => 'display']
+    )
+    ->add('Ressources');
+?>
+
+
+
+<?php
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Resource> $resources
  */
-
-
-$this->Breadcrumbs->add([
-         ['title' => 'ressources', 'url' => ['controller' => 'resources', 'action' => 'index']]]);
 
 ?>
 <div class="container">

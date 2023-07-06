@@ -1,13 +1,24 @@
 <?php
+    $this->Breadcrumbs->add(
+    'Home',
+    ['controller' => 'Pages', 'action' => 'display']
+    )
+    ->add(
+    'Ressources',
+    ['controller' => 'Resources', 'action' => 'index']
+    )
+    ->add('Editer ressource');
+
+
+
+?>
+
+<?php
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Resource $resource
  * @var string[]|\Cake\Collection\CollectionInterface $domains
  */
-
-
-$this->Breadcrumbs->add([
-         ['title' => 'edit', 'url' => ['controller' => 'resources', 'action' => 'edit']]]);
 
 ?>
 
