@@ -3,13 +3,17 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Resource> $resources
  */
+
+
+$this->Breadcrumbs->add([
+         ['title' => 'ressources', 'url' => ['controller' => 'resources', 'action' => 'index']]]);
+
 ?>
 <div class="container">
-    <div class="resources index content">
-        <?= $this->Html->link(__('New Resource'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-        <h3 class="text-center font-weight-bold"><?= __('Resources') ?></h3>
+    <div class="resources index content">      
+        <h3 class="text-center font-weight-bold"><?= __('Ressources') ?></h3>
         <div>
-            <table class="table table-bordered table-hover table-sm table-responsive">
+            <table class="table table-bordered table-hover table-sm table-responsive table-light">
                 <thead>
                     <tr>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
@@ -81,7 +85,7 @@
                             Attention, si vous supprimez cette ressource, <b>toutes les réservations associées et fichiers seront définitivement supprimés.</b> Si vous souhaitez que cette ressource ne soit plus disponible mais garder les anciennes réservations et fichiers, considérez  d'utiliser l'option "archiver" à la place.
                           </div>
                           <div class="modal-footer">  
-                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $resource->id], ['class' => 'btn btn-danger', $resource->id]) ?>                         
+                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $resource->id], ['class' => 'btn btn-danger', 'confirm' => 'Supprimer '.$resource->name.' ?']) ?>                         
                              <?= $this->Form->postLink(__('Archiver'), ['action' => 'archive', $resource->id], ['class' => 'btn btn-warning', $resource->id]) ?>
                            
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -98,7 +102,7 @@
             </tbody>
         </table>
         </div>
-        <div class="paginator  ">
+        <div class="paginator">
             <ul class="pagination pagination-sm d-flex justify-content-center ">        
                 <?= $this->Paginator->prev('<') ?>
                 <?= $this->Paginator->numbers() ?>
@@ -108,9 +112,9 @@
         </div>
 
             <!-- Ressources archivées -->
-            <h3 class="text-center font-weight-bold"><?= __('Resources archivées') ?></h3>
+            <h3 class="text-center font-weight-bold"><?= __('Ressources archivées') ?></h3>
             <div>
-                <table class="table table-bordered table-hover table-sm table-responsive">
+                <table class="table table-bordered table-hover table-sm table-responsive table-light">
                     <thead>
                         <tr>
                            <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>

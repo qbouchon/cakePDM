@@ -102,9 +102,40 @@
 
     <aside class="column">
      <div class="text-center">
-        <?= $this->Html->link(__('List Resources'), ['action' => 'index'], ['class' => 'side-nav-item']) ?> 
-        <?= $this->Html->link(__('Edit Resource'), ['action' => 'edit', $resource->id], ['class' => '']) ?> 
-        <?= $this->Form->postLink(__('Delete Resource'), ['action' => 'delete', $resource->id], ['confirm' => __("Attention, si vous supprimez cette ressource, toutes les réservations et fichiers associés seront supprimés. Si vous souhaitez que cette resource ne soit plus disponible mais conserver les réservations passées et fichiers, considérez d'utiliser \"archiver\" à la place.", $resource->id), 'button' => ['text' => 'Supprimer', 'class' => 'btn btn-danger'], 'class' => 'text-danger']) ?>
+        <?= $this->Html->link(__('List Resources'), ['action' => 'index'], ['class' => 'btn btn-secondary']) ?> 
+        <?= $this->Html->link(__('Edit Resource'), ['action' => 'edit', $resource->id], ['class' => 'btn btn-secondary']) ?> 
+        <?php 
+            if($resource->archive) :
+                echo $this->Form->postLink(__('Désarchiver'), ['action' => 'unArchive', $resource->id], ['class' => 'btn btn-warning', $resource->id]); 
+            else :
+                echo $this->Form->postLink(__('Archiver'), ['action' => 'archive', $resource->id], ['class' => 'btn btn-warning', $resource->id]); 
+            endif;
+        ?>
+
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="<?= '#deleteResourceModal' ?>"><?= __('Supprimer'); ?> 
+        </button>
+
+        <!-- DeleteResourceModal -->
+        <div class="modal fade" id="<?= 'deleteResourceModal' ?>" tabindex="-1" aria-labelledby="deleteResourceModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="deleteResourceModalLabel"><?= 'Suppression de la ressource ' . $resource->name ?> </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                                Attention, si vous supprimez cette ressource, <b>toutes les réservations associées et fichiers seront définitivement supprimés.</b> Si vous souhaitez que cette ressource ne soit plus disponible mais garder les anciennes réservations et fichiers, considérez  d'utiliser l'option "archiver" à la place.
+                    </div>
+                    <div class="modal-footer">  
+                         <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $resource->id], ['class' => 'btn btn-danger', 'confirm' => 'Supprimer '.$resource->name.' ?']) ?>                           
+                        <?= $this->Form->postLink(__('Archiver'), ['action' => 'archive', $resource->id], ['class' => 'btn btn-warning', $resource->id]) ?>
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </aside>
 </div>

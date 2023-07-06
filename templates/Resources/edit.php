@@ -4,24 +4,18 @@
  * @var \App\Model\Entity\Resource $resource
  * @var string[]|\Cake\Collection\CollectionInterface $domains
  */
+
+
+$this->Breadcrumbs->add([
+         ['title' => 'edit', 'url' => ['controller' => 'resources', 'action' => 'edit']]]);
+
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $resource->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $resource->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Resources'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
+
     <div class="column-responsive column-80">
         <div class="resources form content">
             <?= $this->Form->create($resource,['type' => 'file']) ?>
             <fieldset>
-                <legend><?= __('Edit Resource') ?></legend>
+                <h3 class="text-center"><?= $resource->name." <i>(édition)</i>" ?></h3>
                 <?php
                 echo $this->Form->control('name');?>
 
@@ -93,7 +87,7 @@
 
 
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Enregistrer')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

@@ -4,6 +4,14 @@
  * @var \App\Model\Entity\Resource $resource
  * @var \Cake\Collection\CollectionInterface|string[] $domains
  */
+
+$this->Breadcrumbs->add([
+         ['title' => 'Add', 'url' => ['controller' => 'resources', 'action' => 'add']],
+         ['title' => 'Add', 'url' => ['controller' => 'resources', 'action' => 'add']]
+
+
+     ]);
+
 ?>
 <div class="row">
     <aside class="column">

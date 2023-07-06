@@ -37,6 +37,15 @@ class ResourcesController extends AppController
      */
     public function view($id = null)
     {
+
+
+        //gestion fil d'Ariane
+        // $this->Breadcrumbs->add(
+        //             'Liste des ressources ',
+        //              ['controller' => 'Resources', 'action' => 'view']
+        // );
+
+
         $resource = $this->Resources->get($id, [
             'contain' => ['Domains', 'Files', 'Reservations'],
         ]);
@@ -51,6 +60,16 @@ class ResourcesController extends AppController
      */
     public function add()
     {
+
+
+        // //gestion fil d'Ariane
+        // $this->Breadcrumbs->add(
+        //             'Créer une ressource ',
+        //              ['controller' => 'Resources', 'action' => 'add']
+        // );
+
+
+
         $resource = $this->Resources->newEmptyEntity();
 
         if ($this->request->is('post')) {
@@ -71,12 +90,12 @@ class ResourcesController extends AppController
 
                 if ($this->Resources->save($resource)) {
 
-                    $this->Flash->success(__('The resource has been saved.'));
+                    $this->Flash->success(__('Ressource '.$resource->name.' créee'));
 
                     return $this->redirect(['action' => 'index']);
                 }
 
-                $this->Flash->error(__('The resource could not be saved. Please, try again.'));
+                $this->Flash->error(__('Erreur lors de la création e la ressource '.$resource->name));
                 
             }
      
@@ -95,6 +114,15 @@ class ResourcesController extends AppController
      */
     public function edit($id = null)
     {
+
+        // //gestion fil d'Ariane
+        // $this->Breadcrumbs->add(
+        //             'Editer '.$resource->name,
+        //              ['controller' => 'Resources', 'action' => 'edit']
+        // );
+
+
+
         $resource = $this->Resources->get($id, [
             'contain' => ['Files'],
         ]);
@@ -129,11 +157,12 @@ class ResourcesController extends AppController
 
                 if ($this->Resources->save($resource)) {
 
-                    $this->Flash->success(__('The resource has been saved.'));
-                    return $this->redirect(['action' => 'index']);
+                    $this->Flash->success(__('Ressource '.$resource->name.' modifiée'));                
+
+                    return $this->redirect($this->referer());
                 }
 
-                $this->Flash->error(__('The resource could not be saved. Please, try again.'));
+                $this->Flash->error(__('Erreur lors de la modification de la ressource '.$resource->name));
                     
             }
 
@@ -170,9 +199,9 @@ class ResourcesController extends AppController
         $resource->deleteReservations($resource->reservations, $this->getTableLocator()->get('Reservations') );
 
         if ($this->Resources->delete($resource)) {
-            $this->Flash->success(__('The resource has been deleted.'));
+            $this->Flash->success(__('La ressource '. $resource->name .' a été supprimée'));
         } else {
-            $this->Flash->error(__('The resource could not be deleted. Please, try again.'));
+            $this->Flash->error(__('La ressource '. $resource->name .' n\'a pas pu être supprimée'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -187,12 +216,12 @@ class ResourcesController extends AppController
             $resource->set('archive',true);
 
         if ($this->Resources->save($resource)) {
-            $this->Flash->success(__('The resource has been deleted.'));
+            $this->Flash->success(__('Ressource '.$resource->name.' archivée'));
         } else {
-            $this->Flash->error(__('The resource could not be deleted. Please, try again.'));
+            $this->Flash->error(__('TLa resource '.$resource->name.' n\'a pas pu être archivée.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 
     public function unArchive($id = null)
@@ -204,11 +233,11 @@ class ResourcesController extends AppController
             $resource->set('archive',false);
 
         if ($this->Resources->save($resource)) {
-            $this->Flash->success(__('The resource has been deleted.'));
+            $this->Flash->success(__('Ressource '.$resource->name.' désarchivée'));
         } else {
-            $this->Flash->error(__('The resource could not be deleted. Please, try again.'));
+            $this->Flash->error(__('La resource '.$resource->name.' n\'a pas pu être désarchivée.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 }

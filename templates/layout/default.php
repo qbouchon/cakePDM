@@ -156,7 +156,7 @@
 
                             </nav>
                         </div>
-                        <div id="layoutSidenav_content">
+                        <div id="layoutSidenav_content" class = "">
                             <main>
                      <!--    <div class="container-fluid">
                             <div class="row">
@@ -165,13 +165,20 @@
                               </div>
                           </div>  --> 
                           <div class="container-fluid">
-                            <div class="row"> 
+                           <!--  <div class="row"> 
                                 <div class="col">
                                     <?= $this->Html->link(__('Retour'), $this->request->referer()) ?>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col">
+                                    <div id="Bread" class="invisible">
+                                       <?php echo $this->Breadcrumbs->render(
+                                                ['class' => 'breadcrumbs-trail'],
+                                                ['separator' => '<i class="fa fa-angle-right"></i>']
+                                        ); ?>
+                                    </div>
+                                    <?= $this->Flash->render(); ?>
                                     <?= $this->fetch('content'); ?> 
                                     <div class="mb-5"></div>
                                 </div>
