@@ -63,6 +63,21 @@
                     echo $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]);
                     echo $this->Form->control('archive', ['label' => 'Archiver cette resource (ne sera plus réservable)']);
                 ?> 
+                <!-- Pour ajouter d'autres fichiers -->
+                    <div class="d-flex align-items-center">
+                        <?php
+                            echo $this->Form->control('files[]', ['type' => 'file', 'id'=>'File', 'class'=>'iFile d-inline', 'label' => 'Importer un fichier (image, pdf, document office, openoffice, libreoffice)', 'accept' => '*'])
+                        ?>  
+                        <div id="rFile" class ="rResetFile invisible" data-toggle="File">
+                            <button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button>
+                        </div>
+                    </div>
+
+                    <div  id="inputFileDiv" class=""></div>
+                    <div class="d-flex justify-content-center">    
+                        <button id="addFileInput" class="btn fa-solid fa-plus fa-2xl" data-toggle="tooltip" data-placement="top" title='Ajouter un autre fichier'> </button> 
+                    </div>  
+                    
                 <!-- Gestion des fichiers -->
                 <?php
 
@@ -86,20 +101,7 @@
                         echo '</li>';
                     endif;
                     ?>
-                    <!-- Pour ajouter d'autres fichiers -->
-                    <div class="d-flex align-items-center">
-                        <?php
-                            echo $this->Form->control('files[]', ['type' => 'file', 'id'=>'File', 'class'=>'iFile d-inline', 'label' => 'Importer un fichier (image, pdf, document office, openoffice, libreoffice)', 'accept' => '*'])
-                        ?>  
-                        <div id="rFile" class ="rResetFile invisible" data-toggle="File">
-                            <button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button>
-                        </div>
-                    </div>
-
-                    <div  id="inputFileDiv" class=""></div>
-                    <div class="d-flex justify-content-center">    
-                        <button id="addFileInput" class="btn fa-solid fa-plus fa-2xl" data-toggle="tooltip" data-placement="top" title='Ajouter un autre fichier'> </button> 
-                    </div>      
+    
                     
 
 

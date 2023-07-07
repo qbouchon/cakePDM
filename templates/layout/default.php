@@ -31,9 +31,12 @@
     <?= $this->Html->script('global'); ?>
 
 
-    <!-- fontAwesome (trouver une manière plus propre ?) -->
+    <!-- fontAwesome-->
     <?= $this->Html->script('../Fontawesome/js/all'); ?>
     <?= $this->Html->css('../Fontawesome./css/all'); ?>
+
+    TinyMCE
+    <?= $this->Html->script('../tinymce/tinymce.js'); ?>
 
 </head>
 <body>
