@@ -39,6 +39,15 @@ class DomainsController extends AppController
         $this->set(compact('domain'));
     }
 
+     public function viewResources($id = null)
+    {
+        $domain = $this->Domains->get($id, [
+            'contain' => ['Resources'],
+        ]);
+
+        $this->set(compact('domain'));
+    }
+
     /**
      * Add method
      *

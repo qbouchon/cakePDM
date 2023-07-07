@@ -1,8 +1,3 @@
-.card-img-top {
-      object-fit: cover;
-      height: 250px; /* Adjust the desired height for the cropped images */
-    }
-
  .card {
       position: relative;
       transition: transform 0.3s ease;
@@ -45,3 +40,7 @@
     background: rgba(0, 0, 0, 0.03);
   }
 
+  .resource-card-img-top {
+      object-fit: cover;
+      height: 500px; /* Adjust the desired height for the cropped images */
+    }

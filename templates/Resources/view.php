@@ -39,7 +39,9 @@
             <div class="text">
                 <strong><?= __('Description') ?></strong>
                 <blockquote>
-                    <?= $this->Text->autoParagraph(h($resource->description)); ?>
+                    <div id="description">
+                       <?= $resource->description ?>
+                    </div>
                 </blockquote>
             </div>
             <div class="related">
