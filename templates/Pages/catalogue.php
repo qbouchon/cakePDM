@@ -5,15 +5,17 @@
  */
 ?>
 <div class="container">
-    <div class="home index content">
-        <h3 class="text-center font-weight-bold"><?= __('Accueil') ?></h3>
+    <div class="domains index content">
+
+        <h3 class="text-center font-weight-bold"><?= __('Catalogue') ?></h3>
     <div>
-    <?= $this->Html->image($configuration->home_picture); ?>
-    <?= $configuration->home_text; ?>
 </div>
 
         <div class="container h-100 d-flex flex-column">          
             <div class = "row card-spacing card-deck">
+
+
+
 
 
                 <?php foreach ($domains as $domain): ?>
@@ -35,7 +37,7 @@
                                            
                                     </div>
                                     <?= $this->Html->image('domains/'.$domain->picture_path,['class'=>'card-img-top rounded-bottom']) ?>
-                            <?= $this->Html->link("", ['controller'=>'domains', 'action' => 'viewResources', $domain->id], ['class' => 'stretched-link']); ?>
+                             <?= $this->Html->link("", ['controller'=>'domains', 'action' => 'viewResources', $domain->id], ['class' => 'stretched-link']); ?>
                          </div>
                     </div>
 
@@ -47,8 +49,6 @@
 
                     
 
-                </div>
-        </div>
+            </div>
 
-    </div>
-</div>
+        </div>

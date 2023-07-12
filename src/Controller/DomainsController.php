@@ -18,7 +18,7 @@ class DomainsController extends AppController
      */
     public function index()
     {
-        $domains = $this->paginate($this->Domains);
+        $domains = $this->paginate($this->Domains->find('all')->contain('Resources'));
 
         $this->set(compact('domains'));
     }

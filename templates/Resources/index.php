@@ -29,9 +29,9 @@
             <table class="table table-bordered table-hover table-sm  table-light table-responsive  align-middle">
                 <thead>
                     <tr>
-                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('Nom') ?></th>
-                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('image') ?></th>
-                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('Domaine') ?></th>
+                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('name') ?></th>
+                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('picture') ?></th>
+                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('domain_id') ?></th>
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                    </tr>

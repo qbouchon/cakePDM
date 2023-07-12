@@ -59,7 +59,24 @@ class PagesController extends AppController
         if (!empty($path[1])) {
             $subpage = $path[1];
         }
-        $this->set(compact('page', 'subpage'));
+        
+       // $this->set(compact('page', 'subpage'));
+
+
+        $this->loadModel('Domains');
+        $domains = $this->Domains->find('all');
+
+        $this->loadModel('Configuration');
+        $default_configuration = Configure::read('default_configuration');
+        $configuration = $this->Configuration->find()
+        ->where(['name' => $default_configuration])->first();
+
+
+
+        $this->set(compact('page', 'subpage', 'domains','configuration'));
+
+
+
 
         try {
             return $this->render(implode('/', $path));
@@ -69,5 +86,20 @@ class PagesController extends AppController
             }
             throw new NotFoundException();
         }
+    }
+
+
+    /**
+     * Catalogue method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function catalogue()
+    {
+
+        $this->loadModel('Domains');
+        $domains = $this->Domains->find('all');
+        $domains = $this->paginate($this->Domains);
+        $this->set(compact('domains'));
     }
 }

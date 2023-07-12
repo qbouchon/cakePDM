@@ -7,20 +7,15 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $domain->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $domain->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Domains'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            
+            <?= $this->Html->link(__('Liste des Domaines'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="domains form content">
             <?= $this->Form->create($domain, ['type' => 'file']) ?>
             <fieldset>
-                <legend><?= __('Edit Domain') ?></legend>
+                <h3 class="text-center"><?= $domain->name." <i>(édition)</i>" ?></h3>
 
                 <?php echo $this->Form->control('name',['label'=>'Nom du Domaine']); ?> 
                 <div class='d-flex align-items-center'>
@@ -33,7 +28,7 @@
                     </div> 
                 </div>
                 <?php
-                    //Gestion de la suppression à refactorer voir global.js
+                //Gestion de la suppression à refactorer voir global.js
                 if($domain->picture)
                 {
                     echo '<div id="PictureManagementBlock">';

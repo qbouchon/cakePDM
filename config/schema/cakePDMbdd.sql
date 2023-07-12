@@ -53,3 +53,13 @@ CREATE TABLE files
 	FOREIGN KEY (resource_id) REFERENCES resources(id)
 	
 );
+
+CREATE TABLE configuration 
+(
+	name VARCHAR(255) PRIMARY KEY NOT NULL,
+	home_text LONGTEXT,
+	home_picture VARCHAR(255),
+	home_picture_path VARCHAR(255)	
+);
+
+INSERT INTO configuration (name) VALUES ('crest_default_config');

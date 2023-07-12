@@ -48,7 +48,8 @@
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 ms-2 me-4 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="flex icon fas fa-bars fa-2x "></i></button>
             <!-- Navbar Brand-->
-            <a class="ps-2 h3 text-white text-decoration-none " href="">CREST</a>
+            <!-- <a class="ps-2 h3 text-white text-decoration-none " href="/">CREST</a> -->
+            <?= $this->Html->Link('CREST', ['controller'=>'pages','action'=>'display'],['class'=>'ps-2 h3 text-white text-decoration-none ']); ?>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -90,9 +91,11 @@
                          <!-- Sous menu -->
                          <div class="text-white sb-sidenav-menu-heading">Menu Utilisateur</div>
 
+                         <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i>Accueil</div>', ['controller'=>'pages','action' => 'display'], ['class' => 'nav-link', 'escape' => false]) ?>
+                          <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-book-open"></i>Catalogue</div>', ['controller'=>'pages','action' => 'catalogue'], ['class' => 'nav-link', 'escape' => false]) ?>
 
                          <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar-check"></i></div>
                             Réservation
                         </a>
 
@@ -101,7 +104,7 @@
 
                         <div class="collapseOver">
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReservations" aria-expanded="false" aria-controls="collapseReservations">
-                               <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                               <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar-check"></i></i></div>
                                <div class="nav-item">Réservations</div>
                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                            </a>
@@ -117,7 +120,7 @@
 
                                                 <div class="collapseOver">
                                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRessources" aria-expanded="false" aria-controls="collapseRessources">
-                                                       <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                                       <div class="sb-nav-link-icon"><i class="fa-solid fa-suitcase-rolling"></i></i></div>
                                                        Ressources & Domaines
                                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                                    </a>
@@ -138,7 +141,7 @@
 
                                             <div class="collapseOver">
                                                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUtilisateurs" aria-expanded="false" aria-controls="collapseUtilisateurs">
-                                                   <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                                   <div class="sb-nav-link-icon"><i class="fa-solid fa-user-group"></i></i></div>
                                                    Utilisateurs
                                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                                </a>
@@ -147,8 +150,15 @@
                                                     <!-- <a class="nav-link" href="">Liste des Utilisateurs</a> -->
                                                     <?= $this->Html->link(__('Liste des Utilisateurs'), ['controller'=>'Users','action' => 'index'], ['class' => 'nav-link']) ?>
                                                 </nav>
+
+                                               
+                                                </div>
+
                                             </div>
-                                        </div>
+
+
+                                             <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i>Configuration</div>', ['controller'=>'configuration','action' => 'edit'], ['class' => 'nav-link', 'escape' => false]) ?>
+
                                     </div>
                                 </div>
                                 

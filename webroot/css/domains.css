@@ -1,8 +1,9 @@
  .card {
       position: relative;
       transition: transform 0.3s ease;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
+      --bs-card-inner-border-radius: 0;
+   /*   word-wrap: break-word;
+      overflow-wrap: break-word;*/
     }
     .card-img-top {
       object-fit: cover;
@@ -13,7 +14,7 @@
       position: absolute;
       top: 20px;
       left: 0;
-      background-color: rgba(22, 112, 204, 1); /* Optional: Add a background color to the title */
+      background-color: #1670CC; /* Optional: Add a background color to the title */
       color: #fff;
       padding-top: 4px;
       padding-left: 4px;
@@ -25,15 +26,38 @@
 
     .card:hover {
       transform: translateY(-10px); /* Adjust the desired amount of upward movement */
+
+    }
+
+    .card:hover .card-body {
+
+      background-color: #f0ad4e;
+
+    }
+
+
+    .card:active .card-body {
+
+      background-color: #f0ad4e;
+
+    }
+
+    .card-body {
+
+
+      background-color: #1670CC;
+
     }
 
     .card-spacing {
-    margin-top: 20px;
+      margin-top: 20px;
     }
 
-.fa-xmark{
-  color: #ff4e02;
-}
+  .fa-xmark{
+      color: #ff4e02;
+    }
+
+
 
 
   body {
@@ -44,3 +68,7 @@
       object-fit: cover;
       height: 500px; /* Adjust the desired height for the cropped images */
     }
+
+ontop {
+  z-index: 1;
+}
