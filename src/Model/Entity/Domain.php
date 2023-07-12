@@ -89,4 +89,20 @@ class Domain extends Entity
         $this->set('picture',null);
         $this->set('picture_path',null);
     }
+
+
+    //set domain_id null for ressources 
+    public function removeResources($resourcesToRemove, $resourcesTeble){
+
+        if(!empty($resourcesToRemove))
+        {
+            foreach($resourcesToRemove as $rtr)
+            {
+                $resourcesTeble->patchEntity($rtr,['domain_id' => null]);
+                $resourcesTeble->save($rtr);
+            }
+        }
+
+
+    }
 }

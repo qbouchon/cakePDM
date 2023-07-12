@@ -43,15 +43,35 @@ class ConfigurationController extends AppController
         $configuration = $this->Configuration->find()
         ->where(['name' => $default_configuration])->first();
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $configuration = $this->Configuration->patchEntity($configuration, $this->request->getData());
-            if ($this->Configuration->save($configuration)) {
-                $this->Flash->success(__('The configuration has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+
+            
+            if(!$configuration->getErrors) {
+
+                $configuration->set('home_text',$this->request->getData('home_text'));
+
+
+                //Gestion de la suppression de l'image
+                if(!empty($this->request->getData('deletePicture')))
+                {               
+                    $configuration->deletePicture();
+                }
+
+                //gestion de l'upload de l'image
+                $configuration->addPicture($this->request->getData('home_picture'));
+
+
+
+                if ($this->Configuration->save($configuration)) {
+                    $this->Flash->success(__('The configuration has been saved.'));
+
+                    return $this->redirect(['action' => 'edit']);
+                }
+                $this->Flash->error(__('The configuration could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The configuration could not be saved. Please, try again.'));
         }
+
         $this->set(compact('configuration'));
     }
 

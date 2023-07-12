@@ -70,17 +70,17 @@
 
                             <?php if($domain->resources):?>
                             En supprimant ce domaine, <b>toutes les ressources ci dessous deviendrons orphelines : </b>
-                            <li>
+                            <ul>
                                 <?php 
 
                                     foreach ($domain->resources as $resource):
 
-                                    echo '<ul>'.$resource->name.'</ul>';
+                                    echo '<li>'.$resource->name.'</li>';
 
 
                                     endforeach; 
                                 ?>
-                            </li>
+                            </ul>
                             <?php 
                                 else:
                                         echo 'Voulez-vous supprimer le domaine '.  $domain->name .' ?';

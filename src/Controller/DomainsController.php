@@ -137,13 +137,20 @@ class DomainsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $domain = $this->Domains->get($id);
+        $domain = $this->Domains->get($id, ['contain' => ['Resources']]);
+
 
         //Gestion de la suppression de l'image sur le serveur
         if($domain->picture_path)
         {
             $domain->deletePicture();
         }
+
+        //On rend les ressources associées orphelines
+        $domain->removeResources($domain->resources,$this->getTableLocator()->get('Resources'));
+
+
+
         if ($this->Domains->delete($domain)) {
             $this->Flash->success(__('The domain has been deleted.'));
         } else {

@@ -4,11 +4,11 @@
  * @var iterable<\App\Model\Entity\Domain> $domains
  */
 ?>
+
 <div class="container">
-    <div class="home index content">
-        <h3 class="text-center font-weight-bold"><?= __('Accueil') ?></h3>
-    <div>
-    <?= $this->Html->image($configuration->home_picture); ?>
+        <?= $this->Html->image('home/'.$configuration->home_picture_path,['class'=>'img-fluid mb-4']); ?>
+
+
     <?= $configuration->home_text; ?>
 </div>
 
