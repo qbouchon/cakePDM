@@ -149,9 +149,9 @@
                                                         <a class="nav-link" href="">Liste des Domaines</a>
                                                         <a class="nav-link" href="">Créer un Domaine</a> -->
                                                         <?= $this->Html->link(__('Liste des Ressources'), ['controller'=>'Resources','action' => 'index'], ['class' => 'nav-link']) ?>
-                                                        <?= $this->Html->link(__('Créer une Ressource'), ['controller'=>'Resources','action' => 'add'], ['class' => 'nav-link']) ?>
+                                                       
                                                         <?= $this->Html->link(__('Liste des Domaines'), ['controller'=>'Domains','action' => 'index'], ['class' => 'nav-link']) ?>
-                                                        <?= $this->Html->link(__('Créer un Domaine'), ['controller'=>'Domains','action' => 'add'], ['class' => 'nav-link']) ?>
+                                                    
                                                         
                                                     </nav>
                                                 </div>

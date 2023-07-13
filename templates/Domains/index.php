@@ -9,7 +9,7 @@
 
       
             <h3 class="text-center font-weight-bold"><?= __('Domaines') ?></h3>
-              <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl" style="color: #385996;"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn ','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer un Domaine','escape' =>false]); ?>
+              <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn addButton ','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer un Domaine','escape' =>false]); ?>
     <div>
 
             <table class="table table-bordered table-hover table-sm table-responsive table-light">
