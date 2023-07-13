@@ -39,7 +39,7 @@ class DomainsController extends AppController
         $this->set(compact('domain'));
     }
 
-     public function viewResources($id = null)
+     public function resources($id = null)
     {
         $domain = $this->Domains->get($id, [
             'contain' => ['Resources'],

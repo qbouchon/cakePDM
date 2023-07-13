@@ -2,14 +2,19 @@
   /*Uga colors*/
   --uga-blue: #162a42;
   --uga-orange: #ff4e02;
-  --uga-card-bg-title: #1670cc;
+  --uga-card-bg-tile: #1670cc;
   --uga-card-bg-body: #1670cc;
+
+  --uga-resources-card-bg-tile: #ef4540;
+  --uga-resources-card-bg-body: #ef4540;
+  --uga-resources-card-bg-active: #1670cc;
   }
 
     .card {
       position: relative;
       transition: transform 0.3s ease;
       --bs-card-inner-border-radius: 0;
+      margin-bottom: 1rem;
     }
     .card-img-top {
       object-fit: cover;
@@ -20,7 +25,7 @@
       position: absolute;
       top: 20px;
       left: 0;
-      background-color: var(--uga-card-bg-title); 
+      background-color: var(--uga-card-bg-tile); 
       color: #fff;
       padding-top: 4px;
       padding-left: 4px;
@@ -58,14 +63,58 @@
     }
 
 
+  .resources-card-img-top {
+    object-fit: cover;
+    ma-height: 300px; 
+    max-width: 400px;
+    }
+
+     .resources-card-title {
+      font-size: 14px;
+    }
+
+    .resources-tile-content {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      background-color: var(--uga-resources-card-bg-tile); 
+      color: #fff;
+      padding-top: 4px;
+      padding-left: 4px;
+      padding-right: 6px;
+      display: inline;
+      white-space: nowrap;
+    }
+
+    .resources-card {
+      flex-direction: row;
+      position: relative;
+      transition: transform 0.3s ease;
+      --bs-card-inner-border-radius: 0;
+      margin-bottom: 1rem;
+    }
+
+    .resources-card:hover .resources-card-body {
+
+      background-color: var(--uga-resources-card-bg-active);
+    }
+
+
+    .resources-card:active .resources-card-body {
+
+      background-color: var(--uga-resources-card-bg-active);
+    }
+
+    .resources-card-body {
+      background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
+    }
+
+
+
   body {
     background: rgba(0, 0, 0, 0.03);
   }
 
-  .resource-card-img-top {
-      object-fit: cover;
-      height: 500px; 
-    }
 
     h3 {
       color: var(--uga-orange);

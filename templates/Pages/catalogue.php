@@ -10,7 +10,7 @@
         <h3 class="text-center font-weight-bold"><?= __('Catalogue') ?></h3>
     <div>
 </div>
-
+        
         <div class="container h-100 d-flex flex-column">          
             <div class = "row card-spacing card-deck">
 
@@ -37,7 +37,7 @@
                                            
                                     </div>
                                     <?= $this->Html->image('domains/'.$domain->picture_path,['class'=>'card-img-top rounded-bottom']) ?>
-                             <?= $this->Html->link("", ['controller'=>'domains', 'action' => 'viewResources', $domain->id], ['class' => 'stretched-link']); ?>
+                             <?= $this->Html->link("", ['controller'=>'domains', 'action' => 'resources', $domain->id], ['class' => 'stretched-link']); ?>
                          </div>
                     </div>
 
