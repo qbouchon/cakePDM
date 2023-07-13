@@ -124,11 +124,13 @@ class Resource extends Entity
                             'application/vnd.oasis.opendocument.text',  // .odt
                             'application/vnd.oasis.opendocument.spreadsheet',  // .ods
                             'application/vnd.oasis.opendocument.presentation',  // .odp
+                            'application/vnd.oasis.opendocument.graphics', //.odg
                         ),
             'libreoffice' => array(
                             'application/vnd.libreoffice.text',  // .odt
                             'application/vnd.libreoffice.spreadsheet',  // .ods
                             'application/vnd.libreoffice.presentation',  // .odp
+
                         )
 
         );

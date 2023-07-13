@@ -75,8 +75,45 @@
 
     .addButton {
       color: var(--uga-blue);
+      transition: transform 0.1s ease;
+       --bs-btn-active-border-color: transparent;
+        --bs-btn-active-color: --uga-orange;
+        --bs-btn-active-shadow: inset 0 3px px rgba(0, 0, 0, 0);
+
+
     }
 
     .addButton:hover {
       color: var(--uga-orange);
+      transform: scale(1.3);
     }
+
+    .table-light {
+      --bs-table-bg: #ffffff;
+    }
+
+
+    .text-danger {
+      color: var(--uga-orange);
+    }
+
+ 
+
+    .btn-secondary {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: var(--uga-blue);
+            --bs-btn-border-color: var(--uga-blue);
+            --bs-btn-hover-color: #ffffff;
+            --bs-btn-hover-bg: var(--uga-orange);
+            --bs-btn-hover-border-color: var(--uga-orange);
+            --bs-btn-focus-shadow-rgb: 130, 138, 145;
+            --bs-btn-active-color: #ffffff;
+            --bs-btn-active-bg: var(--uga-orange);
+            --bs-btn-active-border-color: var(--uga-orange);
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #6c757d;
+            --bs-btn-disabled-border-color: #6c757d;
+
+    }
+
