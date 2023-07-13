@@ -91,8 +91,8 @@
                          <!-- Sous menu -->
                          <div class="text-white sb-sidenav-menu-heading">Menu Utilisateur</div>
 
-                         <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i>Accueil</div>', ['controller'=>'pages','action' => 'display'], ['class' => 'nav-link', 'escape' => false]) ?>
-                          <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-book-open"></i>Catalogue</div>', ['controller'=>'pages','action' => 'catalogue'], ['class' => 'nav-link', 'escape' => false]) ?>
+                         <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>Accueil', ['controller'=>'pages','action' => 'display'], ['class' => 'nav-link', 'escape' => false]) ?>
+                          <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-book-open"></i></div>Catalogue', ['controller'=>'pages','action' => 'catalogue'], ['class' => 'nav-link', 'escape' => false]) ?>
 
                          <a class="nav-link" href="">
                             <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar-check"></i></div>
@@ -157,7 +157,7 @@
                                             </div>
 
 
-                                             <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i>Configuration</div>', ['controller'=>'configuration','action' => 'edit'], ['class' => 'nav-link', 'escape' => false]) ?>
+                                             <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i></div>Configuration', ['controller'=>'configuration','action' => 'edit'], ['class' => 'nav-link', 'escape' => false]) ?>
 
                                     </div>
                                 </div>
