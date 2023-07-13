@@ -91,12 +91,6 @@
     .table-light {
       --bs-table-bg: #ffffff;
     }
-
-
-    .text-danger {
-      color: var(--uga-orange);
-    }
-
  
 
     .btn-secondary {
