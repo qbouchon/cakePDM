@@ -16,27 +16,28 @@
     <?= $this->Html->css(['BootstrapUI./font/bootstrap-icons', 'BootstrapUI./font/bootstrap-icon-sizes']); ?>
     <?= $this->Html->script(['BootstrapUI.popper.min', 'BootstrapUI.bootstrap.min']); ?>
 
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
-    
-    <!-- Css et Js pour le menu de gauche -->
-    <?= $this->Html->script('sideNav'); ?>
-    <?= $this->Html->css('sideNav'); ?>
-
-    <!-- css pour l'affichage des domaines -->
-    <?= $this->Html->css('domains'); ?>
-
-    <!-- js global -->
-    <?= $this->Html->script('global'); ?>
 
 
     <!-- fontAwesome-->
     <?= $this->Html->script('../Fontawesome/js/all'); ?>
     <?= $this->Html->css('../Fontawesome./css/all'); ?>
-
-    TinyMCE
     <?= $this->Html->script('../tinymce/tinymce.js'); ?>
+
+    <!-- Css et Js pour les navbars -->
+    <?= $this->Html->script('nav'); ?>
+    <?= $this->Html->css('nav'); ?>
+
+    <!-- css et js globaux de l'application -->
+    <?= $this->Html->script('app'); ?>
+    <?= $this->Html->css('app'); ?>
+
+
+    <?= $this->fetch('meta') ?>
+    <?= $this->fetch('css') ?>
+    <?= $this->fetch('script') ?>
+    
+
+
 
 </head>
 <body>
@@ -44,12 +45,12 @@
     <!--  template menu (à déplacer, créer un élément ?) -->
     <div class="sb-nav-fixed">
         
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark navbar-uga bg-uga">
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 ms-2 me-4 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="flex icon fas fa-bars fa-2x "></i></button>
             <!-- Navbar Brand-->
             <!-- <a class="ps-2 h3 text-white text-decoration-none " href="/">CREST</a> -->
-            <?= $this->Html->Link('CREST', ['controller'=>'pages','action'=>'display'],['class'=>'ps-2 h3 text-white text-decoration-none ']); ?>
+            <?= $this->Html->Link('CREST', ['controller'=>'pages','action'=>'display'],['class'=>'ps-2 h3 text-white text-decoration-none font-weight-bold']); ?>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 invisible">
                 <div class="input-group">
@@ -163,7 +164,7 @@
                                 </div>
                                 
                                 <div class="sb-sidenav-footer">
-                                    <!-- <img id="logoUga" src="{{ asset('img/uga.svg') }}"/> -->
+                                    <?= $this->Html->image("logo_UI_blanc3.png", ['class' => 'img-fluid']); ?>
                                     <div id="signature" class="small text-center">cakePDM@ptitbouchon 2023</div>
                                 </div>
 
@@ -171,38 +172,28 @@
                         </div>
                         <div id="layoutSidenav_content" class = "">
                             <main>
-                     <!--    <div class="container-fluid">
-                            <div class="row">
-                                <div class="col">
-                        //$this->Html->image('Bandeau CREST.png', ['alt' => 'CREST UGA']); 
-                              </div>
-                          </div>  --> 
-                          <div class="container-fluid">
-                           <!--  <div class="row"> 
-                                <div class="col">
-                                    <?= $this->Html->link(__('Retour'), $this->request->referer()) ?>
+                                <div class="container-fluid">                                    
+                                    
+                                    <div class="row">
+                                        <div class="col">
+                                            <?= $this->Flash->render(); ?>
+                                            <?= $this->fetch('content'); ?> 
+                                            <div class="mb-5"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div> -->
-                            <div class="row">
-                                <div class="col">
-                                    <?= $this->Flash->render(); ?>
-                                    <?= $this->fetch('content'); ?> 
-                                    <div class="mb-5"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </main>
+                            </main>
                 </div>
             </div>
         </div>
 
         <footer>
            <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-                <div id ="signature" class=" text-center">PDM@ptitbouchon 2023</div>
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div id ="signature" class=" text-center">cakePDM@ptitbouchon 2023</div>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
 
 

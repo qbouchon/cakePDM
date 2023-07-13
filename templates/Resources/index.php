@@ -15,7 +15,7 @@
  */
 
 ?>
-<div class="container mt-5">
+<div class="container">
     <div class="resources index content">
 
         <div class="d-flex justify-content-beetwen align-items-center">
@@ -24,7 +24,7 @@
 
         </div>
 
-        <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl" style="color: #385996;"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn ','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une ressource','escape' =>false]); ?>
+        <?= $this->Html->link('<i class="addButton text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn ','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une ressource','escape' =>false]); ?>
         <div>
             <table class="table table-bordered table-hover table-sm  table-light table-responsive  align-middle">
                 <thead>

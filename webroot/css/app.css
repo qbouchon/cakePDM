@@ -1,20 +1,26 @@
- .card {
+  :root{
+  /*Uga colors*/
+  --uga-blue: #162a42;
+  --uga-orange: #ff4e02;
+  --uga-card-bg-title: #1670cc;
+  --uga-card-bg-body: #1670cc;
+  }
+
+    .card {
       position: relative;
       transition: transform 0.3s ease;
       --bs-card-inner-border-radius: 0;
-   /*   word-wrap: break-word;
-      overflow-wrap: break-word;*/
     }
     .card-img-top {
       object-fit: cover;
-      height: 200px; /* Adjust the desired height for the cropped images */
+      height: 200px; 
     }
 
     .tile-content {
       position: absolute;
       top: 20px;
       left: 0;
-      background-color: #1670CC; /* Optional: Add a background color to the title */
+      background-color: var(--uga-card-bg-title); 
       color: #fff;
       padding-top: 4px;
       padding-left: 4px;
@@ -25,28 +31,22 @@
 
 
     .card:hover {
-      transform: translateY(-10px); /* Adjust the desired amount of upward movement */
-
+      transform: translateY(-10px); 
     }
 
     .card:hover .card-body {
 
-      background-color: #f0ad4e;
-
+      background-color: var(--uga-orange);
     }
 
 
     .card:active .card-body {
 
-      background-color: #f0ad4e;
-
+      background-color: var(--uga-orange);
     }
 
     .card-body {
-
-
-      background-color: #1670CC;
-
+      background-color: var(--uga-card-bg-body);
     }
 
     .card-spacing {
@@ -58,17 +58,25 @@
     }
 
 
-
-
   body {
     background: rgba(0, 0, 0, 0.03);
   }
 
   .resource-card-img-top {
       object-fit: cover;
-      height: 500px; /* Adjust the desired height for the cropped images */
+      height: 500px; 
     }
 
-ontop {
-  z-index: 1;
-}
+    h3 {
+      color: var(--uga-orange);
+      font-weight: bold;
+      margin-top: 2rem;
+    }
+
+    .addButton {
+      color: var(--uga-blue);
+    }
+
+    .addButton:hover {
+      color: var(--uga-orange);
+    }

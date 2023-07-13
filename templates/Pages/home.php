@@ -6,7 +6,7 @@
 ?>
 
 <div class="container">
-        <?= $this->Html->image('home/'.$configuration->home_picture_path,['class'=>'img-fluid mb-4']); ?>
+        <?= $this->Html->image('home/'.$configuration->home_picture_path,['class'=>'img-fluid mb-4 mt-2']); ?>
 
 
     <?= $configuration->home_text; ?>

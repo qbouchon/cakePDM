@@ -1,17 +1,15 @@
 $( document ).ready(function() {
     
+    //init TinyMCE (Editeur de texte)
+    tinymce.init({selector: 'textarea', promotion: false});
 
-    tinymce.init({
-  selector: 'textarea',
-  promotion: false
-});
 
 
     //init reset button visibility
     if($('#rAddPicture').val())
         $('#rResetPicture').removeClass('invisible');
 
-    //Gestion d'un boutton pour supprimer le fichier ajouté
+    //Gestion d'un boutton pour supprimer l'mage ajouté
     $('#rResetPicture').click(function() {
 
     	$('#rAddPicture').val("");
@@ -35,7 +33,7 @@ $( document ).ready(function() {
 
     });
 
-    //Gestion d'un boutton pour ajouter un input file pour l'upload de plusieurs fichiers (resources)
+    //Gestion d'un boutton pour ajouter un input file pour l'upload de plusieurs fichiers (Resources)
     inputCount = 1;
     $('#addFileInput').click(function() {
 
@@ -54,9 +52,7 @@ $( document ).ready(function() {
     //Gestion de la supp d'image dans edit resource et edit domain
     $('#rDeletePicture').click(function() {
 
-
        $('#deletePictureToggler').prop('checked',true);
-       //alert($('#deletePictureToggler').prop('checked'));
        $('#cancelDeletePicture').html('<i>Le fichier sera supprimé à la validation du formulaire</i> <a href="#" class="link-danger d-inline">Annuler</a>');
        $('#cancelDeletePicture').toggleClass('invisible');
        $('#PictureManagement').toggleClass('invisible');
@@ -96,8 +92,7 @@ $( document ).ready(function() {
         idInput = $(this).attr('id');
         idResetFile = '#r'+idInput
 
-        //alert('idInput    '+idInput+'   idResetFile   ' + idResetFile + ' val '+$(this).val());
-
+        
         if($(this).val())
         {
             $(idResetFile).removeClass("invisible");
@@ -112,8 +107,6 @@ $( document ).ready(function() {
 
     //Gestion de la supp de files dans edit resource
     $(document).on('click','.rDeleteFile', function() {
-
-       
 
        rId = $(this).attr('data-toggle');
        cancelDeleteFileId = '#cancelDeleteFile'+rId;
