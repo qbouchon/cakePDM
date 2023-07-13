@@ -12,7 +12,7 @@
               <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl" style="color: #385996;"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn ','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer un Domaine','escape' =>false]); ?>
     <div>
 
-            <table class="table table-bordered table-hover table-sm table-responsive">
+            <table class="table table-bordered table-hover table-sm table-responsive table-light">
                 <thead>
                     <tr>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>

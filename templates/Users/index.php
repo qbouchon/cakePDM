@@ -9,7 +9,7 @@
         <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
         <h3 class="text-center font-weight-bold"><?= __('Users') ?></h3>
         <div>
-            <table class="table table-bordered table-hover table-sm table-responsive">
+            <table class="table table-bordered table-hover table-sm table-responsive table-light">
                 <thead>
                     <tr>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
