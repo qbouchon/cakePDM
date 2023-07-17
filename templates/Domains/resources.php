@@ -52,16 +52,23 @@
 
                                 <!-- Affichage des tuiles des resources.-->      
                                 
-                                <div class="col-lg-12 col-md-12 col-sm-12">  
+                                <div class="col-lg-6 col-md-6 col-sm-1">  
                                     <div class='card resources-card'>
-                                         <?= $this->Html->image('resources/'.$resource->picture_path,['class'=>'resources-card-img-top  ']) ?>
+                                        <span class='title-wrapper'>
+                                                        <h3 class='resources-card-title text-center mt-2 mb-3 mx-2'><?= $resource->name ?></h3>
+                                                    </span>  
+                                         <?= $this->Html->image('resources/'.$resource->picture_path,['class'=>'resources-card-img-top mx-auto']) ?>
                                                 <div class='tile-content resources-tile-content'>
-                                                    <span class='title-wrapper'>
-                                                        <h4 class='resources-card-title'><?= $resource->name ?></h4>
-                                                    </span>                                         
+                                                                                           
                                                 </div>
-                                                 <div class='card-body p-1 resources-card-body'>
+                                                 <div class='card-body p-1 resources-card-body mt-3'>
                                                        <?=  $relatedFilesContent ?>
+
+                                                       <div class="text-center">
+                                                                <?= $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'availability'],['class' => 'btn btn-secondary mt-2 mx-auto']) ?>
+
+                                                       </div>
+                                                  
                                                 </div>
                                                
                                           <!-- $this->Html->link("", ['controller'=>'resources', 'action' => 'view', $resource->id], ['class' => 'stretched-link']);  -->
