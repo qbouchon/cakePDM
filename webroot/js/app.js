@@ -4,7 +4,6 @@ $( document ).ready(function() {
     tinymce.init({selector: 'textarea', promotion: false});
 
 
-
     //init reset button visibility
     if($('#rAddPicture').val())
         $('#rResetPicture').removeClass('invisible');

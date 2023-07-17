@@ -19,8 +19,13 @@
             <fieldset>
                 <legend><?= __('Add Reservation') ?></legend>
                 <?php
-                echo $this->Form->control('start_date');
-                echo $this->Form->control('end_date');
+                echo $this->Form->control('start_date',['id'=>'start_date']);
+                echo $this->Form->control('end_date',['id'=>'end_date']);
+                ?>
+                <!-- datepicker -->
+                <input id="reservationPicker">
+                </div>      
+                <?php
                 echo $this->Form->control('is_back');
                 echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id]);
                 echo $this->Form->control('user_id', ['options' => $users]);

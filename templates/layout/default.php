@@ -38,7 +38,15 @@
     <!-- fontAwesome-->
     <?= $this->Html->script('../Fontawesome/js/all'); ?>
     <?= $this->Html->css('../Fontawesome./css/all'); ?>
+
+
+    <!-- tinyMCE -->
     <?= $this->Html->script('../tinymce/tinymce.js'); ?>
+
+
+    <!-- easePick -->
+    <?= $this->Html->script('../easepick/bundle/dist/index.umd') ?>
+    <?= $this->Html->css('../easepick/bundle/dist/index') ?>
 
     <!-- Css et Js pour les navbars -->
     <?= $this->Html->script('nav'); ?>
@@ -47,6 +55,10 @@
     <!-- css et js globaux de l'application -->
     <?= $this->Html->script('app'); ?>
     <?= $this->Html->css('app'); ?>
+
+
+    <!-- js pour la gestion des reservations -->
+    <?= $this->Html->script('reservation'); ?>
 
 
     <?= $this->fetch('meta') ?>
