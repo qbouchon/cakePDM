@@ -45,6 +45,21 @@ class Resource extends Entity
         'reservations' => true,
     ];
 
+    protected $_virtual = ['domain_name'];
+
+
+     protected function _getDomainName()
+    {
+
+        if($this->domain)
+            return $this->domain->name;
+        else
+            return null;
+    }
+
+
+
+
     /*add picture both on server and entity (call save after calling this to update db)
     * eventually delete old picture
     */

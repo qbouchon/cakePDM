@@ -64,6 +64,8 @@ class ResourcesController extends AppController
                 $resource->set('description', $this->request->getData('description'));
                 $resource->set('domain_id', $this->request->getData('domain_id'));
                 $resource->set('archive', $this->request->getData('archive'));
+                if( $this->request->getData('domain_id'))
+                    $resource->set('domain', $this->getTableLocator()->get('Domains')->get($this->request->getData('domain_id')));
 
                 //ajout de l'image
                 $resource->addPicture($this->request->getData('picture'));
@@ -111,6 +113,9 @@ class ResourcesController extends AppController
                 $resource->set('description', $this->request->getData('description'));
                 $resource->set('domain_id', $this->request->getData('domain_id'));
                 $resource->set('archive', $this->request->getData('archive'));
+
+                if( $this->request->getData('domain_id'))
+                    $resource->set('domain', $this->getTableLocator()->get('Domains')->get($this->request->getData('domain_id')));
 
                 //Gestion de la suppression de l'image
                 if(!empty($this->request->getData('deletePicture')))

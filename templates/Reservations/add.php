@@ -10,7 +10,7 @@
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Reservations'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('retour'), $this->request->referer()) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -22,7 +22,7 @@
                 echo $this->Form->control('start_date');
                 echo $this->Form->control('end_date');
                 echo $this->Form->control('is_back');
-                echo $this->Form->control('resource_id', ['options' => $resources]);
+                echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id]);
                 echo $this->Form->control('user_id', ['options' => $users]);
                 ?>
             </fieldset>

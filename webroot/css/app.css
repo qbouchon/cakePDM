@@ -101,7 +101,7 @@
      .resources-card:hover {
 
        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        
+
      }
 
     .resources-card:hover .resources-card-body {
@@ -125,6 +125,7 @@
 
   body {
     background: rgba(0, 0, 0, 0.03);
+    
   }
 
 
@@ -172,3 +173,8 @@
 
     }
 
+.home-content {
+
+
+
+}

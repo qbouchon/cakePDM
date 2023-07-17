@@ -65,7 +65,7 @@
                                                        <?=  $relatedFilesContent ?>
 
                                                        <div class="text-center">
-                                                                <?= $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'availability'],['class' => 'btn btn-secondary mt-2 mx-auto']) ?>
+                                                                <?= $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary mt-2 mx-auto']) ?>
 
                                                        </div>
                                                   

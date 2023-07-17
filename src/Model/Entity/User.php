@@ -39,6 +39,10 @@ class User extends Entity
         'reservations' => true,
     ];
 
+      protected $_virtual = [
+        'fullname'
+    ];
+
     /**
      * Fields that are excluded from JSON versions of the entity.
      *
@@ -47,4 +51,14 @@ class User extends Entity
     protected $_hidden = [
         'password',
     ];
+
+    protected function _getFullName()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    
+
+
+
 }

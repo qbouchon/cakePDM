@@ -47,7 +47,7 @@ class ReservationsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($selected_resource_id = null)
     {
         $reservation = $this->Reservations->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -59,9 +59,17 @@ class ReservationsController extends AppController
             }
             $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
         }
-        $resources = $this->Reservations->Resources->find('list', ['limit' => 200])->all();
-        $users = $this->Reservations->Users->find('list', ['limit' => 200])->all();
-        $this->set(compact('reservation', 'resources', 'users'));
+
+
+
+        $resources = $this->Reservations->Resources->find('list', ['groupField' => 'domain_name'])->contain('Domains')->all()->toArray();
+
+
+
+        //Replace by the actual logged user
+        $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'login', 'limit' => 200])->all();
+
+        $this->set(compact('reservation', 'resources', 'users', 'selected_resource_id'));
     }
 
     /**
