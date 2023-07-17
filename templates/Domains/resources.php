@@ -34,9 +34,9 @@
 
                                     $relatedFilesContent .= '<div> Fichiers : </div><ul>';
 
-                                    foreach($resource->files as $files):
+                                    foreach($resource->files as $file):
 
-                                        $relatedFilesContent .= '<li>'.files->name.'</li>';
+                                        $relatedFilesContent .= '<li>'.$this->Html->link($file->name,[ 'controller' => 'Files','action' => 'download',$file->id, ],['target' => '_blank']).'</li>';
 
                                     endforeach;
 
@@ -44,6 +44,7 @@
 
                                     endif;
                 ?>
+
 
 
 
@@ -63,7 +64,7 @@
                                                        <?=  $relatedFilesContent ?>
                                                 </div>
                                                
-                                         <?= $this->Html->link("", ['controller'=>'resources', 'action' => 'view', $resource->id], ['class' => 'stretched-link']); ?>
+                                          <!-- $this->Html->link("", ['controller'=>'resources', 'action' => 'view', $resource->id], ['class' => 'stretched-link']);  -->
                                      </div>
                                 </div>
 

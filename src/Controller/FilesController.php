@@ -114,4 +114,14 @@ class FilesController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function download($id = null)
+    {
+        $file = $this->Files->get($id);
+     
+        return $this->response->withFile($file->getFilePath(),['download' => true, 'name' => $file->name]);
+
+    }
+
+
 }

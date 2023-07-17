@@ -21,7 +21,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Picture') ?></th>
-                    <td><?= h($resource->picture) ?> <?= $this->Html->image('resources/'.$resource->picture_path) ?> </td>
+                    <td><?= $this->Html->image('resources/'.$resource->picture_path) ?> </td>
                 </tr>
                 <tr>
                     <th><?= __('Domain') ?></th>
@@ -45,25 +45,21 @@
                 </blockquote>
             </div>
             <div class="related">
-                <h4><?= __('Related Files') ?></h4>
+                <h4><?= __('Fichiers associés') ?></h4>
                 <?php if (!empty($resource->files)) : ?>
                     <div class="table-responsive">
                         <table>
                             <tr>
-                                <th><?= __('Id') ?></th>
                                 <th><?= __('Name') ?></th>
-                                <th><?= __('Resource Id') ?></th>
                                 <th class="actions"><?= __('Actions') ?></th>
                             </tr>
                             <?php foreach ($resource->files as $files) : ?>
                                 <tr>
-                                    <td><?= h($files->id) ?></td>
-                                    <td><?= h($files->name) ?></td>
-                                    <td><?= h($files->resource_id) ?></td>
+                                   
+                                    <td><?= $this->Html->link($files->name,[ 'controller' => 'Files','action' => 'download',$files->id, ],['target' => '_blank']) ?></td>
+                                   
                                     <td class="actions">
-                                        <?= $this->Html->link(__('View'), ['controller' => 'Files', 'action' => 'view', $files->id]) ?>
-                                        <?= $this->Html->link(__('Edit'), ['controller' => 'Files', 'action' => 'edit', $files->id]) ?>
-                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Files', 'action' => 'delete', $files->id], ['confirm' => __('Are you sure you want to delete # {0}?', $files->id)]) ?>
+                                        <?= $this->Form->postLink(__('Delete'), ['controller' => 'Files', 'action' => 'delete', $files->id], ["class"=>"text-danger",'confirm' => __('Are you sure you want to delete # {0}?', $files->id)]) ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -72,7 +68,7 @@
                 <?php endif; ?>
             </div>
             <div class="related">
-                <h4><?= __('Related Reservations') ?></h4>
+                <h4><?= __('Réservations') ?></h4>
                 <?php if (!empty($resource->reservations)) : ?>
                     <div class="table-responsive">
                         <table>

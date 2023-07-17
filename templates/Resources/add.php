@@ -25,7 +25,7 @@
 
                                        
 
-                                      <h3 class="text-center"><?= __('Créer une Ressource') ?></h3>  
+                                    <h3 class="text-center"><?= __('Créer une Ressource')?></h3>  
 
                                                 <?=  $this->Form->control('name'); ?>
 

@@ -96,13 +96,13 @@
 
     .resources-card:hover .resources-card-body {
 
-      background-color: var(--uga-resources-card-bg-active);
+     background-color: #ffffff /* var(--uga-resources-card-bg-active);*/
     }
 
 
     .resources-card:active .resources-card-body {
 
-      background-color: var(--uga-resources-card-bg-active);
+      background-color: #ffffff /*var(--uga-resources-card-bg-active);*/
     }
 
     .resources-card-body {

@@ -42,7 +42,7 @@ class DomainsController extends AppController
      public function resources($id = null)
     {
         $domain = $this->Domains->get($id, [
-            'contain' => ['Resources'],
+            'contain' => ['Resources' => ['Files']],
         ]);
 
         $this->set(compact('domain'));

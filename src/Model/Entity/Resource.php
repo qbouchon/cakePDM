@@ -166,7 +166,7 @@ class Resource extends Entity
                 //Sauvegarde du fichier sur le serveur
                 $rFileName = $rF->getClientFilename();
                 $rTargetfileID = uniqid((string)rand(),true);
-                $rTargetPath =  WWW_ROOT.'ressourcesfiles'.DS.$rTargetfileID.$rFileName;
+                $rTargetPath =  WWW_ROOT.'resourcesfiles'.DS.$rTargetfileID.$rFileName;
 
                 if($rFileName)
                 {
@@ -207,7 +207,7 @@ class Resource extends Entity
                 {
                     //supp le fichier en physique
                     $fileToDelete = $filesTable->get($dFId);
-                    $fileToDeletePath = WWW_ROOT.'ressourcesfiles'.DS.$fileToDelete->file_path;
+                    $fileToDeletePath = WWW_ROOT.'resourcesfiles'.DS.$fileToDelete->file_path;
                     if(file_exists($fileToDeletePath))
                     {
                         unlink($fileToDeletePath);
@@ -228,7 +228,7 @@ class Resource extends Entity
                 foreach($filesToDelete as $fileToDelete)
                 {
                     //supp le fichier en physique
-                    $fileToDeletePath = WWW_ROOT.'ressourcesfiles'.DS.$fileToDelete->file_path;
+                    $fileToDeletePath = WWW_ROOT.'resourcesfiles'.DS.$fileToDelete->file_path;
                     if(file_exists($fileToDeletePath))
                     {
                         unlink($fileToDeletePath);

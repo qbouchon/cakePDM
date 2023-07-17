@@ -32,4 +32,12 @@ class File extends Entity
         'resource_id' => true,
         'resource' => true,
     ];
+
+
+    public function getFilePath(){ 
+
+        return  WWW_ROOT.'resourcesfiles'.DS.$this->file_path;
+
+    }
+
 }
