@@ -7,6 +7,8 @@
  */
 
 ?>
+
+
 <!-- js pour la gestion du datepicker -->
 <?= $this->Html->script('reservation'); ?>
 

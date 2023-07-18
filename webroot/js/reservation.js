@@ -1,3 +1,6 @@
+ 
+
+
  $( document ).ready(function() {
 
 
@@ -50,14 +53,17 @@
 function createReservationPicker(bookedDates){
 
 
-
+    //Possiblement problématique. easepick force le chargement du css ici et je n'ai pas envie d'utiliser un cdn.
+    var rootUrl = location.protocol + '//' + location.host+'/';
+       
     const picker = new easepick.create({
 
         element: "#checkin",
         
         css: [
           
-          '/cakePDM/webroot/easepick/bundle/dist/index.css',
+          webrootUrl+'/easepick/bundle/dist/index.css',
+
         ],
             zIndex: 10,
             lang: "fr-FR",

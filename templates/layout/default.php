@@ -44,9 +44,12 @@
     <?= $this->Html->script('../tinymce/tinymce.js'); ?>
 
 
-    <!-- easePick -->
+ <!--easePick. 
+    webrooturl is used to load css in reservation.js when creating an easepick. Didn't find a way to load it the normal way ..  -->
     <?= $this->Html->script('../easepick/bundle/dist/index.umd') ?>
-
+    <script>
+        var webrootUrl = "<?php echo $this->Url->build('/', ['fullBase' => true]); ?>";
+    </script>
 
     <!-- Css et Js pour les navbars -->
     <?= $this->Html->script('nav'); ?>
