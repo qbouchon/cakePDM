@@ -31,8 +31,8 @@
 
                                     <!-- datepicker -->
                                     <div id="picker" class="text-center">
-                                        <input class='invisible' id="checkin">
-                                        <input class='invisible' id="checkout">
+                                        <input class='' id="checkin">
+                                        <input class='' id="checkout">
                                     </div>
 
                                     <div class="text-center">

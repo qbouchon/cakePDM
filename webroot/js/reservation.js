@@ -74,19 +74,20 @@ function createReservationPicker(bookedDates){
     const picker = new easepick.create({
 
         element: "#checkin",
-        elementEnd: "#checkout",
+        
         css: [
           
-          '../easepick/bundle/dist/index.css',
+          '/cakePDM/webroot/easepick/bundle/dist/index.css',
         ],
             zIndex: 10,
             lang: "fr-FR",
+            format: 'DD/MM/YYYY',
             grid: 2,
             calendars: 2,
             readonly: false,
             inline: true,
             RangePlugin: {
-            
+             elementEnd: "#checkout"
         },
         LockPlugin: {
                   minDate: new Date(),
@@ -113,7 +114,7 @@ function createReservationPicker(bookedDates){
 function destroyPicker()
 {
     
-    $('#picker').html("<input class='invisible' id='checkin'><input class='invisible' id='checkout'>");
+    $('#picker').html("<input class='' id='checkin'><input class='' id='checkout'>");
 
     
 }
