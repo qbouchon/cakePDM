@@ -28,10 +28,43 @@
 
 
 
+
+
+    $('#resourceInput').on('change', function(){
+
+        destroyPicker();
+        createReservationPicker([]);
+
+    });
+
+
+
+
+
     createReservationPicker(bookedDates);
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function createReservationPicker(bookedDates){
@@ -40,15 +73,20 @@ function createReservationPicker(bookedDates){
 
     const picker = new easepick.create({
 
-        element: document.getElementById('reservationPicker'),
+        element: "#checkin",
+        elementEnd: "#checkout",
         css: [
           
           '../easepick/bundle/dist/index.css',
         ],
-         lang: "fr-FR",
-         plugins: ['RangePlugin', 'LockPlugin'],
-         RangePlugin: {
-          tooltip: true,
+            zIndex: 10,
+            lang: "fr-FR",
+            grid: 2,
+            calendars: 2,
+            readonly: false,
+            inline: true,
+            RangePlugin: {
+            
         },
         LockPlugin: {
                   minDate: new Date(),
@@ -63,10 +101,19 @@ function createReservationPicker(bookedDates){
                         }
                         return date.inArray(bookedDates, '[)');
                   }
-        }
+        },
+           plugins: [ "RangePlugin","LockPlugin"]
     });
 
 
 
 
+}
+
+function destroyPicker()
+{
+    
+    $('#picker').html("<input class='invisible' id='checkin'><input class='invisible' id='checkout'>");
+
+    
 }

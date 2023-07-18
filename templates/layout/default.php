@@ -46,7 +46,7 @@
 
     <!-- easePick -->
     <?= $this->Html->script('../easepick/bundle/dist/index.umd') ?>
-    <?= $this->Html->css('../easepick/bundle/dist/index') ?>
+
 
     <!-- Css et Js pour les navbars -->
     <?= $this->Html->script('nav'); ?>

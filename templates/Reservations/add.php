@@ -6,34 +6,43 @@
  * @var \Cake\Collection\CollectionInterface|string[] $users
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('retour'), $this->request->referer()) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="reservations form content">
-            <?= $this->Form->create($reservation) ?>
-            <fieldset>
-                <legend><?= __('Add Reservation') ?></legend>
-                <?php
-                echo $this->Form->control('start_date',['id'=>'start_date']);
-                echo $this->Form->control('end_date',['id'=>'end_date']);
-                ?>
-                <!-- datepicker -->
-                <input id="reservationPicker">
-                </div>      
-                <?php
-                echo $this->Form->control('is_back');
-                echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id]);
-                echo $this->Form->control('user_id', ['options' => $users]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
+<div class="container">   
+
+           <div class="row mt-2">
+
+
+                    <?= $this->Html->link(__('retour'), $this->request->referer()) ?>
+
+                    <?= $this->Form->create($reservation) ?>
+                    <fieldset>
+
+                        <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded">
+
+
+                                    <h3 class="text-center"><?= __('Créer une réservation') ?></h3>
+                                   
+                                    
+                                      
+                                    <?php
+                                        //echo $this->Form->control('is_back');
+                                        echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput']);
+                                        echo $this->Form->control('user_id', ['options' => $users]);
+                                    ?>
+
+                                    <!-- datepicker -->
+                                    <div id="picker" class="text-center">
+                                        <input class='invisible' id="checkin">
+                                        <input class='invisible' id="checkout">
+                                    </div>
+
+                                    <div class="text-center">
+                                        <?= $this->Form->button(__('Créer')) ?>
+                                        <?= $this->Form->end() ?>
+                                    </div>
+                        </div>
+                        
+                    </fieldset>
+            
+            </div>
 </div>
 
