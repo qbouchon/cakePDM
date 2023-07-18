@@ -57,9 +57,6 @@
     <?= $this->Html->css('app'); ?>
 
 
-    <!-- js pour la gestion des reservations -->
-    <?= $this->Html->script('reservation'); ?>
-
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>

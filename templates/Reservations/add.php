@@ -5,7 +5,11 @@
  * @var \Cake\Collection\CollectionInterface|string[] $resources
  * @var \Cake\Collection\CollectionInterface|string[] $users
  */
+
 ?>
+<!-- js pour la gestion du datepicker -->
+<?= $this->Html->script('reservation'); ?>
+
 <div class="container">   
 
            <div class="row mt-2">

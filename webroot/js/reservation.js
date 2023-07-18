@@ -47,26 +47,6 @@
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function createReservationPicker(bookedDates){
 
 
