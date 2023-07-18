@@ -60,6 +60,9 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/domains/:id/resources', ['controller' => 'Domains', 'action' => 'resources'])
         ->setPass(['id']);
 
+        $builder->connect('/resources/:id/reservations/dates', ['controller' => 'Resources', 'action' => 'getReservationsDates'])
+        ->setPass(['id']);
+
         /*
          * Connect catchall routes for all controllers.
          *

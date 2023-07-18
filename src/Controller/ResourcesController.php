@@ -220,4 +220,25 @@ class ResourcesController extends AppController
 
         return $this->redirect($this->referer());
     }
+
+
+
+    public function getReservationsDates($id = null)
+    {
+
+        // Logic to fetch reservation dates, for example from a model or any data source
+        $resource = $this->Resources->get($id, [
+        ]);
+
+        $dates = $resource->getReservationsDates();
+
+        // Convert the data to JSON format and send it as the response
+        $this->autoRender = false;
+        $this->response->getBody()->write(json_encode($dates));
+        $this->response = $this->response->withType('application/json');
+
+        return $this->response;
+    }
 }
+
+

@@ -26,7 +26,7 @@
 
 
                                     <h3 class="text-center"><?= __('Créer une réservation') ?></h3>
-                                   
+                                
                                     
                                       
                                     <?php
@@ -35,10 +35,15 @@
                                         echo $this->Form->control('user_id', ['options' => $users]);
                                     ?>
 
+                                    <?php
+                                        echo $this->Form->control('start_date',['id'=>'start_date']);
+                                        echo $this->Form->control('end_date',['id'=>'end_date']);
+                                    ?>
+
                                     <!-- datepicker -->
-                                    <div id="picker" class="text-center">
-                                        <input class='' id="checkin">
-                                        <input class='' id="checkout">
+                                    <div id="picker" class="text-center">                               
+                                        <input class=''  id='checkin'\>
+                                        <input class='' id='checkout'\>
                                     </div>
 
                                     <div class="text-center">
@@ -51,4 +56,3 @@
             
             </div>
 </div>
-

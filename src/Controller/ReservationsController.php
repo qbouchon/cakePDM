@@ -51,7 +51,36 @@ class ReservationsController extends AppController
     {
         $reservation = $this->Reservations->newEmptyEntity();
         if ($this->request->is('post')) {
-            $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
+
+
+
+            //$reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
+
+
+            // if( $this->request->getData('resource_id'))
+            //         $resource->set('resource', $this->getTableLocator()->get('Resource')->get($this->request->getData('resource_id')));
+            // if( $this->request->getData('domain_id'))
+            //         $resource->set('user', $this->getTableLocator()->get('Users')->get($this->request->getData('user_id')));
+            
+            $reservation->set('resource_id', $this->request->getData('resource_id'));
+            $reservation->set('user_id', $this->request->getData('user_id'));
+
+            $reservation->set('start_date', $this->request->getData('name'));
+            $reservation->set('end_date', $this->request->getData('name'));
+
+            
+        // //     echo 'data '.$d['start_date'];
+        // // echo 'start '.$reservation->start_date;
+        // // echo 'end '.$reservation->end_date;
+        // // echo 'back '.$reservation->is_back;
+        // // echo 'rid '.$reservation->resource_id;
+        // // echo 'uid '.$reservation->user_id;
+        // // echo 'r '.$reservation->resource;
+        // //  echo 'u '.$reservation->user;
+
+        //  die("ok");
+
+
             if ($this->Reservations->save($reservation)) {
                 $this->Flash->success(__('The reservation has been saved.'));
 

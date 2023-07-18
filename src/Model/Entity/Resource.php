@@ -268,4 +268,23 @@ class Resource extends Entity
             }
     }
 
+
+    public function getReservationsDates()
+    {
+        $dates = [];
+
+
+        if(!empty($this->reservations))
+        {
+            foreach($this->reservations as $reservation)
+            {
+                $date = [$reservation->start_date,$reservation->end_date];
+
+            }
+        }
+        
+
+        return $dates;
+    }
+
 }
