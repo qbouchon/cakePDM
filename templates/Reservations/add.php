@@ -38,10 +38,10 @@
                                    
 
                                     <!-- datepicker -->
-                                    <div id="picker" class="text-center d-inline">  
+                                    <div id="picker2" class="text-center d-inline">  
                                      <?php
-                                        echo $this->Form->control('start_date',['id'=>'start_date', 'class'=>'invisible', 'readonly'=>'readonly', 'label'=>'']);
-                                        echo $this->Form->control('end_date',['id'=>'end_date',  'class'=>' invisible', 'readonly'=>'readonly', 'label'=>'']);
+                                        echo $this->Form->control('start_date',['id'=>'start_date', 'class'=>'', 'label'=>'']);
+                                        echo $this->Form->control('end_date',['id'=>'end_date',  'class'=>' ', 'label'=>'']);
                                     ?>                             
                                     </div>
 
@@ -49,6 +49,8 @@
                                         <?= $this->Form->button(__('Créer')) ?>
                                         <?= $this->Form->end() ?>
                                     </div>
+
+                                    <input id="picker" type="text" />
                         </div>
                         
                     </fieldset>

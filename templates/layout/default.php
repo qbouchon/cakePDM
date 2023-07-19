@@ -43,10 +43,13 @@
     <!-- tinyMCE -->
     <?= $this->Html->script('../tinymce/tinymce.js'); ?>
 
+    <!-- benitolopez datepicker https://github.com/benitolopez/hotel-datepicker -->
+    <!-- fecha.js https://github.com/taylorhakes/fecha -->
+    <?= $this->Html->script('../fecha/dist/fecha.min');?> 
+    <?= $this->Html->script('../hotel-datepicker/dist/js/hotel-datepicker');?>
+    <?= $this->Html->css('../hotel-datepicker/dist/css/hotel-datepicker');?>
 
- <!--easePick. 
-    webrooturl is used to load css in reservation.js when creating an easepick. Didn't find a way to load it the normal way ..  -->
-    <?= $this->Html->script('../easepick/bundle/dist/index.umd') ?>
+
     <script>
         var webrootUrl = "<?php echo $this->Url->build('/', ['fullBase' => true]); ?>";
     </script>
