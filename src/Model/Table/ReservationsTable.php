@@ -70,7 +70,7 @@ class ReservationsTable extends Table
         $validator
             ->date('end_date')
             ->requirePresence('end_date', 'create')
-            ->notEmptyDate('end_date');
+            ->allowEmptyDate('end_date');
 
         $validator
             ->boolean('is_back')

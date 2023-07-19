@@ -52,14 +52,20 @@ class ReservationsController extends AppController
         $reservation = $this->Reservations->newEmptyEntity();
         if ($this->request->is('post')) {
 
-        $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
+        
+        //Si l'utilisateur n'a cliqué qu'une seule fois sur une date on considère qu'il souhaite réserver pour une seule journée (il doit cliquer une deuxième fois pour définir end_date normalement)
+        $end_date = $this->request->getData('end_date');
+        if(!$end_date)
+            $this->request->withData('end_date',$this->request->getData('start_date')); 
 
+        $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
+        $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'));
 
 
             if ($this->Reservations->save($reservation)) {
-                $this->Flash->success(__('The reservation has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
+                return $this->redirect(['action' => 'add',$this->request->getData('resource_id')]);
             }
             $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
         }
