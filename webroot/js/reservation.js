@@ -31,6 +31,23 @@ $( document ).ready(function() {
 
     });
 
+
+     $('#start_date').on('click', function(e){
+        e.preventDefault();
+     });
+
+     $('#end_date').on('click', function(e){
+        e.preventDefault();
+     });
+
+
+     $('#start_date').on('change', function(e){
+        e.preventDefault();
+
+     });
+
+
+
 });
 
 
@@ -41,19 +58,19 @@ function displayPicker(bookedDates, maxResourceDays){
 
     const DateTime = easepick.DateTime;
     const picker = new easepick.create({
-        element: "#checkin",
+        element: "#start_date",
         css: [
              webrootUrl+'/easepick/bundle/dist/index.css'
         ],
         zIndex: 10,
         readonly: false,
         lang: "fr-FR",
-        format: "DD/MM/YYYY",
+        format: "YYYY-MM-DD",
         grid: 2,
         calendars: 2,
         inline: true,
         RangePlugin: {
-            elementEnd: "#checkout",
+            elementEnd: "#end_date",
             repick: true,
             strict: false,
             locale: {
@@ -80,9 +97,19 @@ function displayPicker(bookedDates, maxResourceDays){
         plugins: [
             "RangePlugin",
             "LockPlugin"
-        ]
-    })
-    
+        ],
+
+    });
+
+       $('#start_date').on('blur', function(e){
+
+        picker.setStartDate($(this).val());
+     });
+       $('#end_date').on('blur', function(e){
+
+        picker.setEndDate($(this).val());
+     });
+                    
 
 }
 
@@ -100,21 +127,20 @@ function destroyPicker()
 function createPicker(resourceId)
 {
 
-            // Ajax request pour la récupération des dates. ResourceController
+            // requête Ajax pour la récupération des dates. ResourceController
+            //crée  le datepicker associé on success
             $.ajax({
-                url: webrootUrl+"resources/"+resourceId+"/reservations/dates", // URL to the specific action
-                type: "GET", // HTTP method (GET, POST, etc.)
-                dataType: "json", // Expected data type in response
+                url: webrootUrl+"resources/"+resourceId+"/reservations/dates", 
+                type: "GET", 
+                dataType: "json", 
                 success: function (data) {
-                    // Handle the successful response here
-                    console.log(data); // You can access the data returned from the server
-
+    
                     displayPicker(arrayToDateTime(data),null);
                     
                     return data;                
                 },
                 error: function (xhr, status, error) {
-                    // Handle errors if the AJAX request fails
+                    
                     alert('yo');
                     console.log("coucou"+xhr.responseText);
                     console.log("AJAX Request Error: " + error);
@@ -147,11 +173,7 @@ function arrayToDateTime(bookedDatesData)
 function toDateTime(dateString)
 {
 
-    
-    // Split the original date string using the "/" delimiter
     const dateParts = dateString.split('/');
-
-    // Rearrange the parts to form the new date string in "yyyy-mm-dd" format
     const newDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
 
     return newDate;

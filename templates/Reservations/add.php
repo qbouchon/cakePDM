@@ -42,8 +42,8 @@
 
                                     <!-- datepicker -->
                                     <div id="picker" class="text-center">                               
-                                        <input class=''  id='checkin'\>
-                                        <input class='' id='checkout'\>
+                                        <div class=''  id='checkin'></div>
+                                        <div class='' id='checkout'><div>
                                     </div>
 
                                     <div class="text-center">
