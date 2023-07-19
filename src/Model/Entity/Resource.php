@@ -278,7 +278,7 @@ class Resource extends Entity
         {
             foreach($this->reservations as $reservation)
             {
-                $date = [$reservation->start_date,$reservation->end_date];
+                $dates[] = [$reservation->start_date,$reservation->end_date];
 
             }
         }

@@ -35,15 +35,14 @@
                                         echo $this->Form->control('user_id', ['options' => $users]);
                                     ?>
 
-                                    <?php
-                                        echo $this->Form->control('start_date',['id'=>'start_date']);
-                                        echo $this->Form->control('end_date',['id'=>'end_date']);
-                                    ?>
+                                   
 
                                     <!-- datepicker -->
-                                    <div id="picker" class="text-center">                               
-                                        <div class=''  id='checkin'></div>
-                                        <div class='' id='checkout'><div>
+                                    <div id="picker" class="text-center d-inline">  
+                                     <?php
+                                        echo $this->Form->control('start_date',['id'=>'start_date', 'class'=>'invisible', 'readonly'=>'readonly', 'label'=>'']);
+                                        echo $this->Form->control('end_date',['id'=>'end_date',  'class'=>' invisible', 'readonly'=>'readonly', 'label'=>'']);
+                                    ?>                             
                                     </div>
 
                                     <div class="text-center">

@@ -226,8 +226,7 @@ class ResourcesController extends AppController
     public function getReservationsDates($id = null)
     {
 
-        // Logic to fetch reservation dates, for example from a model or any data source
-        $resource = $this->Resources->get($id, [
+        $resource = $this->Resources->get($id, ['contain' => 'Reservations'
         ]);
 
         $dates = $resource->getReservationsDates();

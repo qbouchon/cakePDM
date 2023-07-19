@@ -32,9 +32,9 @@ class Reservation extends Entity
     protected $_accessible = [
         'start_date' => true,
         'end_date' => true,
-        'is_back' => false,
+        'is_back' => true,
         'resource_id' => true,
-        'user_id' => false,
+        'user_id' => true,
         'resource' => true,
         'user' => true,
     ];
