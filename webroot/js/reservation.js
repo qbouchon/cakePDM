@@ -77,7 +77,7 @@ function datesBetween(dateRanges) {
 }
 
 
-    $('#resourceInput').on('blur', function(){
+    $('#resourceInput').on('change', function(){
                    
                     picker.destroy();
                     createPicker($(this).val());

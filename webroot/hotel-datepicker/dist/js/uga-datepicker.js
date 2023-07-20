@@ -57,13 +57,16 @@ var HotelDatepicker = (function (fecha) {
         this.clearButton = opts.clearButton || false;
         this.submitButton = Boolean(this.inline && opts.submitButton);
         this.submitButtonName = this.submitButton && opts.submitButtonName ? opts.submitButtonName : "";
+        this.errorMsg = opts.errorMsg || ["Cette date n'est pas disponible", "Vous ne pouvez pas créer une réservation qui commencerait avant aujourd'hui","Il existe une réservation entre les dates entrées"];
         this.i18n = opts.i18n || {
           selected: "Réservation du ",
           night: "jour",
           nights: "jours",
           button: "Fermer",
+         
           clearButton: "Réinitialiser",
           submitButton: "Envoyer",
+
           "checkin-disabled": "Indisponible",
           "checkout-disabled": "Indisponible",
           "day-names-short": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
@@ -375,10 +378,10 @@ var HotelDatepicker = (function (fecha) {
 
 
         //Update the selected values when the startInput changes
-         this.addBoundedListener(this.sInput, "change", () => this.checkAndSetStartEndDate());
+         this.addBoundedListener(this.sInput, "blur", () => this.checkAndSetStartEndDate());
 
         //Update the selected values when the endInput changes
-         this.addBoundedListener(this.eInput, "change", () => this.checkAndSetStartEndDate()); 
+         this.addBoundedListener(this.eInput, "blur", () => this.checkAndSetStartEndDate()); 
 
 
         // Open datepicker on focus
@@ -954,36 +957,81 @@ var HotelDatepicker = (function (fecha) {
 
         }
      
+     //C'est cochon
       isAllowedRange() {
 
-        // alert("test");
-        var sD = this.sInput.value;
-        var eD = this.eInput.value;
 
+        const sdError = document.getElementById('sd_error');
+        const edError = document.getElementById('ed_error');
+
+
+         //On ne check que si les deux valeurs sont entrées
+        if(!this.sInput.value)
+        {
+          return false;
+        }
+        if(!this.eInput.value)
+        {
+          return false;
+        }
+
+        //Inversion des dates si nécessaire
+        if(this.parseDate(this.sInput.value) < this.parseDate(this.eInput.value))
+        {
+          var sD = this.sInput.value;
+          var eD = this.eInput.value;
+        }
+         
+        else
+        {
+          var sD = this.eInput.value;
+          var eD = this.sInput.value;
+        }
+        
+       
+        //Vérification que la date de début n'est pas dans une date non autorisée
         if(this.disabledDates.includes(sD))
         {
-          // alert("sD in disable dates");
+          if(sdError)
+            sdError.textContent = this.errorMsg[0];
           return false;
         }
-
+         //Vérification que la date de fin n'est pas dans une date non autorisée
         if(this.disabledDates.includes(eD))
         {
-          // alert("eD in disable dates");
+          if(edError)
+            edError.textContent = this.errorMsg[0];
           return false;
         }
 
-        if(sD && this.parseDate(sD) < this.startDate)
+        //Vérification que la date de début n'est pas inférieur à la date min (Aujourd'hui ou demain selon la config)
+        var tmpDate = this.startDate;
+        tmpDate.setHours(0,0,0,0);
+        if(this.parseDate(sD) < tmpDate)
         {
-
+          if(sdError)
+            sdError.textContent = this.errorMsg[1];//+ "  sd"+this.parseDate(sD)+"   "+tmpDate;
           return false;
         }
 
-        if(eD && this.parseDate(eD) < this.startDate)
+        //Vérification qu'il n'y ai pas de dates interdites entre la date de début et fin de réservation
+        var closestDiisablesD = this.getClosestDisabledDates(this.parseDate(sD));
+
+        //Si la date de fin est supérieur au plus proche futur disableDay de la date de début
+        if(this.parseDate(eD) > closestDiisablesD[1])
         {
-
-          alert("eD inf startdate");
+          
+          if(edError)
+            edError.textContent = this.errorMsg[2];
           return false;
+
         }
+
+
+        if(sdError)
+          sdError.textContent = "";
+        if(sdError)
+          sdError.textContent = "";
 
         return true;
 

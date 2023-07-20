@@ -38,6 +38,16 @@
                                     <input class="invisible" id="picker" type="text" readonly='readonly'/>
                                     </div>
 
+                              
+
+                                       <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'', 'label'=>'','readonly'=>'']); ?>   
+                                            <div id='sd_error' class='text-danger font-italic'></div>
+
+                                        <?=  $this->Form->control('end_date',['id'=>'end_date',  'class'=>'', 'label'=>'', 'readonly'=>'']); ?>   
+                                            <div id='ed_error' class='text-danger font-italic'></div>
+                                   
+
+
                                     <div class="text-center">
                                         <?= $this->Form->button(__('Créer')) ?>
                                         <?= $this->Form->end() ?>
@@ -51,11 +61,7 @@
 
                                     
                         </div>
-                             <?php
-                                        $today = (new FrozenDate())->format('dd-mm-yyyy');
-                                        echo $this->Form->control('start_date',['id'=>'start_date', 'class'=>'invisible', 'label'=>'','readonly'=>'readonly']);
-                                        echo $this->Form->control('end_date',['id'=>'end_date',  'class'=>'invisible', 'label'=>'', 'readonly'=>'readonly']);
-                                    ?>   
+                    
                         
                     </fieldset>
             
