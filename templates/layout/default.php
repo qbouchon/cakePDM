@@ -46,8 +46,9 @@
     <!-- benitolopez datepicker https://github.com/benitolopez/hotel-datepicker -->
     <!-- fecha.js https://github.com/taylorhakes/fecha -->
     <?= $this->Html->script('../fecha/dist/fecha.min');?> 
-    <?= $this->Html->script('../hotel-datepicker/dist/js/hotel-datepicker');?>
-    <?= $this->Html->css('../hotel-datepicker/dist/css/hotel-datepicker');?>
+    <!-- hotel-datepicker modifié pour les besoins -->
+    <?= $this->Html->script('../hotel-datepicker/dist/js/uga-datepicker');?>
+    <?= $this->Html->css('../hotel-datepicker/dist/css/hotel-datepicker');?> 
 
 
     <script>

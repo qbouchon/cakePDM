@@ -1,7 +1,6 @@
 /*! hotel-datepicker 4.6.1 - Copyright 2022 Benito Lopez (http://lopezb.com) - https://github.com/benitolopez/hotel-datepicker - MIT */
 var HotelDatepicker = (function (fecha) {
     'use strict';
-
     function _interopNamespaceDefault(e) {
         var n = Object.create(null);
         if (e) {
@@ -23,7 +22,7 @@ var HotelDatepicker = (function (fecha) {
 
     let idCounter = 0;
     class HotelDatepicker {
-      constructor(input, options) {
+      constructor(input,sInput,eInput, options) {
         this._boundedEventHandlers = {};
         this.id = HotelDatepicker.getNewId();
 
@@ -32,11 +31,11 @@ var HotelDatepicker = (function (fecha) {
         this.format = opts.format || "YYYY-MM-DD";
         this.infoFormat = opts.infoFormat || this.format;
         this.ariaDayFormat = opts.ariaDayFormat || "dddd, MMMM DD, YYYY";
-        this.separator = opts.separator || " - ";
+        this.separator = opts.separator || " au ";
         this.startOfWeek = opts.startOfWeek || "sunday"; // Or monday
         this.startDate = opts.startDate || new Date();
         this.endDate = opts.endDate || false;
-        this.minNights = opts.minNights || 1;
+        this.minNights = opts.minNights || -1;
         this.maxNights = opts.maxNights || 0;
         this.selectForward = opts.selectForward || false;
         this.disabledDates = opts.disabledDates || [];
@@ -59,45 +58,51 @@ var HotelDatepicker = (function (fecha) {
         this.submitButton = Boolean(this.inline && opts.submitButton);
         this.submitButtonName = this.submitButton && opts.submitButtonName ? opts.submitButtonName : "";
         this.i18n = opts.i18n || {
-          selected: "Your stay:",
-          night: "Night",
-          nights: "Nights",
-          button: "Close",
-          clearButton: "Clear",
-          submitButton: "Submit",
-          "checkin-disabled": "Check-in disabled",
-          "checkout-disabled": "Check-out disabled",
-          "day-names-short": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-          "day-names": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          "month-names-short": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-          "month-names": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-          "error-more": "Date range should not be more than 1 night",
-          "error-more-plural": "Date range should not be more than %d nights",
-          "error-less": "Date range should not be less than 1 night",
-          "error-less-plural": "Date range should not be less than %d nights",
-          "info-more": "Please select a date range of at least 1 night",
-          "info-more-plural": "Please select a date range of at least %d nights",
-          "info-range": "Please select a date range between %d and %d nights",
-          "info-range-equal": "Please select a date range of %d nights",
-          "info-default": "Please select a date range",
-          "aria-application": "Calendar",
-          "aria-selected-checkin": "Selected as check-in date, %s",
-          "aria-selected-checkout": "Selected as check-out date, %s",
-          "aria-selected": "Selected, %s",
-          "aria-disabled": "Not available, %s",
-          "aria-choose-checkin": "Choose %s as your check-in date",
-          "aria-choose-checkout": "Choose %s as your check-out date",
-          "aria-prev-month": "Move backward to switch to the previous month",
-          "aria-next-month": "Move forward to switch to the next month",
-          "aria-close-button": "Close the datepicker",
-          "aria-clear-button": "Clear the selected dates",
-          "aria-submit-button": "Submit the form"
+          selected: "Réservation du ",
+          night: "jour",
+          nights: "jours",
+          button: "Fermer",
+          clearButton: "Réinitialiser",
+          submitButton: "Envoyer",
+          "checkin-disabled": "Indisponible",
+          "checkout-disabled": "Indisponible",
+          "day-names-short": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+          "day-names": ["Dimanche", "Lundi", "Mardi", "Mercredi", "jeudi", "Vendredi", "Samedi"],
+          "month-names-short": ["Jan", "Fev", "Mar", "Avr", "Mai", "Jun", "Jul", "Aou", "Sep", "Oct", "Nov", "Dec"],
+          "month-names": ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+          "error-more": "La durée de réservation ne peut pas être supérieur à 1 jour",
+          "error-more-plural": "La durée de réservation ne peut pas être supérieure à %d jours",
+          "error-less": "La durée de réservation ne peut pas être inférieure à  1 jour",
+          "error-less-plural": "La durée de réservation ne peut pas être inférieure à %d jours",
+          "info-more": "Sélectionnez une durée de réservation d'au moins 1 jour",
+          "info-more-plural": "Sélectionnez une durée de réservation d'au moins %d jours",
+          "info-range": "Sélectionnez une durée de réservation entre %d et %d jours",
+          "info-range-equal": "Sélectionnez une durée de réservation de %d jours",
+          "info-default": "Sélectionnez une durée de réservation",
+          "aria-application": "Calendrier",
+          "aria-selected-checkin": "Sélectionnée en tant que date de début, %s",
+          "aria-selected-checkout": "Sélectionnée en tant que date de fin, %s",
+          "aria-selected": "Sélectionné(es), %s",
+          "aria-disabled": "Indisponible, %s",
+          "aria-choose-checkin": "Choisissez %s en tant que date de début",
+          "aria-choose-checkout": "Choisissez %s en tant que date de fin",
+          "aria-prev-month": "Mois précédent",
+          "aria-next-month": "Mois suivant",
+          "aria-close-button": "Fermer le calendrier",
+          "aria-clear-button": "Réinitialiser le calendrier",
+          "aria-submit-button": "Envoyer"
         };
         this.getValue = opts.getValue || function () {
           return input.value;
         };
         this.setValue = opts.setValue || function (s) {
           input.value = s;
+        };
+         this.setstartDateValue = function (s) {
+          sInput.value = s;
+        };
+         this.setEndDateValue = function (s) {
+          eInput.value = s;
         };
         this.onDayClick = opts.onDayClick === undefined ? false : opts.onDayClick;
         this.onOpenDatepicker = opts.onOpenDatepicker === undefined ? false : opts.onOpenDatepicker;
@@ -106,6 +111,10 @@ var HotelDatepicker = (function (fecha) {
 
         // DOM input
         this.input = input;
+        //StartDate input
+        this.sInput = sInput;
+        //EndDateInput
+        this.eInput = eInput;
 
         // Initialize the datepicker
         this.init();
@@ -229,10 +238,10 @@ var HotelDatepicker = (function (fecha) {
         this.end = false;
 
         // Set the minimum of days required by the daterange
-        this.minDays = this.minNights > 1 ? this.minNights + 1 : 2;
+        this.minDays = this.minNights;//this.minNights > 1 ? this.minNights + 1 : 2;
 
         // Set the maximum of days required by the daterange
-        this.maxDays = this.maxNights > 0 ? this.maxNights + 1 : 0;
+        this.maxDays = this.maxNights; //this.maxNights > 0 ? this.maxNights + 1 : 0;
 
         // Set startDate if we passed that option
         if (this.startDate && typeof this.startDate === "string") {
@@ -363,6 +372,14 @@ var HotelDatepicker = (function (fecha) {
 
         // Update the selected values when the input changes manually
         this.addBoundedListener(this.input, "change", () => this.checkAndSetDefaultValue());
+
+
+        //Update the selected values when the startInput changes
+         this.addBoundedListener(this.sInput, "change", () => this.checkAndSetStartEndDate());
+
+        //Update the selected values when the endInput changes
+         this.addBoundedListener(this.eInput, "change", () => this.checkAndSetStartEndDate()); 
+
 
         // Open datepicker on focus
         if (!this.inline) {
@@ -866,6 +883,50 @@ var HotelDatepicker = (function (fecha) {
           }
         }
       }
+      checkAndSetStartEndDate() {
+         let onresize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+        // Set range based on the input value
+
+        // Get dates from input value
+        const value = this.getStartEndDate();
+        const dates = value ? value.split(this.separator) : "";
+
+        // If we have our two dates, set the date range
+        if (dates && dates.length >= 2) {
+          // Format the values correctly
+          const _format = this.format;
+
+          // Set the date range
+          this.changed = false;
+          this.setDateRange(this.parseDate(dates[0], _format), this.parseDate(dates[1], _format), onresize);
+          this.changed = true;
+        } else if (this.showTopbar) {
+          const selectedInfo = this.datepicker.getElementsByClassName("datepicker__info--selected")[0];
+          selectedInfo.style.display = "none";
+          if (onresize) {
+            // Set default time
+            let defaultTime = new Date();
+            if (this.startDate && this.compareMonth(defaultTime, this.startDate) < 0) {
+              defaultTime = new Date(this.startDate.getTime());
+            }
+            if (this.endDate && this.compareMonth(this.getNextMonth(defaultTime), this.endDate) > 0) {
+              defaultTime = new Date(this.getPrevMonth(this.endDate.getTime()));
+            }
+            if (this.start && !this.end) {
+              this.clearSelection();
+            }
+
+            // Show months
+            this.showMonth(defaultTime, 1);
+            this.showMonth(this.getNextMonth(defaultTime), 2);
+            this.setDayIndexes();
+          }
+        }
+      }
+       getStartEndDate() {
+            return this.sInput.value + this.separator + this.eInput.value;
+          }
+     
       setDateRange(date1, date2) {
         let onresize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
         // Swap dates if needed
@@ -984,6 +1045,9 @@ var HotelDatepicker = (function (fecha) {
             // Set input value
             this.setValue(dateRangeValue, this.getDateString(new Date(this.start)), this.getDateString(new Date(this.end)));
             this.changed = true;
+            //update sInpu and eInput
+            this.setstartDateValue(this.getDateString(new Date(this.start)));
+            this.setEndDateValue(this.getDateString(new Date(this.end)));
           }
           return;
         }
@@ -1019,7 +1083,7 @@ var HotelDatepicker = (function (fecha) {
 
         // If both dates are set, show the count and set the value of our input
         if (this.start && this.end) {
-          const count = this.countDays(this.end, this.start) - 1;
+          const count = this.countDays(this.end, this.start); //this.countDays(this.end, this.start) - 1;
           const countText = count === 1 ? count + " " + this.lang("night") : count + " " + this.lang("nights");
           const dateRangeValue = this.getDateString(new Date(this.start)) + this.separator + this.getDateString(new Date(this.end));
 
@@ -1037,6 +1101,9 @@ var HotelDatepicker = (function (fecha) {
           // Set input value
           this.setValue(dateRangeValue, this.getDateString(new Date(this.start)), this.getDateString(new Date(this.end)));
           this.changed = true;
+          //update sInput and eInput
+          this.setstartDateValue(this.getDateString(new Date(this.start)));
+          this.setEndDateValue(this.getDateString(new Date(this.end)));
         } else if (!this.inline) {
           // Disable the close button until a valid date range
           closeButton.disabled = true;
@@ -1520,12 +1587,13 @@ var HotelDatepicker = (function (fecha) {
           // Generate date range tooltip
           if (this.start && !this.end) {
             const nights = this.countDays(hoverTime, this.start) - 1;
+            let days = nights+1;
             if (this.hoveringTooltip) {
               if (typeof this.hoveringTooltip === "function") {
-                tooltip = this.hoveringTooltip(nights, this.start, hoverTime);
-              } else if (this.hoveringTooltip === true && nights > 0) {
-                const label = nights === 1 ? this.lang("night") : this.lang("nights");
-                tooltip = nights + " " + label;
+                tooltip = this.hoveringTooltip(days, this.start, hoverTime);
+              } else if (this.hoveringTooltip === true && days > 0) {
+                const label = days === 1 ? this.lang("night") : this.lang("nights");
+                tooltip = days + " " + label;
               }
             }
           }
@@ -1581,6 +1649,9 @@ var HotelDatepicker = (function (fecha) {
 
         // Reset input
         this.setValue("");
+        //update sInput and eInput
+        this.setstartDateValue("");
+        this.setEndDateValue("");
 
         // Check the selection
         this.checkSelection();
@@ -1607,6 +1678,9 @@ var HotelDatepicker = (function (fecha) {
 
         // Reset input
         this.setValue("");
+        //update sInput and eInput
+        this.setstartDateValue("");
+        this.setEndDateValue("");
 
         // Check the selection
         this.checkSelection();
@@ -2091,6 +2165,7 @@ var HotelDatepicker = (function (fecha) {
           this.datepicker.parentNode.removeChild(this.datepicker);
         }
       }
+   
     }
 
     return HotelDatepicker;

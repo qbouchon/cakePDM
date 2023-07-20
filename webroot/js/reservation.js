@@ -39,11 +39,13 @@ $( document ).ready(function() {
     function displayPicker(bookedDates)
     {
 
-        picker = new HotelDatepicker(document.getElementById('picker'), {
+        picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
 
             //format: 'DD-MM-YYYY',
             disabledDates: bookedDates,
-            inline: true,
+            inline: false,
+            startOfWeek: 'monday',
+            //disabledDaysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
             onSelectRange: function(){
                $('#picker').trigger('change');
 
@@ -82,13 +84,6 @@ function datesBetween(dateRanges) {
 
        });
 
-     $('#picker').on('change', function(){
-                   
-                   alert($(this).val()+' '+picker.getValue());
-                   alert('s '+picker.getStartDate())
-                   alert('e '+picker.getEndDate())
-
-       });
 
 
  

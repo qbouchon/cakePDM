@@ -26,7 +26,7 @@
 
 
                                     <h3 class="text-center"><?= __('Créer une réservation') ?></h3>
-                                
+                                     <input class="" id="picker" type="text" />
                                     
                                       
                                     <?php
@@ -45,12 +45,14 @@
                                     ?>                             
                                     </div>
 
+                                   
+
                                     <div class="text-center">
                                         <?= $this->Form->button(__('Créer')) ?>
                                         <?= $this->Form->end() ?>
                                     </div>
 
-                                    <input id="picker" type="text" />
+                                    
                         </div>
                         
                     </fieldset>
