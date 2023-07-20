@@ -43,11 +43,11 @@ $( document ).ready(function() {
 
             //format: 'DD-MM-YYYY',
             disabledDates: bookedDates,
-            inline: false,
+            inline: true,
             startOfWeek: 'monday',
             //disabledDaysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
             onSelectRange: function(){
-               $('#picker').trigger('change');
+               $('#picker').trigger('blur');
 
 
             }
@@ -77,7 +77,7 @@ function datesBetween(dateRanges) {
 }
 
 
-    $('#resourceInput').on('change', function(){
+    $('#resourceInput').on('blur', function(){
                    
                     picker.destroy();
                     createPicker($(this).val());

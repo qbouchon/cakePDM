@@ -11,6 +11,8 @@
 
 .datepicker--inline {
   position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .datepicker__inner {

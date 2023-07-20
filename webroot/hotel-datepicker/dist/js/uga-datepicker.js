@@ -883,11 +883,32 @@ var HotelDatepicker = (function (fecha) {
           }
         }
       }
+
+   
       checkAndSetStartEndDate() {
+
+
+        const selectedInfo = this.datepicker.getElementsByClassName("datepicker__info--selected")[0];
+        const bar = this.datepicker.getElementsByClassName("datepicker__info--feedback")[0];
+        if(!this.isAllowedRange())
+        {
+                var errorText="Dates invalides";
+
+                  selectedInfo.style.display = "none";
+                  // Show error message on top bar
+                this.addClass(bar, "datepicker__info--error");
+                this.removeClass(bar, "datepicker__info--help");
+              
+                errorText = this.lang(errorText);
+        
+           return;
+        }
+         
+
          let onresize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
         // Set range based on the input value
 
-        // Get dates from input value
+        // Get dates from inputs values
         const value = this.getStartEndDate();
         const dates = value ? value.split(this.separator) : "";
 
@@ -898,10 +919,14 @@ var HotelDatepicker = (function (fecha) {
 
           // Set the date range
           this.changed = false;
+          if(!dates[0])
+            dates[0] = dates[1];
+          if(!dates[1])
+            dates[1] = dates[0];
           this.setDateRange(this.parseDate(dates[0], _format), this.parseDate(dates[1], _format), onresize);
           this.changed = true;
         } else if (this.showTopbar) {
-          const selectedInfo = this.datepicker.getElementsByClassName("datepicker__info--selected")[0];
+          
           selectedInfo.style.display = "none";
           if (onresize) {
             // Set default time
@@ -924,9 +949,51 @@ var HotelDatepicker = (function (fecha) {
         }
       }
        getStartEndDate() {
+
             return this.sInput.value + this.separator + this.eInput.value;
-          }
+
+        }
      
+      isAllowedRange() {
+
+        // alert("test");
+        var sD = this.sInput.value;
+        var eD = this.eInput.value;
+
+        if(this.disabledDates.includes(sD))
+        {
+          // alert("sD in disable dates");
+          return false;
+        }
+
+        if(this.disabledDates.includes(eD))
+        {
+          // alert("eD in disable dates");
+          return false;
+        }
+
+        if(sD && this.parseDate(sD) < this.startDate)
+        {
+
+          return false;
+        }
+
+        if(eD && this.parseDate(eD) < this.startDate)
+        {
+
+          alert("eD inf startdate");
+          return false;
+        }
+
+        return true;
+
+      }
+
+
+
+
+
+
       setDateRange(date1, date2) {
         let onresize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
         // Swap dates if needed
