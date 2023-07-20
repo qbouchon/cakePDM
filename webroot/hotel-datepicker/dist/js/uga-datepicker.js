@@ -2281,6 +2281,15 @@ var HotelDatepicker = (function (fecha) {
           this.clearSelection();
           this.sInput.value ='';
           this.eInput.value='';
+
+          var sdError = document.getElementById('sd_error');
+          var edError = document.getElementById('ed_error');
+          if(sdError)
+            sdError.textContent='';
+
+          if(edError)
+            edError.textContent='';
+
         }
       }
    
