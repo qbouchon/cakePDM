@@ -957,7 +957,7 @@ var HotelDatepicker = (function (fecha) {
 
         }
      
-     //C'est cochon
+      //C'est cochon
       isAllowedRange() {
 
 
@@ -2278,6 +2278,9 @@ var HotelDatepicker = (function (fecha) {
           this.removeAllBoundedListeners(document, "click");
           this.removeAllBoundedListeners(this.input, "change");
           this.datepicker.parentNode.removeChild(this.datepicker);
+          this.clearSelection();
+          this.sInput.value ='';
+          this.eInput.value='';
         }
       }
    

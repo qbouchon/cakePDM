@@ -3,7 +3,9 @@ let picker;
 $( document ).ready(function() {
 
 
-        //Création du picker avec les dates d'indisponibilité de la resource
+
+
+        //Fonction de création du picker avec les dates d'indisponibilité de la resource
         function createPicker(resourceId)
         {
 
@@ -33,79 +35,63 @@ $( document ).ready(function() {
 
 
 
+        function displayPicker(bookedDates)
+        {
+
+            picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
+
+                //format: 'DD-MM-YYYY',
+                disabledDates: bookedDates,
+                inline: true,
+                startOfWeek: 'monday',
+                //disabledDaysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                onSelectRange: function(){
+
+                   //$('#picker').trigger('blur');
+
+
+                }
+
+            });
+        }
+
+
+        //A déplacer côté serveur
+        function datesBetween(dateRanges) {
+             const datesArray = [];
+
+             dateRanges.forEach((range) => {
+                            const startDate = new Date(range[0]);
+                            const endDate = new Date(range[1]);
+                            
+                            // Loop through each date between the start and end dates
+                            let currentDate = new Date(startDate);
+                            while (currentDate <= endDate) {
+                              datesArray.push(currentDate.toISOString().slice(0, 10));
+                              currentDate.setDate(currentDate.getDate() + 1);
+                    }
+            });
+
+            return datesArray;
+        }
 
 
 
-    function displayPicker(bookedDates)
-    {
-
-        picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
-
-            //format: 'DD-MM-YYYY',
-            disabledDates: bookedDates,
-            inline: true,
-            startOfWeek: 'monday',
-            //disabledDaysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-            onSelectRange: function(){
-               $('#picker').trigger('blur');
-
-
-            }
-
-        });
-    }
-
-
+    //Créer le picker au chargement de la page
     createPicker($("#resourceInput").val());
 
-function datesBetween(dateRanges) {
-          const datesArray = [];
-
-          dateRanges.forEach((range) => {
-            const startDate = new Date(range[0]);
-            const endDate = new Date(range[1]);
-            
-            // Loop through each date between the start and end dates
-            let currentDate = new Date(startDate);
-            while (currentDate <= endDate) {
-              datesArray.push(currentDate.toISOString().slice(0, 10));
-              currentDate.setDate(currentDate.getDate() + 1);
-            }
-          });
-
-          return datesArray;
-}
-
-
+    //Recrée le picker quand on change dee ressource
     $('#resourceInput').on('change', function(){
                    
                     picker.destroy();
+                    $('#start_date').val("");
+                    $('#end_date').val("");
                     createPicker($(this).val());
 
-       });
+    });
 
 
 
- 
-                // // met à jour le easepick avec les dates directemententrée dans les inputes
-                //  $('#start_date').on('blur', function(e){
 
-
-
-                //     //alert(checkDates($('#start_date').val(), $('#end_date').val(),bookedDates));
-                //     picker.setStartDate($(this).val());
-
-                //  });
-                 
-
-                //  $('#end_date').on('blur', function(e){
-
-                //     //alert(checkDates($('#start_date').val(), $('#end_date').val(),bookedDates));
-                //     picker.setEndDate($(this).val());
-
-                // });
-
-                //  //Recharge le picker avec les dates d'indisponibilité de la ressource sélectionnée
-            
 
 });
