@@ -6,44 +6,48 @@
 ?>
 <div class="container">
     <div class="users index content">
-        <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-        <h3 class="text-center font-weight-bold"><?= __('Users') ?></h3>
+            <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+            <h3 class="text-center font-weight-bold"><?= __('Users') ?></h3>
         <div>
-            <table class="table table-bordered table-hover table-sm table-responsive table-light">
+            <table class="table table-bordered table-hover table-sm table-responsive">
                 <thead>
                     <tr>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('firstname') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('lastname') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('login') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('email') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('active') ?></th>
-                       
-                       <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
-                   </tr>
-               </thead>
-               <tbody>
-                <?php foreach ($users as $user): ?>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('firstname') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('lastname') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('username') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('email') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('active') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('role') ?></th>
+                        
+                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($users as $user): ?>
                     <tr>
-                        
-                        
-                        <td class="text-center"><?= $this->Number->format($user->id) ?></td>
-                        
-                        
-                        <td class="text-center"><?= h($user->firstname) ?></td>
-                        
-                        
-                        <td class="text-center"><?= h($user->lastname) ?></td>
-                        
-                        
-                        <td class="text-center"><?= h($user->login) ?></td>
-                        
-                        
-                        <td class="text-center"><?= h($user->email) ?></td>
-                        
-                        
-                        <td class="text-center"><?= h($user->active) ?></td>
-                        <td class="actions d-flex justify-content-center">
+                                    
+                    
+                                                                                                <td class="text-center"><?= $this->Number->format($user->id) ?></td>
+                                                                                
+                    
+                                                                                                <td class="text-center"><?= h($user->firstname) ?></td>
+                                                                                
+                    
+                                                                                                <td class="text-center"><?= h($user->lastname) ?></td>
+                                                                                
+                    
+                                                                                                <td class="text-center"><?= h($user->username) ?></td>
+                                                                                
+                    
+                                                                                                <td class="text-center"><?= h($user->email) ?></td>
+                                                                                
+                    
+                                                                                                <td class="text-center"><?= h($user->active) ?></td>
+                                                                                
+                    
+                                                                                                <td class="text-center"><?= h($user->role) ?></td>
+                                                                                                    <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <?=__('Actions') ?>
@@ -58,17 +62,17 @@
                             </div>
                         </td>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="paginator  ">
+                <ul class="pagination pagination-sm d-flex justify-content-center ">        
+                                        <?= $this->Paginator->prev('<') ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next('>') ?>
+                                    </ul>
+                <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        </div>
     </div>
-    <div class="paginator  ">
-        <ul class="pagination pagination-sm d-flex justify-content-center ">        
-            <?= $this->Paginator->prev('<') ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next('>') ?>
-        </ul>
-        <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div>
 </div>

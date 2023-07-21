@@ -100,7 +100,7 @@
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
                         
 
-                        <li><div class="flex" align="center"><b>Username</b></div></li>
+                        <li><div class="flex" align="center"><b><?= $user->username ?></b></div></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li>
                             <!-- <div class="flex"  align="center">Rôle(s) :
@@ -108,7 +108,8 @@
                                 <div> Utilisateur </div>
                             </div> -->
                         </li>
-                        <li><div class="flex" align="center"><a class="dropdown-item text-danger" href="">Deconnexion</a></div></li>
+                        <!-- <li><div class="flex" align="center"><a class="dropdown-item text-danger" href="">Deconnexion</a></div></li> -->
+                        <li><div class="flex" align="center"></div><?= $this->Html->link('Deconnexion', ['controller'=>'Users','action' => 'logout'], ['class' => 'dropdown-item text-danger']) ?></li>
                     </ul>
                 </li>
             </ul> 

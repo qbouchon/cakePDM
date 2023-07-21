@@ -11,13 +11,17 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string|null $firstname
  * @property string|null $lastname
- * @property string|null $login
+ * @property string|null $username
  * @property string|null $email
  * @property string|null $password
  * @property bool|null $active
+ * @property string $role
  *
  * @property \App\Model\Entity\Reservation[] $reservations
  */
+
+use Authentication\PasswordHasher\DefaultPasswordHasher;
+
 class User extends Entity
 {
     /**
@@ -32,15 +36,12 @@ class User extends Entity
     protected $_accessible = [
         'firstname' => true,
         'lastname' => true,
-        'login' => true,
+        'username' => true,
         'email' => true,
         'password' => true,
         'active' => true,
+        'role' => true,
         'reservations' => true,
-    ];
-
-      protected $_virtual = [
-        'fullname'
     ];
 
     /**
@@ -52,13 +53,12 @@ class User extends Entity
         'password',
     ];
 
-    protected function _getFullName()
+
+     // Automatically hash passwords when they are changed.
+    protected function _setPassword(string $password)
     {
-        return $this->firstname . ' ' . $this->lastname;
+        $hasher = new DefaultPasswordHasher();
+        return $hasher->hash($password);
     }
-
     
-
-
-
 }

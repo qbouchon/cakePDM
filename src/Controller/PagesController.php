@@ -60,8 +60,6 @@ class PagesController extends AppController
             $subpage = $path[1];
         }
         
-       // $this->set(compact('page', 'subpage'));
-
 
         $this->loadModel('Domains');
         $domains = $this->Domains->find('all');
@@ -72,8 +70,7 @@ class PagesController extends AppController
         ->where(['name' => $default_configuration])->first();
 
 
-
-        $this->set(compact('page', 'subpage', 'domains','configuration'));
+        $this->set(compact('page', 'subpage', 'domains','configuration','username'));
 
 
 
