@@ -1,4 +1,10 @@
 /*! hotel-datepicker 4.6.1 - Copyright 2022 Benito Lopez (http://lopezb.com) - https://github.com/benitolopez/hotel-datepicker - MIT */
+// Adaptation  de hotel-datepicker pour l'adapter à un système de réservation.
+// - On ne compte plus en nuits mais en jours
+// - ajout de deux inputs pour pouvoir entrer la date de début et de fin à la main  
+// - ajout de vérifications sur les ranges séléctionnées (allowedDate).
+// /!\  peu adaptable ...
+
 var HotelDatepicker = (function (fecha) {
     'use strict';
     function _interopNamespaceDefault(e) {
@@ -50,7 +56,7 @@ var HotelDatepicker = (function (fecha) {
         this.animationSpeed = opts.animationSpeed || ".5s";
         this.hoveringTooltip = opts.hoveringTooltip || true; // Or a function
         this.autoClose = opts.autoClose === undefined ? true : opts.autoClose;
-        this.showTopbar = opts.showTopbar === undefined ? true : opts.showTopbar;
+        this.showTopbar = opts.showTopbar === undefined ? false : opts.showTopbar;
         this.topbarPosition = opts.topbarPosition === "bottom" ? "bottom" : "top";
         this.moveBothMonths = opts.moveBothMonths || false;
         this.inline = opts.inline || false;
@@ -114,6 +120,8 @@ var HotelDatepicker = (function (fecha) {
 
         // DOM input
         this.input = input;
+
+        //Uga-datepicker Modifications pour avoir deux champs
         //StartDate input
         this.sInput = sInput;
         //EndDateInput
@@ -893,17 +901,10 @@ var HotelDatepicker = (function (fecha) {
 
         const selectedInfo = this.datepicker.getElementsByClassName("datepicker__info--selected")[0];
         const bar = this.datepicker.getElementsByClassName("datepicker__info--feedback")[0];
+        
+        //Uga DatePicker. Vérification des dates lorqu'elles sont entrées à la main dans les inputs
         if(!this.isAllowedRange())
         {
-                var errorText="Dates invalides";
-
-                  selectedInfo.style.display = "none";
-                  // Show error message on top bar
-                this.addClass(bar, "datepicker__info--error");
-                this.removeClass(bar, "datepicker__info--help");
-              
-                errorText = this.lang(errorText);
-        
            return;
         }
          
@@ -957,7 +958,7 @@ var HotelDatepicker = (function (fecha) {
 
         }
      
-      //C'est cochon
+      //C'est cochon. Vérification de la validité des dates entrées à la main dans les inputs
       isAllowedRange() {
 
 
@@ -996,7 +997,7 @@ var HotelDatepicker = (function (fecha) {
         if(this.parseDate(sD) < tmpDate)
         {
           if(sdError)
-            sdError.textContent = this.errorMsg[1];//+ "  sd"+this.parseDate(sD)+"   "+tmpDate;
+            sdError.textContent = this.errorMsg[1];
           return false;
         }
        
@@ -1020,12 +1021,12 @@ var HotelDatepicker = (function (fecha) {
                       
 
                       //Vérification qu'il n'y ai pas de dates interdites entre la date de début et fin de réservation
-                      var closestDiisablesD = this.getClosestDisabledDates(this.parseDate(sD));
+                      var closestDisablesD = this.getClosestDisabledDates(this.parseDate(sD));
 
                       //Si la date de fin est supérieur au plus proche futur disableDay de la date de début
-                      if(closestDiisablesD[1]){
-                          closestDiisablesD[1].setHours(0,0,0,0);
-                          if(this.parseDate(eD) > closestDiisablesD[1])
+                      if(closestDisablesD[1]){
+                          closestDisablesD[1].setHours(0,0,0,0);
+                          if(this.parseDate(eD) > closestDisablesD[1])
                           {
                             
                             if(edError)
@@ -2265,7 +2266,11 @@ var HotelDatepicker = (function (fecha) {
         this.setDateRange(d1, d2);
       }
       clear() {
+
         this.clearSelection();
+        //Ajout de updateSelectableRange() lorsqu'on clear alors qu'une seule date est entrée.
+        this.updateSelectableRange();
+
       }
       getNights() {
         let count = 0;

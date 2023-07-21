@@ -40,11 +40,11 @@
 
                               
 
-                                       <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'', 'label'=>'','readonly'=>'']); ?>   
-                                            <div id='sd_error' class='text-danger font-italic'></div>
+                                       <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'font-italic', 'label'=>'Date de début','readonly'=>'']); ?>   
+                                            <em id='sd_error' class='text-danger font-italic'></em>
 
-                                        <?=  $this->Form->control('end_date',['id'=>'end_date',  'class'=>'', 'label'=>'', 'readonly'=>'']); ?>   
-                                            <div id='ed_error' class='text-danger font-italic'></div>
+                                        <?=  $this->Form->control('end_date',['id'=>'end_date',  'class'=>'font-italic', 'label'=>'Date de fin', 'readonly'=>'']); ?>   
+                                            <em id='ed_error' class='text-danger font-italic'></em>
                                    
 
 
@@ -52,14 +52,7 @@
                                         <?= $this->Form->button(__('Créer')) ?>
                                         <?= $this->Form->end() ?>
                                     </div>
-                                    
-                                            <div id='test'>test</div>                   
-                                   
 
-                                   
-
-
-                                    
                         </div>
                     
                         

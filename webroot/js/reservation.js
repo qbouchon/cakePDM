@@ -3,12 +3,9 @@ let picker;
 $( document ).ready(function() {
 
 
-
-
         //Fonction de création du picker avec les dates d'indisponibilité de la resource
         function createPicker(resourceId)
         {
-
 
                     $('#picker-container').append("<input class='invisible' id='picker' type='text' readonly='readonly'/>");
                     // requête Ajax pour la récupération des dates. ResourceController
@@ -42,21 +39,11 @@ $( document ).ready(function() {
 
             picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
 
-                //format: 'DD-MM-YYYY',
                 disabledDates: bookedDates,
                 inline: true,
                 startOfWeek: 'monday',
-                //disabledDaysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                onSelectRange: function(){
-
-                   //$('#picker').trigger('blur');
-
-
-                }
 
             });
-
-            //picker.getDDays();
 
         }
 
@@ -85,21 +72,25 @@ $( document ).ready(function() {
     //Créer le picker au chargement de la page
     createPicker($("#resourceInput").val());
 
-    //Recrée le picker quand on change dee ressource
+    //Recrée le picker quand on change de ressource
     $('#resourceInput').on('change', function(){
                    
-                   $('#picker').remove();
-                    picker.destroy();
-                   // picker.getDDays();
-                    createPicker($(this).val());
+        $('#picker').remove();
+        picker.destroy();
+        createPicker($(this).val());
 
     });
 
+    // //Empêche le picker html5 de s'ouvrir
+    // $('#start_date').on('click', function(e){
+    //     e.preventDefault();
+    // });
 
-    $('#start_date').on('click', function(e){
-        e.preventDefault;
+    //permet de clear la selection avec un clic droit sur le picker
+    $('#picker-container').on('contextmenu', function(e){
+        e.preventDefault();
+        picker.clear();        
     });
-
 
 
 
