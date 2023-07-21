@@ -988,21 +988,7 @@ var HotelDatepicker = (function (fecha) {
           var eD = this.sInput.value;
         }
         
-       
-        //Vérification que la date de début n'est pas dans une date non autorisée
-        if(this.disabledDates.includes(sD))
-        {
-          if(sdError)
-            sdError.textContent = this.errorMsg[0];
-          return false;
-        }
-         //Vérification que la date de fin n'est pas dans une date non autorisée
-        if(this.disabledDates.includes(eD))
-        {
-          if(edError)
-            edError.textContent = this.errorMsg[0];
-          return false;
-        }
+
 
         //Vérification que la date de début n'est pas inférieur à la date min (Aujourd'hui ou demain selon la config)
         var tmpDate = this.startDate;
@@ -1013,25 +999,48 @@ var HotelDatepicker = (function (fecha) {
             sdError.textContent = this.errorMsg[1];//+ "  sd"+this.parseDate(sD)+"   "+tmpDate;
           return false;
         }
+       
+          if(this.disabledDates.length>0)
+          {
+                      //Vérification que la date de début n'est pas dans une date non autorisée
+                      if(this.disabledDates.includes(sD))
+                      {
+                        if(sdError)
+                          sdError.textContent = this.errorMsg[0];
+                        return false;
+                      }
+                       //Vérification que la date de fin n'est pas dans une date non autorisée
+                      if(this.disabledDates.includes(eD))
+                      {
+                        if(edError)
+                          edError.textContent = this.errorMsg[0];
+                        return false;
+                      }
 
-        //Vérification qu'il n'y ai pas de dates interdites entre la date de début et fin de réservation
-        var closestDiisablesD = this.getClosestDisabledDates(this.parseDate(sD));
+                      
 
-        //Si la date de fin est supérieur au plus proche futur disableDay de la date de début
-        if(this.parseDate(eD) > closestDiisablesD[1])
-        {
-          
-          if(edError)
-            edError.textContent = this.errorMsg[2];
-          return false;
+                      //Vérification qu'il n'y ai pas de dates interdites entre la date de début et fin de réservation
+                      var closestDiisablesD = this.getClosestDisabledDates(this.parseDate(sD));
 
-        }
+                      //Si la date de fin est supérieur au plus proche futur disableDay de la date de début
+                      if(closestDiisablesD[1]){
+                          closestDiisablesD[1].setHours(0,0,0,0);
+                          if(this.parseDate(eD) > closestDiisablesD[1])
+                          {
+                            
+                            if(edError)
+                              edError.textContent = this.errorMsg[2];
+                            return false;
+
+                          }
+                    }
+          }
 
 
         if(sdError)
           sdError.textContent = "";
-        if(sdError)
-          sdError.textContent = "";
+        if(edError)
+          edError.textContent = "";
 
         return true;
 
@@ -2278,6 +2287,10 @@ var HotelDatepicker = (function (fecha) {
           this.removeAllBoundedListeners(document, "click");
           this.removeAllBoundedListeners(this.input, "change");
           this.datepicker.parentNode.removeChild(this.datepicker);
+           this.removeAllBoundedListeners(this.sinput, "click");
+            this.removeAllBoundedListeners(this.sinput, "change");
+             this.removeAllBoundedListeners(this.einput, "click");
+              this.removeAllBoundedListeners(this.einput, "change");
           this.clearSelection();
           this.sInput.value ='';
           this.eInput.value='';
@@ -2291,6 +2304,30 @@ var HotelDatepicker = (function (fecha) {
             edError.textContent='';
 
         }
+      }
+      getDDays() {
+          var ddays ="";
+                for(var i=0;i<this.disabledDates.length;i++)
+                {
+                  ddays+=this.disabledDates[i];
+                }
+                  alert(ddays);
+      }
+      getDDaysh() {
+          var ddays ="";
+                for(var i=0;i<this.disabledDates.length;i++)
+                {
+                  ddays+=this.disabledDates[i];
+                }
+                  alert(ddays);
+      }
+      getDDayst() {
+          var ddays ="";
+                for(var i=0;i<this.disabledDates.length;i++)
+                {
+                  ddays+=this.disabledDates[i];
+                }
+                  alert(ddays);
       }
    
     }

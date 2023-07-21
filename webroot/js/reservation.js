@@ -9,6 +9,8 @@ $( document ).ready(function() {
         function createPicker(resourceId)
         {
 
+
+                    $('#picker-container').append("<input class='invisible' id='picker' type='text' readonly='readonly'/>");
                     // requête Ajax pour la récupération des dates. ResourceController
                     //crée  le datepicker associé on success
                     $.ajax({
@@ -53,6 +55,9 @@ $( document ).ready(function() {
                 }
 
             });
+
+            //picker.getDDays();
+
         }
 
 
@@ -83,13 +88,17 @@ $( document ).ready(function() {
     //Recrée le picker quand on change dee ressource
     $('#resourceInput').on('change', function(){
                    
+                   $('#picker').remove();
                     picker.destroy();
-                    $('#start_date').val("");
-                    $('#end_date').val("");
+                   // picker.getDDays();
                     createPicker($(this).val());
 
     });
 
+
+    $('#start_date').on('click', function(e){
+        e.preventDefault;
+    });
 
 
 

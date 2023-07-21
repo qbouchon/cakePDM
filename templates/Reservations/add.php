@@ -34,7 +34,7 @@
                                         echo $this->Form->control('user_id', ['options' => $users]);
                                     ?>
 
-                                    <div class='mb-5'>
+                                    <div class='mb-5' id='picker-container'>
                                     <input class="invisible" id="picker" type="text" readonly='readonly'/>
                                     </div>
 
@@ -53,7 +53,7 @@
                                         <?= $this->Form->end() ?>
                                     </div>
                                     
-                                                              
+                                            <div id='test'>test</div>                   
                                    
 
                                    
