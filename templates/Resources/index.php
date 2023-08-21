@@ -45,7 +45,7 @@
                            
 
                 ?>
-                    <?= $resource->archive ? '<tr class = "bg-danger bg-opacity-10">' :  '<tr>' ?>
+                    <?= $resource->archive ? '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">' :  '<tr class="bg-white">' ?>
                         
 
                         <td class="text-center"><?= h($resource->name) ?></td>

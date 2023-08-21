@@ -22,9 +22,11 @@ class ResourcesController extends AppController
     {
         $this->paginate = [
             'contain' => ['Domains'],
+            'order' => ['Resources.archive' => 'asc']
         ];
-        $resources = $this->paginate($this->Resources);
-       
+        $resources = $this->paginate($this->Resources->find());
+        
+        //$resources = $this->paginate($this->Resources);
         //Authorization
         foreach($resources as $resource)
              $this->Authorization->authorize($resource);
