@@ -150,9 +150,9 @@
       transform: scale(1.3);
     }
 
-    .table-light {
+  /*  .table-light {
       --bs-table-bg: #ffffff;
-    }
+    }*/
  
 
     .btn-secondary {

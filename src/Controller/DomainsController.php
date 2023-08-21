@@ -20,6 +20,10 @@ class DomainsController extends AppController
     {
         $domains = $this->paginate($this->Domains->find('all')->contain('Resources'));
 
+        //Authorization
+        foreach($domains as $domain)
+            $this->Authorization->authorize($domain);
+
         $this->set(compact('domains'));
     }
 
@@ -36,6 +40,9 @@ class DomainsController extends AppController
             'contain' => ['Resources'],
         ]);
 
+        //Authorization
+        $this->Authorization->authorize($domain);
+
         $this->set(compact('domain'));
     }
 
@@ -44,6 +51,9 @@ class DomainsController extends AppController
         $domain = $this->Domains->get($id, [
             'contain' => ['Resources' => ['Files']],
         ]);
+
+        //Authorization
+        $this->Authorization->authorize($domain);
 
         $this->set(compact('domain'));
     }
@@ -56,6 +66,9 @@ class DomainsController extends AppController
     public function add()
     {
         $domain = $this->Domains->newEmptyEntity();
+
+        //Authorization
+        $this->Authorization->authorize($domain);
 
         if ($this->request->is('post')) {
 
@@ -91,6 +104,9 @@ class DomainsController extends AppController
         $domain = $this->Domains->get($id, [
             'contain' => [],
         ]);
+
+        //Authorization
+        $this->Authorization->authorize($domain);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
 
@@ -138,6 +154,10 @@ class DomainsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $domain = $this->Domains->get($id, ['contain' => ['Resources']]);
+
+
+        //Authorization
+        $this->Authorization->authorize($domain);
 
 
         //Gestion de la suppression de l'image sur le serveur

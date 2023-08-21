@@ -24,6 +24,12 @@ class ResourcesController extends AppController
             'contain' => ['Domains'],
         ];
         $resources = $this->paginate($this->Resources);
+       
+        //Authorization
+        foreach($resources as $resource)
+             $this->Authorization->authorize($resource);
+
+
 
         $this->set(compact('resources'));
     }
@@ -41,6 +47,10 @@ class ResourcesController extends AppController
         $resource = $this->Resources->get($id, [
             'contain' => ['Domains', 'Files', 'Reservations'],
         ]);
+       
+        //Authorization
+        $this->Authorization->authorize($resource);
+
 
         $this->set(compact('resource'));
     }
@@ -54,6 +64,10 @@ class ResourcesController extends AppController
     {
 
         $resource = $this->Resources->newEmptyEntity();
+        
+        //Authorization
+        $this->Authorization->authorize($resource);
+
 
         if ($this->request->is('post')) {
 
@@ -103,6 +117,10 @@ class ResourcesController extends AppController
         $resource = $this->Resources->get($id, [
             'contain' => ['Files'],
         ]);
+       
+        //Authorization
+        $this->Authorization->authorize($resource);
+
 
 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -165,6 +183,10 @@ class ResourcesController extends AppController
         $resource = $this->Resources->get($id, [
             'contain' => ['Files', 'Reservations'],
         ]);
+        
+        //Authorization
+        $this->Authorization->authorize($resource);
+
 
         //Gestion de la suppression de l'image sur le serveur
         if($resource->picture_path)
@@ -192,6 +214,10 @@ class ResourcesController extends AppController
         $this->request->allowMethod(['post', 'put', 'patch']);
         $resource = $this->Resources->get($id, [
         ]);
+        
+        //Authorization
+        $this->Authorization->authorize($resource);
+
 
             $resource->set('archive',true);
 
@@ -209,6 +235,10 @@ class ResourcesController extends AppController
         $this->request->allowMethod(['post', 'put', 'patch']);
         $resource = $this->Resources->get($id, [
         ]);
+        
+        //Authorization
+        $this->Authorization->authorize($resource);
+
 
             $resource->set('archive',false);
 
@@ -228,6 +258,10 @@ class ResourcesController extends AppController
 
         $resource = $this->Resources->get($id, ['contain' => 'Reservations'
         ]);
+
+        //Authorization
+        $this->Authorization->authorize($resource);
+
 
         $dates = $resource->getReservationsDates();
 

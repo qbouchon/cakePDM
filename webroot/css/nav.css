@@ -1918,7 +1918,7 @@ progress {
   border-color: var(--bs-table-border-color);
 }
 
-.table-light {
+/*.table-light {
   --bs-table-color: #000;
   --bs-table-bg: #f8f9fa;
   --bs-table-border-color: #dfe0e1;
@@ -1930,7 +1930,7 @@ progress {
   --bs-table-hover-color: #000;
   color: var(--bs-table-color);
   border-color: var(--bs-table-border-color);
-}
+}*/
 
 .table-dark {
   --bs-table-color: #fff;
