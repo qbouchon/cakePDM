@@ -70,8 +70,10 @@ class PagesController extends AppController
         $configuration = $this->Configuration->find()
         ->where(['name' => $default_configuration])->first();
 
+        //On renvoit l'user
+        $user = $this->Authentication->getIdentity();
 
-        $this->set(compact('page', 'subpage', 'domains','configuration'));
+        $this->set(compact('page', 'subpage', 'domains','configuration','user'));
 
 
 

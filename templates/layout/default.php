@@ -91,28 +91,10 @@
                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                 </div>
             </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <!-- <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
-                        
-
-                        <li><div class="flex" align="center"><b></b></div></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li>
-                            <!-- <div class="flex"  align="center">Rôle(s) :
-                                <div> Administrateur</div>
-                                <div> Utilisateur </div>
-                            </div> -->
-                        </li>
-                        <!-- <li><div class="flex" align="center"><a class="dropdown-item text-danger" href="">Deconnexion</a></div></li> -->
-                        <li><div class="flex" align="center"></div><?= $this->Html->link('Deconnexion', ['controller'=>'Users','action' => 'logout'], ['class' => 'dropdown-item text-danger']) ?></li>
-                    </ul>
-                </li>
-            </ul> 
+            
+            <?= $this->getRequest()->getAttribute('identity') ? $this->element('user_navbar') : ''; ?>
+            
+     
         </nav>
         
 
