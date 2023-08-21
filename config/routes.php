@@ -57,6 +57,8 @@ return static function (RouteBuilder $routes) {
          */
         $builder->connect('/pages/*', 'Pages::display');
 
+        $builder->connect('/catalogue', ['controller'=>'Pages', 'action' => 'catalogue']);
+
         $builder->connect('/domains/:id/resources', ['controller' => 'Domains', 'action' => 'resources'])
         ->setPass(['id']);
 

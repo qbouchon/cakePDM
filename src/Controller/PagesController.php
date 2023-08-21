@@ -61,6 +61,7 @@ class PagesController extends AppController
         }
         
 
+        //On affiche texte, image et liste des domaines sur la page d'accueil
         $this->loadModel('Domains');
         $domains = $this->Domains->find('all');
 
@@ -70,7 +71,7 @@ class PagesController extends AppController
         ->where(['name' => $default_configuration])->first();
 
 
-        $this->set(compact('page', 'subpage', 'domains','configuration','username'));
+        $this->set(compact('page', 'subpage', 'domains','configuration'));
 
 
 

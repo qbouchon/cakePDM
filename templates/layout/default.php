@@ -100,7 +100,7 @@
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
                         
 
-                        <li><div class="flex" align="center"><b><?= $user->username ?></b></div></li>
+                        <li><div class="flex" align="center"><b></b></div></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li>
                             <!-- <div class="flex"  align="center">Rôle(s) :
