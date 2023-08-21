@@ -56,7 +56,7 @@ class PagesController extends AppController
      */
     public function display(string ...$path): ?Response
     {
-        $this->Authorization->skipAuthorization();
+        //$this->Authorization->skipAuthorization();
         
         if (!$path) {
             return $this->redirect('/');
@@ -114,5 +114,23 @@ class PagesController extends AppController
         $domains = $this->Domains->find('all');
         $domains = $this->paginate($this->Domains);
         $this->set(compact('domains'));
+    }
+
+    public function isAuthorized($user) {
+        $action = $this->request->getParam('action');
+
+        // Autorise l'administrateur à accéder à toutes les actions
+        if ($user['admin'] === true) {
+            return true;
+        }
+
+        // // Autorise l'utilisateur à accéder aux actions spécifiques
+        // if ($user['role'] === 'user') {
+        //     if (in_array($action, ['view', 'edit'])) {
+        //         return true;
+        //     }
+        // }
+
+        return false; // Par défaut, refuser l'accès
     }
 }
