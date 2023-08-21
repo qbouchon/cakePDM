@@ -23,6 +23,14 @@ class ReservationsController extends AppController
         ];
         $reservations = $this->paginate($this->Reservations);
 
+        //cas spécial. Peut faire mieux j'imagine
+        if($this->Reservations->find('all')->isEmpty())
+            $this->Authorization->skipAuthorization();
+      
+        //Authorization
+        foreach($reservations as $reservation)
+            $this->Authorization->authorize($reservation);
+
         $this->set(compact('reservations'));
     }
 
@@ -39,6 +47,10 @@ class ReservationsController extends AppController
             'contain' => ['Resources', 'Users'],
         ]);
 
+        //authorization
+        $this->Authorization->authorize($reservation);
+
+
         $this->set(compact('reservation'));
     }
 
@@ -50,6 +62,11 @@ class ReservationsController extends AppController
     public function add($selected_resource_id = null)
     {
         $reservation = $this->Reservations->newEmptyEntity();
+
+         //authorization
+        $this->Authorization->authorize($reservation);
+
+
         if ($this->request->is('post')) {
 
         
@@ -94,6 +111,11 @@ class ReservationsController extends AppController
         $reservation = $this->Reservations->get($id, [
             'contain' => [],
         ]);
+
+         //authorization
+        $this->Authorization->authorize($reservation);
+
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
             if ($this->Reservations->save($reservation)) {
@@ -119,6 +141,11 @@ class ReservationsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $reservation = $this->Reservations->get($id);
+
+         //authorization
+        $this->Authorization->authorize($reservation);
+
+
         if ($this->Reservations->delete($reservation)) {
             $this->Flash->success(__('The reservation has been deleted.'));
         } else {

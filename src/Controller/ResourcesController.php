@@ -27,6 +27,11 @@ class ResourcesController extends AppController
         $resources = $this->paginate($this->Resources->find());
         
         //$resources = $this->paginate($this->Resources);
+
+        //cas spécial. Peut faire mieux j'imagine
+        if($this->Resources->find('all')->isEmpty())
+            $this->Authorization->skipAuthorization();
+
         //Authorization
         foreach($resources as $resource)
              $this->Authorization->authorize($resource);

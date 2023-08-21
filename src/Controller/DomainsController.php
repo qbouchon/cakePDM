@@ -20,7 +20,14 @@ class DomainsController extends AppController
     {
         $domains = $this->paginate($this->Domains->find('all')->contain('Resources'));
 
+
+
         //Authorization
+
+        //cas spécial. Peut faire mieux j'imagine
+        if($this->Domains->find('all')->isEmpty())
+            $this->Authorization->skipAuthorization();
+
         foreach($domains as $domain)
             $this->Authorization->authorize($domain);
 
