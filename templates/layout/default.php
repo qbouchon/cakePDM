@@ -105,87 +105,23 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
 
-                         <!-- Sous menu -->
-                         <div class="text-white sb-sidenav-menu-heading">Menu Utilisateur</div>
+                        <!-- Sous menu Utilisateur-->
+                        <?= $this->element('user_menu'); ?>
+                         
+                        <!-- Sous menu Administrateur -->
+                         <?= $this->element('admin_menu'); ?>
 
-                         <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>Accueil', ['controller'=>'pages','action' => 'display'], ['class' => 'nav-link', 'escape' => false]) ?>
-                          <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-book-open"></i></div>Catalogue', ['controller'=>'pages','action' => 'catalogue'], ['class' => 'nav-link', 'escape' => false]) ?>
-
-                         <a class="nav-link" href="">
-                            <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar-check"></i></div>
-                            Réservation
-                        </a>
-
-                        <!-- Sous menu -->
-                        <div class=" text-white sb-sidenav-menu-heading">Administration</div>
-
-                        <div class="collapseOver">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReservations" aria-expanded="false" aria-controls="collapseReservations">
-                               <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar-check"></i></i></div>
-                               <div class="nav-item">Réservations</div>
-                               <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                           </a>
-                           <div class="collapse" id="collapseReservations" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                                        <!-- <a class="nav-link" href="">Liste des Réservations</a>
-                                                            <a class="nav-link" href="">Créer une Réservation</a> -->
-                                                            <?= $this->Html->link(__('Liste des Réservations'), ['controller'=>'Reservations','action' => 'index'], ['class' => 'nav-link']) ?>
-                                                            <?= $this->Html->link(__('Créer une Réservation'), ['controller'=>'Reservations','action' => 'add'], ['class' => 'nav-link']) ?>
-                                                        </nav>
-                                                    </div>
-                                                </div>
-
-                                                <div class="collapseOver">
-                                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRessources" aria-expanded="false" aria-controls="collapseRessources">
-                                                       <div class="sb-nav-link-icon"><i class="fa-solid fa-suitcase-rolling"></i></i></div>
-                                                       Ressources & Domaines
-                                                       <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                                   </a>
-                                                   <div class="collapse" id="collapseRessources" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                                    <nav class="sb-sidenav-menu-nested nav">
-                                                       <!--  <a class="nav-link" href="">Liste des Ressources</a>
-                                                        <a class="nav-link" href="">Créer une Ressource</a>
-                                                        <a class="nav-link" href="">Liste des Domaines</a>
-                                                        <a class="nav-link" href="">Créer un Domaine</a> -->
-                                                        <?= $this->Html->link(__('Liste des Ressources'), ['controller'=>'Resources','action' => 'index'], ['class' => 'nav-link']) ?>
-                                                       
-                                                        <?= $this->Html->link(__('Liste des Domaines'), ['controller'=>'Domains','action' => 'index'], ['class' => 'nav-link']) ?>
-                                                    
-                                                        
-                                                    </nav>
-                                                </div>
-                                            </div>
-
-                                            <div class="collapseOver">
-                                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUtilisateurs" aria-expanded="false" aria-controls="collapseUtilisateurs">
-                                                   <div class="sb-nav-link-icon"><i class="fa-solid fa-user-group"></i></i></div>
-                                                   Utilisateurs
-                                                   <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                               </a>
-                                               <div class="collapse" id="collapseUtilisateurs" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                                <nav class="sb-sidenav-menu-nested nav">
-                                                    <!-- <a class="nav-link" href="">Liste des Utilisateurs</a> -->
-                                                    <?= $this->Html->link(__('Liste des Utilisateurs'), ['controller'=>'Users','action' => 'index'], ['class' => 'nav-link']) ?>
-                                                </nav>
-
-                                               
-                                                </div>
-
-                                            </div>
-
-
-                                             <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i></div>Configuration', ['controller'=>'configuration','action' => 'edit'], ['class' => 'nav-link', 'escape' => false]) ?>
-
-                                    </div>
-                                </div>
-                                
-                                <div class="sb-sidenav-footer">
-                                    <?= $this->Html->image("logo_UI_blanc3.png", ['class' => 'img-fluid']); ?>
-                                    <div id="signature" class="small text-center">cakePDM@ptitbouchon 2023</div>
-                                </div>
-
-                            </nav>
                         </div>
+                    </div>
+                                
+                    <div class="sb-sidenav-footer">
+                         <?= $this->Html->image("logo_UI_blanc3.png", ['class' => 'img-fluid']); ?>
+                         <!-- <div id="signature" class="small text-center">cakePDM@ptitbouchon 2023</div> -->
+                    </div>
+
+                </nav>
+            </div>
+
                         <div id="layoutSidenav_content" class = "">
                             <main>
                                 <div class="container-fluid">                                    
@@ -199,9 +135,9 @@
                                     </div>
                                 </div>
                             </main>
-                </div>
-            </div>
+                        </div>
         </div>
+    </div>
 
         <footer>
            <div class="container-fluid px-4">
