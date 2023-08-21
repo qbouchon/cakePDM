@@ -27,8 +27,8 @@
                     <td><?= h($user->email) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Role') ?></th>
-                    <td><?= h($user->role) ?></td>
+                    <th><?= __('admin') ?></th>
+                    <td><?= h($user->admin) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>

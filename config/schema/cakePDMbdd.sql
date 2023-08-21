@@ -6,7 +6,7 @@ CREATE TABLE users
 	username VARCHAR(50),
 	email VARCHAR(255),
 	password VARCHAR(255),
-	role VARCHAR(20),
+	admin BOOLEAN DEFAULT 0,
 	active BOOLEAN DEFAULT 1 
 );
 

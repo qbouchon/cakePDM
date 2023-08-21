@@ -23,7 +23,7 @@
                     echo $this->Form->control('email');
                     echo $this->Form->control('password');
                     echo $this->Form->control('active');
-                    echo $this->Form->control('role');
+                    echo $this->Form->control('admin');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

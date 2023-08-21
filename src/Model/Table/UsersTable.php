@@ -85,10 +85,8 @@ class UsersTable extends Table
             ->allowEmptyString('active');
 
         $validator
-            ->scalar('role')
-            ->maxLength('role', 20)
-            ->requirePresence('role', 'create')
-            ->notEmptyString('role');
+            ->boolean('admin')
+            ->notEmptyString('admin');
 
         return $validator;
     }

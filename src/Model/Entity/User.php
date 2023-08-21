@@ -15,13 +15,10 @@ use Cake\ORM\Entity;
  * @property string|null $email
  * @property string|null $password
  * @property bool|null $active
- * @property string $role
+ * @property bool $admin
  *
  * @property \App\Model\Entity\Reservation[] $reservations
  */
-
-use Authentication\PasswordHasher\DefaultPasswordHasher;
-
 class User extends Entity
 {
     /**
@@ -40,7 +37,7 @@ class User extends Entity
         'email' => true,
         'password' => true,
         'active' => true,
-        'role' => true,
+        'admin' => true,
         'reservations' => true,
     ];
 
@@ -52,13 +49,4 @@ class User extends Entity
     protected $_hidden = [
         'password',
     ];
-
-
-     // Automatically hash passwords when they are changed.
-    protected function _setPassword(string $password)
-    {
-        $hasher = new DefaultPasswordHasher();
-        return $hasher->hash($password);
-    }
-    
 }
