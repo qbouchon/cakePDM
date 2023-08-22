@@ -109,7 +109,10 @@
                         <?= $this->element('user_menu'); ?>
                          
                         <!-- Sous menu Administrateur -->
-                         <?= $this->element('admin_menu'); ?>
+                         <?php 
+                                if($this->getRequest()->getAttribute('identity')->get('admin'))
+                                    echo $this->element('admin_menu'); 
+                         ?>
 
                         </div>
                     </div>
