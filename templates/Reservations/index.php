@@ -11,7 +11,7 @@
         <div>
             <table class="table table-bordered table-hover table-sm table-responsive table-light">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date') ?></th>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('end_date') ?></th>                       
@@ -25,7 +25,7 @@
                </thead>
                <tbody>
                 <?php foreach ($reservations as $reservation): ?>
-                    <tr>
+                     <?= $reservation->is_back ? '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">' :  '<tr class="bg-white">' ?>
                         
                         
                         <td class="text-center"><?= $this->Number->format($reservation->id) ?></td>

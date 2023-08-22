@@ -22,6 +22,7 @@ class ReservationsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Resources', 'Users'],
+            'order' => ['Reservations.is_back' => 'asc']
         ];
         $reservations = $this->paginate($this->Reservations);
 
