@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\I18n\FrozenTime;
+
 /**
  * Reservations Controller
  *
@@ -208,11 +210,13 @@ class ReservationsController extends AppController
         //Authorization
         $this->Authorization->authorize($reservation);
 
-
         $reservation->set('is_back',true);
+        $today = FrozenTime::now();
+
+        $reservation->set('back_date', $today->i18nFormat('yyyy-MM-dd'));
 
         if ($this->Reservations->save($reservation)) {
-            $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme rendue' ));
+            $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme rendue le ' . $today ));
         } else {
             $this->Flash->error(__('Erreur lors de la tentative de marquée la reservation comme rendue'));
         }
@@ -233,6 +237,7 @@ class ReservationsController extends AppController
 
 
         $reservation->set('is_back',false);
+        $reservation->set('back_date', null);
 
         if ($this->Reservations->save($reservation)) {
             $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme non rendue' ));

@@ -14,10 +14,11 @@
                     <tr>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('end_date') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('is_back') ?></th>
+                       <th scope="col" class="text-center"><?= $this->Paginator->sort('end_date') ?></th>                       
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id') ?></th>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('user_id') ?></th>
+                       <th scope="col" class="text-center"><?= $this->Paginator->sort('is_back') ?></th>
+                       <th scope="col" class="text-center"><?= $this->Paginator->sort('back_date') ?></th>
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                    </tr>
@@ -36,7 +37,7 @@
                         <td class="text-center"><?= h($reservation->end_date) ?></td>
                         
                         
-                        <td class="text-center"><?= $reservation->is_back ? 'Oui' : 'Non' ?></td>
+                        
                         
                         
                         <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
@@ -45,6 +46,10 @@
                         
                         <td class="text-center"><?= $reservation->has('user') ? $this->Html->link($reservation->user->id, ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>
                         
+                        <td class="text-center"><?= $reservation->is_back ? 'Oui' : 'Non' ?></td>
+
+                        <td class="text-center"><?= $reservation->back_date ? $reservation->back_date : " Non définie " ?></td>
+
                         <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">

@@ -20,9 +20,10 @@ class ReservationsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'start_date' => '2023-06-29',
-                'end_date' => '2023-06-29',
+                'start_date' => '2023-08-22',
+                'end_date' => '2023-08-22',
                 'is_back' => 1,
+                'back_date' => '2023-08-22',
                 'resource_id' => 1,
                 'user_id' => 1,
             ],

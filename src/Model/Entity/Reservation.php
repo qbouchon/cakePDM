@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenDate $start_date
  * @property \Cake\I18n\FrozenDate $end_date
  * @property bool|null $is_back
+ * @property \Cake\I18n\FrozenDate|null $back_date
  * @property int $resource_id
  * @property int $user_id
  *
@@ -33,6 +34,7 @@ class Reservation extends Entity
         'start_date' => true,
         'end_date' => true,
         'is_back' => true,
+        'back_date' => true,
         'resource_id' => true,
         'user_id' => true,
         'resource' => true,
