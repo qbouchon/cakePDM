@@ -46,7 +46,7 @@
                                                                                                 <td class="text-center"><?= h($user->active) ?></td>
                                                                                 
                     
-                                                                                                <td class="text-center"><?= h($user->admin) ?></td>
+                                                                                                <td class="text-center"><?= $user->admin ? 'Oui' : 'Non' ?></td>
                                                                                                     <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">

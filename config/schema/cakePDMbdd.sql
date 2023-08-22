@@ -39,6 +39,7 @@ CREATE TABLE reservations
 	start_date DATE NOT NULL,
 	end_date DATE NOT NULL,
 	is_back BOOLEAN DEFAULT 0,
+	back_date DATE,
 	resource_id INT NOT NULL,
 	user_id INT NOT NULL,
 	FOREIGN KEY (resource_id) REFERENCES resources(id),

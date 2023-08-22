@@ -104,14 +104,19 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                        <?php 
+                        
+                                $user = $this->getRequest()->getAttribute('identity');
 
-                        <!-- Sous menu Utilisateur-->
-                        <?= $this->element('user_menu'); ?>
-                         
-                        <!-- Sous menu Administrateur -->
-                         <?php 
-                                if($this->getRequest()->getAttribute('identity')->get('admin'))
-                                    echo $this->element('admin_menu'); 
+                                if($user)
+                                {
+                                    echo $this->element('user_menu');
+                                    
+                                    if($user->get('admin'))
+                                            echo $this->element('admin_menu'); 
+                                }
+                                
+                                   
                          ?>
 
                         </div>

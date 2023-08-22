@@ -36,7 +36,7 @@
                         <td class="text-center"><?= h($reservation->end_date) ?></td>
                         
                         
-                        <td class="text-center"><?= h($reservation->is_back) ?></td>
+                        <td class="text-center"><?= $reservation->is_back ? 'Oui' : 'Non' ?></td>
                         
                         
                         <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
@@ -50,16 +50,51 @@
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <?=__('Actions') ?>
                                 </button>
-                                <ul class="dropdown-menu">
-                                    <li><?= $this->Html->link(__('View'), ['action' => 'view', $reservation->id],['class' => 'dropdown-item']) ?></li>
-                                    
+                                <ul class="dropdown-menu">                               
                                     <li><?= $this->Html->link(__('Edit'), ['action' => 'edit', $reservation->id],['class' => 'dropdown-item']) ?></li>
-                                    
-                                    <li><?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $reservation->id], ['class' => 'dropdown-item','confirm' => __('Are you sure you want to delete # {0}?', $reservation->id)]) ?></li>  
+                                     <li>
+                                       <?= $reservation->is_back ? $this->Form->postLink(__('Définir comme non rendue'), ['action' => 'unSetBack', $reservation->id],['class' => 'dropdown-item']) : $this->Form->postLink(__('Définir comme rendue'), ['action' => 'setBack', $reservation->id],['class' => 'dropdown-item']) ?>
+                                    </li>
+                                    <li>
+                                         <button type="button" class="btn btn-danger text-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#deleteReservationModal' . $reservation->id ?>">
+                                              <?= __('Supprimer'); ?>
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
+
+                    <!-- DeleteResourceModal -->
+                    <div class="modal fade" id="<?= 'deleteReservationModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="deleteReservationModalLabel"><?= '<b> Suppression </b> de la reservation pour <b>' . $reservation->resource->name . '</b> du <b>' . $reservation->start_date . '</b> au <b>' . $reservation->end_date . '</b> par <b>' . $reservation->user->username . '</b>' ?> </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Attention, supprimez cette réservation que si elle a été créee par erreur. Si l'emprunt a bien eu lieu et que la ressource a été rendue,  considérez  d'utiliser l'option "rendue" à la place.
+                          </div>
+                          <div class="modal-footer">  
+                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $reservation->id], ['class' => 'btn btn-danger', 'confirm' => 'Supprimer '.$reservation->name.' ?']) ?>    
+
+                            <?php
+                                if($reservation->is_back)
+                                    echo $this->Form->postLink(__('Définir comme non rendue'), ['action' => 'unSetBack', $reservation->id], ['class' => 'btn btn-warning', $reservation->id]);
+                                else
+                                    echo $this->Form->postLink(__('Définir comme rendue'), ['action' => 'setBack', $reservation->id], ['class' => 'btn btn-warning', $reservation->id]);
+                            ?>
+                          
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
                 <?php endforeach; ?>
             </tbody>
         </table>

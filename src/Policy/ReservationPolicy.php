@@ -20,6 +20,11 @@ class ReservationPolicy
      */
     public function canAdd(IdentityInterface $user, Reservation $reservation)
     {
+        return true;
+    }
+
+      public function canAddForUser(IdentityInterface $user, Reservation $reservation)
+    {
         return $user->admin ? true : false;
     }
 
@@ -55,6 +60,16 @@ class ReservationPolicy
      * @return bool
      */
     public function canView(IdentityInterface $user, Reservation $reservation)
+    {
+        return $user->admin ? true : false;
+    }
+
+    public function canSetBack(IdentityInterface $user, Reservation $reservation)
+    {
+        return $user->admin ? true : false;
+    }
+
+    public function canUnSetBack(IdentityInterface $user, Reservation $reservation)
     {
         return $user->admin ? true : false;
     }

@@ -60,7 +60,52 @@ class ReservationsController extends AppController
         $reservation = $this->Reservations->newEmptyEntity();
 
          //authorization
-        if($this->Authorization->authorize($reservation))
+        $this->Authorization->authorize($reservation);
+
+
+        if ($this->request->is('post')) {
+
+          
+            $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
+            //Ajout de l'utilisateur connecté à la réservation
+            $user = $this->Reservations->Users->get($this->Authentication->getIdentity()->get('id'));
+            $reservation->set('user',$user);
+            $reservation->set('user_id',$user->id);
+
+            $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'));
+
+                if ($this->Reservations->save($reservation)) {
+
+                    $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
+                    return $this->redirect(['action' => 'add',$this->request->getData('resource_id')]);
+                }
+                $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+        }
+
+
+
+        $resources = $this->Reservations->Resources->find('list', ['groupField' => 'domain_name'])->contain('Domains')->contain('Reservations')->all()->toArray();
+
+
+
+        //Replace by the actual logged user
+        $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
+
+        $this->set(compact('reservation', 'resources', 'users', 'selected_resource_id'));
+    }
+
+
+     /**
+     * Add for a specific user method
+     *
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     */
+    public function addForUser($selected_resource_id = null)
+    {
+        $reservation = $this->Reservations->newEmptyEntity();
+
+         //authorization
+        $this->Authorization->authorize($reservation);
 
 
         if ($this->request->is('post')) {
@@ -78,7 +123,7 @@ class ReservationsController extends AppController
             if ($this->Reservations->save($reservation)) {
 
                 $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
-                return $this->redirect(['action' => 'add',$this->request->getData('resource_id')]);
+                return $this->redirect(['action' => 'addForUser',$this->request->getData('resource_id')]);
             }
             $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
         }
@@ -90,10 +135,11 @@ class ReservationsController extends AppController
 
 
         //Replace by the actual logged user
-        $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'login', 'limit' => 200])->all();
+        $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
 
         $this->set(compact('reservation', 'resources', 'users', 'selected_resource_id'));
     }
+
 
     /**
      * Edit method
@@ -150,4 +196,51 @@ class ReservationsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function setBack($id = null)
+    {
+        $this->request->allowMethod(['post', 'put', 'patch']);
+        
+        $reservation = $this->Reservations->get($id, [
+            'contain' => ['Resources','Users']
+        ]);
+        
+        //Authorization
+        $this->Authorization->authorize($reservation);
+
+
+        $reservation->set('is_back',true);
+
+        if ($this->Reservations->save($reservation)) {
+            $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme rendue' ));
+        } else {
+            $this->Flash->error(__('Erreur lors de la tentative de marquée la reservation comme rendue'));
+        }
+
+        return $this->redirect($this->referer());
+    }
+
+    public function unSetBack($id = null)
+    {
+        $this->request->allowMethod(['post', 'put', 'patch']);
+
+        $reservation = $this->Reservations->get($id, [
+            'contain' => ['Resources','Users']
+        ]);
+        
+        //Authorization
+        $this->Authorization->authorize($reservation);
+
+
+        $reservation->set('is_back',false);
+
+        if ($this->Reservations->save($reservation)) {
+            $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme non rendue' ));
+        } else {
+            $this->Flash->error(__('Erreur lors de la tentative de marquée la reservation comme non rendue'));
+        }
+
+        return $this->redirect($this->referer());
+    }
+
 }

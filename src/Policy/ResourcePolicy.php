@@ -70,6 +70,10 @@ class ResourcePolicy
     }
     public function canGetReservationsDates(IdentityInterface $user, Resource $resource)
     {
+        return $user->admin ? true : false;
+    }
+    public function canGetCurrentReservationsDates(IdentityInterface $user, Resource $resource)
+    {
         return true;
     }
 }

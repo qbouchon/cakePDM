@@ -268,7 +268,7 @@ class Resource extends Entity
             }
     }
 
-
+    //Renvoie toutes les dates de réservations, peu importe si la ressource a été rendue ou non (utile pour les stats)
     public function getReservationsDates()
     {
         $dates = [];
@@ -278,7 +278,26 @@ class Resource extends Entity
         {
             foreach($this->reservations as $reservation)
             {
-                $dates[] = [$reservation->start_date,$reservation->end_date];
+                    $dates[] = [$reservation->start_date,$reservation->end_date];
+            }
+        }
+        
+
+        return $dates;
+    }
+
+    //Renvoie les dates de réservation pour les ressources non retournées (utile pour créer des réservations)
+    public function getCurrentReservationsDates()
+    {
+        $dates = [];
+
+
+        if(!empty($this->reservations))
+        {
+            foreach($this->reservations as $reservation)
+            {
+                if(!$reservation->is_back)
+                    $dates[] = [$reservation->start_date,$reservation->end_date];
 
             }
         }

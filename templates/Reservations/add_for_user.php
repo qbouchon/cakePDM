@@ -25,12 +25,13 @@
                         <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded">
 
 
-                                    <h3 class="text-center"><?= __('Créer une réservation') ?></h3>
+                                    <h3 class="text-center"><?= __('Créer une réservation pour un utilisateur') ?></h3>
                              
                                       
                                     <?php
                                         //echo $this->Form->control('is_back');
                                         echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput']);
+                                        echo $this->Form->control('user_id', ['options' => $users]);
                                     ?>
 
                                     <div class='mb-5' id='picker-container'>
