@@ -132,7 +132,7 @@ class ReservationsController extends AppController
 
 
 
-        $resources = $this->Reservations->Resources->find('list', ['groupField' => 'domain_name'])->contain('Domains')->contain('Reservations')->all()->toArray();
+        $resources = $this->Reservations->Resources->find('list', ['groupField' => 'domain_name'])->where(['archive'=>false])->contain('Domains')->contain('Reservations')->all()->toArray();
 
 
 
