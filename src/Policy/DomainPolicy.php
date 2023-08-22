@@ -58,8 +58,9 @@ class DomainPolicy
     {
         return $user->admin ? true : false;
     }
-     public function canIndex(IdentityInterface $user, Domain $domain)
-    {
-        return $user->admin ? true : false;
-    }
+
+    public function canResources(IdentityInterface $user, Domain $domain)
+     {;
+        return true;
+     }
 }

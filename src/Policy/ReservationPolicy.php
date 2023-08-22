@@ -59,14 +59,4 @@ class ReservationPolicy
         return $user->admin ? true : false;
     }
 
-    public function canIndex(IdentityInterface $user, Reservation $reservation)
-    {
-        return $user->admin ? true : false;
-    }
-
-    
-    public function canIndex(IdentityInterface $user, Reservation $reservation)
-    {
-        return $user->admin ? true : false;
-    }
 }

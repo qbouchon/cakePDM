@@ -30,7 +30,6 @@ if (Configure::read('debug')) :
 <?php endif; ?>
 <?= $this->element('auto_table_warning') ?>
 <?php
-
 $this->end();
 endif;
 ?>

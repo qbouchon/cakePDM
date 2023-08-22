@@ -18,19 +18,11 @@ class DomainsController extends AppController
      */
     public function index()
     {
-        $domains = $this->paginate($this->Domains->find('all')->contain('Resources'));
-
-
-
-        //Authorization
-
-        //cas spécial. Peut faire mieux j'imagine
-        if($this->Domains->find('all')->isEmpty())
+        //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-        foreach($domains as $domain)
-            $this->Authorization->authorize($domain);
-
+        $domains = $this->paginate($this->Domains->find('all')->contain('Resources'));
         $this->set(compact('domains'));
     }
 

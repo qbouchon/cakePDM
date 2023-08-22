@@ -23,13 +23,9 @@ class ReservationsController extends AppController
         ];
         $reservations = $this->paginate($this->Reservations);
 
-        //cas spécial. Peut faire mieux j'imagine
-        if($this->Reservations->find('all')->isEmpty())
+        //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
-      
-        //Authorization
-        foreach($reservations as $reservation)
-            $this->Authorization->authorize($reservation);
 
         $this->set(compact('reservations'));
     }
@@ -64,7 +60,7 @@ class ReservationsController extends AppController
         $reservation = $this->Reservations->newEmptyEntity();
 
          //authorization
-        $this->Authorization->authorize($reservation);
+        if($this->Authorization->authorize($reservation))
 
 
         if ($this->request->is('post')) {

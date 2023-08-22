@@ -23,7 +23,7 @@ class ConfigurationController extends AppController
      */
     public function index()
     {
-
+        $this->Authorization->skipAuthorization();
         $this->redirect(['action'=>'edit']);
     }
 
@@ -37,6 +37,10 @@ class ConfigurationController extends AppController
     public function edit()
     {
 
+         //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+        
         $default_configuration = Configure::read('default_configuration');
 
 

@@ -59,11 +59,6 @@ class ResourcePolicy
         return $user->admin ? true : false;
     }
 
-    public function canIndex(IdentityInterface $user, Resource $resource)
-    {
-        return $user->admin ? true : false;
-    }
-
      public function canArchive(IdentityInterface $user, Resource $resource)
     {
         return $user->admin ? true : false;
@@ -72,5 +67,9 @@ class ResourcePolicy
      public function canUnArchive(IdentityInterface $user, Resource $resource)
     {
         return $user->admin ? true : false;
+    }
+    public function canGetReservationsDates(IdentityInterface $user, Resource $resource)
+    {
+        return true;
     }
 }

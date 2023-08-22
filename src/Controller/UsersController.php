@@ -30,6 +30,10 @@ class UsersController extends AppController
      */
     public function index()
     {
+         //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -48,6 +52,9 @@ class UsersController extends AppController
             'contain' => ['Reservations'],
         ]);
 
+         //authorization
+        $this->Authorization->authorize($user);
+
         $this->set(compact('user'));
     }
 
@@ -57,9 +64,15 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {
-        $this->Authorization->skipAuthorization();
+    {   
+
+
+
         $user = $this->Users->newEmptyEntity();
+
+        //authorization
+        $this->Authorization->authorize($user);
+
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
@@ -84,6 +97,10 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
+
+         //authorization
+        $this->Authorization->authorize($user);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
@@ -106,7 +123,12 @@ class UsersController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
+        
         $user = $this->Users->get($id);
+
+         //authorization
+        $this->Authorization->authorize($user);
+
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('The user has been deleted.'));
         } else {
@@ -126,12 +148,13 @@ class UsersController extends AppController
             return $this->redirect($target);
         }
         if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error('Invalid username or password');
+            $this->Flash->error("Nom d'utilisateur ou mot de passe incorrect");
         }
     }
 
     public function logout()
     {
+        $this->Authorization->skipAuthorization();
         $this->Authentication->logout();
         return $this->redirect(['controller' => 'Users', 'action' => 'login']);
     }

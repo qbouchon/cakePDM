@@ -65,6 +65,8 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/resources/:id/reservations/dates', ['controller' => 'Resources', 'action' => 'getReservationsDates'])
         ->setPass(['id']);
 
+        $builder->connect('/error/denied', ['controller'=>'Error', 'action' => 'denied']);
+
         /*
          * Connect catchall routes for all controllers.
          *

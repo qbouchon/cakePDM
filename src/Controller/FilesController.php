@@ -18,6 +18,10 @@ class FilesController extends AppController
      */
     public function index()
     {
+         //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
         $this->paginate = [
             'contain' => ['Resources'],
         ];
@@ -39,6 +43,9 @@ class FilesController extends AppController
             'contain' => ['Resources'],
         ]);
 
+        //Authorization
+        $this->Authorization->authorize($file);
+
         $this->set(compact('file'));
     }
 
@@ -50,6 +57,11 @@ class FilesController extends AppController
     public function add()
     {
         $file = $this->Files->newEmptyEntity();
+
+         //Authorization
+        $this->Authorization->authorize($file);
+
+
         if ($this->request->is('post')) {
             $file = $this->Files->patchEntity($file, $this->request->getData());
             if ($this->Files->save($file)) {
@@ -75,6 +87,11 @@ class FilesController extends AppController
         $file = $this->Files->get($id, [
             'contain' => [],
         ]);
+
+         //Authorization
+        $this->Authorization->authorize($file);
+
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $file = $this->Files->patchEntity($file, $this->request->getData());
             if ($this->Files->save($file)) {
@@ -100,6 +117,10 @@ class FilesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $file = $this->Files->get($id);
 
+         //Authorization
+        $this->Authorization->authorize($file);
+
+
         //Suppression du fichier sur le serveur
         $fileToDeletePath = WWW_ROOT.'ressourcesfiles'.DS.$file->file_path;
         if(file_exists($fileToDeletePath))
@@ -117,6 +138,7 @@ class FilesController extends AppController
 
     public function download($id = null)
     {
+        $this->Authorization->skipAuthorization();
         $file = $this->Files->get($id);
      
         return $this->response->withFile($file->getFilePath(),['download' => true, 'name' => $file->name]);

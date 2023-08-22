@@ -20,23 +20,17 @@ class ResourcesController extends AppController
      */
     public function index()
     {
+
+
+        //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
         $this->paginate = [
             'contain' => ['Domains'],
             'order' => ['Resources.archive' => 'asc']
         ];
         $resources = $this->paginate($this->Resources->find());
-        
-        //$resources = $this->paginate($this->Resources);
-
-        //cas spécial. Peut faire mieux j'imagine
-        if($this->Resources->find('all')->isEmpty())
-            $this->Authorization->skipAuthorization();
-
-        //Authorization
-        foreach($resources as $resource)
-             $this->Authorization->authorize($resource);
-
-
 
         $this->set(compact('resources'));
     }
