@@ -29,6 +29,7 @@ CREATE TABLE resources
 	picture_path VARCHAR(255),
 	description TEXT,
 	domain_id INT,
+	max_duration INT unsigned DEFAULT 0,
 	archive BOOLEAN DEFAULT 0,
 	FOREIGN KEY (domain_id) REFERENCES domains(id) 
 );

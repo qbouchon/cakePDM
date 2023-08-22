@@ -18,7 +18,7 @@
                                         </tr>
                                         <tr>
                                             <th><?= __('Picture') ?></th>
-                                            <td><?= $this->Html->image('resources/'.$resource->picture_path) ?> </td>
+                                            <td><?= $this->Html->image('resources/'.$resource->picture_path,['class'=>'img-fluid']) ?> </td>
                                         </tr>
                                         <tr>
                                             <th><?= __('Domain') ?></th>
@@ -27,6 +27,10 @@
                                         <tr>
                                             <th><?= __('Id') ?></th>
                                             <td><?= $this->Number->format($resource->id) ?></td>
+                                        </tr>
+                                        <tr>
+                                            <th><?= __('Durée de réservation max') ?></th>
+                                            <td><?= $resource->max_duration > 0 ? $resource->max_duration . " jour(s)" : "Illimitée"?></td>
                                         </tr>
                                         <tr>
                                             <th><?= __('Archive') ?></th>
@@ -56,43 +60,41 @@
                                         <?php endif; ?>
                                     </div>
                                     <div class="related">
-                                        <h4><?= __('Réservations') ?></h4>
+                                        <h4><?= __('Réservations en cours') ?></h4>
                                         <?php if (!empty($resource->reservations)) : ?>
-                                            <div class="table-responsive">
-                                                <table>
+    
+                                                <table class="table table-bordered table-hover table-sm table-responsive table-light">
                                                     <tr>
-                                                        <th><?= __('Id') ?></th>
-                                                        <th><?= __('Start Date') ?></th>
-                                                        <th><?= __('End Date') ?></th>
-                                                        <th><?= __('Is Back') ?></th>
-                                                        <th><?= __('Resource Id') ?></th>
-                                                        <th><?= __('User Id') ?></th>
+                                                        <th><?= __('Date de début') ?></th>
+                                                        <th><?= __('Date de fin') ?></th>
+                                                        <th><?= __('Utilisateur') ?></th>
                                                         <th class="actions"><?= __('Actions') ?></th>
                                                     </tr>
-                                                    <?php foreach ($resource->reservations as $reservations) : ?>
+                                                    <?php foreach ($resource->reservations as $reservations) : 
+                                                            if(!$reservations->is_back) :
+
+                                                    ?>
                                                         <tr>
-                                                            <td><?= h($reservations->id) ?></td>
                                                             <td><?= h($reservations->start_date) ?></td>
                                                             <td><?= h($reservations->end_date) ?></td>
-                                                            <td><?= h($reservations->is_back) ?></td>
-                                                            <td><?= h($reservations->resource_id) ?></td>
-                                                            <td><?= h($reservations->user_id) ?></td>
+                                                            <td><?= h($reservations->user->firstname).' '.h($reservations->user->lastname).' ('.h($reservations->user->username).')' ?></td>
                                                             <td class="actions">
                                                                 <?= $this->Html->link(__('View'), ['controller' => 'Reservations', 'action' => 'view', $reservations->id]) ?>
-                                                                <?= $this->Html->link(__('Edit'), ['controller' => 'Reservations', 'action' => 'edit', $reservations->id]) ?>
-                                                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Reservations', 'action' => 'delete', $reservations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $reservations->id)]) ?>
                                                             </td>
                                                         </tr>
-                                                    <?php endforeach; ?>
+                                                    <?php 
+                                                            endif;
+                                                        endforeach; 
+                                                    ?>
                                                 </table>
-                                            </div>
+
                                         <?php endif; ?>
                                     </div>
                               
                            
 
                             
-                             <div class="text-center">
+                             <div class="text-center mt-3">
                                 <?= $this->Html->link(__('Liste Resources'), ['action' => 'index'], ['class' => 'btn btn-secondary']) ?> 
                                 <?= $this->Html->link(__('Edit Resource'), ['action' => 'edit', $resource->id], ['class' => 'btn btn-secondary']) ?> 
                                 <?php 

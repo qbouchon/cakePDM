@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
-use App\Model\Entity\File;
-use App\Model\Table\FilesTable;
 
 /**
  * Resource Entity
@@ -16,6 +14,7 @@ use App\Model\Table\FilesTable;
  * @property string|null $picture_path
  * @property string|null $description
  * @property int|null $domain_id
+ * @property int|null $max_duration
  * @property bool|null $archive
  *
  * @property \App\Model\Entity\Domain $domain
@@ -39,6 +38,7 @@ class Resource extends Entity
         'picture_path' => true,
         'description' => true,
         'domain_id' => true,
+        'max_duration' => true,
         'archive' => true,
         'domain' => true,
         'files' => true,
@@ -307,3 +307,7 @@ class Resource extends Entity
     }
 
 }
+
+
+
+

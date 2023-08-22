@@ -49,6 +49,17 @@
 
                                             <?= $this->Form->control('description'); ?>
                                             <?= $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]); ?>
+
+                                            <div class="row d-flex align-items-center">
+                                                <?= $this->Form->label('Durée de réservation maximale (1 semaine = 7 jours)'); ?>
+                                                <div class='col-2 mt-2'>
+                                                    <?= $this->Form->control('max_duration',['label'=>false, 'class' => 'form-control w-75']); ?>
+                                                </div>
+                                                <div class='col-2 pb-1'>
+                                                    <i>jour(s)</i>
+                                                </div>
+                                            </div>
+
                                             <?= $this->Form->control('archive', ['label' => 'Archiver cette resource (ne sera plus réservable)']); ?>
                                              
                                             <!-- Pour ajouter d'autres fichiers -->

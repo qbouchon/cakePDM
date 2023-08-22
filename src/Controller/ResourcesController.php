@@ -46,9 +46,9 @@ class ResourcesController extends AppController
     {
 
         $resource = $this->Resources->get($id, [
-            'contain' => ['Domains', 'Files', 'Reservations'],
+            'contain' => ['Domains', 'Files', 'Reservations', 'Reservations.Users'],
         ]);
-       
+
         //Authorization
         $this->Authorization->authorize($resource);
 
@@ -79,6 +79,8 @@ class ResourcesController extends AppController
                 $resource->set('description', $this->request->getData('description'));
                 $resource->set('domain_id', $this->request->getData('domain_id'));
                 $resource->set('archive', $this->request->getData('archive'));
+                $resource->set('max_duration', $this->request->getData('max_duration'));
+
                 if( $this->request->getData('domain_id'))
                     $resource->set('domain', $this->getTableLocator()->get('Domains')->get($this->request->getData('domain_id')));
 
@@ -132,6 +134,7 @@ class ResourcesController extends AppController
                 $resource->set('description', $this->request->getData('description'));
                 $resource->set('domain_id', $this->request->getData('domain_id'));
                 $resource->set('archive', $this->request->getData('archive'));
+                $resource->set('max_duration', $this->request->getData('max_duration'));
 
                 if( $this->request->getData('domain_id'))
                     $resource->set('domain', $this->getTableLocator()->get('Domains')->get($this->request->getData('domain_id')));
@@ -274,7 +277,7 @@ class ResourcesController extends AppController
         return $this->response;
     }
 
-    
+
 }
 
 

@@ -70,6 +70,15 @@ class ResourcesTable extends Table
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
+        $validator
+            ->scalar('picture')
+            ->maxLength('picture', 255)
+            ->allowEmptyString('picture');
+
+        $validator
+            ->scalar('picture_path')
+            ->maxLength('picture_path', 255)
+            ->allowEmptyString('picture_path');
 
         $validator
             ->scalar('description')
@@ -79,7 +88,14 @@ class ResourcesTable extends Table
             ->integer('domain_id')
             ->allowEmptyString('domain_id');
 
-  
+        $validator
+            ->nonNegativeInteger('max_duration')
+            ->allowEmptyString('max_duration');
+
+        $validator
+            ->boolean('archive')
+            ->allowEmptyString('archive');
+
         return $validator;
     }
 
@@ -92,7 +108,7 @@ class ResourcesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        //$rules->add($rules->existsIn('domain_id', 'Domains'), ['errorField' => 'domain_id',  'allowEmpty' => true]);
+        $rules->add($rules->existsIn('domain_id', 'Domains'), ['errorField' => 'domain_id']);
 
         return $rules;
     }
