@@ -75,27 +75,36 @@ class ReservationsController extends AppController
             $reservation->set('user',$user);
             $reservation->set('user_id',$user->id);
 
-            $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'));
+            $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
 
 
-            //Check if reservation has allowed date Range
-            if($reservation->checkdate()){
-                echo 'ok';
-                die;
-            }
-            else{
-                echo 'non ok';
-                die;
-            }
+            $reservation->set('resource', $resource);
 
+                    //Check if reservation has allowed date Range. à refactorer
+                    if(!$reservation->checkStartDate()){
+                        $this->Flash->error(__('Date de début invalide'));
+                    }
+                    elseif(!$reservation->checkdates()){
+                        $this->Flash->error(__('La date de début doit être avant la fin de la date de fin réservation.'));
+                    }
+                    elseif(!$reservation->checkReservationDuration())
+                    {
+                         $this->Flash->error(__('La réservation pour cette resource ne peut pas excéder ' . $resource->max_duration . ' jour(s).'));
+                    }
+                    elseif(!$reservation->checkOverlapeReservation())
+                    {
+                         $this->Flash->error(__("La ressource n'est pas disponible à ces dates, vérifiez qu'il n'existe pas de réservations déjà présente entre vos dates"));
+                    }
+                    else
+                    {
 
+                        if ($this->Reservations->save($reservation)) {
 
-                if ($this->Reservations->save($reservation)) {
-
-                    $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
-                    return $this->redirect(['action' => 'add',$this->request->getData('resource_id')]);
-                }
-                $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+                            $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
+                            return $this->redirect(['action' => 'add',$this->request->getData('resource_id')]);
+                        }
+                        $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+                    }
         }
 
 
