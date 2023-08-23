@@ -50,6 +50,9 @@
     <?= $this->Html->script('../hotel-datepicker/dist/js/uga-datepicker');?>
     <?= $this->Html->css('../hotel-datepicker/dist/css/hotel-datepicker');?> 
 
+    <!-- DataTable.net.bootstrap -->
+     <?= $this->Html->script('../DataTables/datatables');?>
+     <?= $this->Html->css('../DataTables/datatables');?>
 
     <!-- pour le js, trouver une meilleure pratique -->
     <script>

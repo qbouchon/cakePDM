@@ -1,5 +1,6 @@
 $( document ).ready(function() {
     
+
     //init TinyMCE (Editeur de texte)
     tinymce.init({selector: 'textarea', promotion: false});
 
@@ -133,7 +134,6 @@ $( document ).ready(function() {
         $(FileManagementId).toggleClass('invisible');
 
     });
-
 
 
 });

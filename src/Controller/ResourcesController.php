@@ -28,11 +28,20 @@ class ResourcesController extends AppController
 
         $this->paginate = [
             'contain' => ['Domains'],
-            'order' => ['Resources.archive' => 'asc']
+            'order' => ['Resources.archive' => 'asc'],
+            'conditions' => ['Resources.archive' => false],
         ];
-        $resources = $this->paginate($this->Resources->find());
+        $unArchivedResources = $this->paginate($this->Resources->find(), ['model' => 'unArchived']);
 
-        $this->set(compact('resources'));
+        $this->paginate = [
+            'contain' => ['Domains'],
+            'order' => ['Resources.archive' => 'asc'],
+            'conditions' => ['Resources.archive' => true]
+        ];
+
+        $archivedResources = $this->paginate($this->Resources->find(), ['model' => 'archived']);
+
+        $this->set(compact('unArchivedResources','archivedResources'));
     }
 
     /**
