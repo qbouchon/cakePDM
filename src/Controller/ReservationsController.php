@@ -132,7 +132,7 @@ class ReservationsController extends AppController
                 $reservation->set('resource', $resource);
 
                     //Check if reservation has allowed date Range. à refactorer
-                    if($reservation->checkStartDate()){
+                    if(!$reservation->checkStartDate()){
                         $this->Flash->error(__('Date de début invalide'));
                     }
                     elseif(!$reservation->checkdates()){

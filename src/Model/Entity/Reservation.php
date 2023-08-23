@@ -47,9 +47,14 @@ class Reservation extends Entity
     public function checkStartDate()
     {
         $today = FrozenTime::now();
+        // debug('today' . $today->i18nFormat('yyyy-MM-dd'));
+        // echo $today;
+        // debug($this->start_date);
+        // die;
 
-        if($this->start_date<$today->i18nFormat('yyyy-MM-dd'))
+        if($this->start_date<$today)
             return false; 
+        
         
         return true;
     }
