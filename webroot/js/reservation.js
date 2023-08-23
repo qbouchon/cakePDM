@@ -8,33 +8,35 @@ $( document ).ready(function() {
         {
 
                     $('#picker-container').append("<input class='invisible' id='picker' type='text' readonly='readonly'/>");
-                    // requête Ajax pour la récupération des dates. ResourceController
-                    //crée  le datepicker associé on success
-                    $.ajax({
-                        url: webrootUrl+"resources/"+resourceId+"/reservations/dates", 
-                        type: "GET", 
-                        dataType: "json", 
-                        success: function (data) {
-                            
 
-                            console.log(data);
-                            displayPicker(datesBetween(data));
-                        
-                            return data;                
-                        },
-                        error: function (xhr, status, error) {
-                                             
-                            console.log(xhr.responseText);
-                            console.log("AJAX Request Error: " + error);
-                            return [];
-                        }
+                    // requêtes Ajax pour la récupération des dates et de la durée de réservation maximale. ResourceController
+                    
+                    var getDateUrl =  webrootUrl+"resources/"+resourceId+"/reservations/dates";
+                    var getMaxDurationUrl =  webrootUrl+"resources/"+resourceId+"/max_duration";
+
+                    $.get(getDateUrl, function(bookedDates) {
+                             $.get(getMaxDurationUrl, function(maxDuration) {
+                                    
+                                    var maxDuration = parseInt(maxDuration);
+                                    
+                                    //Côté serveur max duration = 0 signifie qu'il n'y a pas de limite dans la durée de réservation
+                                    if(maxDuration === 0)
+                                    {
+                                        displayPicker(datesBetween(bookedDates,false));
+                                    }
+                                    else{
+                                        displayPicker(datesBetween(bookedDates), maxDuration);
+                                    }
+
+                            });                
                     });
+
 
         }
 
 
 
-        function displayPicker(bookedDates)
+        function displayPicker(bookedDates, maxDuration)
         {
 
             picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
@@ -42,6 +44,8 @@ $( document ).ready(function() {
                 disabledDates: bookedDates,
                 inline: true,
                 startOfWeek: 'monday',
+                moveBothMonths : true,
+                maxNights : maxDuration,
 
             });
 
@@ -91,6 +95,9 @@ $( document ).ready(function() {
         e.preventDefault();
         picker.clear();        
     });
+
+
+    
 
 
 

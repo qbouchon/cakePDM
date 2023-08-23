@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\I18n\FrozenTime;
 
 /**
  * Reservation Entity
@@ -40,4 +41,54 @@ class Reservation extends Entity
         'resource' => true,
         'user' => true,
     ];
+
+
+
+    public function checkStartDate()
+    {
+        $today = FrozenTime::now();
+
+        if($this->start_date<$today->i18nFormat('yyyy-MM-dd'))
+            return false; 
+        
+        return true;
+    }
+
+
+    //Check if start_date before end_date
+    public function checkDates()
+    {
+        if($this->end_date < $this->start_date)
+            return false;
+        else
+            return true;
+    }
+
+    //Check if the duration of reservation is not greater than the maximum duration for the specific resource
+    public function checkReservationDuration()
+    {
+
+        $durationInDays = ($this->end_date->getTimestamp() - $this->start_date->getTimestamp()) / (24 * 60 * 60);
+        if($durationInDays > $this->resource->max_duration)
+            return false;
+        else
+            return true;
+    }
+
+    //Check if there is no overlape reservation for the resource
+    public function checkOverlapeReservation()
+    {
+
+        foreach($this->resource->reservations as $reservation)
+        {
+            //We only check if the resource "is not back"
+            if($reservation->start_date <= $this->end_date && $reservation->end_date >= $this->start_date && !$reservation->is_back)
+                return false;
+
+        }
+
+        return true;
+    }
+
+
 }

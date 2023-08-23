@@ -962,9 +962,7 @@ var HotelDatepicker = (function (fecha) {
       isAllowedRange() {
 
 
-        const sdError = document.getElementById('sd_error');
-        const edError = document.getElementById('ed_error');
-
+        const error_box = document.getElementById('error_box');
 
          //On ne check que si les deux valeurs sont entrées
         if(!this.sInput.value)
@@ -996,8 +994,8 @@ var HotelDatepicker = (function (fecha) {
         tmpDate.setHours(0,0,0,0);
         if(this.parseDate(sD) < tmpDate)
         {
-          if(sdError)
-            sdError.textContent = this.errorMsg[1];
+          if(error_box)
+            error_box.textContent = this.errorMsg[1];
           return false;
         }
        
@@ -1006,15 +1004,15 @@ var HotelDatepicker = (function (fecha) {
                       //Vérification que la date de début n'est pas dans une date non autorisée
                       if(this.disabledDates.includes(sD))
                       {
-                        if(sdError)
-                          sdError.textContent = this.errorMsg[0];
+                        if(error_box)
+                          error_box.textContent = this.errorMsg[0];
                         return false;
                       }
                        //Vérification que la date de fin n'est pas dans une date non autorisée
                       if(this.disabledDates.includes(eD))
                       {
-                        if(edError)
-                          edError.textContent = this.errorMsg[0];
+                        if(error_box)
+                          error_box.textContent = this.errorMsg[0];
                         return false;
                       }
 
@@ -1029,8 +1027,8 @@ var HotelDatepicker = (function (fecha) {
                           if(this.parseDate(eD) > closestDisablesD[1])
                           {
                             
-                            if(edError)
-                              edError.textContent = this.errorMsg[2];
+                            if(error_box)
+                              error_box.textContent = this.errorMsg[2];
                             return false;
 
                           }
@@ -1038,10 +1036,8 @@ var HotelDatepicker = (function (fecha) {
           }
 
 
-        if(sdError)
-          sdError.textContent = "";
-        if(edError)
-          edError.textContent = "";
+        if(error_box)
+          error_box.textContent = "";
 
         return true;
 
@@ -2300,13 +2296,10 @@ var HotelDatepicker = (function (fecha) {
           this.sInput.value ='';
           this.eInput.value='';
 
-          var sdError = document.getElementById('sd_error');
-          var edError = document.getElementById('ed_error');
-          if(sdError)
-            sdError.textContent='';
+          var error_box = document.getElementById('error_box');
 
-          if(edError)
-            edError.textContent='';
+          if(error_box)
+            error_box.textContent='';
 
         }
       }

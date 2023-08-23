@@ -277,6 +277,26 @@ class ResourcesController extends AppController
         return $this->response;
     }
 
+    public function getMaxDuration($id = null)
+    {
+
+        $resource = $this->Resources->get($id);
+
+        //Authorization
+        $this->Authorization->authorize($resource);
+
+        $md = $resource->max_duration;
+ 
+            
+        
+         // Convert the data to JSON format and send it as the response
+        $this->autoRender = false;
+        $this->response->getBody()->write(json_encode($md));
+        $this->response = $this->response->withType('application/json');
+
+        return $this->response;
+    }
+
 
 }
 

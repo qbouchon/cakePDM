@@ -51,6 +51,7 @@
     <?= $this->Html->css('../hotel-datepicker/dist/css/hotel-datepicker');?> 
 
 
+    <!-- pour le js, trouver une meilleure pratique -->
     <script>
         var webrootUrl = "<?php echo $this->Url->build('/', ['fullBase' => true]); ?>";
     </script>

@@ -65,6 +65,9 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/resources/:id/reservations/dates', ['controller' => 'Resources', 'action' => 'getCurrentReservationsDates'])
         ->setPass(['id']);
 
+         $builder->connect('/resources/:id/max_duration', ['controller' => 'Resources', 'action' => 'getMaxDuration'])
+        ->setPass(['id']);
+
         $builder->connect('/error/denied', ['controller'=>'Error', 'action' => 'denied']);
 
         /*

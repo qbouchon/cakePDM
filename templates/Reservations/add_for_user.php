@@ -17,8 +17,6 @@
            <div class="row mt-2">
 
 
-                    <?= $this->Html->link(__('retour'), $this->request->referer()) ?>
-
                     <?= $this->Form->create($reservation) ?>
                     <fieldset>
 
@@ -41,15 +39,14 @@
                               
 
                                        <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'font-italic', 'label'=>'Date de début','readonly'=>'']); ?>   
-                                            <em id='sd_error' class='text-danger font-italic'></em>
 
                                         <?=  $this->Form->control('end_date',['id'=>'end_date',  'class'=>'font-italic', 'label'=>'Date de fin', 'readonly'=>'']); ?>   
-                                            <em id='ed_error' class='text-danger font-italic'></em>
+                                            <em id='error_box' class='text-danger font-italic'></em>
                                    
 
 
                                     <div class="text-center">
-                                        <?= $this->Form->button(__('Créer')) ?>
+                                        <?= $this->Form->button(__('Créer'),['class' => ' mt-3']) ?>
                                         <?= $this->Form->end() ?>
                                     </div>
 

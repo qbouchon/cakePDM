@@ -7,6 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Reservations Model
@@ -66,11 +67,31 @@ class ReservationsTable extends Table
             ->date('start_date')
             ->requirePresence('start_date', 'create')
             ->notEmptyDate('start_date');
+            // ->add('start_date', 'compareDates', [
+            //     'rule' => function ($value, $context) {
+            //         $end_date = $context['data']['end_date'];
+            //         return strtotime($value) <= strtotime($end_date);
+            //     },
+            //     'message' => 'La date de fin doit être avant la date de début'
+            // ]);
 
         $validator
             ->date('end_date')
             ->requirePresence('end_date', 'create')
             ->notEmptyDate('end_date');
+            // ->add('start_date', 'compareDates', [
+            //     'rule' => function ($value, $context) {
+            //         $end_date = $context['data']['end_date'];
+            //         $resource_id = $context['data']['resource_id'];
+
+            //         // Load the associated 'Resources' table
+            //         $resourcesTable = TableRegistry::getTableLocator()->get('Resources');
+            //         $resource = $resourcesTable->get($resource_id);
+
+            //         return $this->checkMaxDuration($value, $end_date, $resource->max_duration);
+            //     },
+            //     'message' => 'Reservation duration exceeds the maximum allowed'
+            // ]);
 
         $validator
             ->boolean('is_back')
@@ -104,5 +125,12 @@ class ReservationsTable extends Table
         $rules->add($rules->existsIn('user_id', 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
+    }
+
+    
+    protected function checkMaxDuration($start_date, $end_date, $max_duration)
+    {
+        $durationInDays = (strtotime($end_date) - strtotime($start_date)) / (24 * 60 * 60);
+        return $durationInDays <= $max_duration;
     }
 }

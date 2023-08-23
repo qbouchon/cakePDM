@@ -77,6 +77,19 @@ class ReservationsController extends AppController
 
             $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'));
 
+
+            //Check if reservation has allowed date Range
+            if($reservation->checkdate()){
+                echo 'ok';
+                die;
+            }
+            else{
+                echo 'non ok';
+                die;
+            }
+
+
+
                 if ($this->Reservations->save($reservation)) {
 
                     $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
@@ -113,22 +126,35 @@ class ReservationsController extends AppController
 
         if ($this->request->is('post')) {
 
-        
-        //Si l'utilisateur n'a cliqué qu'une seule fois sur une date on considère qu'il souhaite réserver pour une seule journée (il doit cliquer une deuxième fois pour définir end_date normalement)
-        $end_date = $this->request->getData('end_date');
-        if(!$end_date)
-            $this->request->withData('end_date',$this->request->getData('start_date')); 
+                  
+                $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
+                $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
+                $reservation->set('resource', $resource);
 
-        $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
-        $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'));
+                    //Check if reservation has allowed date Range. à refactorer
+                    if($reservation->checkStartDate()){
+                        $this->Flash->error(__('Date de début invalide'));
+                    }
+                    elseif(!$reservation->checkdates()){
+                        $this->Flash->error(__('La date de début doit être avant la fin de la date de fin réservation.'));
+                    }
+                    elseif(!$reservation->checkReservationDuration())
+                    {
+                         $this->Flash->error(__('La réservation pour cette resource ne peut pas excéder ' . $resource->max_duration . ' jour(s).'));
+                    }
+                    elseif(!$reservation->checkOverlapeReservation())
+                    {
+                         $this->Flash->error(__("La ressource n'est pas disponible à ces dates, vérifiez qu'il n'existe pas de réservations déjà présente entre vos dates"));
+                    }
+                    else
+                    {
+                        if ($this->Reservations->save($reservation)) {
 
-
-            if ($this->Reservations->save($reservation)) {
-
-                $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
-                return $this->redirect(['action' => 'addForUser',$this->request->getData('resource_id')]);
-            }
-            $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+                            $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
+                            return $this->redirect(['action' => 'addForUser',$this->request->getData('resource_id')]);
+                        }
+                        $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+                    }
         }
 
 
@@ -136,8 +162,6 @@ class ReservationsController extends AppController
         $resources = $this->Reservations->Resources->find('list', ['groupField' => 'domain_name'])->where(['archive'=>false])->contain('Domains')->contain('Reservations')->all()->toArray();
 
 
-
-        //Replace by the actual logged user
         $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
 
         $this->set(compact('reservation', 'resources', 'users', 'selected_resource_id'));

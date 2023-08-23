@@ -12,11 +12,11 @@
             <table class="table table-bordered table-hover table-sm table-responsive table-light">
                 <thead>
                     <tr class="bg-white">
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
+                        <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id') ?></th>
+                       <th scope="col" class="text-center"><?= $this->Paginator->sort('user_id') ?></th>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date') ?></th>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('end_date') ?></th>                       
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('user_id') ?></th>
+                       
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('is_back') ?></th>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('back_date') ?></th>
                        
@@ -28,8 +28,12 @@
                      <?= $reservation->is_back ? '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">' :  '<tr class="bg-white">' ?>
                         
                         
-                        <td class="text-center"><?= $this->Number->format($reservation->id) ?></td>
                         
+                         <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
+                        
+                        
+                        
+                        <td class="text-center"><?= $reservation->has('user') ? $this->Html->link($reservation->user->firstname.' '.$reservation->user->lastname.' ('.$reservation->user->username.')', ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>
                         
                         <td class="text-center"><?= h($reservation->start_date) ?></td>
                         
@@ -40,11 +44,7 @@
                         
                         
                         
-                        <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
-                        
-                        
-                        
-                        <td class="text-center"><?= $reservation->has('user') ? $this->Html->link($reservation->user->id, ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>
+                       
                         
                         <td class="text-center"><?= $reservation->is_back ? 'Oui' : 'Non' ?></td>
 
