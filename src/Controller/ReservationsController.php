@@ -192,7 +192,7 @@ class ReservationsController extends AppController
         $reservation = $this->Reservations->get($id, [
             'contain' => [],
         ]);
-
+        
          //authorization
         $this->Authorization->authorize($reservation);
 
@@ -207,7 +207,7 @@ class ReservationsController extends AppController
             $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
         }
         $resources = $this->Reservations->Resources->find('list', ['limit' => 200])->all();
-        $users = $this->Reservations->Users->find('list', ['limit' => 200])->all();
+        $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
         $this->set(compact('reservation', 'resources', 'users'));
     }
 

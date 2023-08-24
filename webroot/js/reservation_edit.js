@@ -11,9 +11,9 @@ $( document ).ready(function() {
 
                     // requêtes Ajax pour la récupération des dates et de la durée de réservation maximale. ResourceController
 
-
-                    var getDateUrl =  webrootUrl+"resources/"+resourceId+"/reservations/dates";
-
+                    reservationId
+                    var getDateUrl =  webrootUrl+"resources/"+resourceId+"/reservations/dates/"+reservationId;
+           
 
 
                     var getMaxDurationUrl =  webrootUrl+"resources/"+resourceId+"/max_duration";

@@ -306,6 +306,27 @@ class Resource extends Entity
         return $dates;
     }
 
+     //Renvoie les dates de réservation pour les ressources non retournées sauf celle de la reservation passée en paramètre
+    public function getCurrentReservationsDatesESR($reservationToExclude)
+    {
+        $dates = [];
+
+
+        if(!empty($this->reservations))
+        {
+            foreach($this->reservations as $reservation)
+            {
+                if(!$reservation->is_back && $reservation->id != $reservationToExclude->id)
+                    $dates[] = [$reservation->start_date,$reservation->end_date];
+
+            }
+        }
+        
+
+        return $dates;
+    }
+
+
 }
 
 

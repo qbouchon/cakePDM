@@ -256,7 +256,7 @@ class ResourcesController extends AppController
 
 
 
-    public function getCurrentReservationsDates($id = null)
+    public function getCurrentReservationsDates($id = null, $id_reservation = null)
     {
 
         $resource = $this->Resources->get($id, ['contain' => 'Reservations'
@@ -265,8 +265,13 @@ class ResourcesController extends AppController
         //Authorization
         $this->Authorization->authorize($resource);
 
-
-        $dates = $resource->getCurrentReservationsDates();
+        if($id_reservation)
+        {
+            $reservation = $this->Resources->Reservations->get($id_reservation);
+            $dates = $resource->getCurrentReservationsDatesESR($reservation);
+        }
+        else
+            $dates = $resource->getCurrentReservationsDates();
 
         // Convert the data to JSON format and send it as the response
         $this->autoRender = false;
