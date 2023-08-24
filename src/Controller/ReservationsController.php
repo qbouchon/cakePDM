@@ -5,6 +5,8 @@ namespace App\Controller;
 
 use Cake\I18n\FrozenTime;
 
+use Cake\Log\Log;
+
 /**
  * Reservations Controller
  *
@@ -184,6 +186,10 @@ class ReservationsController extends AppController
          //authorization
         $this->Authorization->authorize($reservation);
 
+            $oldStartDate = $reservation->start_date;
+            $oldEndDate = $reservation->end_date;
+
+            Log::info('OLD DATE ' . $oldEndDate);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
@@ -195,11 +201,17 @@ class ReservationsController extends AppController
 
                             return $this->redirect(['action' => 'index']);
                         }
-                        $this->Flash->error(__("La réservation n'a pas pu être modifiée."));
+                        else
+                            $this->Flash->error(__("La réservation n'a pas pu être modifiée."));
 
         }
         $resources = $this->Reservations->Resources->find('list', ['limit' => 200])->all();
         $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
+
+        $reservation->set('start_date',$oldStartDate);
+        $reservation->set('end_date',$oldEndDate);
+
+
         $this->set(compact('reservation', 'resources', 'users'));
     }
 
