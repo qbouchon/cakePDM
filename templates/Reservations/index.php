@@ -4,12 +4,34 @@
  * @var iterable<\App\Model\Entity\Reservation> $reservations
  */
 ?>
+
+<?= $this->Html->script('search'); ?>
+
 <div class="container">
     <div class="reservations index content">
-        <?= $this->Html->link(__('New Reservation'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+
         <h3 class="text-center font-weight-bold"><?= __('Reservations') ?></h3>
+
+         <div class="d-flex align-items-center justify-content-between mb-1">
+            <div >
+                <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'addForUser' ],[ 'class' => 'text-center  btn addButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une réservation','escape' =>false]); ?>
+            </div>
+            <div>
+                 <div class="input-group">                        
+                        <input type="text" class="form-control border-right-0" id="searchBox" onkeyup="search()" placeholder="Rechercher">   
+                         <span class="input-group-text bg-white border-left-0">
+                                <i class="fa fa-search"></i>
+                        </span>
+
+                </div>
+               
+            </div>
+        </div>
+
+
+
         <div>
-            <table class="table table-bordered table-hover table-sm table-responsive table-light">
+            <table id="searchTable" class="table table-bordered table-hover table-sm table-responsive table-light">
                 <thead>
                     <tr class="bg-white">
                         <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id') ?></th>
@@ -110,7 +132,7 @@
             <?= $this->Paginator->numbers() ?>
             <?= $this->Paginator->next('>') ?>
         </ul>
-        <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} sur {{pages}}, {{current}} entrée(s) affiché(s) sur un total de {{count}}')) ?></p>
     </div>
 </div>
 </div>

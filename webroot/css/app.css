@@ -187,3 +187,7 @@
 }
 
 
+.highlight {
+  background-color: yellow; /* Example highlighting style */
+  /* Add any other styling you want for the highlighted text */
+}

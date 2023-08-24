@@ -4,14 +4,33 @@
  * @var iterable<\App\Model\Entity\User> $users
  */
 ?>
+<?= $this->Html->script('search'); ?>
+
 <div class="container">
     <div class="users index content">
-            <?= $this->Html->link(__('New User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
             <h3 class="text-center font-weight-bold"><?= __('Users') ?></h3>
+
+            <div class="d-flex align-items-center justify-content-between mb-1">
+                        <div >
+                            <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn addButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une ressource','escape' =>false]); ?>
+                        </div>
+                        <div>
+                             <div class="input-group">                        
+                                    <input type="text" class="form-control border-right-0" id="searchBox" onkeyup="search()" placeholder="Rechercher">   
+                                     <span class="input-group-text bg-white border-left-0">
+                                            <i class="fa fa-search"></i>
+                                    </span>
+
+                            </div>
+                           
+                        </div>
+            </div>
+
+
         <div>
-            <table class="table table-bordered table-hover table-sm table-responsive">
+            <table id="searchTable" class="table table-bordered table-hover table-sm table-responsive">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('firstname') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('lastname') ?></th>
@@ -25,7 +44,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($users as $user): ?>
-                    <tr>
+                    <tr class="bg-white">
                                     
                     
                                                                                                 <td class="text-center"><?= $this->Number->format($user->id) ?></td>

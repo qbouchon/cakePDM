@@ -4,17 +4,34 @@
  * @var iterable<\App\Model\Entity\Domain> $domains
  */
 ?>
+<?= $this->Html->script('search'); ?>
+
 <div class="container">
     <div class="domains index content">
 
       
             <h3 class="text-center font-weight-bold"><?= __('Domaines') ?></h3>
-              <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn addButton ','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer un Domaine','escape' =>false]); ?>
-    <div>
 
-            <table class="table table-bordered table-hover table-sm table-responsive table-light">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+                        <div >
+                            <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn addButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une ressource','escape' =>false]); ?>
+                        </div>
+                        <div>
+                             <div class="input-group">                        
+                                    <input type="text" class="form-control border-right-0" id="searchBox" onkeyup="search()" placeholder="Rechercher">   
+                                     <span class="input-group-text bg-white border-left-0">
+                                            <i class="fa fa-search"></i>
+                                    </span>
+
+                            </div>
+                           
+                        </div>
+            </div>
+              
+    <div>
+            <table id="searchTable" class="table table-bordered table-hover table-sm table-responsive table-light">
                 <thead>
-                    <tr>
+                    <tr class="bg-white">
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('name') ?></th>
                        <th scope="col" class="text-center"><?= $this->Paginator->sort('picture') ?></th>
@@ -24,7 +41,7 @@
                </thead>
                <tbody>
                 <?php foreach ($domains as $domain): ?>
-                    <tr>
+                    <tr class="bg-white">
                                             
                         <td class="text-center"><?= $this->Number->format($domain->id) ?></td>                    
                         
@@ -107,7 +124,7 @@
             <?= $this->Paginator->numbers() ?>
             <?= $this->Paginator->next('>') ?>
         </ul>
-        <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+        <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} sur {{pages}}, {{current}} entrée(s) affiché(s) sur un total de {{count}}')) ?></p>
     </div>
 </div>
 </div>

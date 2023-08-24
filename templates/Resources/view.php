@@ -10,31 +10,27 @@
 
                 <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded text-center">
 
-                                    <h3 class="text-center"><?= h($resource->name) ?></h3>
+                                    <h3 class="text-center mb-2"><?= h($resource->name) ?></h3>
                                     <table class="table table-bordered table-hover table-sm table-responsive table-light ">
                                         <tr>
-                                            <th><?= __('Name') ?></th>
+                                            <th><?= __('Nom') ?></th>
                                             <td><?= h($resource->name) ?></td>
                                         </tr>
                                         <tr>
-                                            <th><?= __('Picture') ?></th>
+                                            <th><?= __('Image') ?></th>
                                             <td><?= $this->Html->image('resources/'.$resource->picture_path,['class'=>'img-fluid']) ?> </td>
                                         </tr>
                                         <tr>
-                                            <th><?= __('Domain') ?></th>
+                                            <th><?= __('Domaine') ?></th>
                                             <td><?= $resource->has('domain') ? $this->Html->link($resource->domain->name, ['controller' => 'Domains', 'action' => 'view', $resource->domain->id]) : '' ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th><?= __('Id') ?></th>
-                                            <td><?= $this->Number->format($resource->id) ?></td>
                                         </tr>
                                         <tr>
                                             <th><?= __('Durée de réservation max') ?></th>
                                             <td><?= $resource->max_duration > 0 ? $resource->max_duration . " jour(s)" : "Illimitée"?></td>
                                         </tr>
                                         <tr>
-                                            <th><?= __('Archive') ?></th>
-                                            <td><?= $resource->archive ? __('Yes') : __('No'); ?></td>
+                                            <th><?= __('Archivée') ?></th>
+                                            <td><?= $resource->archive ? __('Oui') : __('Non'); ?></td>
                                         </tr>
                                     </table>
                                     <div class="text">
@@ -52,7 +48,7 @@
                                                 <ul>
                                                     <?php foreach ($resource->files as $files) : ?>
                                                       <li> <?= $this->Html->link($files->name,[ 'controller' => 'Files','action' => 'download',$files->id, ],['target' => '_blank']) ?>
-                                                       <?= $this->Form->postLink(__('Delete'), ['controller' => 'Files', 'action' => 'delete', $files->id], ["class"=>"text-danger",'confirm' => __('Are you sure you want to delete # {0}?', $files->id)]) ?>
+                                                      
                                                       </li>
                                                     <?php endforeach; ?>
                                                 </ul>
@@ -88,6 +84,8 @@
                                                     ?>
                                                 </table>
 
+                                        <?php else : ?>
+                                            <i>Aucune réservation en cours</i>
                                         <?php endif; ?>
                                     </div>
                               
@@ -95,8 +93,7 @@
 
                             
                              <div class="text-center mt-3">
-                                <?= $this->Html->link(__('Liste Resources'), ['action' => 'index'], ['class' => 'btn btn-secondary']) ?> 
-                                <?= $this->Html->link(__('Edit Resource'), ['action' => 'edit', $resource->id], ['class' => 'btn btn-secondary']) ?> 
+                                <?= $this->Html->link(__('Editer'), ['action' => 'edit', $resource->id], ['class' => 'btn btn-secondary']) ?> 
                                 <?php 
                                     if($resource->archive) :
                                         echo $this->Form->postLink(__('Désarchiver'), ['action' => 'unArchive', $resource->id], ['class' => 'btn btn-warning', $resource->id]); 

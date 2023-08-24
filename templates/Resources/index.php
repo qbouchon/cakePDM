@@ -1,20 +1,12 @@
 <?php
-  $this->Breadcrumbs->add(
-    'Home',
-    ['controller' => 'Pages', 'action' => 'display']
-    )
-    ->add('Ressources');
-?>
-
-
-
-<?php
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Resource> $resources
  */
 
 ?>
+<?= $this->Html->script('search'); ?>
+
 <div class="container">
     <div class="resources index content">
 
@@ -24,9 +16,27 @@
 
         </div>
 
-        <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn addButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une ressource','escape' =>false]); ?>
+
+        <div class="d-flex align-items-center justify-content-between mb-1">
+            <div >
+                <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn addButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une ressource','escape' =>false]); ?>
+            </div>
+            <div>
+                 <div class="input-group">                        
+                        <input type="text" class="form-control border-right-0" id="searchBox" onkeyup="search()" placeholder="Rechercher">   
+                         <span class="input-group-text bg-white border-left-0">
+                                <i class="fa fa-search"></i>
+                        </span>
+
+                </div>
+               
+            </div>
+        </div>
+
+
+
         <div>
-            <table class="table table-bordered table-hover table-sm  table-light table-responsive  align-middle">
+            <table id="searchTable" class="table table-bordered table-hover table-sm  table-light table-responsive  align-middle">
                 <thead>
                     <tr class="bg-white">
                        <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('name') ?></th>
@@ -48,7 +58,7 @@
                     <?= $resource->archive ? '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">' :  '<tr class="bg-white">' ?>
                         
 
-                        <td class="text-center"><?= h($resource->name) ?></td>
+                        <td class="text-center"><b><?= h($resource->name) ?></b></td>
                         
                         
                         <td class="text-center"><?= h($resource->picture) ?></td>
@@ -124,7 +134,7 @@
                 <?= $this->Paginator->numbers() ?>
                 <?= $this->Paginator->next('>') ?>
             </ul>
-            <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+           <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} sur {{pages}}, {{current}} entrée(s) affiché(s) sur un total de {{count}}')) ?></p>
         </div>
 
 

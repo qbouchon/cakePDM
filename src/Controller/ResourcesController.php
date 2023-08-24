@@ -21,7 +21,6 @@ class ResourcesController extends AppController
     public function index()
     {
 
-
         //Authorisation. Trouver une meilleure pratique
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
