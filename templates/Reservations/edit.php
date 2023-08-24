@@ -35,8 +35,7 @@
                                     ?>
 
                                     <div class='mb-5' id='picker-container'>
-                                    <input class="invisible" id="picker" type="text" readonly='readonly'/>
-                                    <div class="invisible" id="reso_resa" readonly="readonly"><?= $reservation->id ?></div>
+                                        <input class="invisible" id="picker" type="text" readonly='readonly'/>
                                     </div>
 
                               
@@ -44,7 +43,7 @@
                                         <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'font-italic', 'label'=>'Date de début','readonly'=>'']); ?>   
 
                                         <?=  $this->Form->control('end_date',['id'=>'end_date',  'class'=>'font-italic', 'label'=>'Date de fin', 'readonly'=>'']); ?>   
-                                            <em id='error_box' class='text-danger font-italic'></em>
+                                           
                                    
                                         <?= $this->Form->control('is_back',['label' => 'Ressource retournée']) ?>
 

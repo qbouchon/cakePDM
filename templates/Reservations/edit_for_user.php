@@ -8,9 +8,12 @@
     use Cake\I18n\FrozenDate;
 ?>
 
-
+    <script>
+        var reservationId = "<?php echo $reservation->id ?>";
+    </script>
 <!-- js pour la gestion du datepicker -->
 <?= $this->Html->script('reservation_edit'); ?>
+
 
 <div class="container">   
 
@@ -27,26 +30,25 @@
                              
                                       
                                     <?php
-                                        //echo $this->Form->control('is_back');
-                                        echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput']);
+                                        echo $this->Form->control('resource_id', ['options' => $resources, 'id'=>'resourceInput']);
                                         echo $this->Form->control('user_id', ['options' => $users]);
                                     ?>
 
                                     <div class='mb-5' id='picker-container'>
-                                    <input class="invisible" id="picker" type="text" readonly='readonly'/>
+                                        <input class="invisible" id="picker" type="text" readonly='readonly'/>
                                     </div>
 
                               
 
-                                       <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'font-italic', 'label'=>'Date de début','readonly'=>'']); ?>   
+                                        <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'font-italic', 'label'=>'Date de début','readonly'=>'']); ?>   
 
                                         <?=  $this->Form->control('end_date',['id'=>'end_date',  'class'=>'font-italic', 'label'=>'Date de fin', 'readonly'=>'']); ?>   
-                                            <em id='error_box' class='text-danger font-italic'></em>
+                                           
                                    
-
+                                        <?= $this->Form->control('is_back',['label' => 'Ressource retournée']) ?>
 
                                     <div class="text-center">
-                                        <?= $this->Form->button(__('Créer'),['class' => ' mt-3']) ?>
+                                        <?= $this->Form->button(__('Modifier'),['class' => ' mt-3']) ?>
                                         <?= $this->Form->end() ?>
                                     </div>
 

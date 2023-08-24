@@ -39,6 +39,11 @@ class ReservationPolicy
     {
         return $user->admin ? true : false;
     }
+     public function canEditForUser(IdentityInterface $user, Reservation $reservation)
+    {
+        return $user->admin ? true : false;
+    }
+
 
     /**
      * Check if $user can delete Reservation

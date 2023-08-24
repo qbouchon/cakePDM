@@ -8,6 +8,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\FrozenTime;
 
 /**
  * Reservations Model
@@ -66,32 +67,34 @@ class ReservationsTable extends Table
         $validator
             ->date('start_date')
             ->requirePresence('start_date', 'create')
-            ->notEmptyDate('start_date');
-            // ->add('start_date', 'compareDates', [
-            //     'rule' => function ($value, $context) {
-            //         $end_date = $context['data']['end_date'];
-            //         return strtotime($value) <= strtotime($end_date);
-            //     },
-            //     'message' => 'La date de fin doit être avant la date de début'
-            // ]);
+            ->notEmptyDate('start_date')
+            ->add('start_date', 'checkStartDate', [
+                'rule' => [$this, 'checkStartDate'],
+                'message' => 'Vous ne pouvez pas reserver de ressource avant le lendemain de la demande',
+            ])
+            ->add('start_date', 'checkDates', [
+                'rule' => [$this, 'checkDates'],
+                'message' => 'La date de début de réservation doit être avant la date de fin.',
+            ])
+            ->add('start_date', 'checkOverlapeReservation', [
+                'rule' => [$this, 'checkOverlapeReservation'],
+                'message' => "La ressource n'est pas disponible à ces dates",
+            ]);
+ 
 
         $validator
             ->date('end_date')
             ->requirePresence('end_date', 'create')
-            ->notEmptyDate('end_date');
-            // ->add('start_date', 'compareDates', [
-            //     'rule' => function ($value, $context) {
-            //         $end_date = $context['data']['end_date'];
-            //         $resource_id = $context['data']['resource_id'];
-
-            //         // Load the associated 'Resources' table
-            //         $resourcesTable = TableRegistry::getTableLocator()->get('Resources');
-            //         $resource = $resourcesTable->get($resource_id);
-
-            //         return $this->checkMaxDuration($value, $end_date, $resource->max_duration);
-            //     },
-            //     'message' => 'Reservation duration exceeds the maximum allowed'
-            // ]);
+            ->notEmptyDate('end_date')
+             ->add('end_date', 'checkReservationDuration', [
+                'rule' => [$this, 'checkReservationDuration'],
+                'message' => "La Reservation dépasse la durée maximal d'emprunt pour cette ressource",
+            ])
+            ->add('end_date', 'checkOverlapeReservation', [
+                'rule' => [$this, 'checkOverlapeReservation'],
+                'message' => "La ressource n'est pas disponible à ces dates",
+            ]);
+         
 
         $validator
             ->boolean('is_back')
@@ -128,9 +131,69 @@ class ReservationsTable extends Table
     }
 
     
-    protected function checkMaxDuration($start_date, $end_date, $max_duration)
+    public function checkStartDate($value, $context)
     {
-        $durationInDays = (strtotime($end_date) - strtotime($start_date)) / (24 * 60 * 60);
-        return $durationInDays <= $max_duration;
+        $today = FrozenTime::now();
+        // debug('today' . $today->i18nFormat('yyyy-MM-dd'));
+        // echo $today;
+        // debug($this->start_date);
+        // die;
+        $start_date = new FrozenTime($context['data']['start_date']);
+
+
+        if($start_date<=$today)
+            return false; 
+        
+        
+        return true;
+    }
+
+
+    //Check if start_date before end_date
+    public function checkDates($value, $context)
+    {
+        $start_date = new FrozenTime($context['data']['start_date']);
+        $end_date = new FrozenTime($context['data']['end_date']);
+
+        if($end_date < $start_date)
+            return false;
+        else
+            return true;
+    }
+
+    //Check if the duration of reservation is not greater than the maximum duration for the specific resource
+    public function checkReservationDuration($value, $context)
+    {
+        $start_date = new FrozenTime($context['data']['start_date']);
+        $end_date = new FrozenTime($context['data']['end_date']);
+        $resource = $this->Resources->get($context['data']['resource_id']);
+
+        $durationInDays = ($end_date->getTimestamp() - $start_date->getTimestamp()) / (24 * 60 * 60);
+        if($durationInDays > $resource->max_duration)
+            return false;
+        else
+            return true;
+    }
+
+    //Check if there is no overlape reservation for the resource
+    public function checkOverlapeReservation($value, $context)
+    {
+        $start_date = new FrozenTime($context['data']['start_date']);
+        $end_date = new FrozenTime($context['data']['end_date']);
+        $resource = $this->Resources->get($context['data']['resource_id'],['contain' => 'Reservations']);
+
+        
+
+        foreach($resource->reservations as $reservation)
+        {
+            
+            //We only check if the resource "is not back"
+            if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back){
+                return false;
+            }
+
+        }
+
+        return true;
     }
 }

@@ -80,34 +80,15 @@ class ReservationsController extends AppController
 
             $reservation->set('resource', $resource);
 
-                    //Check if reservation has allowed date Range. à refactorer
-                    if(!$reservation->checkStartDate()){
-                        $this->Flash->error(__('Date de début invalide'));
-                    }
-                    elseif(!$reservation->checkdates()){
-                        $this->Flash->error(__('La date de début doit être avant la fin de la date de fin réservation.'));
-                    }
-                    elseif(!$reservation->checkReservationDuration())
-                    {
-                         $this->Flash->error(__('La réservation pour cette resource ne peut pas excéder ' . $resource->max_duration . ' jour(s).'));
-                    }
-                    elseif(!$reservation->checkOverlapeReservation())
-                    {
-                         $this->Flash->error(__("La ressource n'est pas disponible à ces dates, vérifiez qu'il n'existe pas de réservations déjà présente entre vos dates"));
-                    }
-                    elseif ($resource->archive) {
-                         $this->Flash->error(__("Cette resource n'est plus disponilbe"));
-                    }
-                    else
-                    {
+                 
 
                         if ($this->Reservations->save($reservation)) {
 
                             $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
                             return $this->redirect(['action' => 'add',$this->request->getData('resource_id')]);
                         }
-                        $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
-                    }
+                        $this->Flash->error(__("La réservation n'a pas pu être créée."));
+                    
         }
 
 
@@ -143,30 +124,13 @@ class ReservationsController extends AppController
                 $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
                 $reservation->set('resource', $resource);
 
-                    //Check if reservation has allowed date Range. à refactorer
-                    if(!$reservation->checkStartDate()){
-                        $this->Flash->error(__('Date de début invalide'));
-                    }
-                    elseif(!$reservation->checkdates()){
-                        $this->Flash->error(__('La date de début doit être avant la fin de la date de fin réservation.'));
-                    }
-                    elseif(!$reservation->checkReservationDuration())
-                    {
-                         $this->Flash->error(__('La réservation pour cette resource ne peut pas excéder ' . $resource->max_duration . ' jour(s).'));
-                    }
-                    elseif(!$reservation->checkOverlapeReservation())
-                    {
-                         $this->Flash->error(__("La ressource n'est pas disponible à ces dates, vérifiez qu'il n'existe pas de réservations déjà présente entre vos dates"));
-                    }
-                    else
-                    {
                         if ($this->Reservations->save($reservation)) {
 
                             $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
                             return $this->redirect(['action' => 'addForUser',$this->request->getData('resource_id')]);
                         }
-                        $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
-                    }
+                        $this->Flash->error(__("La réservation n'a pas pu être créée."));
+              
         }
 
 
@@ -192,7 +156,7 @@ class ReservationsController extends AppController
         $reservation = $this->Reservations->get($id, [
             'contain' => [],
         ]);
-        
+
          //authorization
         $this->Authorization->authorize($reservation);
 
@@ -200,11 +164,39 @@ class ReservationsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
             if ($this->Reservations->save($reservation)) {
-                $this->Flash->success(__('The reservation has been saved.'));
+                $this->Flash->success(__('La réservation a été modifiée'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The reservation could not be saved. Please, try again.'));
+            $this->Flash->error(__("La réservation n'a pas pu être modifiée."));
+        }
+        $resources = $this->Reservations->Resources->find('list', ['limit' => 200])->all();
+        $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
+        $this->set(compact('reservation', 'resources', 'users'));
+    }
+
+    public function editForUser($id = null)
+    {
+        $reservation = $this->Reservations->get($id, [
+            'contain' => [],
+        ]);
+        
+         //authorization
+        $this->Authorization->authorize($reservation);
+
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
+            $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
+            $reservation->set('resource', $resource);
+
+                        if ($this->Reservations->save($reservation)) {
+                            $this->Flash->success(__('La réservation a été modifiée'));
+
+                            return $this->redirect(['action' => 'index']);
+                        }
+                        $this->Flash->error(__("La réservation n'a pas pu être modifiée."));
+
         }
         $resources = $this->Reservations->Resources->find('list', ['limit' => 200])->all();
         $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
@@ -228,9 +220,9 @@ class ReservationsController extends AppController
 
 
         if ($this->Reservations->delete($reservation)) {
-            $this->Flash->success(__('The reservation has been deleted.'));
+            $this->Flash->success(__('La réservation a été supprimée'));
         } else {
-            $this->Flash->error(__('The reservation could not be deleted. Please, try again.'));
+            $this->Flash->error(__("Erreur lors de la suppression de la réservation."));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -255,7 +247,7 @@ class ReservationsController extends AppController
         if ($this->Reservations->save($reservation)) {
             $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme rendue le ' . $today ));
         } else {
-            $this->Flash->error(__('Erreur lors de la tentative de marquée la reservation comme rendue'));
+            $this->Flash->error(__('Erreur lors de la tentative de définir la reservation comme rendue'));
         }
 
         return $this->redirect($this->referer());
@@ -279,7 +271,7 @@ class ReservationsController extends AppController
         if ($this->Reservations->save($reservation)) {
             $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme non rendue' ));
         } else {
-            $this->Flash->error(__('Erreur lors de la tentative de marquée la reservation comme non rendue'));
+            $this->Flash->error(__('Erreur lors de la tentative de définir la reservation comme non rendue'));
         }
 
         return $this->redirect($this->referer());

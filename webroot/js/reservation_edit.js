@@ -59,6 +59,7 @@ $( document ).ready(function() {
                 startDate : tomorrowString
 
             });
+        picker.setRange($('#start_date').val(),$('#end_date').val());
 
         }
 
