@@ -63,7 +63,7 @@ var HotelDatepicker = (function (fecha) {
         this.clearButton = opts.clearButton || false;
         this.submitButton = Boolean(this.inline && opts.submitButton);
         this.submitButtonName = this.submitButton && opts.submitButtonName ? opts.submitButtonName : "";
-        this.errorMsg = opts.errorMsg || ["Cette date n'est pas disponible", "Vous ne pouvez pas créer une réservation qui commencerait avant aujourd'hui","Il existe une réservation entre les dates entrées"];
+        this.errorMsg = opts.errorMsg || ["Cette date n'est pas disponible", "Vous ne pouvez pas créer une réservation qui commencerait avant demain.","Il existe une réservation entre les dates entrées"];
         this.i18n = opts.i18n || {
           selected: "Réservation du ",
           night: "jour",

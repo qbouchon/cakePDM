@@ -52,7 +52,7 @@ class Reservation extends Entity
         // debug($this->start_date);
         // die;
 
-        if($this->start_date<$today)
+        if($this->start_date<=$today)
             return false; 
         
         

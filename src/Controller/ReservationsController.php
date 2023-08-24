@@ -95,6 +95,9 @@ class ReservationsController extends AppController
                     {
                          $this->Flash->error(__("La ressource n'est pas disponible à ces dates, vérifiez qu'il n'existe pas de réservations déjà présente entre vos dates"));
                     }
+                    elseif ($resource->archive) {
+                         $this->Flash->error(__("Cette resource n'est plus disponilbe"));
+                    }
                     else
                     {
 
