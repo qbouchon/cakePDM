@@ -1,10 +1,12 @@
 $( document ).ready(function() {
 
              new DataTable('#unArchivedResources', {
-                    lengthChange: false
+                    lengthChange: false,
+                    info: false
                 });
 
              new DataTable('#archivedResources', {
-                     lengthChange: false
+                     lengthChange: false,
+                     info: false
                 });
 });

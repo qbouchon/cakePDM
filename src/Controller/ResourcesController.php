@@ -21,27 +21,18 @@ class ResourcesController extends AppController
     public function index()
     {
 
-
         //Authorisation. Trouver une meilleure pratique
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
         $this->paginate = [
             'contain' => ['Domains'],
-            'order' => ['Resources.archive' => 'asc'],
-            'conditions' => ['Resources.archive' => false],
+            'order' => ['domain' => 'asc'],
         ];
-        $unArchivedResources = $this->paginate($this->Resources->find(), ['model' => 'unArchived']);
+        $resources = $this->paginate($this->Resources->find());
 
-        $this->paginate = [
-            'contain' => ['Domains'],
-            'order' => ['Resources.archive' => 'asc'],
-            'conditions' => ['Resources.archive' => true]
-        ];
 
-        $archivedResources = $this->paginate($this->Resources->find(), ['model' => 'archived']);
-
-        $this->set(compact('unArchivedResources','archivedResources'));
+        $this->set(compact('resources'));
     }
 
     /**

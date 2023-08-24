@@ -140,8 +140,13 @@
                                     
                                     <div class="row">
                                         <div class="col">
+
                                             <?= $this->Flash->render(); ?>
-                                            <?= $this->fetch('content'); ?> 
+
+                                            <div class="mt-3">
+                                                <?= $this->fetch('content'); ?> 
+                                            </div>
+
                                             <div class="mb-5"></div>
                                         </div>
                                     </div>

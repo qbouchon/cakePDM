@@ -28,10 +28,12 @@
             <table id="unArchivedResources" class="table table-bordered table-hover table-sm  table-light table-responsive  align-middle">
                 <thead>
                     <tr class="bg-white">
+                       <th>ID</th>
                        <th>Nom</th>
                        <th>Image</th>
-                       <th> Domaine</th>
-                       <th> Archive</th>
+                       <th>Durée de réservation max</th>
+                       <th>Domaine</th>
+                       
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                    </tr>
@@ -39,25 +41,26 @@
                <tbody>
                     <?php 
 
-                            foreach ($unArchivedResources as $resource): 
-
+                            foreach ($resources as $resource): 
+                                if(!$resource->archive):
                                
 
                     ?>
-                        <?= $resource->archive ? '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">' :  '<tr class="bg-white">' ?>
+                            <tr class="bg-white">
                             
+                            <td class="text-center"><?= h($resource->id) ?></td>
 
-                            <td class="text-center"><?= h($resource->name) ?></td>
+                            <td class="text-center"><b><?= h($resource->name) ?></b></td>
                             
                             
                             <td class="text-center"><?= h($resource->picture) ?></td>
-                            
+
+                            <td class="text-center"><?= $resource->max_duration > 0 ? $resource->max_duration . ' jour(s)' : 'illimitée' ?></td>
                             
                             <td class="text-center"><?= $resource->has('domain') ? $this->Html->link($resource->domain->name, ['controller' => 'Domains', 'action' => 'view', $resource->domain->id]) : '' ?></td>
+                                                                         
                             
-                            <td class="text-center"><?= $resource->archive ? 'Oui' : 'Non' ?></td>
-                            
-                            
+
                             <td class="actions d-flex justify-content-center">
                                 <div class="dropdown">
                                     <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -68,7 +71,7 @@
                                         
                                         <li><?= $this->Html->link(__('Edit'), ['action' => 'edit', $resource->id],['class' => 'dropdown-item']) ?></li>
                                         <li>
-                                           <?= $resource->archive ? $this->Form->postLink(__('Désarchiver'), ['action' => 'unArchive', $resource->id],['class' => 'dropdown-item']) : $this->Form->postLink(__('Archiver'), ['action' => 'archive', $resource->id],['class' => 'dropdown-item']) ?>
+                                           <?= $this->Form->postLink(__('Archiver'), ['action' => 'archive', $resource->id],['class' => 'dropdown-item']) ?>
                                         </li>
                                         <!-- Button trigger DeleteResourceModal -->
                                         <li>
@@ -94,15 +97,7 @@
                               </div>
                               <div class="modal-footer">  
                                 <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $resource->id], ['class' => 'btn btn-danger', 'confirm' => 'Supprimer '.$resource->name.' ?']) ?>    
-
-                                <?php
-                                    if($resource->archive)
-                                        echo $this->Form->postLink(__('Désarchiver'), ['action' => 'unArchive', $resource->id], ['class' => 'btn btn-warning', $resource->id]);
-                                    else
-                                        echo $this->Form->postLink(__('Archiver'), ['action' => 'archive', $resource->id], ['class' => 'btn btn-warning', $resource->id]);
-                                ?>
-
-                               
+                                <?= $this->Form->postLink(__('Archiver'), ['action' => 'archive', $resource->id], ['class' => 'btn btn-warning', $resource->id]) ?>                       
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                               </div>
                             </div>
@@ -110,7 +105,7 @@
                         </div>
 
                     <?php 
-                            
+                            endif;
                         endforeach; 
 
                     ?>
@@ -131,10 +126,13 @@
             <table id="archivedResources" class="table table-bordered table-hover table-sm  table-light table-responsive  align-middle">
                 <thead>
                     <tr class="bg-secondary bg-opacity-50">
+                        <th>ID</th>
                        <th>Nom</th>
                        <th>Image</th>
-                       <th> Domaine</th>
-                       <th> Archive</th>
+                       <th>Durée de réservation max</th>
+                       <th>Domaine</th>
+                       
+
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                    </tr>
@@ -142,24 +140,24 @@
                <tbody>
                 <?php 
 
-                        foreach ($archivedResources as $resource): 
-
+                        foreach ($resources as $resource): 
+                            if($resource->archive):
                            
 
                 ?>
                     <tr class="bg-secondary bg-opacity-50">
                         
+                        <td class="text-center"><?= h($resource->id) ?></td>
 
                         <td class="text-center"><?= h($resource->name) ?></td>
                         
                         
                         <td class="text-center"><?= h($resource->picture) ?></td>
                         
-                        
+                        <td class="text-center"><?= $resource->max_duration > 0 ? $resource->max_duration . ' jour(s)' : 'illimitée' ?></td>
+
                         <td class="text-center"><?= $resource->has('domain') ? $this->Html->link($resource->domain->name, ['controller' => 'Domains', 'action' => 'view', $resource->domain->id]) : '' ?></td>
-                        
-                        <td class="text-center"><?= $resource->archive ? 'Oui' : 'Non' ?></td>
-                        
+                                            
                         
                         <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
@@ -171,7 +169,7 @@
                                     
                                     <li><?= $this->Html->link(__('Edit'), ['action' => 'edit', $resource->id],['class' => 'dropdown-item']) ?></li>
                                     <li>
-                                       <?= $resource->archive ? $this->Form->postLink(__('Désarchiver'), ['action' => 'unArchive', $resource->id],['class' => 'dropdown-item']) : $this->Form->postLink(__('Archiver'), ['action' => 'archive', $resource->id],['class' => 'dropdown-item']) ?>
+                                       <?= $this->Form->postLink(__('Désarchiver'), ['action' => 'unArchive', $resource->id],['class' => 'dropdown-item']) ?>
                                     </li>
                                     <!-- Button trigger DeleteResourceModal -->
                                     <li>
@@ -197,15 +195,7 @@
                           </div>
                           <div class="modal-footer">  
                             <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $resource->id], ['class' => 'btn btn-danger', 'confirm' => 'Supprimer '.$resource->name.' ?']) ?>    
-
-                            <?php
-                                if($resource->archive)
-                                    echo $this->Form->postLink(__('Désarchiver'), ['action' => 'unArchive', $resource->id], ['class' => 'btn btn-warning', $resource->id]);
-                                else
-                                    echo $this->Form->postLink(__('Archiver'), ['action' => 'archive', $resource->id], ['class' => 'btn btn-warning', $resource->id]);
-                            ?>
-
-                           
+                            <?= $this->Form->postLink(__('Désarchiver'), ['action' => 'unArchive', $resource->id], ['class' => 'btn btn-warning', $resource->id]); ?>                  
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                           </div>
                         </div>
@@ -213,7 +203,7 @@
                     </div>
 
                 <?php 
-                        
+                        endif;
                     endforeach; 
 
                 ?>
