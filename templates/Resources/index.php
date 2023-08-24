@@ -42,6 +42,7 @@
                        <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('name') ?></th>
                        <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('picture') ?></th>
                        <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('domain_id') ?></th>
+                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('max_duration') ?></th>
                        <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('archive') ?></th>
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
@@ -65,6 +66,8 @@
                         
                         
                         <td class="text-center"><?= $resource->has('domain') ? $this->Html->link($resource->domain->name, ['controller' => 'Domains', 'action' => 'view', $resource->domain->id]) : '' ?></td>
+
+                         <td class="text-center"><?= $resource->max_duration > 0 ?  $resource->max_duration . ' jour(s)' : 'illimitée' ?></td>
                         
                         <td class="text-center"><?= $resource->archive ? 'Oui' : 'Non' ?></td>
                         

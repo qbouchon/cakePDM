@@ -90,7 +90,13 @@ class ResourcesTable extends Table
 
         $validator
             ->nonNegativeInteger('max_duration')
-            ->allowEmptyString('max_duration');
+            ->allowEmptyString('max_duration')
+            ->add('max_duration', 'valid', [
+                    'rule' => function ($value) {
+                        return $value >= 0;
+                    },
+                    'message' => 'Please enter a non-negative value.',
+            ]);
 
         $validator
             ->boolean('archive')
@@ -108,7 +114,7 @@ class ResourcesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('domain_id', 'Domains'), ['errorField' => 'domain_id']);
+       //$rules->add($rules->existsIn('domain_id', 'Domains',['allowNullable' => true]), ['errorField' => 'domain_id']);
 
         return $rules;
     }

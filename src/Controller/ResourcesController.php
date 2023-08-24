@@ -160,7 +160,7 @@ class ResourcesController extends AppController
 
                     $this->Flash->success(__('Ressource '.$resource->name.' modifiée'));                
 
-                    return $this->redirect($this->referer());
+                    return $this->redirect(['action' => 'index']);
                 }
 
                 $this->Flash->error(__('Erreur lors de la modification de la ressource '.$resource->name));
