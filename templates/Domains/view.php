@@ -44,7 +44,6 @@
                                     <td><?= $resources->archive ? 'Oui' : 'Non' ?></td>
                                     <td class="actions">
                                         <?= $this->Html->link(__('View'), ['controller' => 'Resources', 'action' => 'view', $resources->id]) ?>
-                                        <?= $this->Form->postLink(__('Supprimer du domaine'), ['controller' => 'Resources', 'action' => 'delete', $resources->id], ['confirm' => __('Are you sure you want to delete # {0}?', $resources->id)]) ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
