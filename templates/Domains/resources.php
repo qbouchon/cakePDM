@@ -66,7 +66,7 @@
 
                                                        <div class="text-center">
                                                                 <?= $this->Html->link("Détails", ['controller' => 'Resources', 'action' => 'view', $resource->id],['class' => 'btn btn-secondary mt-2 mx-auto']) ?>
-                                                                <?= $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary mt-2 mx-auto']) ?>       
+                                                                <?= $this->getRequest()->getAttribute('identity')->get('admin') ? $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'addForUser', $resource->id],['class' => 'btn btn-secondary mt-2 mx-auto']) : $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary mt-2 mx-auto'])?>       
                                                        </div>
                                                   
                                                 </div>

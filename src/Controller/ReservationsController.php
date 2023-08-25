@@ -105,7 +105,7 @@ class ReservationsController extends AppController
                         if ($this->Reservations->save($reservation)) {
 
                             $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
-                            return $this->redirect(['action' => 'add',$this->request->getData('resource_id')]);
+                            return $this->redirect(['action' => 'indexUser']);
                         }
                         $this->Flash->error(__("La réservation n'a pas pu être créée."));
                     
@@ -147,7 +147,8 @@ class ReservationsController extends AppController
                         if ($this->Reservations->save($reservation)) {
 
                             $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
-                            return $this->redirect(['action' => 'addForUser',$this->request->getData('resource_id')]);
+                            // return $this->redirect(['action' => 'addForUser',$this->request->getData('resource_id')]);
+                            return $this->redirect(['action' => 'index']);
                         }
                         $this->Flash->error(__("La réservation n'a pas pu être créée."));
               
