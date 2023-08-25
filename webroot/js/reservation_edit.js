@@ -50,14 +50,14 @@ $( document ).ready(function() {
             var tomorrowString = tomorrowDate.toISOString().split('T')[0];
 
             picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
-
+                noCheckInDaysOfWeek: ['Samedi','Dimanche'],
+                noCheckOutDaysOfWeek: ['Samedi','Dimanche'],
                 disabledDates: bookedDates,
                 inline: true,
                 startOfWeek: 'monday',
                 moveBothMonths : true,
                 maxNights : maxDuration,
                 startDate : tomorrowString,
-                disableDaysOfWeek : ["Samedi","Dimanche"]
 
             });
         picker.setRange($('#start_date').val(),$('#end_date').val());
