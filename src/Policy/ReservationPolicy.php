@@ -5,6 +5,7 @@ namespace App\Policy;
 
 use App\Model\Entity\Reservation;
 use Authorization\IdentityInterface;
+use Cake\I18n\FrozenTime;
 
 /**
  * Reservation policy
@@ -54,7 +55,13 @@ class ReservationPolicy
      */
     public function canDelete(IdentityInterface $user, Reservation $reservation)
     {
-        return $user->admin ? true : false;
+
+        if($user->admin)
+            return true;
+        elseif($reservation->user_id == $user->id && $reservation->start_date > FrozenTime::now()) //On autorise si la réservation appartient à l'utilisateur et qu'elle n'est pas en cours
+            return true;
+        else
+            return false;
     }
 
     /**

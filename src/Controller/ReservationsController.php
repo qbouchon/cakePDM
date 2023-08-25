@@ -35,6 +35,24 @@ class ReservationsController extends AppController
         $this->set(compact('reservations'));
     }
 
+     public function indexUser()
+    {
+
+        $user = $this->Reservations->Users->get($this->Authentication->getIdentity()->get('id'));
+
+        $this->paginate = [
+            'contain' => ['Resources', 'Users'],
+            'order' => ['Reservations.is_back' => 'asc'],
+            'conditions' => ['Reservations.user_id' => $user->id]
+        ];
+        $reservations = $this->paginate($this->Reservations);
+
+        //authorization
+        $this->Authorization->skipAuthorization();
+
+        $this->set(compact('reservations'));
+    }
+
     /**
      * View method
      *
@@ -237,7 +255,7 @@ class ReservationsController extends AppController
             $this->Flash->error(__("Erreur lors de la suppression de la réservation."));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect($this->referer());
     }
 
     public function setBack($id = null)
