@@ -67,33 +67,33 @@ class ReservationsTable extends Table
         $validator
             ->date('start_date')
             ->requirePresence('start_date', 'create')
-            ->notEmptyDate('start_date');
-            // ->add('start_date', 'checkStartDate', [
-            //     'rule' => [$this, 'checkStartDate'],
-            //     'message' => 'Vous ne pouvez pas reserver de ressource avant le lendemain de la demande',
-            // ])
-            // ->add('start_date', 'checkDates', [
-            //     'rule' => [$this, 'checkDates'],
-            //     'message' => 'La date de début de réservation doit être avant la date de fin.',
-            // ])
-            // ->add('start_date', 'checkOverlapeReservation', [
-            //     'rule' => [$this, 'checkOverlapeReservation'],
-            //     'message' => "La ressource n'est pas disponible à ces dates",
-            // ])
-            // ->add('start_date', 'notOnSaturday', [
-            // 'rule' => function ($value, $context) {
-            //     $date = new FrozenTime($value);
-            //     return $date->format('N') != 6; // 6 represents Saturday
-            // },
-            // 'message' => 'La date de début de réservation ne peut pas être un samedi.'
-            // ])
-            // ->add('start_date', 'notOnSunday', [
-            // 'rule' => function ($value, $context) {
-            //     $date = new FrozenTime($value);
-            //     return $date->format('N') != 7; // 7 represents Sunday
-            // },
-            // 'message' => 'La date de début ne peut pas être un dimanche.'
-            // ]);
+            ->notEmptyDate('start_date')
+            ->add('start_date', 'checkStartDate', [
+                'rule' => [$this, 'checkStartDate'],
+                'message' => 'Vous ne pouvez pas reserver de ressource avant le lendemain de la demande',
+            ])
+            ->add('start_date', 'checkDates', [
+                'rule' => [$this, 'checkDates'],
+                'message' => 'La date de début de réservation doit être avant la date de fin.',
+            ])
+            ->add('start_date', 'checkOverlapeReservation', [
+                'rule' => [$this, 'checkOverlapeReservation'],
+                'message' => "La ressource n'est pas disponible à ces dates",
+            ])
+            ->add('start_date', 'notOnSaturday', [
+            'rule' => function ($value, $context) {
+                $date = new FrozenTime($value);
+                return $date->format('N') != 6; // 6 represents Saturday
+            },
+            'message' => 'La date de début de réservation ne peut pas être un samedi.'
+            ])
+            ->add('start_date', 'notOnSunday', [
+            'rule' => function ($value, $context) {
+                $date = new FrozenTime($value);
+                return $date->format('N') != 7; // 7 represents Sunday
+            },
+            'message' => 'La date de début ne peut pas être un dimanche.'
+            ]);
 
 
  
@@ -101,29 +101,29 @@ class ReservationsTable extends Table
         $validator
             ->date('end_date')
             ->requirePresence('end_date', 'create')
-            ->notEmptyDate('end_date');
-            // ->add('end_date', 'checkReservationDuration', [
-            //     'rule' => [$this, 'checkReservationDuration'],
-            //     'message' => "La Reservation dépasse la durée maximal d'emprunt pour cette ressource",
-            // ])
-            // ->add('end_date', 'checkOverlapeReservation', [
-            //     'rule' => [$this, 'checkOverlapeReservation'],
-            //     'message' => "La ressource n'est pas disponible à ces dates",
-            // ])
-            // ->add('end_date', 'notOnSaturday', [
-            // 'rule' => function ($value, $context) {
-            //     $date = new FrozenTime($value);
-            //     return $date->format('N') != 6; // 6 represents Saturday
-            // },
-            // 'message' => 'La date de fin de réservation ne peut pas être un samedi.'
-            // ])
-            // ->add('end_date', 'notOnSunday', [
-            // 'rule' => function ($value, $context) {
-            //     $date = new FrozenTime($value);
-            //     return $date->format('N') != 7; // 7 represents Sunday
-            // },
-            // 'message' => 'La date de fin ne peut pas être un dimanche.'
-            // ]);
+            ->notEmptyDate('end_date')
+            ->add('end_date', 'checkReservationDuration', [
+                'rule' => [$this, 'checkReservationDuration'],
+                'message' => "La Reservation dépasse la durée maximal d'emprunt pour cette ressource",
+            ])
+            ->add('end_date', 'checkOverlapeReservation', [
+                'rule' => [$this, 'checkOverlapeReservation'],
+                'message' => "La ressource n'est pas disponible à ces dates",
+            ])
+            ->add('end_date', 'notOnSaturday', [
+            'rule' => function ($value, $context) {
+                $date = new FrozenTime($value);
+                return $date->format('N') != 6; // 6 represents Saturday
+            },
+            'message' => 'La date de fin de réservation ne peut pas être un samedi.'
+            ])
+            ->add('end_date', 'notOnSunday', [
+            'rule' => function ($value, $context) {
+                $date = new FrozenTime($value);
+                return $date->format('N') != 7; // 7 represents Sunday
+            },
+            'message' => 'La date de fin ne peut pas être un dimanche.'
+            ]);
 
          
 
@@ -212,18 +212,32 @@ class ReservationsTable extends Table
         $start_date = new FrozenTime($context['data']['start_date']);
         $end_date = new FrozenTime($context['data']['end_date']);
         $resource = $this->Resources->get($context['data']['resource_id'],['contain' => 'Reservations']);
+        // debug($context['data']);
+        // die;
 
-        
-
-        foreach($resource->reservations as $reservation)
+         //Dans le cas où on est en train d'éditer une réservation, on ne veut pas checker les dates de cette réservation
+        if($context['data']['id'])
         {
-            
-            //We only check if the resource "is not back"
-            if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back){
-                return false;
-            }
+                
+            foreach($resource->reservations as $reservation)
+            {
+                   
+                if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back && $reservation->id != $context['data']['id']){
+                            return false;
+                }
 
+            }
         }
+        else
+            foreach($resource->reservations as $reservation)
+            {
+                   
+                if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back){
+                            return false;
+                }
+
+            }
+        
 
         return true;
     }

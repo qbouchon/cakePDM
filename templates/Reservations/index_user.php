@@ -61,7 +61,7 @@ use Cake\I18n\FrozenTime;
                         <td class="text-center"><?= h($reservation->end_date) ?></td>
 
                         <?php 
-                            if($reservation->start_date > FrozenTime::now()):
+                            if($reservation->start_date > FrozenTime::now() || $this->getRequest()->getAttribute('identity')->get('admin')):
                         ?>
                                 <td class="actions d-flex justify-content-center">
                                     <div class="dropdown">
@@ -69,7 +69,7 @@ use Cake\I18n\FrozenTime;
                                             <?=__('Actions') ?>
                                         </button>
                                         <ul class="dropdown-menu">                               
-                                            <li><?= $this->Html->link(__('Edit'), ['action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']) ?></li>
+                                            <li><?= $this->getRequest()->getAttribute('identity')->get('admin') ? $this->Html->link(__('Edit'), ['action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']) : $this->Html->link(__('Edit'), ['action' => 'edit', $reservation->id],['class' => 'dropdown-item']) ?></li>
                                         
                                             <li>
                                                  <button type="button" class="btn btn-danger text-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#deleteReservationModal' . $reservation->id ?>">

@@ -187,13 +187,13 @@ class ReservationsController extends AppController
             if ($this->Reservations->save($reservation)) {
                 $this->Flash->success(__('La réservation a été modifiée'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'indexUser']);
             }
             $this->Flash->error(__("La réservation n'a pas pu être modifiée."));
         }
         $resources = $this->Reservations->Resources->find('list', ['limit' => 200])->all();
-        $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
-        $this->set(compact('reservation', 'resources', 'users'));
+
+        $this->set(compact('reservation', 'resources'));
     }
 
     public function editForUser($id = null)
@@ -205,10 +205,10 @@ class ReservationsController extends AppController
          //authorization
         $this->Authorization->authorize($reservation);
 
-            $oldStartDate = $reservation->start_date;
-            $oldEndDate = $reservation->end_date;
+            // $oldStartDate = $reservation->start_date;
+            // $oldEndDate = $reservation->end_date;
 
-            Log::info('OLD DATE ' . $oldEndDate);
+            // Log::info('OLD DATE ' . $oldEndDate);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());

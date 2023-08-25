@@ -31,7 +31,6 @@
                                       
                                     <?php
                                         echo $this->Form->control('resource_id', ['options' => $resources, 'id'=>'resourceInput']);
-                                        echo $this->Form->control('user_id', ['options' => $users]);
                                     ?>
 
                                     <div class='mb-5' id='picker-container'>
@@ -44,9 +43,6 @@
 
                                         <?=  $this->Form->control('end_date',['id'=>'end_date',  'class'=>'font-italic', 'label'=>'Date de fin', 'readonly'=>'']); ?>   
                                            
-                                   
-                                        <?= $this->Form->control('is_back',['label' => 'Ressource retournée']) ?>
-
                                     <div class="text-center">
                                         <?= $this->Form->button(__('Modifier'),['class' => ' mt-3']) ?>
                                         <?= $this->Form->end() ?>
