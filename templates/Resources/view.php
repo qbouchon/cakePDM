@@ -28,10 +28,16 @@
                                             <th><?= __('Durée de réservation max') ?></th>
                                             <td><?= $resource->max_duration > 0 ? $resource->max_duration . " jour(s)" : "Illimitée"?></td>
                                         </tr>
+                                        <?php 
+                                           if($this->getRequest()->getAttribute('identity')->get('admin')):
+                                         ?>
                                         <tr>
                                             <th><?= __('Archivée') ?></th>
                                             <td><?= $resource->archive ? __('Oui') : __('Non'); ?></td>
                                         </tr>
+                                        <?php
+                                            endif;
+                                        ?>
                                     </table>
                                     <div class="text">
                                         <strong><?= __('Description') ?></strong>
@@ -64,7 +70,13 @@
                                                         <th><?= __('Date de début') ?></th>
                                                         <th><?= __('Date de fin') ?></th>
                                                         <th><?= __('Utilisateur') ?></th>
-                                                        <th class="actions"><?= __('Actions') ?></th>
+                                                        <?php 
+                                                                if($this->getRequest()->getAttribute('identity')->get('admin')):
+                                                        ?>
+                                                            <th class="actions"><?= __('Actions') ?></th>
+                                                        <?php
+                                                            endif;
+                                                        ?>
                                                     </tr>
                                                     <?php foreach ($resource->reservations as $reservations) : 
                                                             if(!$reservations->is_back) :
@@ -74,9 +86,15 @@
                                                             <td><?= h($reservations->start_date) ?></td>
                                                             <td><?= h($reservations->end_date) ?></td>
                                                             <td><?= h($reservations->user->firstname).' '.h($reservations->user->lastname).' ('.h($reservations->user->username).')' ?></td>
+                                                            <?php 
+                                                                if($this->getRequest()->getAttribute('identity')->get('admin')):
+                                                             ?>
                                                             <td class="actions">
                                                                 <?= $this->Html->link(__('View'), ['controller' => 'Reservations', 'action' => 'view', $reservations->id]) ?>
                                                             </td>
+                                                            <?php
+                                                                endif;
+                                                            ?>
                                                         </tr>
                                                     <?php 
                                                             endif;
@@ -89,11 +107,18 @@
                                         <?php endif; ?>
                                     </div>
                               
+                                  
+                                       
+                                  
                            
-
-                            
                              <div class="text-center mt-3">
-                                <?= $this->Html->link(__('Editer'), ['action' => 'edit', $resource->id], ['class' => 'btn btn-secondary']) ?> 
+                                 <?php 
+                                    if($this->getRequest()->getAttribute('identity')->get('admin')):
+                                 ?>
+
+                                 <?= $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'addForUser', $resource->id],['class' => 'btn btn-secondary']) ?>
+                                 <?= $this->Html->link(__('Editer'), ['action' => 'edit', $resource->id], ['class' => 'btn btn-secondary']) ?> 
+
                                 <?php 
                                     if($resource->archive) :
                                         echo $this->Form->postLink(__('Désarchiver'), ['action' => 'unArchive', $resource->id], ['class' => 'btn btn-warning', $resource->id]); 
@@ -127,6 +152,15 @@
                                         </div>
                                     </div>
 
+                            <?php
+                                else:
+                            ?>
+                                     <?= $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary']) ?>
+                            </div>
+
+                            <?php
+                                endif;
+                            ?>
                 </div>                    
         </div>
 </div>

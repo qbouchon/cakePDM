@@ -65,13 +65,13 @@
                                                        <?=  $relatedFilesContent ?>
 
                                                        <div class="text-center">
-                                                                <?= $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary mt-2 mx-auto']) ?>
-
+                                                                <?= $this->Html->link("Détails", ['controller' => 'Resources', 'action' => 'view', $resource->id],['class' => 'btn btn-secondary mt-2 mx-auto']) ?>
+                                                                <?= $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary mt-2 mx-auto']) ?>       
                                                        </div>
                                                   
                                                 </div>
                                                
-                                          <!-- $this->Html->link("", ['controller'=>'resources', 'action' => 'view', $resource->id], ['class' => 'stretched-link']);  -->
+                                         
                                      </div>
                                 </div>
 
