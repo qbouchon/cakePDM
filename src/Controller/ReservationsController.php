@@ -208,8 +208,8 @@ class ReservationsController extends AppController
         $resources = $this->Reservations->Resources->find('list', ['limit' => 200])->all();
         $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
 
-        $reservation->set('start_date',$oldStartDate);
-        $reservation->set('end_date',$oldEndDate);
+        // $reservation->set('start_date',$oldStartDate);
+        // $reservation->set('end_date',$oldEndDate);
 
 
         $this->set(compact('reservation', 'resources', 'users'));
