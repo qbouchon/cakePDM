@@ -33,7 +33,7 @@
                                     ?>
 
                                     <div class='mb-5' id='picker-container'>
-                                    <input class="invisible" id="picker" type="text" readonly='readonly'/>
+                                    <input class="" id="picker" type="text" readonly='readonly'/>
                                     </div>
 
                               

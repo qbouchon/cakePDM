@@ -42,6 +42,28 @@ $( document ).ready(function() {
 
 
 
+        // function displayPicker(bookedDates, maxDuration)
+        // {
+        //     var today = new Date();
+        //     var tomorrowDate = new Date(today);
+        //     tomorrowDate.setDate(today.getDate() + 1);
+        //     var tomorrowString = tomorrowDate.toISOString().split('T')[0];
+
+        //     picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
+
+        //         disabledDates: bookedDates,
+        //         inline: true,
+        //         startOfWeek: 'monday',
+        //         moveBothMonths : true,
+        //         maxNights : maxDuration,
+        //         startDate : tomorrowString,
+        //         disableDaysOfWeek : ["Samedi","Dimanche"]
+
+        //     });
+
+        // }
+
+
         function displayPicker(bookedDates, maxDuration)
         {
             var today = new Date();
@@ -49,19 +71,19 @@ $( document ).ready(function() {
             tomorrowDate.setDate(today.getDate() + 1);
             var tomorrowString = tomorrowDate.toISOString().split('T')[0];
 
-            picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
 
-                disabledDates: bookedDates,
-                inline: true,
-                startOfWeek: 'monday',
-                moveBothMonths : true,
-                maxNights : maxDuration,
-                startDate : tomorrowString,
-                disableDaysOfWeek : ["Samedi","Dimanche"]
+           picker = flatpickr("#picker", {                 
+                    mode: "range",
+                    inline: true,
+                    disable: bookedDates,
+                    minDate: tomorrowString,
+
 
             });
 
         }
+
+
 
 
         //A déplacer côté serveur
@@ -109,7 +131,6 @@ $( document ).ready(function() {
     });
 
 
-    
 
 
 
