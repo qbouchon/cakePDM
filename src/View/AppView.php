@@ -46,6 +46,7 @@ class AppView extends View
         $this->loadHelper('Paginator', ['className' => 'BootstrapUI.Paginator']);
         $this->loadHelper('Avolle/FontAwesome.FontAwe');
         $this->loadHelper('Breadcrumbs',['className' => 'BootstrapUI.Breadcrumbs']);
+        $this->loadHelper('Calendar.Calendar');
         // Call the initializeUI method from UIViewTrait
         $this->initializeUI(['layout' => false]);
 

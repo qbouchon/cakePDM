@@ -45,6 +45,7 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
         $this->loadComponent('Authorization.Authorization', ['skipAuthorization' => 'login','logout']);
+        $this->loadComponent('Calendar.Calendar');
       
 
         /*

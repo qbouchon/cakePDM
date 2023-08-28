@@ -91,4 +91,10 @@ class ReservationPolicy
         return $user->admin ? true : false;
     }
 
+    public function canUpcomingreservations(IdentityInterface $user, Reservation $reservation)
+    {
+        return $user->admin ? true : false;
+    }
+
+
 }

@@ -54,6 +54,13 @@ class ReservationsTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
+
+         $this->addBehavior('Calendar.Calendar', [
+            'field' => 'start_date',  // Use your appropriate field name for the beginning of the event
+            'endField' => 'end_date', // Use your appropriate field name for the end of the event
+            'scope' => [],            // Customize your scope as needed
+        ]);
+
     }
 
     /**

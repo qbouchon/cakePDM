@@ -1,7 +1,8 @@
 <!-- Sous menu -->
                         <div class=" text-white sb-sidenav-menu-heading">Administration</div>
 
-                        
+                            <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>Accueil', ['controller'=>'Reservations','action' => 'upcomingReservations'], ['class' => 'nav-link', 'escape' => false]) ?>
+
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReservations" aria-expanded="false" aria-controls="collapseReservations">
                                <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar-check"></i></i></div>
                                <div class="nav-item">Réservations</div>

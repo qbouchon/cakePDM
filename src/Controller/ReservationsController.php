@@ -35,7 +35,7 @@ class ReservationsController extends AppController
         $this->set(compact('reservations'));
     }
 
-     public function indexUser()
+    public function indexUser()
     {
 
         $user = $this->Reservations->Users->get($this->Authentication->getIdentity()->get('id'));
@@ -50,6 +50,27 @@ class ReservationsController extends AppController
         //authorization
         $this->Authorization->skipAuthorization();
 
+        $this->set(compact('reservations'));
+    }
+
+
+    public function upcomingReservations()
+    {
+
+
+        //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
+        $this->Calendar->init(2023, 10);
+
+        // Fetch calendar items (like events, birthdays, ...)
+        $options = [
+            'year' => $this->Calendar->year(),
+            'month' => $this->Calendar->month(),
+        ];
+        $reservations = $this->Reservations->find('calendar', $options);
+        
         $this->set(compact('reservations'));
     }
 

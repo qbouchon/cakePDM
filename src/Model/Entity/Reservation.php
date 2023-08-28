@@ -42,5 +42,5 @@ class Reservation extends Entity
         'user' => true,
     ];
 
-
+   
 }

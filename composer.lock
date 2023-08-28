@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "002313469b7ed6760d45469d3a932583",
+    "content-hash": "4c05ed483b13a4428518c22343bb7eb2",
     "packages": [
         {
             "name": "avolle/cakephp-font-awesome",
@@ -600,6 +600,60 @@
                 }
             ],
             "time": "2023-06-06T12:02:59+00:00"
+        },
+        {
+            "name": "dereuromark/cakephp-calendar",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dereuromark/cakephp-calendar.git",
+                "reference": "1d834a2d5220de74aa3b30145042fce48ef897a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-calendar/zipball/1d834a2d5220de74aa3b30145042fce48ef897a0",
+                "reference": "1d834a2d5220de74aa3b30145042fce48ef897a0",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^4.0.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "fig-r/psr2r-sniffer": "dev-master"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Calendar\\": "src/",
+                    "Calendar\\Test\\Fixture\\": "tests/Fixture/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Scherer",
+                    "homepage": "https://www.dereuromark.de",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A CakePHP plugin to easily create calendars.",
+            "homepage": "https://github.com/dereuromark/cakephp-calendar",
+            "keywords": [
+                "cakephp",
+                "calendar",
+                "events",
+                "helper",
+                "plugin"
+            ],
+            "support": {
+                "issues": "https://github.com/dereuromark/cakephp-calendar/issues",
+                "source": "https://github.com/dereuromark/cakephp-calendar"
+            },
+            "time": "2021-08-13T10:05:16+00:00"
         },
         {
             "name": "friendsofcake/bootstrap-ui",

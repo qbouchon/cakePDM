@@ -84,6 +84,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         //$this->addPlugin('BakeStrap');
         $this->addPlugin('Josegonzalez/Upload');
         $this->addPlugin('Authentication');
+        
+        $this->addPlugin('Calendar');
     }
 
     /**
