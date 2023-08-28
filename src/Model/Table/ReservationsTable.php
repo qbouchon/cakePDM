@@ -216,7 +216,7 @@ class ReservationsTable extends Table
         // die;
 
          //Dans le cas où on est en train d'éditer une réservation, on ne veut pas checker les dates de cette réservation
-        if($context['data']['id'])
+        if (isset($context['data']['id']) && $context['data']['id'])
         {
                 
             foreach($resource->reservations as $reservation)

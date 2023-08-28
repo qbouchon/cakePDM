@@ -53,6 +53,22 @@ class ReservationsController extends AppController
         $this->set(compact('reservations'));
     }
 
+
+     public function upcomingReservations()
+    {
+        $this->paginate = [
+            'contain' => ['Resources', 'Users'],
+            'order' => ['Reservations.is_back' => 'asc']
+        ];
+        $reservations = $this->paginate($this->Reservations);
+
+        //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
+        $this->set(compact('reservations'));
+    }
+
     /**
      * View method
      *
@@ -306,6 +322,46 @@ class ReservationsController extends AppController
         }
 
         return $this->redirect($this->referer());
+    }
+
+    public function getReservationsBetween($date1 = null, $date2 = null)
+    {
+
+
+        //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
+        if ($date1 && $date2) {
+        $reservations = $this->Reservations->find()
+            ->where([
+                'start_date <=' => $date2,
+                'end_date >=' => $date1
+            ])
+            ->contain('Resources') // Chargement des ressources associées
+            ->all();
+
+        $groupedReservations = [];
+        
+        foreach ($reservations as $reservation) {
+            $resourceId = $reservation->resource_id;
+            if (!isset($groupedReservations[$resourceId])) {
+                $groupedReservations[$resourceId] = [
+                    'resource' => $reservation->resource, // Ressource associée
+                    'reservations' => [] // Tableau de réservations pour cette ressource
+                ];
+            }
+            $groupedReservations[$resourceId]['reservations'][] = $reservation;
+        }
+
+        // Convertir les données en format JSON et les envoyer en réponse
+        $this->autoRender = false;
+        $this->response = $this->response->withType('application/json')
+            ->withStringBody(json_encode($groupedReservations));
+
+        return $this->response;
+        }
+
     }
 
 }

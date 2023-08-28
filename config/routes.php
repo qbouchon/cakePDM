@@ -75,6 +75,9 @@ return static function (RouteBuilder $routes) {
 
         $builder->connect('/error/denied', ['controller'=>'Error', 'action' => 'denied']);
 
+         $builder->connect('reservations/upcoming-reservations/:d1/:d2', ['controller' => 'Reservations', 'action' => 'getReservationsBetween'])
+        ->setPass(['d1','d2']);
+
         /*
          * Connect catchall routes for all controllers.
          *
