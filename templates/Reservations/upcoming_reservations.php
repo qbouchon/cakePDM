@@ -17,7 +17,7 @@
             <a href="#" id="nextWeek">Semaine suivante</a>
         </div>
 
-        <table id="calendar" class="table table-bordered table-hover table-sm table-responsive table-light ">
+    <!--     <table id="calendar" class="table table-bordered table-hover table-sm table-responsive table-light ">
                 <thead>
                     <tr></tr>
                </thead>
@@ -25,6 +25,22 @@
       
                </tbody>
         </table>
+
+
+        <table id="events" class="table table-bordered table-hover table-sm table-responsive table-light ">
+
+               <tbody>
+      
+               </tbody>
+        </table> -->
+
+
+        <div id="calendar" class="container">
+            <div id="headerRow" class="row">
+            </div>
+            <div id="tbody">
+            </div>
+        </div>
          
     </div>
 </div>

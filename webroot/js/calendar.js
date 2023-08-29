@@ -46,22 +46,24 @@ function formatDate(date) {
 function createReservationCalendar(startDate) {
 
     const table = document.getElementById('calendar');
-    const headerRow = table.querySelector('thead tr');
+    const tableEvent = document.getElementById('events');
+
+    const headerRow = document.getElementById('headerRow');
     const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
     // Clear existing header cells
     headerRow.innerHTML = '';
 
     // Add Resource cell
-    const resourceCell = document.createElement('th');
+    const resourceCell = document.createElement('div');
+    resourceCell.classList.add('col-3','text-center','border');
     resourceCell.textContent = 'Ressource';
-    resourceCell.classList.add('text-center'); 
     headerRow.appendChild(resourceCell);
 
     // Populate header cells with dates
     for (let i = 0; i < 7; i++) {
-        const headerCell = document.createElement('th');
-        headerCell.classList.add('text-center'); 
+        const headerCell = document.createElement('div');
+        headerCell.classList.add('col-1','text-center','border'); 
         const currentDate = new Date(startDate);
         currentDate.setDate(startDate.getDate() + i);
 
@@ -89,7 +91,7 @@ function createReservationCalendar(startDate) {
     $.get(url, function (reservationsTables) {
         console.log(reservationsTables);
         const table = document.getElementById('calendar');
-        const tbody = table.querySelector('tbody');
+        const tbody = document.getElementById('tbody');
 
         for (const resourceId in reservationsTables) {
 
@@ -100,18 +102,21 @@ function createReservationCalendar(startDate) {
                 const reservations = resourceData.reservations; // Tableau de réservations
 
                 // on créé la ligne du tableau
-                var tbodyRow = document.createElement('tr');
+                var tbodyRow = document.createElement('div');
+                tbodyRow.classList.add('row');
                 tbody.appendChild(tbodyRow);
 
                 // On crée la première case avec le nom de la resource
-                const tbodyCellResource = document.createElement('td');
+                const tbodyCellResource = document.createElement('div');
+                tbodyCellResource.classList.add('col-3','text-end','border');
                 tbodyCellResource.textContent = resource.name;
                 tbodyRow.appendChild(tbodyCellResource);
 
                 // Puis les cases suivantes avec la réservation
                 for (let i = 0; i < 7; i++) {
 
-                    var tbodyCell = document.createElement('td');
+                    var tbodyCell = document.createElement('div');
+                    tbodyCell.classList.add('col-1','border');
 
                     // Iterate through reservations to find matching date
                     for (const reservation of reservations) {
@@ -155,8 +160,8 @@ function createReservationCalendar(startDate) {
 
 function destroyReservationCalendar() {
 	    const table = document.getElementById('calendar');
-	    const headerRow = table.querySelector('thead tr');
-	    const tbody = table.querySelector('tbody');
+	    const headerRow = document.getElementById('headerRow');
+	    const tbody = document.getElementById('tbody');
 
 	    // Clear header cells
 	    headerRow.innerHTML = '';
