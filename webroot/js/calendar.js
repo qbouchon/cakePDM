@@ -9,14 +9,20 @@ $( document ).ready(function() {
 
 	document.getElementById('previousWeek').addEventListener('click', function() {
         destroyReservationCalendar();
-        const previousStartDate = getStartOfPreviousWeek(globalStartDate);
+        const previousStartDate = new Date(globalStartDate);
+        previousStartDate.setDate(globalStartDate.getDate() - 7);        
         createReservationCalendar(previousStartDate);
+        globalStartDate = previousStartDate;
+        
     });
 
     document.getElementById('nextWeek').addEventListener('click', function() {
-        destroyReservationCalendar();
-        const nextStartDate = getStartOfNextWeek(globalstartDate);
+         destroyReservationCalendar();
+        const nextStartDate = new Date(globalStartDate);
+        nextStartDate.setDate(globalStartDate.getDate() + 7);        
         createReservationCalendar(nextStartDate);
+        globalStartDate = nextStartDate;
+        
     });
 
 });
@@ -39,7 +45,6 @@ function formatDate(date) {
 
 function createReservationCalendar(startDate) {
 
-	globalstartDate = startDate;
     const table = document.getElementById('calendar');
     const headerRow = table.querySelector('thead tr');
     const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
@@ -160,15 +165,5 @@ function destroyReservationCalendar() {
 	    tbody.innerHTML = '';
 }
 
-function getStartOfPreviousWeek(startDate) {
-	    const previousWeekStartDate = new Date(startDate);
-	    previousWeekStartDate.setDate(startDate.getDate() - 7); // Subtract 7 days to go back a week
-	    return previousWeekStartDate;
-}
 
-function getStartOfNextWeek(startDate) {
-	    const nextWeekStartDate = new Date(startDate);
-	    nextWeekStartDate.setDate(startDate.getDate() + 7); // Add 7 days to go forward a week
-	    return nextWeekStartDate;
-}
 
