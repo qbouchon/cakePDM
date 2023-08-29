@@ -51,6 +51,13 @@
     <?= $this->Html->css('../hotel-datepicker/dist/css/hotel-datepicker');?> 
 
 
+    <!-- Event Calendar https://github.com/vkurko/calendar -->
+    <?= $this->Html->script('../event-calendar/core/index'); ?>
+
+    <?= $this->Html->csss('../event-calendar/core/index'); ?>
+
+
+
     <!-- pour le js, trouver une meilleure pratique -->
     <script>
         var webrootUrl = "<?php echo $this->Url->build('/', ['fullBase' => true]); ?>";

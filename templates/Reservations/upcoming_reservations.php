@@ -5,7 +5,7 @@
  */
 ?>
 
-<?= $this->Html->script('calendar'); ?>
+<?= $this->Html->script('upcoming_reservations'); ?>
 
 <div class="container">
     <div class="reservations index content">

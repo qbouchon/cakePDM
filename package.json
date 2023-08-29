@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@event-calendar/core": "^2.3.1",
+    "@event-calendar/resource-time-grid": "^2.3.1",
     "@fortawesome/fontawesome-free": "^6.4.0",
     "fecha": "^4.2.3",
     "fontawesome-free": "^1.0.4",
