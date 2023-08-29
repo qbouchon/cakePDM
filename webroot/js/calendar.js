@@ -46,7 +46,7 @@ function formatDate(date) {
 function createReservationCalendar(startDate) {
 
     const table = document.getElementById('calendar');
-    const tableEvent = document.getElementById('events');
+   
 
     const headerRow = document.getElementById('headerRow');
     const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
@@ -56,7 +56,7 @@ function createReservationCalendar(startDate) {
 
     // Add Resource cell
     const resourceCell = document.createElement('div');
-    resourceCell.classList.add('col-3','text-center','border');
+    resourceCell.classList.add('col-5','text-center','border');
     resourceCell.textContent = 'Ressource';
     headerRow.appendChild(resourceCell);
 
@@ -93,6 +93,8 @@ function createReservationCalendar(startDate) {
         const table = document.getElementById('calendar');
         const tbody = document.getElementById('tbody');
 
+         const tableEvent = document.getElementById('events');
+
         for (const resourceId in reservationsTables) {
 
             if (reservationsTables.hasOwnProperty(resourceId)) {
@@ -108,48 +110,116 @@ function createReservationCalendar(startDate) {
 
                 // On crée la première case avec le nom de la resource
                 const tbodyCellResource = document.createElement('div');
-                tbodyCellResource.classList.add('col-3','text-end','border');
+                tbodyCellResource.classList.add('col-5','text-end','border');
                 tbodyCellResource.textContent = resource.name;
                 tbodyRow.appendChild(tbodyCellResource);
 
                 // Puis les cases suivantes avec la réservation
+                var colWidth = 1;
                 for (let i = 0; i < 7; i++) {
 
-                    var tbodyCell = document.createElement('div');
-                    tbodyCell.classList.add('col-1','border');
+                var resaMatch = false;
+                if(i == 0)
+                {
+                    var tbodyCell = document.createElement('div'); 
+                    tbodyCell.classList.add('border');
+                }
+                    
 
-                    // Iterate through reservations to find matching date
-                    for (const reservation of reservations) {
+                                                //Pour chaque reservation on va chercher si les dates match. L'idée est de mettre à jour la class de tbodycell pour lui afffecter la bonne largeur entre 1 et 7 (sorte de collspan) 
+                                                //pour n'avoir qu'une colonne par réservation
+                                                for (const reservation of reservations) {
 
-                        const reservationStartDate = new Date(reservation.start_date);
-                        const reservationEndDate = new Date(reservation.end_date);
+                                                    
+                                                    const reservationStartDate = new Date(reservation.start_date);
+                                                    const reservationEndDate = new Date(reservation.end_date);
 
-                        const date1 = new Date(date1String);
-                        const currentDate = new Date(date1);
-                        currentDate.setDate(date1.getDate() + i);
+                                                    const date1 = new Date(date1String);
+                                                    const currentDate = new Date(date1);
+                                                    currentDate.setDate(date1.getDate() + i);
 
-                        if (currentDate.getTime() >= reservationStartDate.getTime() && currentDate.getTime() <= reservationEndDate.getTime()) {
-                           
-                           	if(currentDate.getTime() == reservationStartDate.getTime() && currentDate.getTime() == reservationEndDate.getTime()){
-                           		//Reservation de 1 jour
-                            	tbodyCell.textContent = 'Début et fin';
-                           	}
-                            else if(currentDate.getTime() == reservationStartDate.getTime()){
-                            	//Début de réservation
-                            	tbodyCell.textContent = 'Début';
-                            }
-                            else if(currentDate.getTime() == reservationEndDate.getTime()){
-                            	//Fin de réservation
-                            	tbodyCell.textContent = 'fin';
-                            }
-                            else{
-                            	//Milieu de réservation
-                            	tbodyCell.textContent = 'En cours';
-                            }
-                        }
+
+                                                    //Matching date
+                                                    if (currentDate.getTime() >= reservationStartDate.getTime() && currentDate.getTime() <= reservationEndDate.getTime()) {
+                                                       
+                                                                   	if(currentDate.getTime() == reservationStartDate.getTime() && currentDate.getTime() == reservationEndDate.getTime()){
+                                                                   		
+                                                                        console.log('resa 1 jour '+reservation.start_date+' : RSD '+currentDate+' : currentDate'+colWidth+' : colWidth');
+                                                                        resaMatch = true;
+                                                                        //Reservation de 1 jour
+                                                                        colWidth=1;
+                                                                       
+                                                                        tbodyCell.classList.add('col-1'); 
+                                                                        tbodyCell.textContent += "resa 1 jour";
+                                                                        tbodyRow.appendChild(tbodyCell);
+
+                                                                        break;
+                                                                    	
+                                                                   	}
+                                                                    else if(currentDate.getTime() == reservationStartDate.getTime()){
+                                                                    	console.log('D resa '+reservation.start_date+' : RSD '+currentDate+' : currentDate'+colWidth+' : colWidth');
+                                                                        resaMatch = true;
+                                                                        tbodyCell.textContent += "début resa";
+                                                                        //Début de réservation
+                                                                        if(i != 0)
+                                                                            var tbodyCell = document.createElement('div');
+                                                                        
+                                                                    	colWidth=1;
+
+                                                                        //Dans le cas de la dernière case
+                                                                        if(i == 6)
+                                                                             tbodyRow.appendChild(tbodyCell);
+
+                                                                        break;
+                                                                        
+                                                                    }
+                                                                    else if(currentDate.getTime() == reservationEndDate.getTime()){
+                                                                    	console.log('F resa '+reservation.start_date+' : RSD '+currentDate+' : currentDate'+colWidth+' : colWidth');
+                                                                        resaMatch = true;
+                                                                        tbodyCell.textContent += "Fin resa";
+                                                                        //Fin de réservation
+                                                                    	colWidth++;
+
+                                                                        //On append la cellule quand on arrive sur une fin de resa
+                                                                        tbodyCell.classList.add('col-'+colWidth);
+                                                                        tbodyRow.appendChild(tbodyCell);
+                                                                        colWidth=1;
+                                                                        break;
+                                                                    }
+                                                                    else{
+                                                                        console.log('M Resa '+reservation.start_date+' : RSD '+currentDate+' : currentDate'+colWidth+' : colWidth');
+                                                                        resaMatch = true;
+                                                                        tbodyCell.textContent += "milieu resa";
+                                                                    	//Milieu de réservation
+                                                                        colWidth++;
+                                                                        //Dans le cas de la dernière case
+                                                                        if(i == 6)
+                                                                        {
+                                                                             tbodyCell.classList.add('col'+colWidth);
+                                                                             tbodyRow.appendChild(tbodyCell);
+                                                                        }
+
+                                                                        break;
+
+                                                                    }
+                                                    }
+
+
+                                                }
+
+
+                    //Si aucune resa ce jour
+                    if(!resaMatch)
+                    {
+                        tbodyCell.textContent = "libre";
+                        colWidth=1; 
+                        if(i!=0)
+                            var tbodyCell = document.createElement('div');
+                        tbodyCell.classList.add('col-1'); 
+                        tbodyRow.appendChild(tbodyCell);
                     }
+                       
 
-                    tbodyRow.appendChild(tbodyCell);
                 }
             }
         }
