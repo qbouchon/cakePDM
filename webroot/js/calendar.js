@@ -144,7 +144,7 @@ function createReservationCalendar(startDate) {
                                                        
                                                                    	if(currentDate.getTime() == reservationStartDate.getTime() && currentDate.getTime() == reservationEndDate.getTime()){
                                                                    		
-                                                                        console.log('resa 1 jour '+reservation.start_date+' : RSD '+currentDate+' : currentDate'+colWidth+' : colWidth');
+                                                                        console.log('resa 1 jour '+reservation.start_date+' : RSD '+currentDate+' : currentDate '+colWidth+' : colWidth');
                                                                         resaMatch = true;
                                                                         //Reservation de 1 jour
                                                                         colWidth=1;
@@ -157,7 +157,7 @@ function createReservationCalendar(startDate) {
                                                                     	
                                                                    	}
                                                                     else if(currentDate.getTime() == reservationStartDate.getTime()){
-                                                                    	console.log('D resa '+reservation.start_date+' : RSD '+currentDate+' : currentDate'+colWidth+' : colWidth');
+                                                                    	console.log('D resa '+reservation.start_date+' : RSD '+currentDate+' : currentDate '+colWidth+' : colWidth');
                                                                         resaMatch = true;
                                                                         tbodyCell.textContent += "début resa";
                                                                         //Début de réservation
@@ -174,7 +174,7 @@ function createReservationCalendar(startDate) {
                                                                         
                                                                     }
                                                                     else if(currentDate.getTime() == reservationEndDate.getTime()){
-                                                                    	console.log('F resa '+reservation.start_date+' : RSD '+currentDate+' : currentDate'+colWidth+' : colWidth');
+                                                                    	console.log('F resa '+reservation.start_date+' : RSD '+currentDate+' : currentDate '+colWidth+' : colWidth');
                                                                         resaMatch = true;
                                                                         tbodyCell.textContent += "Fin resa";
                                                                         //Fin de réservation
@@ -187,7 +187,7 @@ function createReservationCalendar(startDate) {
                                                                         break;
                                                                     }
                                                                     else{
-                                                                        console.log('M Resa '+reservation.start_date+' : RSD '+currentDate+' : currentDate'+colWidth+' : colWidth');
+                                                                        console.log('M Resa '+reservation.start_date+' : RSD '+currentDate+' : currentDate '+colWidth+' : colWidth');
                                                                         resaMatch = true;
                                                                         tbodyCell.textContent += "milieu resa";
                                                                     	//Milieu de réservation
@@ -195,7 +195,7 @@ function createReservationCalendar(startDate) {
                                                                         //Dans le cas de la dernière case
                                                                         if(i == 6)
                                                                         {
-                                                                             tbodyCell.classList.add('col'+colWidth);
+                                                                             tbodyCell.classList.add('col-'+colWidth);
                                                                              tbodyRow.appendChild(tbodyCell);
                                                                         }
 
