@@ -3,26 +3,26 @@ today.setHours(0,0,0,0);
 var globalStartDate = getStartOfWeek(today);
 
 $(document).ready(function() {
-    createReservationCalendar(globalStartDate);
+    createWeekReservationCalendar(globalStartDate);
 
     $('#previousWeek').on('click', function() {
         destroyReservationCalendar();
         const previousStartDate = new Date(globalStartDate);
         previousStartDate.setDate(globalStartDate.getDate() - 7);
-        createReservationCalendar(previousStartDate);
+        createWeekReservationCalendar(previousStartDate);
         globalStartDate = previousStartDate;
     });
 
     $('#nextWeek').on('click', function() {
-        destroyReservationCalendar();
+        destroyWeekReservationCalendar();
         const nextStartDate = new Date(globalStartDate);
         nextStartDate.setDate(globalStartDate.getDate() + 7);
-        createReservationCalendar(nextStartDate);
+        createWeekReservationCalendar(nextStartDate);
         globalStartDate = nextStartDate;
     });
 });
 
-function createReservationCalendar(startDate) {
+function createWeekReservationCalendar(startDate) {
     const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
     const headerRow = $('#headerRow');
@@ -48,10 +48,10 @@ function createReservationCalendar(startDate) {
     const endDate = new Date(startDate.getTime() + (6 * 24 * 60 * 60 * 1000));
     const startDateString = startDate.toISOString().slice(0, 10);
     const endDateString = endDate.toISOString().slice(0, 10);
-    displayReservations(startDateString, endDateString);
+    displayWeekReservations(startDateString, endDateString);
 }
 
-function displayReservations(date1String, date2String) {
+function displayWeekReservations(date1String, date2String) {
     const url = webrootUrl + '/reservations/upcoming-reservations/' + date1String + '/' + date2String;
 
     $.get(url, function(reservationsTables) {
@@ -136,7 +136,7 @@ function displayReservations(date1String, date2String) {
     });
 }
 
-function destroyReservationCalendar() {
+function destroyWeekReservationCalendar() {
     const headerRow = $('#headerRow');
     const tbody = $('tbody');
 

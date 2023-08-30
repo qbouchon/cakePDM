@@ -5,7 +5,8 @@
  */
 ?>
 
-<?= $this->Html->script('calendar'); ?>
+<?= $this->Html->script('week_calendar'); ?>
+<?= $this->Html->script('month_calendar'); ?>
 
 <div class="container bg-white">
     <div class="reservations index content">
@@ -16,8 +17,9 @@
             <a href="#" id="previousWeek">Semaine précédente</a> |
             <a href="#" id="nextWeek">Semaine suivante</a>
         </div>
+        <a href="#" id="monthLink">Month</a>
 
-        <table id="calendar" class="table table-calendar">
+        <table id="Calendar" class="table table-calendar">
                 <thead>
                     <tr id="headerRow" class="bg-white"></tr>
                </thead id="tbody">
@@ -41,6 +43,6 @@
             <div id="tbody">
             </div>
         </div> -->
-         
+
     </div>
 </div>
