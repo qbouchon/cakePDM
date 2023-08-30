@@ -191,3 +191,34 @@
   background-color: yellow; /* Example highlighting style */
   /* Add any other styling you want for the highlighted text */
 }
+
+.day-0{
+
+  width: 9%;
+
+}
+
+.day-1{
+   width: 19%;
+}
+.day-2{
+   width: 29%;
+}
+.day-3{
+   width: 39%;
+}
+.day-4{
+   width: 49%;
+}
+.day-5{
+   width: 59%;
+}
+.day-6{
+   width: 69%;
+}
+.resourceCell{
+  width: 30%;
+}
+.calendarCell{
+  width: 10%;
+}

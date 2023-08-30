@@ -1,173 +1,163 @@
-//Pour upcoming_reservation gère un calendrier de réservations. à refactorer
 const today = new Date();
-var globalStartDate = getStartOfWeek(new Date(today));
+today.setHours(0,0,0,0);
+var globalStartDate = getStartOfWeek(today);
 
-$( document ).ready(function() {
+$(document).ready(function() {
+    createReservationCalendar(globalStartDate);
 
-
-	createReservationCalendar(globalStartDate);
-
-	document.getElementById('previousWeek').addEventListener('click', function() {
+    $('#previousWeek').on('click', function() {
         destroyReservationCalendar();
         const previousStartDate = new Date(globalStartDate);
-        previousStartDate.setDate(globalStartDate.getDate() - 7);        
+        previousStartDate.setDate(globalStartDate.getDate() - 7);
         createReservationCalendar(previousStartDate);
         globalStartDate = previousStartDate;
-        
     });
 
-    document.getElementById('nextWeek').addEventListener('click', function() {
-         destroyReservationCalendar();
+    $('#nextWeek').on('click', function() {
+        destroyReservationCalendar();
         const nextStartDate = new Date(globalStartDate);
-        nextStartDate.setDate(globalStartDate.getDate() + 7);        
+        nextStartDate.setDate(globalStartDate.getDate() + 7);
         createReservationCalendar(nextStartDate);
         globalStartDate = nextStartDate;
-        
     });
-
 });
 
-
-
-function getStartOfWeek(date) {
-	    const dayOfWeek = date.getDay();
-	    const daysSinceMonday = (dayOfWeek + 6) % 7;
-	    date.setDate(date.getDate() - daysSinceMonday);
-	    return date;
-}
-
-function formatDate(date) {
-	    const day = date.toLocaleDateString('fr-FR', { day: '2-digit' });
-	    const month = date.toLocaleDateString('fr-FR', { month: '2-digit' });
-	    const year = date.getFullYear();
-	    return `${day}/${month}/${year}`;
-}
-
 function createReservationCalendar(startDate) {
-
-    const table = document.getElementById('calendar');
-    const tableEvent = document.getElementById('events');
-
-    const headerRow = document.getElementById('headerRow');
     const days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
 
-    // Clear existing header cells
-    headerRow.innerHTML = '';
+    const headerRow = $('#headerRow');
+    headerRow.empty();
 
-    // Add Resource cell
-    const resourceCell = document.createElement('div');
-    resourceCell.classList.add('col-3','text-center','border');
-    resourceCell.textContent = 'Ressource';
-    headerRow.appendChild(resourceCell);
+    const resourceCell = $('<th>').addClass('text-center border resourceCell').text('Ressource');
+    headerRow.append(resourceCell);
 
-    // Populate header cells with dates
     for (let i = 0; i < 7; i++) {
-        const headerCell = document.createElement('div');
-        headerCell.classList.add('col-1','text-center','border'); 
         const currentDate = new Date(startDate);
         currentDate.setDate(startDate.getDate() + i);
 
         const dayName = days[i];
-        //const dateText = currentDate.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
         const formattedDate = formatDate(currentDate);
 
-        headerCell.innerHTML  = dayName + ' <br/> ' + formattedDate;
-        headerRow.appendChild(headerCell);
+        const headerCell = $('<th>')
+            .addClass('text-center border calendarCell')
+            .html(dayName + '<br/>' + formattedDate);
+
+        headerRow.append(headerCell);
     }
-    	const endDate = new Date(startDate.getTime() + (6 * 24 * 60 * 60 * 1000));
-    	const startDateString = startDate.toISOString().slice(0, 10); // Format: "yyyy-mm-dd"
-		const endDateString = endDate.toISOString().slice(0, 10);
-		// console.log(startDate);
-		// console.log(endDate);
-		// console.log(startDateString);
-		// console.log(endDateString);
-        displayReservations(startDateString,endDateString);
- }
+
+    const endDate = new Date(startDate.getTime() + (6 * 24 * 60 * 60 * 1000));
+    const startDateString = startDate.toISOString().slice(0, 10);
+    const endDateString = endDate.toISOString().slice(0, 10);
+    displayReservations(startDateString, endDateString);
+}
+
+function displayReservations(date1String, date2String) {
+    const url = webrootUrl + '/reservations/upcoming-reservations/' + date1String + '/' + date2String;
+
+    $.get(url, function(reservationsTables) {
+        const table = $('#calendar');
+        const tbody = $('tbody');
 
 
- function displayReservations(date1String, date2String) {
-    var url = webrootUrl + "/reservations/upcoming-reservations/" + date1String + "/" + date2String;
+        //Creation de la table vierge
+        $.each(reservationsTables, function(resourceId, resourceData) {
+            const resource = resourceData.resource;
+            const reservations = resourceData.reservations;
 
-    $.get(url, function (reservationsTables) {
-        console.log(reservationsTables);
-        const table = document.getElementById('calendar');
-        const tbody = document.getElementById('tbody');
+            const tbodyRow = $('<tr>').addClass('position-relative');
+            tbody.append(tbodyRow);
 
-        for (const resourceId in reservationsTables) {
+            const tbodyCellResource = $('<td>')
+                .addClass('resourceCell text-end border')
+                .text(resource.name);
+            tbodyRow.append(tbodyCellResource);
 
-            if (reservationsTables.hasOwnProperty(resourceId)) {
+            //Creation des cases vierges
+            for (let i = 0; i < 7; i++) {
 
-                const resourceData = reservationsTables[resourceId];
-                const resource = resourceData.resource; // Données de la ressource
-                const reservations = resourceData.reservations; // Tableau de réservations
+                const tbodyCell = $('<td>').addClass('border calendarCell px-0 py-2').attr('id',resourceId+i);
+                tbodyRow.append(tbodyCell);
+            }
 
-                // on créé la ligne du tableau
-                var tbodyRow = document.createElement('div');
-                tbodyRow.classList.add('row');
-                tbody.appendChild(tbodyRow);
+            //Création des badges
+             $.each(reservations, function(_, reservation) {
+                    const reservationStartDate = new Date(reservation.start_date);
+                    const reservationEndDate = new Date(reservation.end_date);
+                    reservationStartDate.setHours(0,0,0,0);
+                    reservationEndDate.setHours(0,0,0,0);
+                    const duration = (reservationEndDate.getTime() - reservationStartDate.getTime())/ (1000 * 60 * 60 * 24)+1;
 
-                // On crée la première case avec le nom de la resource
-                const tbodyCellResource = document.createElement('div');
-                tbodyCellResource.classList.add('col-3','text-end','border');
-                tbodyCellResource.textContent = resource.name;
-                tbodyRow.appendChild(tbodyCellResource);
+                    console.log('reservationStartDate : '+reservationStartDate);
+                    console.log('reservationEndDate : '+reservationEndDate);
+                    console.log('globalStartDate : '+globalStartDate);
 
-                // Puis les cases suivantes avec la réservation
-                for (let i = 0; i < 7; i++) {
+                    var startIndex = Math.floor((reservationStartDate.getTime() - globalStartDate.getTime()) / (1000 * 60 * 60 * 24));
+                    console.log("start index before update : " +startIndex );
+                    if(startIndex < 0)
+                        startIndex = 0;
 
-                    var tbodyCell = document.createElement('div');
-                    tbodyCell.classList.add('col-1','border');
+                    var endIndex = Math.floor((reservationEndDate.getTime() - globalStartDate.getTime()) / (1000 * 60 * 60 * 24));
+                    console.log("end index before update : " +endIndex );
+                    if(endIndex > 6)
+                        endIndex = 6;
 
-                    // Iterate through reservations to find matching date
-                    for (const reservation of reservations) {
+                    var dayclass = 'day-'+(endIndex - startIndex);
+                    var idCell = '#'+resourceId+startIndex;
 
-                        const reservationStartDate = new Date(reservation.start_date);
-                        const reservationEndDate = new Date(reservation.end_date);
 
-                        const date1 = new Date(date1String);
-                        const currentDate = new Date(date1);
-                        currentDate.setDate(date1.getDate() + i);
+                    console.log('startIndex : ' +startIndex)
+                    console.log('endIndex : ' +endIndex)
+                    console.log('dayclass : ' +dayclass);
+                    console.log('idCell : ' +idCell);
 
-                        if (currentDate.getTime() >= reservationStartDate.getTime() && currentDate.getTime() <= reservationEndDate.getTime()) {
-                           
-                           	if(currentDate.getTime() == reservationStartDate.getTime() && currentDate.getTime() == reservationEndDate.getTime()){
-                           		//Reservation de 1 jour
-                            	tbodyCell.textContent = 'Début et fin';
-                           	}
-                            else if(currentDate.getTime() == reservationStartDate.getTime()){
-                            	//Début de réservation
-                            	tbodyCell.textContent = 'Début';
-                            }
-                            else if(currentDate.getTime() == reservationEndDate.getTime()){
-                            	//Fin de réservation
-                            	tbodyCell.textContent = 'fin';
-                            }
-                            else{
-                            	//Milieu de réservation
-                            	tbodyCell.textContent = 'En cours';
-                            }
-                        }
+
+                    $(idCell).html("<div id='"+reservation.id+"'class='"+dayclass+" bg-secondary position-absolute mx-1  text-center px-auto text-white'>Réservation</div>");
+
+                    if(globalStartDate.getTime() <= reservationStartDate.getTime()){
+                        $('#'+reservation.id).removeClass('bg-info');              
+                        $('#'+reservation.id).addClass('rounded-start border-start bg-warning');
                     }
 
-                    tbodyRow.appendChild(tbodyCell);
-                }
-            }
-        }
+                    if((globalStartDate.getTime() + (6 * 24 * 60 * 60 * 1000)) > reservationEndDate.getTime()){
+                      
+                        $('#'+reservation.id).addClass('rounded-end border-end');
+                    }
+
+
+                });
+
+
+        });
+
+
+
+
+
     });
-
-
 }
 
 function destroyReservationCalendar() {
-	    const table = document.getElementById('calendar');
-	    const headerRow = document.getElementById('headerRow');
-	    const tbody = document.getElementById('tbody');
+    const headerRow = $('#headerRow');
+    const tbody = $('tbody');
 
-	    // Clear header cells
-	    headerRow.innerHTML = '';
+    headerRow.empty();
+    tbody.empty();
+}
 
-	    // Clear table body
-	    tbody.innerHTML = '';
+
+
+function getStartOfWeek(date) {
+        const dayOfWeek = date.getDay();
+        const daysSinceMonday = (dayOfWeek + 6) % 7;
+        date.setDate(date.getDate() - daysSinceMonday);
+        return date;
+}
+
+function formatDate(date) {
+        const day = date.toLocaleDateString('fr-FR', { day: '2-digit' });
+        const month = date.toLocaleDateString('fr-FR', { month: '2-digit' });
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
 }
 
 

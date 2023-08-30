@@ -7,7 +7,7 @@
 
 <?= $this->Html->script('calendar'); ?>
 
-<div class="container">
+<div class="container bg-white">
     <div class="reservations index content">
 
         <h3 class="text-center font-weight-bold"><?= __('Reservations à venir') ?></h3>
@@ -17,17 +17,17 @@
             <a href="#" id="nextWeek">Semaine suivante</a>
         </div>
 
-    <!--     <table id="calendar" class="table table-bordered table-hover table-sm table-responsive table-light ">
+        <table id="calendar" class="table table-calendar">
                 <thead>
-                    <tr></tr>
-               </thead>
+                    <tr id="headerRow" class="bg-white"></tr>
+               </thead id="tbody">
                <tbody>
       
                </tbody>
         </table>
 
 
-        <table id="events" class="table table-bordered table-hover table-sm table-responsive table-light ">
+ <!--        <table id="events" class="table table-bordered table-hover table-sm table-responsive table-light ">
 
                <tbody>
       
@@ -35,12 +35,12 @@
         </table> -->
 
 
-        <div id="calendar" class="container">
+        <!-- <div id="calendar" class="container ">
             <div id="headerRow" class="row">
             </div>
             <div id="tbody">
             </div>
-        </div>
+        </div> -->
          
     </div>
 </div>
