@@ -17,13 +17,13 @@
             <a href="#" id="previousWeek">Semaine précédente</a> |
             <a href="#" id="nextWeek">Semaine suivante</a>
         </div>
-        <a href="#" id="monthLink">Month</a>
+       <!--  <a href="#" id="monthLink">Month</a>
         <div class="text-center mb-3">
             <a href="#" id="previousMonth">Mois précédent</a> |
             <div id="month"></div>
             <a href="#" id="nextMonth">Mois suivant</a>
         </div>
-
+ -->
         <table id="Calendar" class="table table-calendar">
                 <thead>
                     <tr id="headerRow" class="bg-white"></tr>

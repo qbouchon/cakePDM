@@ -10,7 +10,7 @@ $(document).ready(function() {
      $('#monthLink').on('click', function() {
 
         destroyWeekReservationCalendar();
-        createMonthReservationCalendar(getStartOfWeek(getStartOfMonth(globalMonthStartDate)));
+        createMonthReservationCalendar(getStartOfWeek(getStartOfMonth(new Date(globalMonthStartDate))));
     });
 
           $('#previousMonth').on('click', function() {
@@ -47,6 +47,9 @@ function createMonthReservationCalendar(startDate) {
     const table = $('#calendar');
     const tbody = $('tbody');
 
+ 
+
+
     //Affiche du mois et de l'année
     displayMonthYear(globalMonthStartDate);
 
@@ -61,6 +64,8 @@ function createMonthReservationCalendar(startDate) {
     }
 
     //Cells
+    var sDate = new Date(startDate);
+
     for(let tabRowIndex = 0; tabRowIndex<6; tabRowIndex++){
 
 
@@ -68,10 +73,11 @@ function createMonthReservationCalendar(startDate) {
         tbody.append(tabRow);
 
 
+
         for (let tabColIndex = 0; tabColIndex < 7; tabColIndex++)
         {
             
-            const tabCell = $('<td>').addClass('border calendarCell squareCell px-0 py-2 text-end').attr('id',tabRowIndex+''+tabColIndex).html(startDate.getDate()+'/'+(startDate.getMonth()+1));
+            const tabCell = $('<td>').addClass('border calendarCell squareCell px-0 py-2 text-end').attr('id',sDate.getDate()+''+(sDate.getMonth()+1)).html(sDate.getDate()+'/'+(sDate.getMonth()+1));
 
 
             // console.log('globalStart'+globalMonthStartDate);
@@ -79,100 +85,133 @@ function createMonthReservationCalendar(startDate) {
             //     tabCell.addClass('bg-secondary opacity-50');
 
             tabRow.append(tabCell);
-            startDate.setDate(startDate.getDate()+1);
+            sDate.setDate(sDate.getDate()+1);
         }
 
 
 
     }
 
-
-
-
-
-
-
-    const endDate = new Date(startDate.getTime() + (6 * 24 * 60 * 60 * 1000));
+    const endDate = new Date(startDate.getTime() + (41 * 24 * 60 * 60 * 1000));
     const startDateString = startDate.toISOString().slice(0, 10);
     const endDateString = endDate.toISOString().slice(0, 10);
-    //displayMonthReservations(startDateString, endDateString);
+
+    console.log("startDate : " + startDate);
+    displayMonthReservations(startDateString, endDateString, startDate);
 }
 
 
-function displayMonthReservations(date1String, date2String) {
+function displayMonthReservations(date1String, date2String, startDate) {
     const url = webrootUrl + '/reservations/upcoming-reservations/' + date1String + '/' + date2String;
+    //const startDate = getStartOfWeek(new Date (globalMonthStartDate));
+
 
     $.get(url, function(reservationsTables) {
         const table = $('#calendar');
         const tbody = $('tbody');
-
+        
+  
 
         //Creation de la table vierge
         $.each(reservationsTables, function(resourceId, resourceData) {
             const resource = resourceData.resource;
             const reservations = resourceData.reservations;
 
-            const tbodyRow = $('<tr>').addClass('position-relative');
-            tbody.append(tbodyRow);
-
-            const tbodyCellResource = $('<td>')
-                .addClass('resourceCell text-end border')
-                .text(resource.name);
-            tbodyRow.append(tbodyCellResource);
-
-            //Creation des cases vierges
-            for (let i = 0; i < 7; i++) {
-
-                const tbodyCell = $('<td>').addClass('border calendarCell px-0 py-2').attr('id',resourceId+i);
-                tbodyRow.append(tbodyCell);
-            }
-
             //Création des badges
-             $.each(reservations, function(_, reservation) {
-                    const reservationStartDate = new Date(reservation.start_date);
-                    const reservationEndDate = new Date(reservation.end_date);
-                    reservationStartDate.setHours(0,0,0,0);
-                    reservationEndDate.setHours(0,0,0,0);
-                    // const duration = (reservationEndDate.getTime() - reservationStartDate.getTime())/ (1000 * 60 * 60 * 24)+1;
+                           $.each(reservations, function(_, reservation) {
 
-                    // console.log('reservationStartDate : '+reservationStartDate);
-                    // console.log('reservationEndDate : '+reservationEndDate);
-                    // console.log('globalStartDate : '+globalStartDate);
+                            console.log('---------------------------------------------Reservation ---------------------------------------------');
+                            console.log('id: '+reservation.id);
+                            const reservationStartDate = new Date(reservation.start_date);
+                            const reservationEndDate = new Date(reservation.end_date);
 
-                    var startIndex = Math.floor((reservationStartDate.getTime() - globalStartDate.getTime()) / (1000 * 60 * 60 * 24));
-                 //   console.log("start index before update : " +startIndex );
-                    if(startIndex < 0)
-                        startIndex = 0;
+                            // const endDate = new Date(startDate.getTime() + (41 * 24 * 60 * 60 * 1000));
+                            // endDate.setHours(0,0,0,0);
 
-                    var endIndex = Math.floor((reservationEndDate.getTime() - globalStartDate.getTime()) / (1000 * 60 * 60 * 24));
-                   // console.log("end index before update : " +endIndex );
-                    if(endIndex > 6)
-                        endIndex = 6;
+                            reservationStartDate.setHours(0,0,0,0);
+                            reservationEndDate.setHours(0,0,0,0);
 
-                    var dayclass = 'day-'+(endIndex - startIndex);
-                    var idCell = '#'+resourceId+startIndex;
+                            if(reservationStartDate.getTime() < startDate.getTime())
+                            {
+                              
+                                sIndex = '#'+startDate.getDate()+''+(startDate.getMonth()+1);
+                                 console.log("inff : "+sIndex);
+                            }
+                            else{
+                                sIndex = '#'+reservationStartDate.getDate()+''+(reservationStartDate.getMonth()+1);
+                                 console.log("supp : "+reservationStartDate+'   dtart '+startDate);
+                            }
+
+                            console.log('sindex : ' + sIndex);
+
+                            //Calcul le nombre de jour de reservation
+                            const duration = (reservationEndDate.getTime() - reservationStartDate.getTime())/ (1000 * 60 * 60 * 24)+1;
+
+                            var nbLoop = Math.floor(duration/7)+1;
+                            if(nbLoop > 6)
+                                nbLoop = 6;
+
+                            console.log(nbLoop);
+                            const nSDate = new Date(startDate);
+                            var d = 0;
+                            var dayclass = "";
+
+                            for(let row = 0; row < nbLoop; row++)
+                            {
+                                var endDateRow = new Date(nSDate);
+                                endDateRow.setDate(endDateRow.getDate()+6);
+
+                               
 
 
-                    // console.log('startIndex : ' +startIndex)
-                    // console.log('endIndex : ' +endIndex)
-                    // console.log('dayclass : ' +dayclass);
-                    // console.log('idCell : ' +idCell);
+                                if(row == 0){
+                                       console.log('sIndex'+sIndex);
+                                        if(reservationStartDate.getTime() < startDate.getTime())
+                                        {
+                                           d =  (reservationEndDate.getTime() - startDate.getTime())/ (1000 * 60 * 60 * 24)+1;
+                                           if(d > 6)
+                                                dayclass = 'day-6';
+                                           else
+                                                dayclass = 'day-'+d;
+                                        }
+                                        else{
+                                             d =  (reservationEndDate.getTime() - reservationStartDate.getTime())/ (1000 * 60 * 60 * 24)+1;
+                                           if(d > 6)
+                                                dayclass = 'day-6';
+                                           else
+                                                dayclass = 'day-'+d;
+                                        }
+
+                                        console.log(dayclass);
+                                        $(sIndex).html("<div id='"+reservation.id+"'class='"+dayclass+" bg-secondary opacity-50 position-absolute mx-1  text-center px-auto text-white'>Réservation</div>");
+
+                                    
+                                }
+                                else
+                                {
+                                    nSDate.setDate(nSDate.getDate()+row*7);
+                                    sIndex = '#'+nSDate.getDate()+''+(nSDate.getMonth()+1);
+                                    console.log('sIndex'+sIndex);
 
 
-                    $(idCell).html("<div id='"+reservation.id+"'class='"+dayclass+" bg-secondary position-absolute mx-1  text-center px-auto text-white'>Réservation</div>");
+                                       
+                                            d =  (reservationEndDate.getTime() - nSDate.getTime())/ (1000 * 60 * 60 * 24)+1;
+                                           if(d > 6)
+                                                dayclass = 'day-6';
+                                           else
+                                                dayclass = 'day-'+d;
 
-                    if(globalStartDate.getTime() <= reservationStartDate.getTime()){
-                        $('#'+reservation.id).removeClass('bg-info');              
-                        $('#'+reservation.id).addClass('rounded-start border-start bg-warning');
-                    }
+                                    console.log(dayclass);    
 
-                    if((globalStartDate.getTime() + (6 * 24 * 60 * 60 * 1000)) > reservationEndDate.getTime()){
-                      
-                        $('#'+reservation.id).addClass('rounded-end border-end');
-                    }
+                                    $(sIndex).html("<div id='"+reservation.id+"'class='"+dayclass+" bg-secondary opacity-50 position-absolute mx-1  text-center px-auto text-white'>Réservation</div>");
+                                }
+
+                            }
 
 
-                });
+
+                        });
+
 
 
         });
