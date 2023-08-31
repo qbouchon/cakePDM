@@ -6,7 +6,7 @@ $(document).ready(function() {
     createWeekReservationCalendar(globalStartDate);
 
     $('#previousWeek').on('click', function() {
-        destroyReservationCalendar();
+        destroyWeekReservationCalendar();
         const previousStartDate = new Date(globalStartDate);
         previousStartDate.setDate(globalStartDate.getDate() - 7);
         createWeekReservationCalendar(previousStartDate);
@@ -87,17 +87,17 @@ function displayWeekReservations(date1String, date2String) {
                     reservationEndDate.setHours(0,0,0,0);
                     const duration = (reservationEndDate.getTime() - reservationStartDate.getTime())/ (1000 * 60 * 60 * 24)+1;
 
-                    console.log('reservationStartDate : '+reservationStartDate);
-                    console.log('reservationEndDate : '+reservationEndDate);
-                    console.log('globalStartDate : '+globalStartDate);
+                    //console.log('reservationStartDate : '+reservationStartDate);
+                    //console.log('reservationEndDate : '+reservationEndDate);
+                    //console.log('globalStartDate : '+globalStartDate);
 
                     var startIndex = Math.floor((reservationStartDate.getTime() - globalStartDate.getTime()) / (1000 * 60 * 60 * 24));
-                    console.log("start index before update : " +startIndex );
+                    ///console.log("start index before update : " +startIndex );
                     if(startIndex < 0)
                         startIndex = 0;
 
                     var endIndex = Math.floor((reservationEndDate.getTime() - globalStartDate.getTime()) / (1000 * 60 * 60 * 24));
-                    console.log("end index before update : " +endIndex );
+                    // console.log("end index before update : " +endIndex );
                     if(endIndex > 6)
                         endIndex = 6;
 
@@ -105,10 +105,10 @@ function displayWeekReservations(date1String, date2String) {
                     var idCell = '#'+resourceId+startIndex;
 
 
-                    console.log('startIndex : ' +startIndex)
-                    console.log('endIndex : ' +endIndex)
-                    console.log('dayclass : ' +dayclass);
-                    console.log('idCell : ' +idCell);
+                    // console.log('startIndex : ' +startIndex)
+                    // console.log('endIndex : ' +endIndex)
+                    // console.log('dayclass : ' +dayclass);
+                    // console.log('idCell : ' +idCell);
 
 
                     $(idCell).html("<div id='"+reservation.id+"'class='"+dayclass+" bg-secondary position-absolute mx-1  text-center px-auto text-white'>Réservation</div>");

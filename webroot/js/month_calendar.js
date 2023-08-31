@@ -1,14 +1,41 @@
 const todayMonth = new Date();
 todayMonth.setHours(0,0,0,0);
-var globalMonthStartDate = getStartOfWeek(getStartOfMonth(todayMonth));
+var globalMonthStartDate = todayMonth;
+
+
 
 $(document).ready(function() {
+
 
      $('#monthLink').on('click', function() {
 
         destroyWeekReservationCalendar();
-        createMonthReservationCalendar(globalMonthStartDate);
+        createMonthReservationCalendar(getStartOfWeek(getStartOfMonth(globalMonthStartDate)));
     });
+
+          $('#previousMonth').on('click', function() {
+            destroyMonthReservationCalendar();
+
+            globalMonthStartDate.setDate(1); //On repars au premier du mois
+            globalMonthStartDate.setMonth(globalMonthStartDate.getMonth() - 1)//On retire un mois
+            console.log('globalMonthStartDate '+globalMonthStartDate);
+
+            createMonthReservationCalendar(getStartOfWeek(new Date(globalMonthStartDate)));
+
+
+        });
+
+        $('#nextMonth').on('click', function() {
+            destroyMonthReservationCalendar();
+
+            globalMonthStartDate.setDate(1); //On repars au premier du mois
+            globalMonthStartDate.setMonth(globalMonthStartDate.getMonth() + 1)//On ajoute un mois
+
+            console.log('globalMonthStartDate '+globalMonthStartDate);
+
+            createMonthReservationCalendar(getStartOfWeek(new Date (globalMonthStartDate)));
+            
+        });
     
 });
 
@@ -19,8 +46,9 @@ function createMonthReservationCalendar(startDate) {
     const headerRow = $('#headerRow');
     const table = $('#calendar');
     const tbody = $('tbody');
-    
-    console.log(startDate);
+
+    //Affiche du mois et de l'année
+    displayMonthYear(globalMonthStartDate);
 
     //Header
     for (let i = 0; i < 7; i++) {
@@ -43,7 +71,13 @@ function createMonthReservationCalendar(startDate) {
         for (let tabColIndex = 0; tabColIndex < 7; tabColIndex++)
         {
             
-            const tabCell = $('<td>').addClass('border calendarCell px-0 py-2').attr('id',tabRowIndex+''+tabColIndex).html(startDate);
+            const tabCell = $('<td>').addClass('border calendarCell squareCell px-0 py-2 text-end').attr('id',tabRowIndex+''+tabColIndex).html(startDate.getDate()+'/'+(startDate.getMonth()+1));
+
+
+            // console.log('globalStart'+globalMonthStartDate);
+            // if(startDate.getMonth() != globalMonthStartDate.getMonth())
+            //     tabCell.addClass('bg-secondary opacity-50');
+
             tabRow.append(tabCell);
             startDate.setDate(startDate.getDate()+1);
         }
@@ -99,19 +133,19 @@ function displayMonthReservations(date1String, date2String) {
                     const reservationEndDate = new Date(reservation.end_date);
                     reservationStartDate.setHours(0,0,0,0);
                     reservationEndDate.setHours(0,0,0,0);
-                    const duration = (reservationEndDate.getTime() - reservationStartDate.getTime())/ (1000 * 60 * 60 * 24)+1;
+                    // const duration = (reservationEndDate.getTime() - reservationStartDate.getTime())/ (1000 * 60 * 60 * 24)+1;
 
-                    console.log('reservationStartDate : '+reservationStartDate);
-                    console.log('reservationEndDate : '+reservationEndDate);
-                    console.log('globalStartDate : '+globalStartDate);
+                    // console.log('reservationStartDate : '+reservationStartDate);
+                    // console.log('reservationEndDate : '+reservationEndDate);
+                    // console.log('globalStartDate : '+globalStartDate);
 
                     var startIndex = Math.floor((reservationStartDate.getTime() - globalStartDate.getTime()) / (1000 * 60 * 60 * 24));
-                    console.log("start index before update : " +startIndex );
+                 //   console.log("start index before update : " +startIndex );
                     if(startIndex < 0)
                         startIndex = 0;
 
                     var endIndex = Math.floor((reservationEndDate.getTime() - globalStartDate.getTime()) / (1000 * 60 * 60 * 24));
-                    console.log("end index before update : " +endIndex );
+                   // console.log("end index before update : " +endIndex );
                     if(endIndex > 6)
                         endIndex = 6;
 
@@ -119,10 +153,10 @@ function displayMonthReservations(date1String, date2String) {
                     var idCell = '#'+resourceId+startIndex;
 
 
-                    console.log('startIndex : ' +startIndex)
-                    console.log('endIndex : ' +endIndex)
-                    console.log('dayclass : ' +dayclass);
-                    console.log('idCell : ' +idCell);
+                    // console.log('startIndex : ' +startIndex)
+                    // console.log('endIndex : ' +endIndex)
+                    // console.log('dayclass : ' +dayclass);
+                    // console.log('idCell : ' +idCell);
 
 
                     $(idCell).html("<div id='"+reservation.id+"'class='"+dayclass+" bg-secondary position-absolute mx-1  text-center px-auto text-white'>Réservation</div>");
@@ -164,6 +198,7 @@ function getStartOfWeek(date) {
         const dayOfWeek = date.getDay();
         const daysSinceMonday = (dayOfWeek + 6) % 7;
         date.setDate(date.getDate() - daysSinceMonday);
+
         return date;
 }
 
@@ -176,10 +211,15 @@ function formatDate(date) {
 
 function getStartOfMonth(date) {
 
-// Réglez le jour de la date d'aujourd'hui sur le 1er jour du mois
-return new Date(date.getFullYear(), today.getMonth(), 1);
+return new Date(date.getFullYear(), date.getMonth(), 1);
 
 }
 
+function displayMonthYear(date)
+{
+       const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre'];
+
+       $('#month').html(months[date.getMonth()]+' '+date.getFullYear());
+}
 
 

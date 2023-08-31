@@ -222,3 +222,13 @@
 .calendarCell{
   width: 10%;
 }
+
+.squareCell {
+    padding: 0;
+}
+
+.squareCell:before {
+    content: "";
+    display: block;
+    padding-top: 50%; /* Crée un aspect carré (hauteur égale à la largeur) */
+}

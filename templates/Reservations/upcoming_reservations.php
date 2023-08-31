@@ -18,6 +18,11 @@
             <a href="#" id="nextWeek">Semaine suivante</a>
         </div>
         <a href="#" id="monthLink">Month</a>
+        <div class="text-center mb-3">
+            <a href="#" id="previousMonth">Mois précédent</a> |
+            <div id="month"></div>
+            <a href="#" id="nextMonth">Mois suivant</a>
+        </div>
 
         <table id="Calendar" class="table table-calendar">
                 <thead>
