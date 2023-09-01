@@ -192,6 +192,9 @@
   /* Add any other styling you want for the highlighted text */
 }
 
+
+
+/*Calendar*/
 .day-0{
 
   width: 9%;
@@ -233,6 +236,9 @@
     padding-top: 50%; /* Crée un aspect carré (hauteur égale à la largeur) */
 }
 
-.fc-time-grid {
-    display: none;
+/*fullCalendar*/
+#fullCalendar a {
+  text-decoration: none; /* Supprime le soulignement des liens */
+  color: inherit; /* Utilise la couleur par défaut du texte parent */
+  /* Autres styles que vous souhaitez appliquer aux liens */
 }

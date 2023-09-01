@@ -5,18 +5,25 @@ $(document).ready(function() {
             $('#monthLink').on('click', function() {
 
                                     destroyWeekReservationCalendar();
-                                 var calendarEl = document.getElementById('fullCalendar');
+                                    var calendarEl = document.getElementById('fullCalendar');
                                     var calendar = new FullCalendar.Calendar(calendarEl, {
 
                                       initialView: 'dayGridWeek',
                                       locale: 'fr',
                                       firstDay: 1,
                                       themeSystem: 'bootstrap5',    
-                                      height: 600,
+                                      height: 'auto',
                                       aspectRatio:1,
                                       allDaySlot: true,
+                                       buttonText: {
+                                            today: 'Aujourd\'hui', // Customize 'today' button text
+                                            month: 'Mois',        // Customize 'month' button text
+                                            week: 'Semaine',      // Customize 'week' button text
+                                            day: 'Jour'           // Customize 'day' button text
+                                            // Add more button text translations as needed
+                                        },
                                       headerToolbar: {
-                                                    start: 'prevYear,prev,today,next,nextYear',
+                                                    start: 'prev,today,next',
                                                     center: 'title',
                                                     end: 'dayGridMonth,dayGridWeek,dayGridDay'
                                       }
@@ -91,7 +98,10 @@ function getStartOfWeek(date) {
 
 
 
-
+function createCalendar()
+{
+    
+}
 
 
 
