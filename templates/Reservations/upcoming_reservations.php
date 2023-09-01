@@ -1,3 +1,5 @@
+<?= $this->Html->script('../fullcalendar/index.global.min.js');?>
+<?= $this->Html->script('../fullcalendar/daygrid/index.global.min.js');?>
 <?php
 /**
  * @var \App\View\AppView $this
@@ -7,6 +9,8 @@
 
 <?= $this->Html->script('week_calendar'); ?>
 <?= $this->Html->script('month_calendar'); ?>
+
+
 
 <div class="container bg-white">
     <div class="reservations index content">
@@ -23,7 +27,12 @@
             <div id="month"></div>
             <a href="#" id="nextMonth">Mois suivant</a>
         </div>
+
  -->
+
+
+ <a href="#" id="monthLink">Month</a>
+ 
         <table id="Calendar" class="table table-calendar">
                 <thead>
                     <tr id="headerRow" class="bg-white"></tr>
@@ -32,6 +41,8 @@
       
                </tbody>
         </table>
+
+        <div id='fullCalendar'></div>
 
 
  <!--        <table id="events" class="table table-bordered table-hover table-sm table-responsive table-light ">

@@ -52,7 +52,7 @@ function createWeekReservationCalendar(startDate) {
 }
 
 function displayWeekReservations(date1String, date2String) {
-    const url = webrootUrl + '/reservations/upcoming-reservations/' + date1String + '/' + date2String;
+    const url = webrootUrl + '/reservations/upcoming-reservations/week/' + date1String + '/' + date2String;
 
     $.get(url, function(reservationsTables) {
         const table = $('#calendar');

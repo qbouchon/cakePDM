@@ -324,7 +324,7 @@ class ReservationsController extends AppController
         return $this->redirect($this->referer());
     }
 
-    public function getReservationsBetween($date1 = null, $date2 = null)
+    public function getWeekReservationsBetween($date1 = null, $date2 = null)
     {
 
 
@@ -358,6 +358,36 @@ class ReservationsController extends AppController
         $this->autoRender = false;
         $this->response = $this->response->withType('application/json')
             ->withStringBody(json_encode($groupedReservations));
+
+        return $this->response;
+        }
+
+    }
+
+    public function getMonthReservationsBetween($date1 = null, $date2 = null)
+    {
+
+
+        //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
+        if ($date1 && $date2) {
+        $reservations = $this->Reservations->find()
+            ->where([
+                'start_date <=' => $date2,
+                'end_date >=' => $date1
+            ])
+            ->contain('Resources') // Chargement des ressources associées
+            ->contain('Users')
+            ->all()
+            ->toArray();
+
+
+        // Convertir les données en format JSON et les envoyer en réponse
+        $this->autoRender = false;
+        $this->response = $this->response->withType('application/json')
+            ->withStringBody(json_encode($reservations));
 
         return $this->response;
         }

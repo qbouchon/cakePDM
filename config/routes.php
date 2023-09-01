@@ -75,7 +75,10 @@ return static function (RouteBuilder $routes) {
 
         $builder->connect('/error/denied', ['controller'=>'Error', 'action' => 'denied']);
 
-         $builder->connect('reservations/upcoming-reservations/:d1/:d2', ['controller' => 'Reservations', 'action' => 'getReservationsBetween'])
+         $builder->connect('reservations/upcoming-reservations/week/:d1/:d2', ['controller' => 'Reservations', 'action' => 'getWeekReservationsBetween'])
+        ->setPass(['d1','d2']);
+
+        $builder->connect('reservations/upcoming-reservations/month/:d1/:d2', ['controller' => 'Reservations', 'action' => 'getMonthReservationsBetween'])
         ->setPass(['d1','d2']);
 
         /*

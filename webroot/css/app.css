@@ -232,3 +232,7 @@
     display: block;
     padding-top: 50%; /* Crée un aspect carré (hauteur égale à la largeur) */
 }
+
+.fc-time-grid {
+    display: none;
+}
