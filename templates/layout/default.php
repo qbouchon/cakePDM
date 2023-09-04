@@ -24,6 +24,7 @@
     <?= $this->Html->meta('apple-touch-icon', 'https://favicon-ksup.univ-grenoble-alpes.fr/SITEUI/apple-icon-180x180.png', ['sizes' => '180x180']) ?>
 
 
+    <?= $this->Html->script('imports', ['type' => 'module']); ?>
 
     <!-- jquery -->
     <?= $this->Html->script('../Jquery/js/jquery.min'); ?>
