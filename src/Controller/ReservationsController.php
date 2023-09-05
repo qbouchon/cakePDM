@@ -426,7 +426,7 @@ class ReservationsController extends AppController
                         foreach($reservations as $reservation)
                         {
                             $endDate = new FrozenDate($reservation->end_date);
-                            $color = '#808080';
+                            $color =  sprintf('#%02X%02X%02X', rand(0, 255), rand(0, 255), rand(0, 255));
                             $formattedStartDate = $reservation->start_date->format('d/m/Y');
                             $formattedEndDate = $reservation->end_date->format('d/m/Y');
 
