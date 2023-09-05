@@ -80,7 +80,7 @@ class ResourcesController extends AppController
                 $resource->set('archive', $this->request->getData('archive'));
                 $resource->set('max_duration', $this->request->getData('max_duration'));
 
-                if($this->request->getData('color'))
+                if($this->request->getData('color') && $this->request->getData('color') != '#FFFFFF')
                     $resource->set('color', $this->request->getData('color'));
                 else
                     $resource->setRandomColor();
@@ -142,6 +142,11 @@ class ResourcesController extends AppController
 
                 if( $this->request->getData('domain_id'))
                     $resource->set('domain', $this->getTableLocator()->get('Domains')->get($this->request->getData('domain_id')));
+
+                 if($this->request->getData('color') && $this->request->getData('color') != '#FFFFFF')
+                    $resource->set('color', $this->request->getData('color'));
+                else
+                    $resource->setRandomColor();
 
                 //Gestion de la suppression de l'image
                 if(!empty($this->request->getData('deletePicture')))
