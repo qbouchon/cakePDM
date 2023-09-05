@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\I18n\FrozenTime;
+use Cake\I18n\FrozenDate;
 
 use Cake\Log\Log;
 
@@ -373,23 +374,91 @@ class ReservationsController extends AppController
             $this->Authorization->skipAuthorization();
 
         if ($date1 && $date2) {
-        $reservations = $this->Reservations->find()
-            ->where([
-                'start_date <=' => $date2,
-                'end_date >=' => $date1
-            ])
-            ->contain('Resources') // Chargement des ressources associées
-            ->contain('Users')
-            ->all()
-            ->toArray();
+            $reservations = $this->Reservations->find()
+                ->where([
+                    'start_date <=' => $date2,
+                    'end_date >=' => $date1
+                ])
+                ->contain('Resources') // Chargement des ressources associées
+                ->contain('Users')
+                ->all()
+                ->toArray();
 
 
-        // Convertir les données en format JSON et les envoyer en réponse
-        $this->autoRender = false;
-        $this->response = $this->response->withType('application/json')
-            ->withStringBody(json_encode($reservations));
+            // Convertir les données en format JSON et les envoyer en réponse
+            $this->autoRender = false;
+            $this->response = $this->response->withType('application/json')
+                ->withStringBody(json_encode($reservations));
 
-        return $this->response;
+            return $this->response;
+        }
+
+    }
+
+     public function getReservationsBetween()
+    {
+
+        //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
+
+        $start = $this->request->getQuery('start');
+        $end = $this->request->getQuery('end');
+
+
+
+        if ($start && $end) {
+
+
+                        $reservations = $this->Reservations->find()
+                            ->where([
+                                'start_date <=' => $end,
+                                'end_date >=' => $start
+                            ])
+                            ->contain('Resources') 
+                            ->contain('Users')
+                            ->all()
+                            ->toArray();
+
+                        //Création des events
+                        $events = [];
+                        foreach($reservations as $reservation)
+                        {
+                            $endDate = new FrozenDate($reservation->end_date);
+                            $color = '#808080';
+                            $formattedStartDate = $reservation->start_date->format('d/m/Y');
+                            $formattedEndDate = $reservation->end_date->format('d/m/Y');
+
+                            $event = [
+
+                                 'id' => $reservation->id,
+                                 'title'  => $reservation->resource->name,
+                                 'start'  => $reservation->start_date,
+                                 'end'  => $endDate->modify('+1 day'), //On ajoute un jour par soucis d'affichage par fullCalendar qui affiche un jour de moins.
+                                 'allDay'  => true,
+                                 'overlap'  => false,
+                                 'color'  => $color,
+                                 'isBack' => $reservation->is_back,
+                                 'tooltip' => '<div class="text-center"><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>' 
+
+
+                            ];
+                            $events[] = $event;
+                        }
+
+
+                        // Convertir les données en format JSON et les envoyer en réponse
+                        $this->autoRender = false;
+                        $this->response = $this->response->withType('application/json')
+                            ->withStringBody(json_encode($events));
+
+                        return $this->response;
+        }
+        else
+        {
+           $this->Flash->error(__('Erreur dans la récupération des réservations'));
+           return $this->redirect(['action'=>'upcomingReservations']);
         }
 
     }
