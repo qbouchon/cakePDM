@@ -231,11 +231,8 @@
 
 }
 
-.fc-event:{
-  /* Apply a shadow and transition on hover */
-/*  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4 );*/
-  transition: box-shadow 0s ease-in-out;
-  transform: translateY(-1px);
+.fc-event-container:{
+  margin: 10px;
 }
 
 .fc-event:hover {

@@ -80,6 +80,11 @@ class ResourcesController extends AppController
                 $resource->set('archive', $this->request->getData('archive'));
                 $resource->set('max_duration', $this->request->getData('max_duration'));
 
+                if($this->request->getData('color'))
+                    $resource->set('color', $this->request->getData('color'));
+                else
+                    $resource->setRandomColor();
+
                 if( $this->request->getData('domain_id'))
                     $resource->set('domain', $this->getTableLocator()->get('Domains')->get($this->request->getData('domain_id')));
 

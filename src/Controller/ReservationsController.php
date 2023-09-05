@@ -426,7 +426,6 @@ class ReservationsController extends AppController
                         foreach($reservations as $reservation)
                         {
                             $endDate = new FrozenDate($reservation->end_date);
-                            $color =  sprintf('#%02X%02X%02X', rand(0, 255), rand(0, 255), rand(0, 255));
                             $formattedStartDate = $reservation->start_date->format('d/m/Y');
                             $formattedEndDate = $reservation->end_date->format('d/m/Y');
 
@@ -438,7 +437,7 @@ class ReservationsController extends AppController
                                  'end'  => $endDate->modify('+1 day'), //On ajoute un jour par soucis d'affichage par fullCalendar qui affiche un jour de moins.
                                  'allDay'  => true,
                                  'overlap'  => false,
-                                 'color'  => $color,
+                                 'color'  => $reservation->resource->color,
                                  'isBack' => $reservation->is_back,
                                  'tooltip' => '<div class="text-center"><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>' 
 

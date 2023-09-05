@@ -16,6 +16,8 @@ use Cake\ORM\Entity;
  * @property int|null $domain_id
  * @property int|null $max_duration
  * @property bool|null $archive
+ * @property string|null $color
+ * 
  *
  * @property \App\Model\Entity\Domain $domain
  * @property \App\Model\Entity\File[] $files
@@ -41,6 +43,7 @@ class Resource extends Entity
         'max_duration' => true,
         'archive' => true,
         'domain' => true,
+        'color' => true,
         'files' => true,
         'reservations' => true,
     ];
@@ -57,6 +60,11 @@ class Resource extends Entity
             return null;
     }
 
+
+    public function setRandomColor(){
+
+        $this->set('color',sprintf('#%02X%02X%02X', rand(0, 255), rand(0, 255), rand(0, 255)));
+    }
 
 
 

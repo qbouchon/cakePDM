@@ -31,6 +31,7 @@ CREATE TABLE resources
 	domain_id INT,
 	max_duration INT unsigned DEFAULT 0,
 	archive BOOLEAN DEFAULT 0,
+	color VARCHAR(7),
 	FOREIGN KEY (domain_id) REFERENCES domains(id) 
 );
 

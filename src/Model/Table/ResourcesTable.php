@@ -102,6 +102,12 @@ class ResourcesTable extends Table
             ->boolean('archive')
             ->allowEmptyString('archive');
 
+        $validator
+            ->scalar('color')
+            ->maxLength('picture', 7)
+            ->regex('color', '/^#[0-9A-Fa-f]{6}$/')
+            ->allowEmptyString('color');
+
         return $validator;
     }
 
