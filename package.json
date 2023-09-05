@@ -6,6 +6,7 @@
     "fontawesome-free": "^1.0.4",
     "fullcalendar": "^6.1.8",
     "hotel-datepicker": "^4.6.1",
-    "jquery": "^3.7.0"
+    "jquery": "^3.7.0",
+    "tippy.js": "^6.3.7"
   }
 }

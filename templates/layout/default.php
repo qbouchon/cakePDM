@@ -39,13 +39,19 @@
     <?= $this->Html->script('../Fontawesome/js/all'); ?>
     <?= $this->Html->css('../Fontawesome./css/all'); ?>
 
+    <!-- tippy.js tooltip library https://atomiks.github.io/tippyjs/ -->
+    <?= $this->Html->script('../tippy.js/dist/tippy-bundle.umd');?>
+    <?= $this->Html->css('../tippy.js/dist/tippy');?>
 
-    <!-- tinyMCE -->
+    
+
+    <!-- tinyMCE, wysiwyg editor https://www.tiny.cloud/-->
     <?= $this->Html->script('../tinymce/tinymce.js'); ?>
 
-    <!-- benitolopez datepicker https://github.com/benitolopez/hotel-datepicker -->
-    <!-- fecha.js https://github.com/taylorhakes/fecha -->
+    <!-- fecha.js manipulation et formattage dates https://github.com/taylorhakes/fecha -->
     <?= $this->Html->script('../fecha/dist/fecha.min');?> 
+
+    <!-- benitolopez datepicker https://github.com/benitolopez/hotel-datepicker -->
     <!-- hotel-datepicker modifié pour les besoins -->
     <?= $this->Html->script('../hotel-datepicker/dist/js/uga-datepicker');?>
     <?= $this->Html->css('../hotel-datepicker/dist/css/hotel-datepicker');?> 
