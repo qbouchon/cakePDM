@@ -200,7 +200,7 @@ class ReservationsTable extends Table
         $resource = $this->Resources->get($context['data']['resource_id']);
 
         $durationInDays = ($end_date->getTimestamp() - $start_date->getTimestamp()) / (24 * 60 * 60);
-        if($durationInDays > $resource->max_duration)
+        if($durationInDays > $resource->max_duration && $resource->max_duration > 0) //On considère 0 et les valeur négative comme une possibilité de réservation illimitée
             return false;
         else
             return true;

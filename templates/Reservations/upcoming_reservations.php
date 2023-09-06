@@ -8,6 +8,12 @@
 
 <?= $this->Html->script('reservations_calendar'); ?>
 
+<?php
+    echo $this->Html->scriptBlock(sprintf(
+    'var csrfToken = %s;',
+    json_encode($this->request->getAttribute('csrfToken'))
+));
+?>
 
 <div class="container bg-white">
     <div class="reservations index content">
@@ -18,6 +24,8 @@
         <div id='fullCalendar'></div>
 
 
+        <div id='eventModals'>
+        </div>
 
     </div>
 </div>

@@ -25,7 +25,7 @@ class ReservationsController extends AppController
     {
         $this->paginate = [
             'contain' => ['Resources', 'Users'],
-            'order' => ['Reservations.is_back' => 'asc']
+            'order' => ['Reservations.is_back' => 'asc', 'Reservations.start_date' => 'desc']
         ];
         $reservations = $this->paginate($this->Reservations);
 
@@ -43,8 +43,8 @@ class ReservationsController extends AppController
 
         $this->paginate = [
             'contain' => ['Resources', 'Users'],
-            'order' => ['Reservations.is_back' => 'asc'],
-            'conditions' => ['Reservations.user_id' => $user->id]
+            'order' => ['Reservations.is_back' => 'asc', 'Reservations.start_date' => 'desc'],
+            'conditions' => ['Reservations.user_id' => $user->id, 'Reservations.is_back' => false]
         ];
         $reservations = $this->paginate($this->Reservations);
 
@@ -439,7 +439,8 @@ class ReservationsController extends AppController
                                  'overlap'  => false,
                                  'color'  => $reservation->resource->color,
                                  'isBack' => $reservation->is_back,
-                                 'tooltip' => '<div class="text-center"><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>' 
+                                 'picture' => $reservation->resource->picture_path,
+                                 'tooltip' => '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>' 
 
 
                             ];

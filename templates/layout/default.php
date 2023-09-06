@@ -58,10 +58,13 @@
 
 
     <!-- pour le js, trouver une meilleure pratique -->
-    <script>
-        var webrootUrl = "<?php echo $this->Url->build('/', ['fullBase' => true]); ?>";
-    </script>
-
+    <?php
+         echo $this->Html->scriptBlock(sprintf(
+            'var webrootUrl = "%s";',
+            $this->Url->build('/', ['fullBase' => true])
+         ));
+    ?>
+    
     <!-- Css et Js pour les navbars -->
     <?= $this->Html->script('nav'); ?>
     <?= $this->Html->css('nav'); ?>

@@ -228,6 +228,7 @@
   
   cursor: pointer;
   transition: transform 0s ease-in-out;
+  
 
 }
 
@@ -238,4 +239,23 @@
 .fc-event:hover {
      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2 );
 /*       transform: translateY(-1px);*/
+}
+
+.fc .fc-daygrid-event {
+  margin-top: 2px;
+}
+
+.fc-direction-ltr .fc-daygrid-event.fc-event-start, .fc-direction-rtl .fc-daygrid-event.fc-event-end {
+
+  margin-left: 10px; 
+
+}
+
+.fc-direction-ltr .fc-daygrid-event.fc-event-end, .fc-direction-rtl .fc-daygrid-event.fc-event-start {
+
+  margin-right: 10px; 
+}
+
+.fc .fc-daygrid-day.fc-day-past {
+  background-color: rgba(100,100,100,.15);
 }
