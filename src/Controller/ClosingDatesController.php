@@ -130,7 +130,7 @@ class ClosingDatesController extends AppController
 
 
     //return an array of all closing beetween two dates 
-    public function getAllClosingsDatesbeetween($start = null, $end = null)
+    public function getAllClosingsDatesBeetween($start = null, $end = null)
     {
 
         if($this->Authentication->getIdentity()->get('admin'))
@@ -178,5 +178,50 @@ class ClosingDatesController extends AppController
                     return $this->redirect($this->referer());
             }
 
+    }
+
+    //return an array of all closing dates after today
+    public function getAllClosingsDatesAfterToday()
+    {
+
+
+        $now = FrozenDate::now();
+
+        if($this->Authentication->getIdentity()->get('admin'))
+                 $this->Authorization->skipAuthorization();
+
+           
+
+                 $closingDates = $this->ClosingDates->find()
+                  ->where([
+                                'start_date >=' => $now                       
+                    ])
+                  ->toArray();
+
+                 $closingDatesTab = [];
+
+                  foreach($closingDates as $closingDate)
+                  {
+                     
+                        $sDate = new FrozenDate($closingDate->start_date);
+                        $eDate = new FrozenDate($closingDate->end_date);
+
+                        while($sDate <= $eDate)
+                        {
+                            array_push($closingDatesTab, $sDate);
+                            $sDate = $sDate->addDays(1);
+                        }
+                  }
+
+         
+
+                    // Convertir les données en format JSON et les envoyer en réponse
+                        $this->autoRender = false;
+                        $this->response = $this->response->withType('application/json')
+                            ->withStringBody(json_encode($closingDatesTab));
+
+                        return $this->response;
+
+          
     }
 }

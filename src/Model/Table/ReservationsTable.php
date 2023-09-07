@@ -9,6 +9,7 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\FrozenTime;
+use Cake\I18n\FrozenDate;
 
 /**
  * Reservations Model
@@ -80,6 +81,10 @@ class ReservationsTable extends Table
                 'rule' => [$this, 'checkOverlapeReservation'],
                 'message' => "La ressource n'est pas disponible à ces dates",
             ])
+            ->add('start_date', 'checkClosingDateStart', [
+                'rule' => [$this, 'checkClosingDateStart'],
+                'message' => "Le Crest est fermé à cette date",
+            ])
             ->add('start_date', 'notOnSaturday', [
             'rule' => function ($value, $context) {
                 $date = new FrozenTime($value);
@@ -109,6 +114,10 @@ class ReservationsTable extends Table
             ->add('end_date', 'checkOverlapeReservation', [
                 'rule' => [$this, 'checkOverlapeReservation'],
                 'message' => "La ressource n'est pas disponible à ces dates",
+            ])
+            ->add('end_date', 'checkClosingDateEnd', [
+                'rule' => [$this, 'checkClosingDateEnd'],
+                'message' => "Le Crest est fermé à cette date",
             ])
             ->add('end_date', 'notOnSaturday', [
             'rule' => function ($value, $context) {
@@ -241,4 +250,79 @@ class ReservationsTable extends Table
 
         return true;
     }
+
+
+     //Check if start_date before end_date
+    public function checkClosingDateStart($value, $context)
+    {
+        $start_date = new FrozenDate($context['data']['start_date']);
+        $end_date = new FrozenDate($context['data']['end_date']);
+
+
+        $now = FrozenDate::now();
+        $closingDatesTable = TableRegistry::getTableLocator()->get('ClosingDates');
+
+        $closingDates = $closingDatesTable->find()
+                  ->where([
+                                'start_date >=' => $now  //Inutil de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
+                    ])
+                  ->toArray();
+
+                  foreach($closingDates as $closingDate)
+                  {
+                     
+                        $sDate = new FrozenDate($closingDate->start_date);
+                        $eDate = new FrozenDate($closingDate->end_date);
+
+                        while($sDate <= $eDate)
+                        {
+
+                            if($start_date == $sDate)
+                                return false;
+
+                            $sDate = $sDate->addDays(1);
+                        }
+                  }
+
+        return true;
+
+
+    }
+
+    public function checkClosingDateEnd($value, $context)
+    {
+        $start_date = new FrozenDate($context['data']['start_date']);
+        $end_date = new FrozenDate($context['data']['end_date']);
+
+
+        $now = FrozenDate::now();
+        $closingDatesTable = TableRegistry::getTableLocator()->get('ClosingDates');
+
+        $closingDates = $closingDatesTable->find()
+                  ->where([
+                                'start_date >=' => $now  //Inutil de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
+                    ])
+                  ->toArray();
+
+                  foreach($closingDates as $closingDate)
+                  {
+                     
+                        $sDate = new FrozenDate($closingDate->start_date);
+                        $eDate = new FrozenDate($closingDate->end_date);
+
+                        while($sDate <= $eDate)
+                        {
+
+                            if($end_date == $sDate)
+                                return false;
+
+                            $sDate = $sDate->addDays(1);
+                        }
+                  }
+
+        return true;
+
+
+    }
+
 }

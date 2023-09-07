@@ -18,20 +18,24 @@ $( document ).ready(function() {
 
                     var getMaxDurationUrl =  webrootUrl+"resources/"+resourceId+"/max_duration";
 
+                    var getClosingDateUrl = webrootUrl+"closing-dates/dates/"
+
                     $.get(getDateUrl, function(bookedDates) {
                              $.get(getMaxDurationUrl, function(maxDuration) {
-                                    
-                                    var maxDuration = parseInt(maxDuration);
-                                    
-                                    //Côté serveur max duration = 0 signifie qu'il n'y a pas de limite dans la durée de réservation
-                                    if(maxDuration === 0)
-                                    {
-                                        displayPicker(datesBetween(bookedDates,false));
-                                    }
-                                    else{
-                                        displayPicker(datesBetween(bookedDates), maxDuration);
-                                    }
+                                    $.get(getClosingDateUrl, function(closingDates) {
 
+                                                    var maxDuration = parseInt(maxDuration);
+                                                    
+                                                    //Côté serveur max duration = 0 signifie qu'il n'y a pas de limite dans la durée de réservation
+                                                    if(maxDuration <= 0)
+                                                    {
+                                                        displayPicker(datesBetween(bookedDates), closingDates, false,);
+                                                    }
+                                                    else{
+                                                        displayPicker(datesBetween(bookedDates), closingDates, maxDuration);
+                                                    }
+
+                                    }); 
                             });                
                     });
 
@@ -42,7 +46,7 @@ $( document ).ready(function() {
 
 
 
-        function displayPicker(bookedDates, maxDuration)
+        function displayPicker(bookedDates, closingDates, maxDuration)
         {
             var today = new Date();
             var tomorrowDate = new Date(today);
@@ -52,6 +56,8 @@ $( document ).ready(function() {
             picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
                 noCheckInDaysOfWeek: ['Samedi','Dimanche'],
                 noCheckOutDaysOfWeek: ['Samedi','Dimanche'],
+                noCheckInDates: closingDates,
+                noCheckOutDates: closingDates,
                 disabledDates: bookedDates,
                 inline: true,
                 startOfWeek: 'monday',
