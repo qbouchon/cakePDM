@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 namespace App\Controller;
+use Cake\I18n\FrozenDate;
 
 /**
  * ClosingDates Controller
@@ -125,5 +126,57 @@ class ClosingDatesController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    //return an array of all closing beetween two dates 
+    public function getAllClosingsDatesbeetween($start = null, $end = null)
+    {
+
+        if($this->Authentication->getIdentity()->get('admin'))
+                 $this->Authorization->skipAuthorization();
+
+            if($start && $end)
+            {
+
+                 $closingDates = $this->ClosingDates->find()
+                  ->where([
+                                'start_date >=' => $start,
+                                'end_date <=' => $end
+                    ])
+                  ->toArray();
+
+                 $closingDatesTab = [];
+
+                  foreach($closingDates as $closingDate)
+                  {
+                     
+                        $sDate = new FrozenDate($closingDate->start_date);
+                        $eDate = new FrozenDate($closingDate->end_date);
+
+                        while($sDate != $eDate)
+                        {
+                            array_push($closingDatesTab, $sDate);
+                            $sDate = $sDate->addDay(1);
+                        }
+                  }
+
+         
+
+                    // Convertir les données en format JSON et les envoyer en réponse
+                        $this->autoRender = false;
+                        $this->response = $this->response->withType('application/json')
+                            ->withStringBody(json_encode($closingDatesTab));
+
+                        return $this->response;
+
+            }
+            else
+            {
+           
+                    $this->Flash->error(__('Erreur dans la récupération des dates de fermeture'));
+                    return $this->redirect($this->referer());
+            }
+
     }
 }
