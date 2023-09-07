@@ -57,17 +57,17 @@ class ReservationsController extends AppController
 
      public function upcomingReservations()
     {
-        $this->paginate = [
-            'contain' => ['Resources', 'Users'],
-            'order' => ['Reservations.is_back' => 'asc']
-        ];
-        $reservations = $this->paginate($this->Reservations);
+        // $this->paginate = [
+        //     'contain' => ['Resources', 'Users'],
+        //     'order' => ['Reservations.is_back' => 'asc']
+        // ];
+        // $reservations = $this->paginate($this->Reservations);
 
-        //Authorisation. Trouver une meilleure pratique
-        if($this->Authentication->getIdentity()->get('admin'))
-            $this->Authorization->skipAuthorization();
+         //Authorisation. Trouver une meilleure pratique
+         if($this->Authentication->getIdentity()->get('admin'))
+             $this->Authorization->skipAuthorization();
 
-        $this->set(compact('reservations'));
+        // $this->set(compact('reservations'));
     }
 
     /**

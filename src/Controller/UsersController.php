@@ -49,7 +49,9 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Reservations'],
+            'contain' => ['Reservations' => ['conditions' => ['Reservations.is_back' => false]] , 'Reservations.Resources'],
+            
+            
         ]);
 
          //authorization
