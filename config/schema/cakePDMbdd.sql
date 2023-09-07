@@ -66,4 +66,13 @@ CREATE TABLE configuration
 	home_picture_path VARCHAR(255)	
 );
 
+CREATE TABLE closing_dates 
+(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255), 
+	start_date DATE NOT NULL,
+	end_date DATE NOT NULL
+
+);
+
 INSERT INTO configuration (name) VALUES ('crest_default_config');

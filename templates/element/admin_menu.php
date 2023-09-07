@@ -43,4 +43,20 @@
                         </div>
 
 
-                        <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i></div>Configuration', ['controller'=>'configuration','action' => 'edit'], ['class' => 'nav-link', 'escape' => false]) ?>
+
+
+                           <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConfiguration" aria-expanded="false" aria-controls="collapseConfiguration">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i></i></div>
+                                                   Configuration
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseConfiguration" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                            <?= $this->Html->link(__('Ecran d\'accueil'), ['controller'=>'configuration','action' => 'edit'], ['class' => 'nav-link']) ?>
+                                    </nav>
+                                     <nav class="sb-sidenav-menu-nested nav">
+                                            <?= $this->Html->link(__('Dates de fermeture'), ['controller'=>'ClosingDates','action' => 'index'], ['class' => 'nav-link']) ?>
+                                    </nav>
+
+                                               
+                        </div>

@@ -23,7 +23,9 @@ class ConfigurationController extends AppController
      */
     public function index()
     {
-        $this->Authorization->skipAuthorization();
+        
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
         $this->redirect(['action'=>'edit']);
     }
 
