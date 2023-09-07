@@ -20,7 +20,7 @@ function createCalendar()
 
     calendar = new FullCalendar.Calendar(calendarEl, {
 
-                                      initialView: 'dayGridWeek',
+                                      initialView: 'dayGridMonth',
                                       locale: 'fr',
                                       firstDay: 1,
                                       themeSystem: 'standard',    
@@ -90,13 +90,6 @@ function createCalendar()
     calendar.render();
 
     cleanCalendarState(calendar);
-
-
-    $('.setBackFormButton').on('click',function(){
-
-        saveCalendarStatAndSubmitForm();
-
-    });
      
    
 }
@@ -116,6 +109,12 @@ function createEventModal(event) {
                        +           '<button class="btn btn-secondary setBackFormButton" onclick="saveCalendarStatAndSubmitForm()">Définir comme rendue</button>'
                        +            '</form>';
     }
+
+
+    var deleteForm = '<form id="deleteForm" action="'+webrootUrl+'/reservations/delete/'+event.id+'" method="post">'
+                       +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'                   
+                       +            '</form>'
+                       +           '<button  class="btn btn-danger deleteFormButton" onClick="saveCalendarStatAndSubmitDeleteForm()">Supprimer</button>';
 
     var startDate = new Date(event.start);
     if(startDate > today)
@@ -140,6 +139,7 @@ function createEventModal(event) {
             +     ' <div class="modal-footer">'
             +           editButton
             +           setBackForm
+            +           deleteForm
             // +       '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>'
             +      '</div>'
             +   '</div>'
@@ -159,6 +159,19 @@ function saveCalendarStatAndSubmitForm() {
     
 }
 
+function saveCalendarStatAndSubmitDeleteForm() {
+
+       
+
+        var confirmation = confirm("Voulez-vous vairment supprimer cette réservation ?");
+         if(confirmation)
+         {
+            alert("delete");
+             saveCalendarState(calendar);
+             document.getElementById('deleteForm').submit();
+         }
+            
+}
 
 function saveCalendarState(){
 
