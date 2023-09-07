@@ -77,18 +77,18 @@ class ReservationsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
-        $reservation = $this->Reservations->get($id, [
-            'contain' => ['Resources', 'Users'],
-        ]);
+    // public function view($id = null)
+    // {
+    //     $reservation = $this->Reservations->get($id, [
+    //         'contain' => ['Resources', 'Users'],
+    //     ]);
 
-        //authorization
-        $this->Authorization->authorize($reservation);
+    //     //authorization
+    //     $this->Authorization->authorize($reservation);
 
 
-        $this->set(compact('reservation'));
-    }
+    //     $this->set(compact('reservation'));
+    // }
 
     /**
      * Add method

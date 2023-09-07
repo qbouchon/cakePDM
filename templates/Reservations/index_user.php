@@ -60,6 +60,7 @@ use Cake\I18n\FrozenTime;
                         
                         <td class="text-center"><?= h($reservation->end_date) ?></td>
 
+                        <!-- à remettre au propre -->
                         <?php 
                             if($reservation->start_date > FrozenTime::now() || $this->getRequest()->getAttribute('identity')->get('admin')):
                         ?>
@@ -69,7 +70,20 @@ use Cake\I18n\FrozenTime;
                                             <?=__('Actions') ?>
                                         </button>
                                         <ul class="dropdown-menu">                               
-                                            <li><?= $this->getRequest()->getAttribute('identity')->get('admin') ? $this->Html->link(__('Edit'), ['action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']) : $this->Html->link(__('Edit'), ['action' => 'edit', $reservation->id],['class' => 'dropdown-item']) ?></li>
+                                            <li>
+                                                <?php
+
+                                                    if($this->getRequest()->getAttribute('identity')->get('admin'))
+                                                    {
+                                                        if($reservation->start_date > FrozenTime::now())
+                                                            echo $this->Html->link(__('Edit'), ['action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']);
+                                                    }
+                                                    else
+                                                        echo $this->Html->link(__('Edit'), ['action' => 'edit', $reservation->id],['class' => 'dropdown-item']);
+
+                                                ?>
+
+                                             </li>
                                         
                                             <li>
                                                  <button type="button" class="btn btn-danger text-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#deleteReservationModal' . $reservation->id ?>">

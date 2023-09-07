@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Reservation> $reservations
  */
+use Cake\I18n\FrozenTime;
 ?>
 
 <?= $this->Html->script('search'); ?>
@@ -77,8 +78,15 @@
                                 <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                     <?=__('Actions') ?>
                                 </button>
-                                <ul class="dropdown-menu">                               
+                                <ul class="dropdown-menu">  
+                                    <?php 
+                                        if($reservation->start_date > FrozenTime::now()): 
+                                    ?>                            
                                     <li><?= $this->Html->link(__('Edit'), ['action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']) ?></li>
+                                    <?php
+                                        endif;
+                                    ?>
+
                                      <li>
                                        <?= $reservation->is_back ? $this->Form->postLink(__('Définir comme non rendue'), ['action' => 'unSetBack', $reservation->id],['class' => 'dropdown-item']) : $this->Form->postLink(__('Définir comme rendue'), ['action' => 'setBack', $reservation->id],['class' => 'dropdown-item']) ?>
                                     </li>

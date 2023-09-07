@@ -70,13 +70,7 @@
                                                         <th><?= __('Date de début') ?></th>
                                                         <th><?= __('Date de fin') ?></th>
                                                         <th><?= __('Utilisateur') ?></th>
-                                                        <?php 
-                                                                if($this->getRequest()->getAttribute('identity')->get('admin')):
-                                                        ?>
-                                                            <th class="actions"><?= __('Actions') ?></th>
-                                                        <?php
-                                                            endif;
-                                                        ?>
+                                               
                                                     </tr>
                                                     <?php foreach ($resource->reservations as $reservations) : 
                                                             if(!$reservations->is_back) :
@@ -86,15 +80,7 @@
                                                             <td><?= h($reservations->start_date) ?></td>
                                                             <td><?= h($reservations->end_date) ?></td>
                                                             <td><?= h($reservations->user->firstname).' '.h($reservations->user->lastname).' ('.h($reservations->user->username).')' ?></td>
-                                                            <?php 
-                                                                if($this->getRequest()->getAttribute('identity')->get('admin')):
-                                                             ?>
-                                                            <td class="actions">
-                                                                <?= $this->Html->link(__('View'), ['controller' => 'Reservations', 'action' => 'view', $reservations->id]) ?>
-                                                            </td>
-                                                            <?php
-                                                                endif;
-                                                            ?>
+                                                         
                                                         </tr>
                                                     <?php 
                                                             endif;

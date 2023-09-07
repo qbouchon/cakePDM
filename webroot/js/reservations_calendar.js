@@ -1,5 +1,6 @@
 var palette = ['#ffc107','#A80874 ','#DD4B1A','#D81159','#448FA3 ','#0197F6'];
 var calendar;
+var today = new Date();
 
 $(document).ready(function() {
 
@@ -116,6 +117,15 @@ function createEventModal(event) {
                        +            '</form>';
     }
 
+    var startDate = new Date(event.start);
+    if(startDate > today)
+        var editButton = '<a href="'+webrootUrl+'/reservations/edit-for-user/'+event.id+'" type="button" class="btn btn-secondary">Editer</a>';
+    else
+        var editButton = '';
+
+
+
+
     var modal = '<div class="modal " id="modal'+event.id+'" tabindex="-1">'
             + ' <div class="modal-dialog modal-dialog-centered">'
             +   ' <div class="modal-content">'
@@ -128,8 +138,8 @@ function createEventModal(event) {
             +      '  <p><img src="'+webrootUrl+'img/resources/'+ encodeURIComponent(event.extendedProps.picture)+'" class="img-fluid" ></img></p>'
             +     ' </div>'
             +     ' <div class="modal-footer">'
-            +       '<a href="'+webrootUrl+'/reservations/edit-for-user/'+event.id+'" type="button" class="btn btn-secondary">Editer</a>'
-            +        setBackForm
+            +           editButton
+            +           setBackForm
             // +       '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>'
             +      '</div>'
             +   '</div>'
