@@ -77,7 +77,23 @@ function createCalendar()
                                 ]);
 
 
-        calendar.render();
+    restoreCalendarState(calendar);
+
+    calendar.render();
+
+    saveCalendarState(calendar);
+
+    calendar.on('viewDidMount', function() {
+        saveCalendarState(calendar);
+    });
+
+    calendar.on('dateClick', function(info) {
+        saveCalendarState(calendar);
+    });
+
+    calendar.on('eventClick', function(info) {
+        saveCalendarState(calendar);
+    });
 
        //createEventModals(calendar);
      
@@ -102,7 +118,7 @@ function createEventModal(event) {
                        +            '</form>';
     }
 
-    var modal = '<div class="modal fade" id="modal'+event.id+'" tabindex="-1">'
+    var modal = '<div class="modal " id="modal'+event.id+'" tabindex="-1">'
             + ' <div class="modal-dialog modal-dialog-centered">'
             +   ' <div class="modal-content">'
             +     ' <div class="modal-header">'
@@ -135,3 +151,28 @@ function submitForm() {
 }
 
 
+function saveCalendarState(calendar){
+
+    const calendarState = {
+        view: calendar.view.type,
+        date: calendar.getDate(),
+    };
+
+        localStorage.setItem('calendarState', JSON.stringify(calendarState));
+
+}
+
+function restoreCalendarState(calendar) {
+
+    const storedState = localStorage.getItem('calendarState');
+    console.log("retrieve stored " + storedState);
+
+    if (storedState) {
+        const calendarState = JSON.parse(storedState);
+
+        console.log("calendarState " + calendarState);
+
+        // Restore the calendar state
+        calendar.changeView(calendarState.view, calendarState.date);
+    }
+}
