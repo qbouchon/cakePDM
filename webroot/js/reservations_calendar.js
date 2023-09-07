@@ -128,7 +128,7 @@ function createEventModal(event) {
             +      '  <p><img src="'+webrootUrl+'img/resources/'+ encodeURIComponent(event.extendedProps.picture)+'" class="img-fluid" ></img></p>'
             +     ' </div>'
             +     ' <div class="modal-footer">'
-            +       '<a href="'+webrootUrl+'/reservations/edit/'+event.id+'" type="button" class="btn btn-secondary">Editer</a>'
+            +       '<a href="'+webrootUrl+'/reservations/edit-for-user/'+event.id+'" type="button" class="btn btn-secondary">Editer</a>'
             +        setBackForm
             // +       '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>'
             +      '</div>'

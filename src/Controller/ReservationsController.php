@@ -204,7 +204,7 @@ class ReservationsController extends AppController
             if ($this->Reservations->save($reservation)) {
                 $this->Flash->success(__('La réservation a été modifiée'));
 
-                return $this->redirect(['action' => 'indexUser']);
+                return $this->redirect($this->referer());
             }
             $this->Flash->error(__("La réservation n'a pas pu être modifiée."));
         }
@@ -222,11 +222,6 @@ class ReservationsController extends AppController
          //authorization
         $this->Authorization->authorize($reservation);
 
-            // $oldStartDate = $reservation->start_date;
-            // $oldEndDate = $reservation->end_date;
-
-            // Log::info('OLD DATE ' . $oldEndDate);
-
         if ($this->request->is(['patch', 'post', 'put'])) {
             $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
             $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
@@ -235,7 +230,7 @@ class ReservationsController extends AppController
                         if ($this->Reservations->save($reservation)) {
                             $this->Flash->success(__('La réservation a été modifiée'));
 
-                            return $this->redirect(['action' => 'index']);
+                            return $this->redirect($this->referer());
                         }
                         else
                             $this->Flash->error(__("La réservation n'a pas pu être modifiée."));
@@ -243,10 +238,6 @@ class ReservationsController extends AppController
         }
         $resources = $this->Reservations->Resources->find('list', ['limit' => 200])->all();
         $users = $this->Reservations->Users->find('list', ['keyField' => 'id', 'valueField' => 'username', 'limit' => 200])->all();
-
-        // $reservation->set('start_date',$oldStartDate);
-        // $reservation->set('end_date',$oldEndDate);
-
 
         $this->set(compact('reservation', 'resources', 'users'));
     }
