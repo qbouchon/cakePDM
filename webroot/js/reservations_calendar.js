@@ -1,4 +1,5 @@
 var palette = ['#ffc107','#A80874 ','#DD4B1A','#D81159','#448FA3 ','#0197F6'];
+var calendar;
 
 $(document).ready(function() {
 
@@ -16,7 +17,7 @@ function createCalendar()
   
     var calendarEl = document.getElementById('fullCalendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    calendar = new FullCalendar.Calendar(calendarEl, {
 
                                       initialView: 'dayGridWeek',
                                       locale: 'fr',
@@ -70,51 +71,48 @@ function createCalendar()
                                     });
 
 
-                                calendar.setOption('eventSources', [
-                                    {
-                                      url: webrootUrl + '/reservations/upcoming-reservations/reservations_between'
-                                    },
-                                ]);
+     calendar.setOption('eventSources', [
+                          {
+                              url: webrootUrl + '/reservations/upcoming-reservations/reservations_between'
+                           },
+     ]);
+
+
+ 
+
+
+
 
 
     restoreCalendarState(calendar);
 
     calendar.render();
 
-    saveCalendarState(calendar);
+    cleanCalendarState(calendar);
 
-    calendar.on('viewDidMount', function() {
-        saveCalendarState(calendar);
+
+    $('.setBackFormButton').on('click',function(){
+
+        saveCalendarStatAndSubmitForm();
+
     });
-
-    calendar.on('dateClick', function(info) {
-        saveCalendarState(calendar);
-    });
-
-    calendar.on('eventClick', function(info) {
-        saveCalendarState(calendar);
-    });
-
-       //createEventModals(calendar);
      
    
 }
 
 function createEventModal(event) {
 
-    console.log(event.id);
-
     
     if(event.extendedProps.isBack){ 
-        var setBackForm =   '<form id="deleteForm" action="'+webrootUrl+'/reservations/unSetBack/'+event.id+'" method="post">'
+        var setBackForm =   '<form id="setBackForm" action="'+webrootUrl+'/reservations/unSetBack/'+event.id+'" method="post">'
                        +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'
-                       +           '<button type="submit" class="btn btn-secondary" >Définir comme non rendue</button>'
+                       +           '<button  class="btn btn-secondary setBackFormButton" onclick="saveCalendarStatAndSubmitForm()" >Définir comme non rendue</button>'
                        +            '</form>';
     }
     else{
-         var setBackForm =   '<form id="deleteForm" action="'+webrootUrl+'/reservations/setBack/'+event.id+'" method="post">'
+         var setBackForm =   '<form id="setBackForm" action="'+webrootUrl+'/reservations/setBack/'+event.id+'" method="post">'
                        +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'
-                       +           '<button type="submit" class="btn btn-secondary" >Définir comme rendue</button>'
+                       +           '<button class="btn btn-secondary setBackFormButton" onclick="saveCalendarStatAndSubmitForm()">Définir comme rendue</button>'
                        +            '</form>';
     }
 
@@ -144,14 +142,17 @@ function createEventModal(event) {
 }
 
 
-function submitForm() {
-   
-        document.getElementById('deleteForm').submit();
+function saveCalendarStatAndSubmitForm() {
+
+        saveCalendarState(calendar);
+        document.getElementById('setBackForm').submit();
     
 }
 
 
-function saveCalendarState(calendar){
+function saveCalendarState(){
+
+
 
     const calendarState = {
         view: calendar.view.type,
@@ -165,14 +166,18 @@ function saveCalendarState(calendar){
 function restoreCalendarState(calendar) {
 
     const storedState = localStorage.getItem('calendarState');
-    console.log("retrieve stored " + storedState);
 
     if (storedState) {
         const calendarState = JSON.parse(storedState);
-
-        console.log("calendarState " + calendarState);
 
         // Restore the calendar state
         calendar.changeView(calendarState.view, calendarState.date);
     }
 }
+
+function cleanCalendarState(calendar) {
+
+    if(localStorage.getItem('calendarState'))
+        localStorage.removeItem('calendarState');
+}
+
