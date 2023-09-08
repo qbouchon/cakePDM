@@ -1,7 +1,6 @@
 <!-- Sous menu -->
                         <div class=" text-white sb-sidenav-menu-heading">Administration</div>
-
-                            <?= $this->Html->link('<div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>Accueil', ['controller'=>'Reservations','action' => 'upcomingReservations'], ['class' => 'nav-link', 'escape' => false]) ?>
+                           
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReservations" aria-expanded="false" aria-controls="collapseReservations">
                                <div class="sb-nav-link-icon"><i class="fa-regular fa-calendar-check"></i></i></div>
                                <div class="nav-item">Réservations</div>
@@ -9,8 +8,10 @@
                            </a>
                            <div class="collapse" id="collapseReservations" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
+                                             <?= $this->Html->link('Réservations à venir', ['controller'=>'Reservations','action' => 'upcomingReservations'], ['class' => 'nav-link', 'escape' => false]) ?>
                                             <?= $this->Html->link(__('Liste des Réservations'), ['controller'=>'Reservations','action' => 'index'], ['class' => 'nav-link']) ?>
                                             <?= $this->Html->link(__('Créer une Réservation'), ['controller'=>'Reservations','action' => 'addForUser'], ['class' => 'nav-link']) ?>
+                                            <?= $this->Html->link(__('Statistiques'), ['controller'=>'Reservations','action' => 'stats'], ['class' => 'nav-link']) ?>
                                     </nav>
                             </div>
                         

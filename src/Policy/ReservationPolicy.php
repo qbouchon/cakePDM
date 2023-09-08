@@ -91,5 +91,10 @@ class ReservationPolicy
         return $user->admin ? true : false;
     }
 
+     public function canStats(IdentityInterface $user, Reservation $reservation)
+    {
+        return $user->admin ? true : false;
+    }
+
 
 }

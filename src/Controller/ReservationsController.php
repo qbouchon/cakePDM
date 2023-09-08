@@ -71,6 +71,12 @@ class ReservationsController extends AppController
         // $this->set(compact('reservations'));
     }
 
+    public function stats()
+    {
+         if($this->Authentication->getIdentity()->get('admin'))
+             $this->Authorization->skipAuthorization();
+    }
+
     /**
      * View method
      *
@@ -481,6 +487,71 @@ class ReservationsController extends AppController
            $this->Flash->error(__('Erreur dans la récupération des réservations'));
            return $this->redirect(['action'=>'upcomingReservations']);
         }
+
+    }
+
+    //Renvoie le nombre de réservations par ressource sous une forme exploitable par chart.js
+    public function getResourcesStats($start = null, $end = null)
+    {
+
+
+        //  data: {
+        //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        //   datasets: [{
+        //     label: 'Nombre de réservation',
+        //     data: [12, 19, 3, 5, 2, 3],
+        //     borderWidth: 1
+        //   }]
+        // },
+
+         //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
+        $resources = $this->Reservations->Resources->find()->contain('Reservations');
+
+        $labels = [];
+        $values = [];
+        foreach($resources as $resource)
+        {
+            $labels[] = $resource->name;
+
+            $query = $this->Reservations->find()->where(['resource_id' => $resource->id]);
+
+            if ($start != 0){
+                $query->where(['start_date >=' => $start]);
+            }
+
+
+            if ($end != 0){   
+
+                $query->where(['start_date <=' => $end]);
+            }
+
+            $count = $query->count();
+
+
+            $values[] = $count;
+        }
+
+        $datas = [
+            'labels' => $labels, 
+            'datasets' => [
+                            [
+                                'label' => 'Nombre de réservations',
+                                'data' => $values,
+                                'borderWidth' => 1
+                            ]
+            ]
+        ];
+
+
+       // Convertir les données en format JSON et les envoyer en réponse
+        $this->autoRender = false;
+        $this->response = $this->response->withType('application/json')
+        ->withStringBody(json_encode($datas));
+
+        return $this->response;
 
     }
 

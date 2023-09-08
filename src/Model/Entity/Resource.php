@@ -334,6 +334,22 @@ class Resource extends Entity
         return $dates;
     }
 
+    public function getReservationsCount()
+    {
+       
+
+
+
+             if(!empty($this->reservations))
+                {
+                    return count($this->reservations);
+                }
+                else
+                    return 0;
+
+  
+
+    }
 
 }
 

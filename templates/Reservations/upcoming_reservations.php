@@ -18,7 +18,7 @@
 <div class="container bg-white">
     <div class="reservations index content">
 
-        <h3 class="text-center font-weight-bold"><?= __('Reservations à venir') ?></h3>
+        <h3 class="text-center font-weight-bold"><?= __('Réservations à venir') ?></h3>
 
 
         <div id='fullCalendar'></div>

@@ -44,6 +44,9 @@
     <?= $this->Html->css('../tippy.js/dist/tippy');?>
 
     
+    <!-- chart.js pour les stats https://www.chartjs.org/ -->
+    <?= $this->Html->script('../chart.js/dist/chart.umd');?>
+
 
     <!-- tinyMCE, wysiwyg editor https://www.tiny.cloud/-->
     <?= $this->Html->script('../tinymce/tinymce.js'); ?>

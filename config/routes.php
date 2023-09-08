@@ -84,9 +84,14 @@ return static function (RouteBuilder $routes) {
          $builder->connect('closing-dates/dates/:d1/:d2', ['controller' => 'ClosingDates', 'action' => 'getAllClosingsDatesBeetween'])
         ->setPass(['d1','d2']);
 
-          $builder->connect('closing-dates/dates/', ['controller' => 'ClosingDates', 'action' => 'getAllClosingsDatesAfterToday']);
+        $builder->connect('closing-dates/dates/', ['controller' => 'ClosingDates', 'action' => 'getAllClosingsDatesAfterToday']);
 
+        $builder->connect('reservations/stats/reservations_count/', ['controller' => 'Reservations', 'action' => 'getResourcesStats']);
 
+        $builder->connect('reservations/stats/reservations_count/:d1/:d2', ['controller' => 'Reservations', 'action' => 'getResourcesStats'])
+        ->setPass(['d1','d2']);
+
+        
         // $builder->connect('reservations/upcoming-reservations/reservations_between/:d1/:d2', ['controller' => 'Reservations', 'action' => 'getReservationsBetween'])
         // ->setPass(['d1','d2']);
 
