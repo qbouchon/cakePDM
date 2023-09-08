@@ -64,8 +64,9 @@ function createCalendar()
                                         // trigger: 'click'
 
                                         });
-                                         
-                                        createEventModal(info.event);
+                                        
+                                        if(info.event.extendedProps.type != 'backgroundEvent') 
+                                            createEventModal(info.event);
                                      }
                                         
 

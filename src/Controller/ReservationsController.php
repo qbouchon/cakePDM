@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use Cake\I18n\FrozenTime;
 use Cake\I18n\FrozenDate;
+use Cake\ORM\TableRegistry;
 
 use Cake\Log\Log;
 
@@ -437,6 +438,35 @@ class ReservationsController extends AppController
                             ];
                             $events[] = $event;
                         }
+
+
+                        //Récupération des dates de fermeture et création de background events
+                       $closingDatesTable = TableRegistry::getTableLocator()->get('ClosingDates');
+                       $closingDates = $closingDatesTable->find()
+                        ->where([
+                                'start_date >=' => FrozenDate::now()  //Je décide de n'afficher que les jours fermés futurs                     
+                        ])
+                        ->toArray();
+
+
+                        foreach($closingDates as $closingDate)
+                        {
+                            $event = [
+
+                                'id' => $closingDate->id,
+                                'title' => $closingDate->name,
+                                'start' => $closingDate->start_date,
+                                'end' => $closingDate->end_date,
+                                'display' => 'background',
+                                'tooltip' => '<div class=""><b>Fermeture du CREST : </b></div>'.$closingDate->name,
+                                'type' => 'backgroundEvent',
+                                'color' => '#bf7a77'
+
+                            ];
+
+                            $events[] = $event;
+                        }
+
 
 
                         // Convertir les données en format JSON et les envoyer en réponse

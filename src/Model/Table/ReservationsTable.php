@@ -300,7 +300,7 @@ class ReservationsTable extends Table
 
         $closingDates = $closingDatesTable->find()
                   ->where([
-                                'start_date >=' => $now  //Inutil de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
+                                'start_date >=' => $now  //Inutile de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
                     ])
                   ->toArray();
 
