@@ -1,0 +1,5 @@
+windows dev
+
+C:\xampp\php
+
+schtasks /create /tn "ReservationReminderAdminbouchonq" /tr "C:\xampp\php\php.exe C:\xampp\htdocs\cakePDM\bin\cake ReservationReminder" /sc daily /st 16:10                      opt /ru "admin-bouchonq" /rp "passpour"

@@ -248,7 +248,23 @@ return [
             'tls' => false,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         ],
+        'uga' => [
+               'host' => 'smtps.univ-grenoble-alpes.fr',
+               'port' => 587,
+               'username' => 'bouchonq@univ-grenoble-alpes.fr',
+               'password' => 'monmdp!', //Adapter 
+               'className' => 'Smtp'
+        ],
+        'mailtrap' => [
+               'host' => 'sandbox.smtp.mailtrap.io',
+               'port' => 2525,
+               'username' => '13f173f28c777d',
+               'password' => '5870b1b769d0f4',
+               'className' => 'Smtp'
+        ],
+
     ],
+      
 
     /*
      * Email delivery profiles
