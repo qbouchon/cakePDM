@@ -412,7 +412,8 @@ class ReservationsController extends AppController
                         $reservations = $this->Reservations->find()
                             ->where([
                                 'start_date <=' => $end,
-                                'end_date >=' => $start
+                                'end_date >=' => $start,
+                                'is_back =' => false,                                                 //On ne récupère que les réservations non rendues. suup cette ligne pour inclure les rendues
                             ])
                             ->contain('Resources') 
                             ->contain('Users')
@@ -423,9 +424,32 @@ class ReservationsController extends AppController
                         $events = [];
                         foreach($reservations as $reservation)
                         {
+                            $today = FrozenDate::now();
                             $endDate = new FrozenDate($reservation->end_date);
+                            $startDate = new FrozenDate($reservation->start_date);
                             $formattedStartDate = $reservation->start_date->format('d/m/Y');
                             $formattedEndDate = $reservation->end_date->format('d/m/Y');
+                           
+
+                            if($endDate <= $today)
+                            {
+                                 $color = '#CD6161';
+                                 $tooltip = '<div class=""><b>Réservation non rendue</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                            }
+                            else
+                            {
+                                if($startDate >= $today)
+                                {
+                                    $color = '#3388d8';                                   
+                                    $tooltip = '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                                }
+                                else
+                                {
+                                    $color = '#3073b3';                                   
+                                    $tooltip = '<div class=""><b>Réservation en cours</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                                }
+                                    
+                            }
 
                             $event = [
 
@@ -435,10 +459,10 @@ class ReservationsController extends AppController
                                  'end'  => $endDate->modify('+1 day'), //On ajoute un jour par soucis d'affichage par fullCalendar qui affiche un jour de moins.
                                  'allDay'  => true,
                                  'overlap'  => false,
-                                 'color'  => $reservation->resource->color,
+                                 'color'  => $color,
                                  'isBack' => $reservation->is_back,
                                  'picture' => $reservation->resource->picture_path,
-                                 'tooltip' => '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>' 
+                                 'tooltip' => $tooltip
 
 
                             ];

@@ -25,9 +25,17 @@ function createCalendar()
                                       firstDay: 1,
                                       themeSystem: 'standard',    
                                       height: 'auto',
+                                      expandRows : true,
                                       stickyHeaderDates: true,
-                                      aspectRatio:1,
+                                      aspectRatio:1.5,
                                       allDaySlot: true,
+                                      weekends: false,
+                                      weekNumbers: true,
+                                      weekText: '',
+                                      dayMaxEvents: true,
+
+                                      dayHeaderFormat: 
+                                                     { weekday: 'long'},
                                       buttonText: {
 
                                             today: 'Aujourd\'hui', 
@@ -36,6 +44,7 @@ function createCalendar()
                                             day: 'Jour'  
 
                                         },
+                                        
 
                                       headerToolbar: {
 

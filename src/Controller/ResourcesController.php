@@ -104,7 +104,7 @@ class ResourcesController extends AppController
                     return $this->redirect(['action' => 'index']);
                 }
 
-                $this->Flash->error(__('Erreur lors de la création e la ressource '.$resource->name));
+                $this->Flash->error(__('Erreur lors de la création de la ressource '.$resource->name));
                 
             }
      

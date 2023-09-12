@@ -20,9 +20,15 @@
 
         <h3 class="text-center font-weight-bold"><?= __('Réservations à venir') ?></h3>
 
-
-        <div id='fullCalendar'></div>
-
+        <div class='row'>
+            <div class="col-2">
+            </div>
+            <div class="col-8">
+                <div id='fullCalendar'></div>
+            </div>
+            <div class="col-2">
+            </div>
+        </div>
 
         <div id='eventModals'>
         </div>

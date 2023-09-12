@@ -51,7 +51,7 @@
                                                 </div>
                                                 
 
-                                                 <?= $this->Form->control('color',['type'=>'color', 'value' => '#0080ff', 'label'=>'Couleur de la ressource pour l\'affichage dans le calendrier']); ?>
+                                                 <?= $this->Form->control('color',['type'=>'color', 'value' => '#3788d8', 'label'=>'Couleur de la ressource pour l\'affichage dans le calendrier']); ?>
                                                  <?= $this->Form->control('archive'); ?>
                                                  
 
