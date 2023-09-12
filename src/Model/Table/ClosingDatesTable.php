@@ -77,8 +77,8 @@ class ClosingDatesTable extends Table
 //Check if start_date before end_date
     public function checkDates($value, $context)
     {
-        $start_date = new FrozenTime($context['data']['start_date']);
-        $end_date = new FrozenTime($context['data']['end_date']);
+        $start_date = new \Cake\I18n\DateTime($context['data']['start_date']);
+        $end_date = new \Cake\I18n\DateTime($context['data']['end_date']);
 
         if($end_date < $start_date)
             return false;

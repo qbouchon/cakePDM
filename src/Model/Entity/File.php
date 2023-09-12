@@ -26,7 +26,7 @@ class File extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'name' => true,
         'file_path' => true,
         'resource_id' => true,

@@ -10,8 +10,8 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $name
- * @property \Cake\I18n\FrozenDate $start_date
- * @property \Cake\I18n\FrozenDate $end_date
+ * @property \Cake\I18n\Date $start_date
+ * @property \Cake\I18n\Date $end_date
  */
 class ClosingDate extends Entity
 {
@@ -24,7 +24,7 @@ class ClosingDate extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'name' => true,
         'start_date' => true,
         'end_date' => true,

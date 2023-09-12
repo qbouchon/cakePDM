@@ -48,11 +48,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => ['Reservations' => ['conditions' => ['Reservations.is_back' => false]] , 'Reservations.Resources'],
-            
-            
-        ]);
+        $user = $this->Users->get($id, contain: ['Reservations' => ['conditions' => ['Reservations.is_back' => false]] , 'Reservations.Resources']);
 
          //authorization
         $this->Authorization->authorize($user);
@@ -96,9 +92,7 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
+        $user = $this->Users->get($id, contain: []);
 
          //authorization
         $this->Authorization->authorize($user);

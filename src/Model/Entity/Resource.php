@@ -34,7 +34,7 @@ class Resource extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'name' => true,
         'picture' => true,
         'picture_path' => true,
@@ -48,7 +48,7 @@ class Resource extends Entity
         'reservations' => true,
     ];
 
-    protected $_virtual = ['domain_name'];
+    protected array $_virtual = ['domain_name'];
 
 
      protected function _getDomainName()

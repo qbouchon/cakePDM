@@ -10,10 +10,10 @@ use Cake\I18n\FrozenTime;
  * Reservation Entity
  *
  * @property int $id
- * @property \Cake\I18n\FrozenDate $start_date
- * @property \Cake\I18n\FrozenDate $end_date
+ * @property \Cake\I18n\Date $start_date
+ * @property \Cake\I18n\Date $end_date
  * @property bool|null $is_back
- * @property \Cake\I18n\FrozenDate|null $back_date
+ * @property \Cake\I18n\Date|null $back_date
  * @property int $resource_id
  * @property int $user_id
  *
@@ -31,7 +31,7 @@ class Reservation extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'start_date' => true,
         'end_date' => true,
         'is_back' => true,

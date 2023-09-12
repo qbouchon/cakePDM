@@ -40,7 +40,7 @@ class ReservationPolicy
     {
         if($user->admin)
             return true;
-        elseif($reservation->user_id == $user->id && $reservation->start_date > FrozenTime::now()) //On autorise si la réservation appartient à l'utilisateur et qu'elle n'est pas en cours
+        elseif($reservation->user_id == $user->id && $reservation->start_date > \Cake\I18n\DateTime::now()) //On autorise si la réservation appartient à l'utilisateur et qu'elle n'est pas en cours
             return true;
         else
             return false;
@@ -63,7 +63,7 @@ class ReservationPolicy
 
         if($user->admin)
             return true;
-        elseif($reservation->user_id == $user->id && $reservation->start_date > FrozenTime::now()) //On autorise si la réservation appartient à l'utilisateur et qu'elle n'est pas en cours
+        elseif($reservation->user_id == $user->id && $reservation->start_date > \Cake\I18n\DateTime::now()) //On autorise si la réservation appartient à l'utilisateur et qu'elle n'est pas en cours
             return true;
         else
             return false;

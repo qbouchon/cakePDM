@@ -198,9 +198,7 @@ class ReservationsController extends AppController
      */
     public function edit($id = null)
     {
-        $reservation = $this->Reservations->get($id, [
-            'contain' => [],
-        ]);
+        $reservation = $this->Reservations->get($id, contain: []);
 
          //authorization
         $this->Authorization->authorize($reservation);
@@ -222,9 +220,7 @@ class ReservationsController extends AppController
 
     public function editForUser($id = null)
     {
-        $reservation = $this->Reservations->get($id, [
-            'contain' => [],
-        ]);
+        $reservation = $this->Reservations->get($id, contain: []);
         
          //authorization
         $this->Authorization->authorize($reservation);
@@ -278,15 +274,13 @@ class ReservationsController extends AppController
     {
         $this->request->allowMethod(['post', 'put', 'patch']);
         
-        $reservation = $this->Reservations->get($id, [
-            'contain' => ['Resources','Users']
-        ]);
+        $reservation = $this->Reservations->get($id, contain: ['Resources','Users']);
         
         //Authorization
         $this->Authorization->authorize($reservation);
 
         $reservation->set('is_back',true);
-        $today = FrozenTime::now();
+        $today = \Cake\I18n\DateTime::now();
 
         $reservation->set('back_date', $today->i18nFormat('yyyy-MM-dd'));
 
@@ -303,9 +297,7 @@ class ReservationsController extends AppController
     {
         $this->request->allowMethod(['post', 'put', 'patch']);
 
-        $reservation = $this->Reservations->get($id, [
-            'contain' => ['Resources','Users']
-        ]);
+        $reservation = $this->Reservations->get($id, contain: ['Resources','Users']);
         
         //Authorization
         $this->Authorization->authorize($reservation);
@@ -423,7 +415,7 @@ class ReservationsController extends AppController
                         $events = [];
                         foreach($reservations as $reservation)
                         {
-                            $endDate = new FrozenDate($reservation->end_date);
+                            $endDate = new \Cake\I18n\Date($reservation->end_date);
                             $formattedStartDate = $reservation->start_date->format('d/m/Y');
                             $formattedEndDate = $reservation->end_date->format('d/m/Y');
 
@@ -450,7 +442,7 @@ class ReservationsController extends AppController
                        $closingDatesTable = TableRegistry::getTableLocator()->get('ClosingDates');
                        $closingDates = $closingDatesTable->find()
                         ->where([
-                                'start_date >=' => FrozenDate::now()  //Je décide de n'afficher que les jours fermés futurs                     
+                                'start_date >=' => \Cake\I18n\Date::now()  //Je décide de n'afficher que les jours fermés futurs                     
                         ])
                         ->toArray();
 

@@ -44,9 +44,7 @@ class ClosingDatesController extends AppController
             $this->Authorization->skipAuthorization();
 
 
-        $closingDate = $this->ClosingDates->get($id, [
-            'contain' => [],
-        ]);
+        $closingDate = $this->ClosingDates->get($id, contain: []);
 
         $this->set(compact('closingDate'));
     }
@@ -89,9 +87,7 @@ class ClosingDatesController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-        $closingDate = $this->ClosingDates->get($id, [
-            'contain' => [],
-        ]);
+        $closingDate = $this->ClosingDates->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $closingDate = $this->ClosingDates->patchEntity($closingDate, $this->request->getData());
             if ($this->ClosingDates->save($closingDate)) {
@@ -151,8 +147,8 @@ class ClosingDatesController extends AppController
                   foreach($closingDates as $closingDate)
                   {
                      
-                        $sDate = new FrozenDate($closingDate->start_date);
-                        $eDate = new FrozenDate($closingDate->end_date);
+                        $sDate = new \Cake\I18n\Date($closingDate->start_date);
+                        $eDate = new \Cake\I18n\Date($closingDate->end_date);
 
                         while($sDate != $eDate)
                         {
@@ -185,7 +181,7 @@ class ClosingDatesController extends AppController
     {
 
 
-        $now = FrozenDate::now();
+        $now = \Cake\I18n\Date::now();
 
         if($this->Authentication->getIdentity()->get('admin'))
                  $this->Authorization->skipAuthorization();
@@ -203,8 +199,8 @@ class ClosingDatesController extends AppController
                   foreach($closingDates as $closingDate)
                   {
                      
-                        $sDate = new FrozenDate($closingDate->start_date);
-                        $eDate = new FrozenDate($closingDate->end_date);
+                        $sDate = new \Cake\I18n\Date($closingDate->start_date);
+                        $eDate = new \Cake\I18n\Date($closingDate->end_date);
 
                         while($sDate <= $eDate)
                         {

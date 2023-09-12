@@ -44,9 +44,7 @@ class ResourcesController extends AppController
     public function view($id = null)
     {
 
-        $resource = $this->Resources->get($id, [
-            'contain' => ['Domains', 'Files', 'Reservations', 'Reservations.Users'],
-        ]);
+        $resource = $this->Resources->get($id, contain: ['Domains', 'Files', 'Reservations', 'Reservations.Users']);
 
         //Authorization
         $this->Authorization->authorize($resource);
@@ -124,9 +122,7 @@ class ResourcesController extends AppController
     public function edit($id = null)
     {
 
-        $resource = $this->Resources->get($id, [
-            'contain' => ['Files'],
-        ]);
+        $resource = $this->Resources->get($id, contain: ['Files']);
        
         //Authorization
         $this->Authorization->authorize($resource);
@@ -196,9 +192,7 @@ class ResourcesController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $resource = $this->Resources->get($id, [
-            'contain' => ['Files', 'Reservations'],
-        ]);
+        $resource = $this->Resources->get($id, contain: ['Files', 'Reservations']);
         
         //Authorization
         $this->Authorization->authorize($resource);
@@ -228,8 +222,7 @@ class ResourcesController extends AppController
     public function archive($id = null)
     {
         $this->request->allowMethod(['post', 'put', 'patch']);
-        $resource = $this->Resources->get($id, [
-        ]);
+        $resource = $this->Resources->get($id);
         
         //Authorization
         $this->Authorization->authorize($resource);
@@ -249,8 +242,7 @@ class ResourcesController extends AppController
     public function unArchive($id = null)
     {
         $this->request->allowMethod(['post', 'put', 'patch']);
-        $resource = $this->Resources->get($id, [
-        ]);
+        $resource = $this->Resources->get($id);
         
         //Authorization
         $this->Authorization->authorize($resource);
@@ -272,8 +264,7 @@ class ResourcesController extends AppController
     public function getCurrentReservationsDates($id = null, $id_reservation = null)
     {
 
-        $resource = $this->Resources->get($id, ['contain' => 'Reservations'
-        ]);
+        $resource = $this->Resources->get($id, contain: 'Reservations');
 
         //Authorization
         $this->Authorization->authorize($resource);

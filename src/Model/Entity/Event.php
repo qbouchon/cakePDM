@@ -11,8 +11,8 @@ use Cake\I18n\FrozenTime;
  *
  * @property int|null $id
  * @property string|null title
- * @property \Cake\I18n\FrozenDate $start
- * @property \Cake\I18n\FrozenDate $end
+ * @property \Cake\I18n\Date $start
+ * @property \Cake\I18n\Date $end
  * @property bool|null $allDay
  * @property bool|null $overLap
  * @property string|null $color
@@ -33,7 +33,7 @@ class Reservation extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'id' => true,
         'title' => true,
         'start' => true,

@@ -87,14 +87,14 @@ class ReservationsTable extends Table
             ])
             ->add('start_date', 'notOnSaturday', [
             'rule' => function ($value, $context) {
-                $date = new FrozenTime($value);
+                $date = new \Cake\I18n\DateTime($value);
                 return $date->format('N') != 6; // 6 represents Saturday
             },
             'message' => 'La date de début de réservation ne peut pas être un samedi.'
             ])
             ->add('start_date', 'notOnSunday', [
             'rule' => function ($value, $context) {
-                $date = new FrozenTime($value);
+                $date = new \Cake\I18n\DateTime($value);
                 return $date->format('N') != 7; // 7 represents Sunday
             },
             'message' => 'La date de début ne peut pas être un dimanche.'
@@ -121,14 +121,14 @@ class ReservationsTable extends Table
             ])
             ->add('end_date', 'notOnSaturday', [
             'rule' => function ($value, $context) {
-                $date = new FrozenTime($value);
+                $date = new \Cake\I18n\DateTime($value);
                 return $date->format('N') != 6; // 6 represents Saturday
             },
             'message' => 'La date de fin de réservation ne peut pas être un samedi.'
             ])
             ->add('end_date', 'notOnSunday', [
             'rule' => function ($value, $context) {
-                $date = new FrozenTime($value);
+                $date = new \Cake\I18n\DateTime($value);
                 return $date->format('N') != 7; // 7 represents Sunday
             },
             'message' => 'La date de fin ne peut pas être un dimanche.'
@@ -173,12 +173,12 @@ class ReservationsTable extends Table
     
     public function checkStartDate($value, $context)
     {
-        $today = FrozenTime::now();
+        $today = \Cake\I18n\DateTime::now();
         // debug('today' . $today->i18nFormat('yyyy-MM-dd'));
         // echo $today;
         // debug($this->start_date);
         // die;
-        $start_date = new FrozenTime($context['data']['start_date']);
+        $start_date = new \Cake\I18n\DateTime($context['data']['start_date']);
 
 
         if($start_date<=$today)
@@ -192,8 +192,8 @@ class ReservationsTable extends Table
     //Check if start_date before end_date
     public function checkDates($value, $context)
     {
-        $start_date = new FrozenTime($context['data']['start_date']);
-        $end_date = new FrozenTime($context['data']['end_date']);
+        $start_date = new \Cake\I18n\DateTime($context['data']['start_date']);
+        $end_date = new \Cake\I18n\DateTime($context['data']['end_date']);
 
         if($end_date < $start_date)
             return false;
@@ -204,8 +204,8 @@ class ReservationsTable extends Table
     //Check if the duration of reservation is not greater than the maximum duration for the specific resource
     public function checkReservationDuration($value, $context)
     {
-        $start_date = new FrozenTime($context['data']['start_date']);
-        $end_date = new FrozenTime($context['data']['end_date']);
+        $start_date = new \Cake\I18n\DateTime($context['data']['start_date']);
+        $end_date = new \Cake\I18n\DateTime($context['data']['end_date']);
         $resource = $this->Resources->get($context['data']['resource_id']);
 
         $durationInDays = ($end_date->getTimestamp() - $start_date->getTimestamp()) / (24 * 60 * 60);
@@ -218,8 +218,8 @@ class ReservationsTable extends Table
     //Check if there is no overlape reservation for the resource
     public function checkOverlapeReservation($value, $context)
     {
-        $start_date = new FrozenTime($context['data']['start_date']);
-        $end_date = new FrozenTime($context['data']['end_date']);
+        $start_date = new \Cake\I18n\DateTime($context['data']['start_date']);
+        $end_date = new \Cake\I18n\DateTime($context['data']['end_date']);
         $resource = $this->Resources->get($context['data']['resource_id'],['contain' => 'Reservations']);
         // debug($context['data']);
         // die;
@@ -255,11 +255,11 @@ class ReservationsTable extends Table
      //Check if start_date before end_date
     public function checkClosingDateStart($value, $context)
     {
-        $start_date = new FrozenDate($context['data']['start_date']);
-        $end_date = new FrozenDate($context['data']['end_date']);
+        $start_date = new \Cake\I18n\Date($context['data']['start_date']);
+        $end_date = new \Cake\I18n\Date($context['data']['end_date']);
 
 
-        $now = FrozenDate::now();
+        $now = \Cake\I18n\Date::now();
         $closingDatesTable = TableRegistry::getTableLocator()->get('ClosingDates');
 
         $closingDates = $closingDatesTable->find()
@@ -271,8 +271,8 @@ class ReservationsTable extends Table
                   foreach($closingDates as $closingDate)
                   {
                      
-                        $sDate = new FrozenDate($closingDate->start_date);
-                        $eDate = new FrozenDate($closingDate->end_date);
+                        $sDate = new \Cake\I18n\Date($closingDate->start_date);
+                        $eDate = new \Cake\I18n\Date($closingDate->end_date);
 
                         while($sDate <= $eDate)
                         {
@@ -291,11 +291,11 @@ class ReservationsTable extends Table
 
     public function checkClosingDateEnd($value, $context)
     {
-        $start_date = new FrozenDate($context['data']['start_date']);
-        $end_date = new FrozenDate($context['data']['end_date']);
+        $start_date = new \Cake\I18n\Date($context['data']['start_date']);
+        $end_date = new \Cake\I18n\Date($context['data']['end_date']);
 
 
-        $now = FrozenDate::now();
+        $now = \Cake\I18n\Date::now();
         $closingDatesTable = TableRegistry::getTableLocator()->get('ClosingDates');
 
         $closingDates = $closingDatesTable->find()
@@ -307,8 +307,8 @@ class ReservationsTable extends Table
                   foreach($closingDates as $closingDate)
                   {
                      
-                        $sDate = new FrozenDate($closingDate->start_date);
-                        $eDate = new FrozenDate($closingDate->end_date);
+                        $sDate = new \Cake\I18n\Date($closingDate->start_date);
+                        $eDate = new \Cake\I18n\Date($closingDate->end_date);
 
                         while($sDate <= $eDate)
                         {

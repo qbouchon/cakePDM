@@ -27,7 +27,7 @@ class Domain extends Entity
      *
      * @var array<string, bool>
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'name' => true,
         'picture' => true,
         'picture_path' => true,

@@ -20,7 +20,7 @@ class ReservationReminderCommand extends Command
 
         $usersTable =  TableRegistry::getTableLocator()->get('Users');
 
-        $today = FrozenDate::now();
+        $today = \Cake\I18n\Date::now();
         $tomorrow = $today->addDays(1);
 
         $reservationTable  =  TableRegistry::getTableLocator()->get('Reservations');

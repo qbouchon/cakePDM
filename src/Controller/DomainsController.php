@@ -35,9 +35,7 @@ class DomainsController extends AppController
      */
     public function view($id = null)
     {
-        $domain = $this->Domains->get($id, [
-            'contain' => ['Resources'],
-        ]);
+        $domain = $this->Domains->get($id, contain: ['Resources']);
 
         //Authorization
         $this->Authorization->authorize($domain);
@@ -47,9 +45,7 @@ class DomainsController extends AppController
 
      public function resources($id = null)
     {
-        $domain = $this->Domains->get($id, [
-            'contain' => ['Resources' => ['Files']],
-        ]);
+        $domain = $this->Domains->get($id, contain: ['Resources' => ['Files']]);
 
         //Authorization
         $this->Authorization->authorize($domain);
@@ -100,9 +96,7 @@ class DomainsController extends AppController
      */
     public function edit($id = null)
     {
-        $domain = $this->Domains->get($id, [
-            'contain' => [],
-        ]);
+        $domain = $this->Domains->get($id, contain: []);
 
         //Authorization
         $this->Authorization->authorize($domain);
@@ -152,7 +146,7 @@ class DomainsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $domain = $this->Domains->get($id, ['contain' => ['Resources']]);
+        $domain = $this->Domains->get($id, contain: ['Resources']);
 
 
         //Authorization
