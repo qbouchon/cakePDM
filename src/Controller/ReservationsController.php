@@ -440,7 +440,7 @@ class ReservationsController extends AppController
                             {
                                 if($startDate >= $today)
                                 {
-                                    $color = '#f5bb33';                                   
+                                    $color = '#3073b3';  //Changement de couleur ?                                 
                                     $tooltip = '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
                                 }
                                 else
