@@ -48,7 +48,19 @@ use Cake\I18n\FrozenTime;
                </thead>
                <tbody>
                 <?php foreach ($reservations as $reservation): ?>
-                     <?= $reservation->is_back ? '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">' :  '<tr class="bg-white">' ?>
+
+                    <?php
+                        if($reservation->end_date <= FrozenTime::now() && !$reservation->is_back)
+                            echo '<tr class = "bg-danger bg-opacity-50">';
+                        else if ($reservation->is_back)
+                            echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">';
+                        else
+                            echo '<tr class="bg-white">';
+                    ?>
+
+
+
+                     
                         
                         
                         

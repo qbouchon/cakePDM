@@ -45,7 +45,13 @@ class ResourcesController extends AppController
     {
 
         $resource = $this->Resources->get($id, [
-            'contain' => ['Domains', 'Files', 'Reservations', 'Reservations.Users'],
+            'contain' => ['Domains', 'Files', 
+                            
+                            'Reservations'=> [
+                                'conditions' => ['Reservations.is_back' => false], 
+                                'sort' => ['Reservations.end_date' => 'DESC']],
+                           
+                        'Reservations.Users', 'Reservations.Resources'],
         ]);
 
         //Authorization

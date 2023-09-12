@@ -43,23 +43,27 @@ use Cake\I18n\FrozenTime;
                                         </table>
 
                             <div class="related">
-                                <h4><?= __('Related Reservations') ?></h4>
+                                <h4><?= __('Réservations en cours') ?></h4>
                                 <?php if (!empty($user->reservations)) : ?>
                                 <div class="table-responsive ">
                                     <table class="table table-bordered table-hover table-sm table-responsive table-light">
                                         <tr>
-                                            <th><?= __('Resource') ?></th>
-                                            <th><?= __('Start Date') ?></th>
-                                            <th><?= __('End Date') ?></th>
-                                            <th><?= __('Back Date') ?></th>
-                                       
-                                            
+                                            <th><?= __('Ressource') ?></th>
+                                            <th><?= __('Date de début') ?></th>
+                                            <th><?= __('Date de fin') ?></th>     
                                             <th class="actions"><?= __('Actions') ?></th>
                                         </tr>
                                         <?php foreach ($user->reservations as $reservation) : ?>
 
 
-                                            <?= $reservation->is_back ? '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">' :  '<tr class="bg-white">' ?>
+                                            <?php
+                                                if($reservation->end_date <= FrozenTime::now() && !$reservation->is_back)
+                                                    echo '<tr class = "bg-danger bg-opacity-50">';
+                                                else if ($reservation->is_back)
+                                                    echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">';
+                                                else
+                                                    echo '<tr class="bg-white">';
+                                            ?>
                         
                                 
                                             <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
@@ -75,7 +79,7 @@ use Cake\I18n\FrozenTime;
                         
                         
 
-                        <td class="text-center"><?= $reservation->back_date ? $reservation->back_date : " Non définie " ?></td>
+                        
 
                         <td class="actions d-flex justify-content-center">
                             <div class="dropdown">
@@ -86,13 +90,13 @@ use Cake\I18n\FrozenTime;
                                     <?php 
                                         if($reservation->start_date > FrozenTime::now()): 
                                     ?>                            
-                                    <li><?= $this->Html->link(__('Edit'), ['action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']) ?></li>
+                                    <li><?= $this->Html->link(__('Edit'), ['controller' => 'Reservations' , 'action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']) ?></li>
                                     <?php
                                         endif;
                                     ?>
 
                                      <li>
-                                       <?= $reservation->is_back ? $this->Form->postLink(__('Définir comme non rendue'), ['action' => 'unSetBack', $reservation->id],['class' => 'dropdown-item']) : $this->Form->postLink(__('Définir comme rendue'), ['action' => 'setBack', $reservation->id],['class' => 'dropdown-item']) ?>
+                                       <?= $reservation->is_back ? $this->Form->postLink(__('Définir comme non rendue'), ['controller' => 'Reservations' , 'action' => 'unSetBack', $reservation->id],['class' => 'dropdown-item']) : $this->Form->postLink(__('Définir comme rendue'), ['controller' => 'Reservations' , 'action' => 'setBack', $reservation->id],['class' => 'dropdown-item']) ?>
                                     </li>
                                     <li>
                                          <button type="button" class="btn btn-danger text-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#deleteReservationModal' . $reservation->id ?>">
@@ -116,13 +120,13 @@ use Cake\I18n\FrozenTime;
                             Attention, ne supprimez cette réservation que si elle a été créee par erreur. Si l'emprunt a bien eu lieu et que la ressource a été rendue,  considérez  d'utiliser l'option "rendue" à la place.
                           </div>
                           <div class="modal-footer">  
-                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $reservation->id], ['class' => 'btn btn-danger', 'confirm' => 'Supprimer '.$reservation->name.' ?']) ?>    
+                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $reservation->id], ['controller' => 'Reservations' , 'class' => 'btn btn-danger', 'confirm' => 'Supprimer '.$reservation->name.' ?']) ?>    
 
                             <?php
                                 if($reservation->is_back)
-                                    echo $this->Form->postLink(__('Définir comme non rendue'), ['action' => 'unSetBack', $reservation->id], ['class' => 'btn btn-warning', $reservation->id]);
+                                    echo $this->Form->postLink(__('Définir comme non rendue'), ['controller' => 'Reservations' , 'action' => 'unSetBack', $reservation->id], ['class' => 'btn btn-warning', $reservation->id]);
                                 else
-                                    echo $this->Form->postLink(__('Définir comme rendue'), ['action' => 'setBack', $reservation->id], ['class' => 'btn btn-warning', $reservation->id]);
+                                    echo $this->Form->postLink(__('Définir comme rendue'), ['controller' => 'Reservations' , 'action' => 'setBack', $reservation->id], ['class' => 'btn btn-warning', $reservation->id]);
                             ?>
                           
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>

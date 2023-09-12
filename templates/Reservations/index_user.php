@@ -49,7 +49,13 @@ use Cake\I18n\FrozenTime;
 
                 ?>
 
-                     <tr class="bg-white">
+                <?php
+                        if($reservation->end_date <= FrozenTime::now() && !$reservation->is_back)
+                            echo '<tr class = "bg-danger bg-opacity-50">';
+                        else
+                            echo '<tr class="bg-white">';
+                ?>
+                    
                         
                         
                         

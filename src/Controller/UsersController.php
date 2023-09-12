@@ -49,8 +49,10 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Reservations' => ['conditions' => ['Reservations.is_back' => false]] , 'Reservations.Resources'],
-            
+            'contain' => ['Reservations' => [
+                                'conditions' => ['Reservations.is_back' => false], 
+                                'sort' => ['Reservations.end_date' => 'DESC']],
+                          'Reservations.Resources'],
             
         ]);
 

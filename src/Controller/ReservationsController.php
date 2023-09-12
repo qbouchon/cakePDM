@@ -440,7 +440,7 @@ class ReservationsController extends AppController
                             {
                                 if($startDate >= $today)
                                 {
-                                    $color = '#3388d8';                                   
+                                    $color = '#f5bb33';                                   
                                     $tooltip = '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
                                 }
                                 else
@@ -454,7 +454,7 @@ class ReservationsController extends AppController
                             $event = [
 
                                  'id' => $reservation->id,
-                                 'title'  => $reservation->resource->name,
+                                 'title'  => $reservation->resource->name. ' - ' . $reservation->user->username,
                                  'start'  => $reservation->start_date,
                                  'end'  => $endDate->modify('+1 day'), //On ajoute un jour par soucis d'affichage par fullCalendar qui affiche un jour de moins.
                                  'allDay'  => true,
