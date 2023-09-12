@@ -3,3 +3,7 @@ windows dev
 C:\xampp\php
 
 schtasks /create /tn "ReservationReminderAdminbouchonq" /tr "C:\xampp\php\php.exe C:\xampp\htdocs\cakePDM\bin\cake ReservationReminder" /sc daily /st 16:10                      opt /ru "admin-bouchonq" /rp "passpour"
+
+
+schtasks /create /tn "CakePHPReservationReminder" /tr "C:\xampp\php\php.exe C:\xampp\htdocs\cakePDM\bin\cake.bat ReservationReminder" /sc daily /st 11:00  /ru "bouchonq" /rp "Prenium74prenium74!"
+

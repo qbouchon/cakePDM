@@ -99,20 +99,20 @@ function createEventModal(event) {
 
     
     if(event.extendedProps.isBack){ 
-        var setBackForm =   '<form id="setBackForm" action="'+webrootUrl+'/reservations/unSetBack/'+event.id+'" method="post">'
+        var setBackForm =   '<form id="setBackForm" action="'+webrootUrl+'reservations/unSetBack/'+event.id+'" method="post">'
                        +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'
                        +           '<button  class="btn btn-secondary setBackFormButton" onclick="saveCalendarStatAndSubmitForm()" >Définir comme non rendue</button>'
                        +            '</form>';
     }
     else{
-         var setBackForm =   '<form id="setBackForm" action="'+webrootUrl+'/reservations/setBack/'+event.id+'" method="post">'
+         var setBackForm =   '<form id="setBackForm" action="'+webrootUrl+'reservations/setBack/'+event.id+'" method="post">'
                        +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'
                        +           '<button class="btn btn-secondary setBackFormButton" onclick="saveCalendarStatAndSubmitForm()">Définir comme rendue</button>'
                        +            '</form>';
     }
 
 
-    var deleteForm = '<form id="deleteForm" action="'+webrootUrl+'/reservations/delete/'+event.id+'" method="post">'
+    var deleteForm = '<form id="deleteForm" action="'+webrootUrl+'reservations/delete/'+event.id+'" method="post">'
                        +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'                   
                        +            '</form>'
                        +           '<button  class="btn btn-danger deleteFormButton" onClick="saveCalendarStatAndSubmitDeleteForm()">Supprimer</button>';
@@ -167,7 +167,6 @@ function saveCalendarStatAndSubmitDeleteForm() {
         var confirmation = confirm("Voulez-vous vairment supprimer cette réservation ?");
          if(confirmation)
          {
-            alert("delete");
              saveCalendarState(calendar);
              document.getElementById('deleteForm').submit();
          }

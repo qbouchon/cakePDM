@@ -16,7 +16,7 @@ class ReservationReminderCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io): int
     {
 
-        Cake\Log\Log::write('CommandResaReminder execute');
+        Log::debug('CommandResaReminder execute');
 
         $usersTable =  TableRegistry::getTableLocator()->get('Users');
 
@@ -40,7 +40,7 @@ class ReservationReminderCommand extends Command
         foreach($reservations as $reservation)
         {
 
-            Log::write('Send Mail to : ' .$reservation->user->email);
+            Log::debug('Send Mail to : ' .$reservation->user->email);
             // $user = $usersTable->find()->where([$reservation->user_id => $user->id]);
             $io->out('Send Mail to : ' .$reservation->user->email);
 
