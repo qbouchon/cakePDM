@@ -58,4 +58,10 @@ class ClosingDatesPolicy
     {
         return $user->admin ? true : false;
     }
+
+    public function canGetAllClosingsDatesAfterToday(IdentityInterface $user)
+    {
+
+        return true;
+    }
 }

@@ -14,8 +14,6 @@ $( document ).ready(function() {
 
                     var getDateUrl =  webrootUrl+"resources/"+resourceId+"/reservations/dates";
 
-
-
                     var getMaxDurationUrl =  webrootUrl+"resources/"+resourceId+"/max_duration";
 
                     var getClosingDateUrl = webrootUrl+"closing-dates/dates/"

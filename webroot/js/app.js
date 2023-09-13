@@ -134,7 +134,15 @@ $( document ).ready(function() {
 
     });
 
-    
+   
+   tippy('.unbackResa', {
+                                        content: 'Cette resource n\'est pas rendue',
+                                        duration: 0,
+                                        allowHTML:true,
+                                        followCursor: 'initial',
+                                        
+
+    }); 
 
 
 

@@ -184,11 +184,11 @@ class ClosingDatesController extends AppController
     public function getAllClosingsDatesAfterToday()
     {
 
+        $this->Authorization->skipAuthorization();
 
         $now = FrozenDate::now();
 
-        if($this->Authentication->getIdentity()->get('admin'))
-                 $this->Authorization->skipAuthorization();
+     
 
            
 
