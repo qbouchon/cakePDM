@@ -22,15 +22,17 @@ $( document ).ready(function() {
                              $.get(getMaxDurationUrl, function(maxDuration) {
                                     $.get(getClosingDateUrl, function(closingDates) {
 
-                                                    var maxDuration = parseInt(maxDuration);
+                                                    var maxDurationInt = parseInt(maxDuration);
                                                     
                                                     //Côté serveur max duration = 0 signifie qu'il n'y a pas de limite dans la durée de réservation
-                                                    if(maxDuration <= 0)
+                                                    if(maxDurationInt <= 0)
                                                     {
+                                                        $('#maxDurationInfo').html("");
                                                         displayPicker(datesBetween(bookedDates), closingDates, false,);
                                                     }
                                                     else{
-                                                        displayPicker(datesBetween(bookedDates), closingDates, maxDuration);
+                                                        $('#maxDurationInfo').html("La durée maximale de réservation pour cette ressource est de " + maxDurationInt + " jour(s).");
+                                                        displayPicker(datesBetween(bookedDates), closingDates, maxDurationInt);
                                                     }
 
                                     }); 
@@ -64,7 +66,8 @@ $( document ).ready(function() {
                 startDate : tomorrowString,
 
             });
-        picker.setRange($('#start_date').val(),$('#end_date').val());
+
+            picker.setRange($('#start_date').val(),$('#end_date').val());
 
         }
 
@@ -95,9 +98,13 @@ $( document ).ready(function() {
 
     //Recrée le picker quand on change de ressource
     $('#resourceInput').on('change', function(){
-                   
+             
+        var sDateValue = $('#start_date').val();    
+        var eDateValue = $('#end_date').val(); 
         $('#picker').remove();
         picker.destroy();
+        $('#start_date').val(sDateValue);
+         $('#end_date').val(eDateValue);  //On remet les valeurs car picker.destroy() les reset
         createPicker($(this).val());
 
     });

@@ -136,7 +136,16 @@ $( document ).ready(function() {
 
    
    tippy('.unbackResa', {
-                                        content: 'Cette resource n\'est pas rendue',
+                                        content: 'Cette ressource n\'a pas été retournée',
+                                        duration: 0,
+                                        allowHTML:true,
+                                        followCursor: 'initial',
+                                        
+
+    }); 
+
+     tippy('.unbackResaUser', {
+                                        content: 'Ressource à retourner au CREST. Merci de contacter un administrateur si vous l\'avez déjà rendue.',
                                         duration: 0,
                                         allowHTML:true,
                                         followCursor: 'initial',

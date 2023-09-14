@@ -85,7 +85,7 @@
                                                             ?>
                                                                     <?php
                                                                         if($reservation->end_date <= FrozenTime::now() && !$reservation->is_back)
-                                                                            echo '<tr class = "bg-danger bg-opacity-50">';
+                                                                            echo '<tr class = "bg-danger bg-opacity-50 unbackResa">';
                                                                         else if ($reservation->is_back)
                                                                             echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">';
                                                                         else

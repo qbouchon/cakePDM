@@ -31,7 +31,7 @@
                                         echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput']);
                                         echo $this->Form->control('user_id', ['options' => $users]);
                                     ?>
-
+                                    <div id='maxDurationInfo' class='fst-italic'></div>
                                     <div class='mb-5' id='picker-container'>
                                     <input class="invisible" id="picker" type="text" readonly='readonly'/>
                                     </div>
