@@ -518,16 +518,6 @@ class ReservationsController extends AppController
     public function getResourcesStats($start = null, $end = null)
     {
 
-
-        //  data: {
-        //   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        //   datasets: [{
-        //     label: 'Nombre de réservation',
-        //     data: [12, 19, 3, 5, 2, 3],
-        //     borderWidth: 1
-        //   }]
-        // },
-
          //Authorisation. Trouver une meilleure pratique
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();

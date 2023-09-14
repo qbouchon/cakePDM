@@ -172,14 +172,14 @@ var HotelDatepicker = (function (fecha) {
 
         // Start from monday if we passed that option
         if (this.startOfWeek === "monday") {
-          for (let i = 0; i < 7; i++) {
+          for (let i = 0; i < 5; i++) {
             week += '<th class="datepicker__week-name">' + this.lang("day-names-short")[(1 + i) % 7] + "</th>";
           }
           return week;
         }
 
         // Otherwise start from sunday (default)
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 5; i++) {
           week += '<th class="datepicker__week-name">' + this.lang("day-names-short")[i] + "</th>";
         }
         return week;
