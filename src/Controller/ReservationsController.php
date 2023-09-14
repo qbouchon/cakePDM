@@ -514,6 +514,127 @@ class ReservationsController extends AppController
 
     }
 
+     public function getUserReservationsBetween()
+    {
+
+        //Authorisation. Trouver une meilleure pratique
+        $this->Authorization->skipAuthorization();
+
+
+        $start = $this->request->getQuery('start');
+        $end = $this->request->getQuery('end');
+        $user = $this->Authentication->getIdentity();
+
+
+        if ($start && $end && $user) {
+
+
+                        $reservations = $this->Reservations->find()
+                            ->where([
+                                'start_date <=' => $end,
+                                'end_date >=' => $start,
+                                'is_back =' => false,                                                 //On ne récupère que les réservations non rendues. suup cette ligne pour inclure les rendues
+                                'user_id =' => $user->id,
+                            ])
+                            ->contain('Resources') 
+                            ->contain('Users')
+                            ->all()
+                            ->toArray();
+
+                        //Création des events
+                        $events = [];
+                        foreach($reservations as $reservation)
+                        {
+                            $today = FrozenDate::now();
+                            $endDate = new FrozenDate($reservation->end_date);
+                            $startDate = new FrozenDate($reservation->start_date);
+                            $formattedStartDate = $reservation->start_date->format('d/m/Y');
+                            $formattedEndDate = $reservation->end_date->format('d/m/Y');
+                           
+
+                            if($endDate <= $today)
+                            {
+                                 $color = '#CD6161';
+                                 $tooltip = '<div class=""><b>Réservation non rendue</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                            }
+                            else
+                            {
+                                if($startDate >= $today)
+                                {
+                                    $color = '#3073b3';  //Changement de couleur ?                                 
+                                    $tooltip = '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                                }
+                                else
+                                {
+                                    $color = '#3073b3';                                   
+                                    $tooltip = '<div class=""><b>Réservation en cours</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                                }
+                                    
+                            }
+
+                            $event = [
+
+                                 'id' => $reservation->id,
+                                 'title'  => $reservation->resource->name. ' - ' . $reservation->user->username,
+                                 'start'  => $reservation->start_date,
+                                 'end'  => $endDate->modify('+1 day'), //On ajoute un jour par soucis d'affichage par fullCalendar qui affiche un jour de moins.
+                                 'allDay'  => true,
+                                 'overlap'  => false,
+                                 'color'  => $color,
+                                 'isBack' => $reservation->is_back,
+                                 'picture' => $reservation->resource->picture_path,
+                                 'tooltip' => $tooltip
+
+
+                            ];
+                            $events[] = $event;
+                        }
+
+
+                        //Récupération des dates de fermeture et création de background events
+                       $closingDatesTable = TableRegistry::getTableLocator()->get('ClosingDates');
+                       $closingDates = $closingDatesTable->find()
+                        ->where([
+                                'start_date >=' => FrozenDate::now()  //Je décide de n'afficher que les jours fermés futurs                     
+                        ])
+                        ->toArray();
+
+
+                        foreach($closingDates as $closingDate)
+                        {
+                            $event = [
+
+                                'id' => $closingDate->id,
+                                'title' => $closingDate->name,
+                                'start' => $closingDate->start_date,
+                                'end' => $closingDate->end_date,
+                                'display' => 'background',
+                                'tooltip' => '<div class=""><b>Fermeture du CREST : </b></div>'.$closingDate->name,
+                                'type' => 'backgroundEvent',
+                                'color' => '#bf7a77'
+
+                            ];
+
+                            $events[] = $event;
+                        }
+
+
+
+                        // Convertir les données en format JSON et les envoyer en réponse
+                        $this->autoRender = false;
+                        $this->response = $this->response->withType('application/json')
+                            ->withStringBody(json_encode($events));
+
+                        return $this->response;
+        }
+        else
+        {
+           $this->Flash->error(__('Erreur dans la récupération des réservations'));
+           return $this->redirect(['action'=>'upcomingReservations']);
+        }
+
+    }
+
     //Renvoie le nombre de réservations par ressource sous une forme exploitable par chart.js
     public function getResourcesStats($start = null, $end = null)
     {

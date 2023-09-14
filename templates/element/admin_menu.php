@@ -8,7 +8,7 @@
                            </a>
                            <div class="collapse" id="collapseReservations" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                             <?= $this->Html->link('Réservations à venir', ['controller'=>'Reservations','action' => 'upcomingReservations'], ['class' => 'nav-link', 'escape' => false]) ?>
+                                             <?= $this->Html->link('Calendrier', ['controller'=>'Reservations','action' => 'upcomingReservations'], ['class' => 'nav-link', 'escape' => false]) ?>
                                             <?= $this->Html->link(__('Liste des Réservations'), ['controller'=>'Reservations','action' => 'index'], ['class' => 'nav-link']) ?>
                                             <?= $this->Html->link(__('Créer une Réservation'), ['controller'=>'Reservations','action' => 'addForUser'], ['class' => 'nav-link']) ?>
                                             <?= $this->Html->link(__('Statistiques'), ['controller'=>'Reservations','action' => 'stats'], ['class' => 'nav-link']) ?>

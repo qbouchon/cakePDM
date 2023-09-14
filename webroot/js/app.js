@@ -135,6 +135,10 @@ $( document ).ready(function() {
     });
 
    
+    //------------------------------------------------------------------ Tooltips -----------------------------------------------------------------------------------
+
+
+
    tippy('.unbackResa', {
                                         content: 'Cette ressource n\'a pas été retournée',
                                         duration: 0,
@@ -152,6 +156,34 @@ $( document ).ready(function() {
                                         
 
     }); 
+
+     tippy('.calendarViewButton', {
+                                        content: 'Passer en vue calendrier',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+    }); 
+
+    tippy('.listViewButton', {
+                                        content: 'Passer en vue liste',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+    }); 
+
+    tippy('.reservationAddButton', {
+                                        content: 'Créer une nouvelle réservation',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+    }); 
+
 
 
 

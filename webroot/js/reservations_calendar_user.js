@@ -4,7 +4,39 @@ var today = new Date();
 
 $(document).ready(function() {
 
-        createCalendar()
+
+    
+    if(!localStorage.getItem('view') || localStorage.getItem('view') == 'list')
+    {
+        $('#calendarView').hide();
+    }
+    else if (localStorage.getItem('view') == 'calendar')
+    {
+        $('#listView').hide();
+        createCalendar();
+    }
+    
+
+
+
+    $('#toggleCalendar').click(function(){
+
+        $('#listView').hide();
+        $('#calendarView').show();
+        createCalendar();
+        localStorage.setItem('view','calendar');
+
+    });
+
+     $('#toggleList').click(function(){
+
+        $('#calendarView').hide();
+        $('#listView').show();
+        calendar.destroy();
+        localStorage.setItem('view','list');
+        
+    });
+
 
     
 
@@ -84,7 +116,7 @@ function createCalendar()
 
      calendar.setOption('eventSources', [
                           {
-                              url: webrootUrl + '/reservations/upcoming-reservations/reservations_between'
+                              url: webrootUrl + '/reservations/index-user/upcoming-reservations/reservations_between'
                            },
      ]);
 
@@ -105,32 +137,22 @@ function createCalendar()
 }
 
 function createEventModal(event) {
-
     
-    if(event.extendedProps.isBack){ 
-        var setBackForm =   '<form id="setBackForm" action="'+webrootUrl+'reservations/unSetBack/'+event.id+'" method="post">'
-                       +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'
-                       +           '<button  class="btn btn-secondary setBackFormButton" onclick="saveCalendarStatAndSubmitForm()" >Définir comme non rendue</button>'
-                       +            '</form>';
-    }
-    else{
-         var setBackForm =   '<form id="setBackForm" action="'+webrootUrl+'reservations/setBack/'+event.id+'" method="post">'
-                       +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'
-                       +           '<button class="btn btn-secondary setBackFormButton" onclick="saveCalendarStatAndSubmitForm()">Définir comme rendue</button>'
-                       +            '</form>';
-    }
-
-
-    var deleteForm = '<form id="deleteForm" action="'+webrootUrl+'reservations/delete/'+event.id+'" method="post">'
+    var startDate = new Date(event.start);
+    if(startDate > today)
+    {
+        var editButton = '<a href="'+webrootUrl+'/reservations/edit/'+event.id+'" type="button" class="btn btn-secondary">Editer</a>';
+        var deleteForm = '<form id="deleteForm" action="'+webrootUrl+'reservations/delete/'+event.id+'" method="post">'
                        +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'                   
                        +            '</form>'
                        +           '<button  class="btn btn-danger deleteFormButton" onClick="saveCalendarStatAndSubmitDeleteForm()">Supprimer</button>';
+    }
+    else{
 
-    var startDate = new Date(event.start);
-    if(startDate > today)
-        var editButton = '<a href="'+webrootUrl+'/reservations/edit-for-user/'+event.id+'" type="button" class="btn btn-secondary">Editer</a>';
-    else
         var editButton = '';
+        var deleteForm = '';
+    }
+
 
 
 
@@ -148,7 +170,6 @@ function createEventModal(event) {
             +     ' </div>'
             +     ' <div class="modal-footer">'
             +           editButton
-            +           setBackForm
             +           deleteForm
             // +       '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>'
             +      '</div>'

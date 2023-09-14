@@ -96,6 +96,8 @@ return static function (RouteBuilder $routes) {
         // ->setPass(['d1','d2']);
 
         $builder->connect('reservations/upcoming-reservations/reservations_between', ['controller' => 'Reservations', 'action' => 'getReservationsBetween']);
+        $builder->connect('reservations/index-user/upcoming-reservations/reservations_between', ['controller' => 'Reservations', 'action' => 'getUserReservationsBetween']);
+
         /*
          * Connect catchall routes for all controllers.
          *
