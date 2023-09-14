@@ -4,7 +4,37 @@ var today = new Date();
 
 $(document).ready(function() {
 
-        createCalendar()
+    if(!localStorage.getItem('viewAdmin') || localStorage.getItem('viewAdmin') == 'list')
+    {
+        $('#calendarView').hide();
+    }
+    else if (localStorage.getItem('viewAdmin') == 'calendar')
+    {
+        $('#listView').hide();
+        createCalendar();
+    }
+    
+
+
+
+    $('#toggleCalendar').click(function(){
+
+        $('#listView').hide();
+        $('#calendarView').show();
+        createCalendar();
+        localStorage.setItem('viewAdmin','calendar');
+
+    });
+
+     $('#toggleList').click(function(){
+
+        $('#calendarView').hide();
+        $('#listView').show();
+        calendar.destroy();
+        localStorage.setItem('viewAdmin','list');
+        
+    });
+
 
     
 

@@ -7,6 +7,7 @@
 
 use Cake\I18n\FrozenTime;
 ?>
+
 <?php
     echo $this->Html->scriptBlock(sprintf(
     'var csrfToken = %s;',
@@ -34,6 +35,10 @@ use Cake\I18n\FrozenTime;
                     <div id='eventModals'>
                     </div>
                 </div>
+
+
+
+
             <div id='listView'>
 
 
