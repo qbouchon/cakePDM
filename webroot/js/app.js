@@ -184,6 +184,42 @@ $( document ).ready(function() {
 
     }); 
 
+    tippy('.resourceAddButton', {
+                                        content: 'Créer une nouvelle ressource',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+    }); 
+
+    tippy('.domainAddButton', {
+                                        content: 'Créer un nouveau domaine',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+    }); 
+
+    tippy('.closingDatesAddButton', {
+                                        content: 'Créer une nouvelle plage de dates de fermeture',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+    }); 
+
+    tippy('.userAddButton', {
+                                        content: 'Créer un nouvel utilisateur',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+    }); 
+
 
 
 
