@@ -32,7 +32,7 @@
                                     //création de la liste des fichiers associés à la resource
                                     if(!empty($resource->files)):
 
-                                        $relatedFilesContent .= '<div> Fichiers : </div><ul>';
+                                        $relatedFilesContent .= '<div> <b>Fichiers : </b></div><ul>';
 
                                         foreach($resource->files as $file):
 
@@ -71,14 +71,15 @@
                                                        <div class="text-center">
                                                             <?php 
 
+                                                            
+                                                                echo $this->Html->link("Détails", ['controller' => 'Resources', 'action' => 'view', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto me-1 mb-1']);
+
                                                                 if($this->getRequest()->getAttribute('identity')->get('admin'))
                                                                 {
-
-                                                                    echo $this->Html->link("Détails", ['controller' => 'Resources', 'action' => 'view', $resource->id],['class' => 'btn btn-secondary mt-2 mx-auto']);
-                                                                    echo $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'addForUser', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto']);
+                                                                    echo $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'addForUser', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto mb-1']);
                                                                 }
                                                                 else
-                                                                    echo $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto']);
+                                                                    echo $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto mb-1']);
                                                             ?>
     
                                                        </div>

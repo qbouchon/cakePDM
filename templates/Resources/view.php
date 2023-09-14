@@ -25,7 +25,7 @@
                                         </tr>
                                         <tr>
                                             <th><?= __('Domaine') ?></th>
-                                            <td><?= $resource->has('domain') ? $this->Html->link($resource->domain->name, ['controller' => 'Domains', 'action' => 'view', $resource->domain->id]) : '' ?></td>
+                                            <td><?= $resource->has('domain') ? $resource->domain->name : 'Aucun' ?></td>
                                         </tr>
                                         <tr>
                                             <th><?= __('Durée de réservation max') ?></th>
@@ -42,18 +42,25 @@
                                             endif;
                                         ?>
                                     </table>
-                                    <div class="text">
-                                        <strong><?= __('Description') ?></strong>
-                                        <blockquote>
-                                            <div id="description">
-                                               <?= $resource->description ?>
-                                            </div>
-                                        </blockquote>
-                                    </div>
-                                    <div class="related  text-start">
-                                        <h4 class="text-center"><?= __('Fichiers associés') ?></h4>
-                                        <?php if (!empty($resource->files)) : ?>
 
+                                    <?php
+                                        if($resource->description):
+                                    ?>
+                                        <div class="text">
+                                            <strong><?= __('Description') ?></strong>
+                                            <blockquote>
+                                                <div id="description">
+                                                   <?= $resource->description ?>
+                                                </div>
+                                            </blockquote>
+                                        </div>
+                                    <?php
+                                        endif;
+                                    ?>
+                                    <div class="related  text-start">
+                                       
+                                        <?php if (!empty($resource->files)) : ?>
+                                                <h4 class="text-center"><?= __('Fichiers associés') ?></h4>
                                                 <ul>
                                                     <?php foreach ($resource->files as $files) : ?>
                                                       <li> <?= $this->Html->link($files->name,[ 'controller' => 'Files','action' => 'download',$files->id, ],['target' => '_blank']) ?>
@@ -79,6 +86,7 @@
                                                                 <th><?= __('Date de fin') ?></th>
                                                                 <th class="actions"><?= __('Actions') ?></th>                                                                                                      
                                                             </tr>
+                                                            
                                                             <?php foreach ($resource->reservations as $reservation) : 
                                                                     if(!$reservation->is_back) :
 
