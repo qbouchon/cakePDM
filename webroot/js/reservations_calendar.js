@@ -6,11 +6,17 @@ $(document).ready(function() {
 
     if(!localStorage.getItem('viewAdmin') || localStorage.getItem('viewAdmin') == 'list')
     {
-        $('#calendarView').hide();
+
+        $('#calendarView').addClass('displaynone');
+        $('#listView').removeClass('displaynone');
+
     }
     else if (localStorage.getItem('viewAdmin') == 'calendar')
     {
-        $('#listView').hide();
+      
+        $('#calendarView').removeClass('displaynone');
+        $('#listView').addClass('displaynone');
+
         createCalendar();
     }
     
@@ -19,8 +25,8 @@ $(document).ready(function() {
 
     $('#toggleCalendar').click(function(){
 
-        $('#listView').hide();
-        $('#calendarView').show();
+        $('#calendarView').removeClass('displaynone');
+        $('#listView').addClass('displaynone');
         createCalendar();
         localStorage.setItem('viewAdmin','calendar');
 
@@ -28,8 +34,8 @@ $(document).ready(function() {
 
      $('#toggleList').click(function(){
 
-        $('#calendarView').hide();
-        $('#listView').show();
+        $('#calendarView').addClass('displaynone');
+        $('#listView').removeClass('displaynone');
         calendar.destroy();
         localStorage.setItem('viewAdmin','list');
         

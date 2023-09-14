@@ -5,14 +5,19 @@ var today = new Date();
 $(document).ready(function() {
 
 
-    
-    if(!localStorage.getItem('view') || localStorage.getItem('view') == 'list')
+   if(!localStorage.getItem('viewAdmin') || localStorage.getItem('viewAdmin') == 'list')
     {
-        $('#calendarView').hide();
+
+        $('#calendarView').addClass('displaynone');
+        $('#listView').removeClass('displaynone');
+
     }
-    else if (localStorage.getItem('view') == 'calendar')
+    else if (localStorage.getItem('viewAdmin') == 'calendar')
     {
-        $('#listView').hide();
+      
+        $('#calendarView').removeClass('displaynone');
+        $('#listView').addClass('displaynone');
+
         createCalendar();
     }
     
@@ -21,19 +26,19 @@ $(document).ready(function() {
 
     $('#toggleCalendar').click(function(){
 
-        $('#listView').hide();
-        $('#calendarView').show();
+        $('#calendarView').removeClass('displaynone');
+        $('#listView').addClass('displaynone');
         createCalendar();
-        localStorage.setItem('view','calendar');
+        localStorage.setItem('viewAdmin','calendar');
 
     });
 
      $('#toggleList').click(function(){
 
-        $('#calendarView').hide();
-        $('#listView').show();
+        $('#calendarView').addClass('displaynone');
+        $('#listView').removeClass('displaynone');
         calendar.destroy();
-        localStorage.setItem('view','list');
+        localStorage.setItem('viewAdmin','list');
         
     });
 

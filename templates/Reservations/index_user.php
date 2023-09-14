@@ -25,7 +25,7 @@ use Cake\I18n\FrozenTime;
 
         <h3 class="text-center font-weight-bold"><?= __('Mes Réservations') ?></h3>
 
-                <div id='calendarView'>
+                <div id='calendarView' class='displaynone'>
                     <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn reservationAddButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une réservation','escape' =>false]); ?>
                     <a id='toggleList' class='btn listViewButton '><i class="fa-solid fa-table-list fa-xl "></i></a>
                    
@@ -39,7 +39,7 @@ use Cake\I18n\FrozenTime;
 
 
 
-            <div id='listView'>
+            <div id='listView' class='displaynone'>
 
 
 
