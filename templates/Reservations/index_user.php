@@ -22,7 +22,7 @@ use Cake\I18n\FrozenTime;
 <div class="container">
     <div class="reservations index content">
 
-        <h3 class="text-center font-weight-bold"><?= __('Mes Reservations') ?></h3>
+        <h3 class="text-center font-weight-bold"><?= __('Mes Réservations') ?></h3>
 
                 <div id='calendarView'>
                     <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn reservationAddButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une réservation','escape' =>false]); ?>
