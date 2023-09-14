@@ -562,12 +562,12 @@ class ReservationsController extends AppController
                                 if($startDate >= $today)
                                 {
                                     $color = '#3073b3';  //Changement de couleur ?                                 
-                                    $tooltip = '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                                    $tooltip = '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b>';
                                 }
                                 else
                                 {
                                     $color = '#3073b3';                                   
-                                    $tooltip = '<div class=""><b>Réservation en cours</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                                    $tooltip = '<div class=""><b>Réservation en cours</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b>';
                                 }
                                     
                             }
@@ -575,7 +575,7 @@ class ReservationsController extends AppController
                             $event = [
 
                                  'id' => $reservation->id,
-                                 'title'  => $reservation->resource->name. ' - ' . $reservation->user->username,
+                                 'title'  => $reservation->resource->name,
                                  'start'  => $reservation->start_date,
                                  'end'  => $endDate->modify('+1 day'), //On ajoute un jour par soucis d'affichage par fullCalendar qui affiche un jour de moins.
                                  'allDay'  => true,
