@@ -44,7 +44,6 @@
                        <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('domain_id') ?></th>
                        <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('max_duration') ?></th>
                        <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('archive') ?></th>
-                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('color') ?></th>
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                    </tr>
@@ -60,7 +59,7 @@
                     <?= $resource->archive ? '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">' :  '<tr class="bg-white">' ?>
                         
 
-                        <td class="text-center"><b><?= h($resource->name) ?></b></td>
+                        <td class="text-center"><?= h($resource->name) ?></td>
                         
                         
                         <td class="text-center"><?= h($resource->picture) ?></td>
@@ -72,7 +71,7 @@
                         
                         <td class="text-center"><?= $resource->archive ? 'Oui' : 'Non' ?></td>
 
-                        <td class="text-center"><input type="color" value="<?= $resource->color ?>" disabled></td>
+
                         
                         
                         <td class="actions d-flex justify-content-center">
