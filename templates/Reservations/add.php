@@ -31,8 +31,10 @@
                                     ?>
 
                                     <div id='maxDurationInfo' class='fst-italic'></div>
+                                    <div id="loadingAnimaion" class="text-center"><i class="fa-solid fa-spinner fa-spin fa-2xl mt-5" ></i></div>
+
                                     <div class='mb-5' id='picker-container'>
-                                    <input class="invisible" id="picker" type="text" readonly='readonly'/>
+                                        <input class="displaynone" id="picker" type="text" readonly='readonly'/>
                                     </div>
 
                               

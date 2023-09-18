@@ -31,11 +31,15 @@
                                         echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput']);
                                         echo $this->Form->control('user_id', ['options' => $users]);
                                     ?>
+                                  
                                     <div id='maxDurationInfo' class='fst-italic'></div>
-                                    <div class='mb-5' id='picker-container'>
-                                    <input class="invisible" id="picker" type="text" readonly='readonly'/>
-                                    </div>
 
+                                    <div id="loadingAnimaion" class="text-center"><i class="fa-solid fa-spinner fa-spin fa-2xl mt-5" ></i></div>
+
+                                    <div class='mb-5' id='picker-container'>
+                                        <input class="displaynone" id="picker" type="text" readonly='readonly'/>
+                                    </div>
+                                    
                               
 
                                        <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'font-italic', 'label'=>'Date de début','readonly'=>'']); ?>   

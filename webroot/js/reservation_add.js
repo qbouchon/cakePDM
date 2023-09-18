@@ -65,9 +65,31 @@ $( document ).ready(function() {
                 moveBothMonths : true,
                 maxNights : maxDuration,
                 startDate : tomorrowString,
-                
+
 
             });
+
+            $('#loadingAnimaion').addClass('displaynone');
+
+            //Création des tooltips
+            tippy('.datepicker__month-day--no-checkin', {
+                                        content: 'Le CREST est fermé à cette date.',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+            });
+
+            tippy('.datepicker__month-day--disabled', {
+                                        content: 'La ressource est indisponible à cette date',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+            });
+          
 
         }
 
@@ -101,6 +123,7 @@ $( document ).ready(function() {
                    
         $('#picker').remove();
         picker.destroy();
+        $('#loadingAnimaion').removeClass('displaynone');
         createPicker($(this).val());
 
     });

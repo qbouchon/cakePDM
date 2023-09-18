@@ -69,6 +69,27 @@ $( document ).ready(function() {
 
             picker.setRange($('#start_date').val(),$('#end_date').val());
 
+             $('#loadingAnimaion').addClass('displaynone');
+
+            //Création des tooltips
+            tippy('.datepicker__month-day--no-checkin', {
+                                        content: 'Le CREST est fermé à cette date.',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+            });
+
+            tippy('.datepicker__month-day--disabled', {
+                                        content: 'La ressource est indisponible à cette date',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+            });
+
         }
 
 
@@ -103,8 +124,9 @@ $( document ).ready(function() {
         var eDateValue = $('#end_date').val(); 
         $('#picker').remove();
         picker.destroy();
+        $('#loadingAnimaion').removeClass('displaynone');
         $('#start_date').val(sDateValue);
-         $('#end_date').val(eDateValue);  //On remet les valeurs car picker.destroy() les reset
+        $('#end_date').val(eDateValue);  //On remet les valeurs car picker.destroy() les reset
         createPicker($(this).val());
 
     });

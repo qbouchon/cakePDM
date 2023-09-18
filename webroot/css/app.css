@@ -280,3 +280,8 @@
    background-color:rgba(100,100,100,.2);
 /*   opacity: 50%;*/
 }
+
+.fa-spinner {
+
+  color: var(--uga-orange);
+}
