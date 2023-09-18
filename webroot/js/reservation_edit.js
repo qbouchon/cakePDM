@@ -50,7 +50,7 @@ $( document ).ready(function() {
         {
             var today = new Date();
             var tomorrowDate = new Date(today);
-            tomorrowDate.setDate(today.getDate() + 1);
+            tomorrowDate.setDate(today.getDate()) // + 1); +1 si on veut qu'il y ai au moins un jour de délai entre la demande de réservation et le début de la réservation
             var tomorrowString = tomorrowDate.toISOString().split('T')[0];
 
             picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
@@ -143,8 +143,117 @@ $( document ).ready(function() {
     });
 
 
+     $('#start_date').on('change', function(){
+        checkSelectedDates();
+    });
+
+    $('#end_date').on('change', function(){
+        checkSelectedDates();
+    });
+
     
 
 
 
 });
+
+
+function checkSelectedDates() {
+
+       
+        if($('#start_date').val()){
+             checkStartDate();
+        }
+        if($('#start_date').val() && $('#end_date').val())
+        {
+            checkDates();
+            checkReservationDuration();
+            checkOverlapeReservation();
+            checkClosingDate();
+        }
+
+
+
+}
+
+//Check if start_date after today
+function checkStartDate()
+{
+        var today = new Date();
+
+        var start_date = new Date($("#start_date").val());
+
+
+        if(start_date<today){     
+            alert("checkstartDate false");  
+            return "Vous ne pouvez pas réserver une ressource avant la date de la demande";         
+        }
+        
+}
+
+
+//Check if start_date before end_date
+function checkDates()
+{
+        var start_date = new Date($("#start_date").val());
+        var end_date = new Date($("#end_date").val());
+
+        if(end_date < start_date){
+            alert("checkDates false");  
+            return 'La date de début de réservation doit être avant la date de fin.';
+        }
+        
+}
+
+//Check if the duration of reservation is not greater than the maximum duration for the specific resource
+function checkReservationDuration()
+{
+        var start_date = new Date($("#start_date").val());
+        var end_date = new Date($("#end_date").val());
+        var max_duration = picker.maxNights;
+
+        var durationInDays = (end_date - start_date) / (24 * 60 * 60 * 1000);
+        if(durationInDays > max_duration && max_duration > 0){ //On considère 0 et les valeurs négatives comme une possibilité de réservation illimitée
+            alert('checkReservationDuration false')
+            return 'La Reservation dépasse la durée maximal d\'emprunt pour cette ressource';
+        }
+     
+}
+
+//Check if there is no overlape reservation for the resource
+function checkOverlapeReservation()
+{
+        var start_date = new Date($("#start_date").val());
+        var end_date = new Date($("#end_date").val());
+       
+
+                   
+                if(picker.disabledDates.includes(start_date)){
+                    alert("checkDates start_date false"); 
+                    return 'La ressource n\'est pas disponible à cette date';
+                }
+                if(picker.disabledDates.includes(end_date)){
+                    alert("checkDates end_date false"); 
+                    return 'La ressource n\'est pas disponible à cette date';
+                }
+
+}
+
+
+function checkClosingDate()
+{
+        var start_date = new Date($("#start_date").val());
+        var end_date = new Date($("#end_date").val());
+        
+        if(picker.noCheckInDates.includes(start_date) || picker.noCheckOutDates.includes(start_date)){
+                    alert("checkClosingDateStart  start_date false"); 
+                    return 'Le CREST est fermé à cette date';
+        }
+        if(picker.noCheckInDates.includes(end_date) || picker.noCheckOutDates.includes(end_date)){
+                    alert("checkClosingDateStart  end_date false"); 
+                    return 'Le CREST est fermé à cette date';
+        }
+        
+}
+
+  

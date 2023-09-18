@@ -71,7 +71,7 @@ class ReservationsTable extends Table
             ->notEmptyDate('start_date')
             ->add('start_date', 'checkStartDate', [
                 'rule' => [$this, 'checkStartDate'],
-                'message' => 'Vous ne pouvez pas reserver de ressource avant le lendemain de la demande',
+                'message' => 'Vous ne pouvez pas réserver une ressource avant la date de la demande',
             ])
             ->add('start_date', 'checkDates', [
                 'rule' => [$this, 'checkDates'],
@@ -173,15 +173,15 @@ class ReservationsTable extends Table
     
     public function checkStartDate($value, $context)
     {
-        $today = FrozenTime::now();
+        $today = FrozenDate::now();
         // debug('today' . $today->i18nFormat('yyyy-MM-dd'));
         // echo $today;
         // debug($this->start_date);
         // die;
-        $start_date = new FrozenTime($context['data']['start_date']);
+        $start_date = new FrozenDate($context['data']['start_date']);
 
 
-        if($start_date<=$today)
+        if($start_date<$today)
             return false; 
         
         
@@ -192,8 +192,8 @@ class ReservationsTable extends Table
     //Check if start_date before end_date
     public function checkDates($value, $context)
     {
-        $start_date = new FrozenTime($context['data']['start_date']);
-        $end_date = new FrozenTime($context['data']['end_date']);
+        $start_date = new FrozenDate($context['data']['start_date']);
+        $end_date = new FrozenDate($context['data']['end_date']);
 
         if($end_date < $start_date)
             return false;
@@ -209,7 +209,7 @@ class ReservationsTable extends Table
         $resource = $this->Resources->get($context['data']['resource_id']);
 
         $durationInDays = ($end_date->getTimestamp() - $start_date->getTimestamp()) / (24 * 60 * 60);
-        if($durationInDays > $resource->max_duration && $resource->max_duration > 0) //On considère 0 et les valeur négative comme une possibilité de réservation illimitée
+        if($durationInDays >= $resource->max_duration && $resource->max_duration > 0) //On considère 0 et les valeurs négatives comme une possibilité de réservation illimitée
             return false;
         else
             return true;
@@ -218,8 +218,8 @@ class ReservationsTable extends Table
     //Check if there is no overlape reservation for the resource
     public function checkOverlapeReservation($value, $context)
     {
-        $start_date = new FrozenTime($context['data']['start_date']);
-        $end_date = new FrozenTime($context['data']['end_date']);
+        $start_date = new FrozenDate($context['data']['start_date']);
+        $end_date = new FrozenDate($context['data']['end_date']);
         $resource = $this->Resources->get($context['data']['resource_id'],['contain' => 'Reservations']);
         // debug($context['data']);
         // die;
@@ -252,7 +252,7 @@ class ReservationsTable extends Table
     }
 
 
-     //Check if start_date before end_date
+     // On s'assure que la dates de début de réservations ne tombe pas sur une date de férmeture du CREST
     public function checkClosingDateStart($value, $context)
     {
         $start_date = new FrozenDate($context['data']['start_date']);
@@ -264,7 +264,7 @@ class ReservationsTable extends Table
 
         $closingDates = $closingDatesTable->find()
                   ->where([
-                                'start_date >=' => $now  //Inutil de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
+                                'start_date >=' => $now  //Inutile de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
                     ])
                   ->toArray();
 
@@ -289,6 +289,7 @@ class ReservationsTable extends Table
 
     }
 
+    // On s'assure que la dates de fin de réservations ne tombe pas sur une date de férmeture du CREST
     public function checkClosingDateEnd($value, $context)
     {
         $start_date = new FrozenDate($context['data']['start_date']);

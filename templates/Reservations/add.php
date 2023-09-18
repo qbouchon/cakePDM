@@ -17,7 +17,7 @@
            <div class="row mt-2">
 
 
-                    <?= $this->Form->create($reservation) ?>
+                    <?= $this->Form->create($reservation,['class' => '']) ?>
                     <fieldset>
 
                         <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded">
