@@ -603,16 +603,16 @@
         },
         {
             "name": "friendsofcake/bootstrap-ui",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfCake/bootstrap-ui.git",
-                "reference": "4b60b2d5981d80d7e9f61a527dc7274d49d7c297"
+                "reference": "bd656983263adfee9888f7539bb4afa030659f13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfCake/bootstrap-ui/zipball/4b60b2d5981d80d7e9f61a527dc7274d49d7c297",
-                "reference": "4b60b2d5981d80d7e9f61a527dc7274d49d7c297",
+                "url": "https://api.github.com/repos/FriendsOfCake/bootstrap-ui/zipball/bd656983263adfee9888f7539bb4afa030659f13",
+                "reference": "bd656983263adfee9888f7539bb4afa030659f13",
                 "shasum": ""
             },
             "require": {
@@ -655,7 +655,7 @@
                 "issues": "http://github.com/friendsofcake/bootstrap-ui/issues",
                 "source": "http://github.com/friendsofcake/bootstrap-ui"
             },
-            "time": "2022-06-26T15:58:21+00:00"
+            "time": "2023-03-12T15:10:19+00:00"
         },
         {
             "name": "josegonzalez/cakephp-upload",
