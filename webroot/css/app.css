@@ -161,23 +161,12 @@
 
     }
 
-.home-content {
 
-
-
-}
-
-
-
-
-#picker {
-  position: relative;
-}
 
 
 
 /*Calendar*/
-.day-0{
+/*.day-0{
 
   width: 9%;
 
@@ -217,7 +206,7 @@
     display: block;
     padding-top: 50%; 
 }
-
+*/
 /*fullCalendar*/
 #fullCalendar a {
   text-decoration: none; 
@@ -276,6 +265,18 @@
   display: none;
 }
 
-.displaynone{
-  display: none;
+
+/*datepicker*/
+
+
+#picker {
+  position: relative;
+}
+
+.datepicker__month-day--no-checkin,
+.datepicker__month-day--no-checkout,
+.datepicker__month-day--day-of-week-disabled {
+
+   background-color:rgba(100,100,100,.2);
+/*   opacity: 50%;*/
 }

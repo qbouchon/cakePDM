@@ -182,13 +182,7 @@ datepicker__buttons {
   transform: translate(-50%, -50%);
 }
 
-.datepicker__month-day--no-checkin,
-.datepicker__month-day--no-checkout,
-.datepicker__month-day--day-of-week-disabled {
 
-   background-color: #bf7a77;
-   opacity: 50%;
-}
 
 .datepicker__month-day--selected {
   background-color: rgba(56, 88, 233, 0.2);

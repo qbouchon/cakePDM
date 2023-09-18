@@ -64,7 +64,8 @@ $( document ).ready(function() {
                 startOfWeek: 'monday',
                 moveBothMonths : true,
                 maxNights : maxDuration,
-                startDate : tomorrowString,      
+                startDate : tomorrowString,
+                
 
             });
 
