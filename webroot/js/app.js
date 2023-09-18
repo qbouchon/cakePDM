@@ -140,7 +140,7 @@ $( document ).ready(function() {
 
 
    tippy('.unbackResa', {
-                                        content: 'Cette ressource n\'a pas été retournée',
+                                        content: 'Cette ressource n\'a pas été retournée.',
                                         duration: 0,
                                         allowHTML:true,
                                         followCursor: 'initial',
@@ -148,8 +148,17 @@ $( document ).ready(function() {
 
     }); 
 
-     tippy('.unbackResaUser', {
-                                        content: 'Ressource à retourner au CREST. Merci de contacter un administrateur si vous l\'avez déjà rendue.',
+    tippy('.unbackResaUser', {
+                                        content: 'Ressource à retourner au CREST. Merci de contacter un administrateur si vous l\'avez déjà fait.',
+                                        duration: 0,
+                                        allowHTML:true,
+                                        followCursor: 'initial',
+                                        
+
+    }); 
+
+      tippy('.isBack', {
+                                        content: 'Cette ressource à été rendue.',
                                         duration: 0,
                                         allowHTML:true,
                                         followCursor: 'initial',
