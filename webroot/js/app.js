@@ -222,5 +222,22 @@ $( document ).ready(function() {
 
 
 
+    tippy('.viewbackButton', {
+                                        content: 'Afficher les réservations retournées',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+    }); 
+    tippy('.hidebackButton', {
+                                        content: 'Cacher les réservations retournées',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+
+    }); 
+     
 
 });

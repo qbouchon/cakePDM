@@ -15,7 +15,7 @@ use Cake\I18n\FrozenTime;
 ?>
 
 <?= $this->Html->script('search'); ?>
-<?= $this->Html->script('reservations_calendar'); ?>
+<?= $this->Html->script('reservations_index'); ?>
 
 <div class="container">
     <div class="reservations index content">
@@ -25,6 +25,7 @@ use Cake\I18n\FrozenTime;
            <div id='calendarView' class='displaynone'>
                     <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'addForUser' ],[ 'class' => 'text-center  btn reservationAddButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une réservation','escape' =>false]); ?>
                     <a id='toggleList' class='btn listViewButton '><i class="fa-solid fa-table-list fa-xl "></i></a>
+
                    
                     <div id='fullCalendar'>
                     </div>
@@ -40,8 +41,12 @@ use Cake\I18n\FrozenTime;
 
                              <div class="d-flex align-items-center justify-content-between mb-1">
                                 <div >
-                                    <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'addForUser' ],[ 'class' => 'text-center  btn addButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une réservation','escape' =>false]); ?>
+                                    <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'addForUser' ],[ 'class' => 'text-center  btn reservationAddButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une réservation','escape' =>false]); ?>
                                     <a id='toggleCalendar' class='btn calendarViewButton'><i class="text-center fa-regular fa-calendar-days fa-xl "></i></a>
+                                    <a id='displayBack' class='btn viewbackButton '><i class="fa-solid fa-eye"></i></a>
+                                    <a id='hideBack' class='btn hidebackButton '><i class="fa-solid fa-eye-slash"></i></a>
+
+                                   
                                 </div>
                                 <div>
                                      <div class="input-group">                        
@@ -79,7 +84,7 @@ use Cake\I18n\FrozenTime;
                                             if($reservation->end_date <= FrozenTime::now() && !$reservation->is_back)
                                                 echo '<tr class = "bg-danger bg-opacity-50 unbackResa">';
                                             else if ($reservation->is_back)
-                                                echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through">';
+                                                echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through isBack displaynone">';
                                             else
                                                 echo '<tr class="bg-white">';
                                         ?>
@@ -178,7 +183,7 @@ use Cake\I18n\FrozenTime;
                                 <?= $this->Paginator->numbers() ?>
                                 <?= $this->Paginator->next('>') ?>
                             </ul>
-                            <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} sur {{pages}}, {{current}} entrée(s) affiché(s) sur un total de {{count}}')) ?></p>
+                           
                         </div>
 
         </div>

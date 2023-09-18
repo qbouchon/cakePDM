@@ -10,7 +10,7 @@
 
 
 <!-- js pour la gestion du datepicker -->
-<?= $this->Html->script('reservation'); ?>
+<?= $this->Html->script('reservation_add'); ?>
 
 <div class="container">   
 
