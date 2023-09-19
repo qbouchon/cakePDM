@@ -19,7 +19,7 @@
                                         <h3 class="text-center"><?= $resource->name." <i>(édition)</i>" ?></h3>
 
 
-                                            <?= $this->Form->control('name');?>
+                                            <?= $this->Form->control('Nom');?>
 
                                             <div class='d-flex align-items-center'>
                                                 <?=  $this->Form->control('picture',['type' => 'file',  'class'=>'d-inline', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']); ?>
@@ -48,7 +48,7 @@
 
 
                                             <?= $this->Form->control('description'); ?>
-                                            <?= $this->Form->control('domain_id', ['options' => $domains, 'empty' => true]); ?>
+                                            <?= $this->Form->control('domain_id', ['options' => $domains, 'empty' => true, 'label' => 'Domaine']); ?>
 
                                             <div class="row d-flex align-items-center">
                                                 <?= $this->Form->label('Durée de réservation maximale (1 semaine = 7 jours)'); ?>

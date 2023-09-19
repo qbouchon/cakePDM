@@ -31,9 +31,9 @@
             <table id="searchTable" class="table table-bordered table-hover table-sm table-responsive">
                 <thead>
                     <tr class="bg-white">
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('name') ?></th>
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date') ?></th>
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('last_date') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('name','Nom') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date','Date de début') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('end_date', 'Date de fin' ) ?></th>
                                                                    
                         <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                     </tr>
@@ -57,7 +57,6 @@
                                     <?=__('Actions') ?>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><?= $this->Html->link(__('View'), ['action' => 'view', $closingDate->id],['class' => 'dropdown-item']) ?></li>
                                     
                                     <li><?= $this->Html->link(__('Edit'), ['action' => 'edit', $closingDate->id],['class' => 'dropdown-item']) ?></li>
                                     
@@ -76,7 +75,7 @@
                                         <?= $this->Paginator->numbers() ?>
                                         <?= $this->Paginator->next('>') ?>
                                     </ul>
-                <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+            <p class="d-flex justify-content-center"><?= $this->Paginator->counter(__('Page {{page}} sur {{pages}}, {{current}} entrée(s) affiché(s) sur un total de {{count}}')) ?></p>
         </div>
     </div>
 </div>

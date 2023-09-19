@@ -39,11 +39,11 @@
             <table id="searchTable" class="table table-bordered table-hover table-sm  table-light table-responsive  align-middle">
                 <thead>
                     <tr class="bg-white">
-                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('name') ?></th>
-                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('picture') ?></th>
-                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('domain_id') ?></th>
-                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('max_duration') ?></th>
-                       <th scope="col" class="col-4 text-center"><?= $this->Paginator->sort('archive') ?></th>
+                       <th scope="col" class="col text-center"><?= $this->Paginator->sort('name','Nom') ?></th>
+                       <th scope="col" class="col text-center"><?= $this->Paginator->sort('picture','Image') ?></th>
+                       <th scope="col" class="col text-center"><?= $this->Paginator->sort('domain_id','Domaine') ?></th>
+                       <th scope="col" class="col text-center"><?= $this->Paginator->sort('max_duration','Durée Max') ?></th>
+                       <th scope="col" class="col text-center"><?= $this->Paginator->sort('archive','Archivée') ?></th>
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                    </tr>

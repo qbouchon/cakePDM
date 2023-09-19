@@ -32,9 +32,10 @@
             <table id="searchTable" class="table table-bordered table-hover table-sm table-responsive table-light">
                 <thead>
                     <tr class="bg-white">
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('name') ?></th>
-                       <th scope="col" class="text-center"><?= $this->Paginator->sort('picture') ?></th>
+                      
+                       <th scope="col" class="text-center"><?= $this->Paginator->sort('name', 'Nom') ?></th>
+                       <th scope="col" class="text-center"><?= $this->Paginator->sort('picture', 'Image') ?></th>
+                       <th scope="col" class="text-center"><?= $this->Paginator->sort('description', 'Description') ?></th>
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                    </tr>
@@ -43,11 +44,13 @@
                 <?php foreach ($domains as $domain): ?>
                     <tr class="bg-white">
                                             
-                        <td class="text-center"><?= $this->Number->format($domain->id) ?></td>                    
+                                          
                         
                         <td class="text-center"><?= h($domain->name) ?></td>
                                                
                         <td class="text-center"><?= h($domain->picture) ?></td>
+
+                        <td class="text-center"><?= $domain->description ?></td>
 
 
 

@@ -38,17 +38,9 @@ class ClosingDatesController extends AppController
      */
     public function view($id = null)
     {   
-
-        
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
-
-
-        $closingDate = $this->ClosingDates->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set(compact('closingDate'));
+        $this->redirect(['action'=>'index']);
     }
 
     /**

@@ -13,11 +13,11 @@
             <h3 class="text-center"><?= h($domain->name) ?></h3>
                 <table class="table table-bordered table-hover table-sm table-responsive table-light ">
                     <tr>
-                        <th><?= __('Name') ?></th>
+                        <th><?= __('Nom') ?></th>
                         <td><?= h($domain->name) ?></td>
                     </tr>
                     <tr>
-                        <th><?= __('Picture') ?></th>
+                        <th><?= __('Image') ?></th>
                         <td><?= $this->Html->image('domains/'.$domain->picture_path,['class'=>'img-fluid','style' => 'max-width: 200px; max-height: 200px;'])   ?></td>
                     </tr>
                     <tr>
@@ -32,9 +32,9 @@
                         <table class="table table-bordered table-hover table-sm table-responsive table-light">
                             <tr class="bg-white">
 
-                                <th><?= __('Name') ?></th>
+                                <th><?= __('Nom') ?></th>
                                 <th><?= __('Description') ?></th>
-                                <th><?= __('Archive') ?></th>
+                                <th><?= __('Archivée') ?></th>
                                 <th class="actions"><?= __('Actions') ?></th>
                             </tr>
                             <?php foreach ($domain->resources as $resource) : ?>

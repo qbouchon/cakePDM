@@ -67,9 +67,9 @@ use Cake\I18n\FrozenTime;
                                                         <table id="searchTable" class="table table-bordered table-hover table-sm table-responsive table-light">
                                                             <thead>
                                                                 <tr class="bg-white">
-                                                                    <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id') ?></th>
-                                                                   <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date') ?></th>
-                                                                   <th scope="col" class="text-center"><?= $this->Paginator->sort('end_date') ?></th> 
+                                                                    <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id', 'Ressource') ?></th>
+                                                                   <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date', 'Date de début') ?></th>
+                                                                   <th scope="col" class="text-center"><?= $this->Paginator->sort('end_date','Date de fin') ?></th> 
                                                                    
                                                                    <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                                                                </tr>

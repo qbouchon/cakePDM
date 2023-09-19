@@ -32,9 +32,9 @@
                 <thead>
                     <tr class="bg-white">
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('id') ?></th>
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('firstname') ?></th>
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('lastname') ?></th>
-                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('username') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('firstname','Prénom') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('lastname','Nom') ?></th>
+                                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('username','Login') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('email') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('active') ?></th>
                                                      <th scope="col" class="text-center"><?= $this->Paginator->sort('admin') ?></th>

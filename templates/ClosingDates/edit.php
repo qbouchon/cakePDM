@@ -4,20 +4,25 @@
  * @var \App\Model\Entity\ClosingDate $closingDate
  */
 ?>
-<div class="row">
+<div class="container">   
 
-        <div class="closingDates form content">
-            <?= $this->Form->create($closingDate) ?>
-            <fieldset>
-                <legend><?= __('Edit Closing Date') ?></legend>
-                <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('start_date');
-                    echo $this->Form->control('end_date');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+        <div class="row mt-2">
+                <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded">  
+                    <?= $this->Form->create($closingDate) ?>
+
+                    <fieldset>
+                        <h3 class="text-center"><?= __('Modifier une plage de dates de fermeture') ?></h3>
+                        
+                        <?php
+                            echo $this->Form->control('name',['label' => 'Nom']);
+                            echo $this->Form->control('start_date',['label' =>'Date de début']);
+                            echo $this->Form->control('end_date',['label' =>'Date de fin']);
+                        ?>
+                    </fieldset>
+                    <div class="text-center">
+                        <?= $this->Form->button(__('Modifier')) ?>
+                        <?= $this->Form->end() ?>
+                    </div>
+                </div>
         </div>
-    </div>
 </div>

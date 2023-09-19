@@ -30,7 +30,7 @@
                              
                                       
                                     <?php
-                                        echo $this->Form->control('resource_id', ['options' => $resources, 'id'=>'resourceInput']);
+                                        echo $this->Form->control('resource_id', ['options' => $resources, 'id'=>'resourceInput', 'label' => 'Ressource']);
                                     ?>
                                     <div id='maxDurationInfo' class='fst-italic'></div>
                                    <div id="loadingAnimaion" class="text-center"><i class="fa-solid fa-spinner fa-spin fa-2xl mt-5" ></i></div>

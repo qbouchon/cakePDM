@@ -28,8 +28,8 @@
                                       
                                     <?php
                                         //echo $this->Form->control('is_back');
-                                        echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput']);
-                                        echo $this->Form->control('user_id', ['options' => $users]);
+                                        echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput', 'label' => 'Domaine']);
+                                        echo $this->Form->control('user_id', ['options' => $users, 'label' => 'Utilisateur']);
                                     ?>
                                   
                                     <div id='maxDurationInfo' class='fst-italic'></div>
