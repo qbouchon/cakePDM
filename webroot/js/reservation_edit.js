@@ -64,10 +64,19 @@ $( document ).ready(function() {
                 moveBothMonths : true,
                 maxNights : maxDuration,
                 startDate : tomorrowString,
+                 onDayClick: function() {
+                        resetValidationmessages(); //Pas besoin de check les dates
+                },
+                onSelectRange: function() {
+                        resetValidationmessages(); //Pas besoin de check les dates
+                },
 
             });
 
             picker.setRange($('#start_date').val(),$('#end_date').val());
+
+            resetValidationmessages();
+            checkSelectedDates(); //On recheck les date par rapport à cette ressource
 
              $('#loadingAnimaion').addClass('displaynone');
 
@@ -128,6 +137,7 @@ $( document ).ready(function() {
         $('#start_date').val(sDateValue);
         $('#end_date').val(eDateValue);  //On remet les valeurs car picker.destroy() les reset
         createPicker($(this).val());
+        
 
     });
 
@@ -142,14 +152,19 @@ $( document ).ready(function() {
         picker.clear();        
     });
 
+   //Validation des inputs
+    $('#start_date').on('change', function(){
 
-     $('#start_date').on('change', function(){
+        resetValidationmessages();
         checkSelectedDates();
     });
 
     $('#end_date').on('change', function(){
+
+        resetValidationmessages();
         checkSelectedDates();
     });
+    
 
     
 
@@ -157,10 +172,27 @@ $( document ).ready(function() {
 
 });
 
+function resetValidationmessages() {
+        $('#startDateFeedback').html('');
+        $('#endDateFeedback').html('');
+        $('#startDateFeedback').hide();
+        $('#endDateFeedback').hide();
+
+        $('#start-date-error').hide();
+        $('#end-date-error').hide();
+
+        $('#start_date').removeClass('is-invalid');
+        $('#end_date').removeClass('is-invalid');
+}
+
+
 
 function checkSelectedDates() {
 
-       
+   
+
+
+
         if($('#start_date').val()){
              checkStartDate();
         }
@@ -185,8 +217,11 @@ function checkStartDate()
 
 
         if(start_date<today){     
-            alert("checkstartDate false");  
-            return "Vous ne pouvez pas réserver une ressource avant la date de la demande";         
+            
+    
+            $('#start_date').addClass('is-invalid');
+            $("#startDateFeedback").html("Vous ne pouvez pas réserver une ressource avant la date de la demande");
+           $("#startDateFeedback").show();   
         }
         
 }
@@ -199,8 +234,10 @@ function checkDates()
         var end_date = new Date($("#end_date").val());
 
         if(end_date < start_date){
-            alert("checkDates false");  
-            return 'La date de début de réservation doit être avant la date de fin.';
+         
+            $('#start_date').addClass('is-invalid');
+            $("#startDateFeedback").html("La date de début de réservation doit être avant la date de fin.");  
+            $("#startDateFeedback").show();
         }
         
 }
@@ -213,9 +250,11 @@ function checkReservationDuration()
         var max_duration = picker.maxNights;
 
         var durationInDays = (end_date - start_date) / (24 * 60 * 60 * 1000);
-        if(durationInDays > max_duration && max_duration > 0){ //On considère 0 et les valeurs négatives comme une possibilité de réservation illimitée
-            alert('checkReservationDuration false')
-            return 'La Reservation dépasse la durée maximal d\'emprunt pour cette ressource';
+        if(durationInDays >= max_duration && max_duration > 0){ //On considère 0 et les valeurs négatives comme une possibilité de réservation illimitée
+            
+            $('#end_date').addClass('is-invalid');
+            $("#endDateFeedback").html("La Reservation dépasse la durée maximal d\'emprunt pour cette ressource");  
+            $("#endDateFeedback").show();
         }
      
 }
@@ -223,18 +262,23 @@ function checkReservationDuration()
 //Check if there is no overlape reservation for the resource
 function checkOverlapeReservation()
 {
-        var start_date = new Date($("#start_date").val());
-        var end_date = new Date($("#end_date").val());
-       
+        var start_date = $("#start_date").val();
+        var end_date = $("#end_date").val();     
 
                    
                 if(picker.disabledDates.includes(start_date)){
-                    alert("checkDates start_date false"); 
-                    return 'La ressource n\'est pas disponible à cette date';
+                    
+
+                    $('#start_date').addClass('is-invalid');
+                    $("#startDateFeedback").html("La ressource n\'est pas disponible à ces date");  
+                     $("#startDateFeedback").show();
                 }
                 if(picker.disabledDates.includes(end_date)){
-                    alert("checkDates end_date false"); 
-                    return 'La ressource n\'est pas disponible à cette date';
+                     
+                    $('#end_date').addClass('is-invalid');
+                    $("#endDateFeedback").html("La ressource n\'est pas disponible à ces date");  
+                    $("#endDateFeedback").show();
+
                 }
 
 }
@@ -242,16 +286,20 @@ function checkOverlapeReservation()
 
 function checkClosingDate()
 {
-        var start_date = new Date($("#start_date").val());
-        var end_date = new Date($("#end_date").val());
+        var start_date = $("#start_date").val();
+        var end_date = $("#end_date").val();  
         
         if(picker.noCheckInDates.includes(start_date) || picker.noCheckOutDates.includes(start_date)){
-                    alert("checkClosingDateStart  start_date false"); 
-                    return 'Le CREST est fermé à cette date';
+                   
+                    $('#start_date').addClass('is-invalid');
+                    $("#startDateFeedback").html("Le CREST est fermé à ces date");   
+                    $("#startDateFeedback").show();
         }
         if(picker.noCheckInDates.includes(end_date) || picker.noCheckOutDates.includes(end_date)){
-                    alert("checkClosingDateStart  end_date false"); 
-                    return 'Le CREST est fermé à cette date';
+                    
+                    $('#end_date').addClass('is-invalid');
+                    $("#endDateFeedback").html("Le CREST est fermé à cette date");
+                    $("#endDateFeedback").show();
         }
         
 }

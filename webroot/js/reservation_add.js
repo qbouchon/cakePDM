@@ -66,6 +66,12 @@ $( document ).ready(function() {
                 moveBothMonths : true,
                 maxNights : maxDuration,
                 startDate : tomorrowString,
+                onDayClick: function() {
+                        resetValidationmessages(); //Pas besoin de check les dates
+                },
+                onSelectRange: function() {
+                        resetValidationmessages(); //Pas besoin de check les dates
+                },
 
 
             });
@@ -124,6 +130,7 @@ $( document ).ready(function() {
                    
         $('#picker').remove();
         picker.destroy();
+        resetValidationmessages();
         $('#loadingAnimaion').removeClass('displaynone');
         createPicker($(this).val());
 

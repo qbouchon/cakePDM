@@ -42,10 +42,15 @@
 
                               
 
-                                        <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'font-italic', 'label'=>'Date de début','readonly'=>'']); ?>   
+                                        <?=  $this->Form->control('start_date',['id'=>'start_date', 'class'=>'font-italic', 'label'=>'Date de début','readonly'=>'']); ?>
+                                        <div id="startDateFeedback" class="invalid-feedback">
+                                         
+                                        </div>      
 
                                         <?=  $this->Form->control('end_date',['id'=>'end_date',  'class'=>'font-italic', 'label'=>'Date de fin', 'readonly'=>'']); ?>   
-                                           
+                                        <div id="endDateFeedback" class="invalid-feedback">
+                                         
+                                        </div> 
                                    
                                         <?= $this->Form->control('is_back',['label' => 'Ressource retournée']) ?>
 
