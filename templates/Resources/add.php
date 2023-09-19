@@ -27,7 +27,7 @@
 
                                     <h3 class="text-center"><?= __('Créer une Ressource')?></h3>  
 
-                                                <?=  $this->Form->control('Nom'); ?>
+                                                <?=  $this->Form->control('name', ['label' => 'Nom']); ?>
 
                                                 <?= $this->Form->control('domain_id', ['options' => $domains, 'empty' => true, 'label' => 'Domaine']); ?>
 
