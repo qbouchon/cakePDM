@@ -285,3 +285,11 @@
 
   color: var(--uga-orange);
 }
+
+.page-item.active .page-link {
+
+  background-color:var(--uga-orange);
+  border-color: var(--uga-orange);
+
+
+}

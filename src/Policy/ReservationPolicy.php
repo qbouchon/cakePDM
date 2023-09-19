@@ -38,7 +38,7 @@ class ReservationPolicy
      */
     public function canEdit(IdentityInterface $user, Reservation $reservation)
     {
-        if($user->admin)
+        if($user->admin && $reservation->start_date >= FrozenTime::now()) //Pour éviter les problèmes, on ne peut pas éditer de réservations en cours
             return true;
         elseif($reservation->user_id == $user->id && $reservation->start_date > FrozenTime::now()) //On autorise si la réservation appartient à l'utilisateur et qu'elle n'est pas en cours
             return true;

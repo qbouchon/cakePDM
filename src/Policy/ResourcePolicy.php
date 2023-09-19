@@ -56,7 +56,8 @@ class ResourcePolicy
      */
     public function canView(IdentityInterface $user, Resource $resource)
     {
-        return true;    }
+        return true;    
+    }
 
      public function canArchive(IdentityInterface $user, Resource $resource)
     {

@@ -193,6 +193,7 @@ class ReservationsController extends AppController
 
 
         if ($this->request->is(['patch', 'post', 'put'])) {
+           
             $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
             if ($this->Reservations->save($reservation)) {
                 $this->Flash->success(__('La réservation a été modifiée'));
