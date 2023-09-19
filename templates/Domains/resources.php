@@ -4,15 +4,29 @@
  * @var \App\Model\Entity\Domain $domain
  */
 ?>
+
+<?= $this->Html->script('domains_nav'); ?>
+
+
 <div class="row">
     
     <div class="column-responsive column-80">
         <div class="domains view content">
+
+            
+            
+
+
             <h3 class="text-center"><?= 'Liste des ressources du domaine '.h($domain->name) ?></h3>
             
             <div class="related ">
                 <div class="container h-100 d-flex flex-column">
                     <?= $this->Html->link('Retour à la liste des domaines', ['controller' => 'Pages', 'action' => 'catalogue']); ?>          
+                    
+
+
+
+
                     <div class = "row card-spacing">
 
                 <!-- liste des resources non archivées du domaine -->

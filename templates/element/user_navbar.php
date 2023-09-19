@@ -7,7 +7,7 @@
                         <!-- <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
                         
-
+                     
                         <li><div class="flex" align="center"><h4><?= $this->getRequest()->getAttribute('identity')->get('username'); ?></h4></div></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li>
@@ -19,8 +19,10 @@
 
 
                         </li>
+
                         <!-- <li><div class="flex" align="center"><a class="dropdown-item text-danger" href="">Deconnexion</a></div></li> -->
                         <li><div class="flex text-center"><?= $this->Html->link('Deconnexion', ['controller'=>'Users','action' => 'logout'], ['class' => 'dropdown-item text-danger']) ?></div></li>
                     </ul>
                 </li>
 </ul> 
+

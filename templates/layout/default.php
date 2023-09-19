@@ -149,6 +149,7 @@
                                     
                                     <div class="row">
                                         <div class="col">
+                                            <?=  $this->element('domains_navbar'); ?>
                                             <?= $this->Flash->render(); ?>
                                             <div class="mt-3">
                                                 <?= $this->fetch('content'); ?>

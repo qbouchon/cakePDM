@@ -22,8 +22,20 @@ class DomainsController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-        $domains = $this->paginate($this->Domains->find('all')->contain('Resources'));
-        $this->set(compact('domains'));
+        if($this->request->is('ajax'))
+        {
+            $domains = $this->Domains->find('all')->toArray();
+            $this->autoRender = false;
+            $this->response = $this->response->withType('application/json')
+            ->withStringBody(json_encode($domains));
+
+            return $this->response;
+        }
+        else
+        {
+            $domains = $this->paginate($this->Domains->find('all')->contain('Resources'));
+            $this->set(compact('domains'));
+        }
     }
 
     /**
@@ -178,4 +190,6 @@ class DomainsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+
 }
