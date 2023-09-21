@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property string|null $home_text
  * @property string|null $home_picture
  * @property string|null $home_picture_path
+ * @property string|null $reminder_mail_text
  */
 class Configuration extends Entity
 {
@@ -30,6 +31,7 @@ class Configuration extends Entity
         'home_text' => true,
         'home_picture' => true,
         'home_picture_path' => true,
+        'reminder_mail_text' => true
     ];
 
 
@@ -85,6 +87,25 @@ class Configuration extends Entity
 
         $this->set('home_picture',null);
         $this->set('home_picture_path',null);
+    }
+
+
+    //Remplace les variables du mail par les valeurs correspondantes à la reservation
+    public function formatReminderMailText($reservation)
+    {
+
+            $start = 
+
+
+
+            $mailText = str_replace('$firstname', $reservation->user->firstname, $this->reminder_mail_text);
+            $mailText = str_replace('$lastname', $reservation->user->lastname, $mailText);
+            $mailText = str_replace('$resource', $reservation->resource->name, $mailText);
+            $mailText = str_replace('$start', $reservation->start_date->format('d-m-Y'), $mailText);
+            $mailText = str_replace('$end', $reservation->end_date->format('d-m-Y'), $mailText);
+            $mailText = str_replace('$login', $reservation->user->username, $mailText);
+
+            return $mailText;
     }
 
 

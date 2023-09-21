@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
+use Cake\I18n\FrozenDate;
+
 /**
  * Users Controller
  *
@@ -52,14 +56,23 @@ class UsersController extends AppController
             'contain' => ['Reservations' => [
                                 'conditions' => ['Reservations.is_back' => false], 
                                 'sort' => ['Reservations.end_date' => 'DESC']],
-                          'Reservations.Resources'],
+                          'Reservations.Resources',
+                          'Reservations.Users'],
             
         ]);
 
          //authorization
         $this->Authorization->authorize($user);
 
-        $this->set(compact('user'));
+         //Mail Text
+        $default_configuration = Configure::read('default_configuration');
+
+        $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+
+        $configuration = $configurationTable->find()
+        ->where(['name' => $default_configuration])->first();
+
+        $this->set(compact('user','configuration'));
     }
 
     /**

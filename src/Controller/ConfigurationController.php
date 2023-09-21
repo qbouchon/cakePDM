@@ -81,5 +81,36 @@ class ConfigurationController extends AppController
         $this->set(compact('configuration'));
     }
 
+    public function editReminderMail()
+    {
+           //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
+         $default_configuration = Configure::read('default_configuration');
+         $configuration = $this->Configuration->find()
+        ->where(['name' => $default_configuration])->first();
+
+
+         if ($this->request->is(['patch', 'post', 'put'])) {
+
+            
+            if(!$configuration->getErrors) {
+
+                $configuration->set('reminder_mail_text',$this->request->getData('reminder_mail_text'));
+
+
+                if ($this->Configuration->save($configuration)) {
+                    $this->Flash->success(__('The configuration has been saved.'));
+
+                    return $this->redirect($this->referer());
+                }
+                $this->Flash->error(__('The configuration could not be saved. Please, try again.'));
+            }
+        }
+
+        $this->set(compact('configuration'));
+    }
+
    
 }

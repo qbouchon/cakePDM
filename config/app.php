@@ -258,8 +258,8 @@ return [
         'mailtrap' => [
                'host' => 'sandbox.smtp.mailtrap.io',
                'port' => 2525,
-               'username' => '0de9da0556123e',
-               'password' => '6a7202287462de',
+               'username' => '01d8cd478051cd',
+               'password' => '3330f57a291922',
                'className' => 'Smtp'
         ],
 

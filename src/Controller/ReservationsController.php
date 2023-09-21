@@ -6,7 +6,8 @@ namespace App\Controller;
 use Cake\I18n\FrozenTime;
 use Cake\I18n\FrozenDate;
 use Cake\ORM\TableRegistry;
-
+use Cake\Core\Configure;
+use App\Mailer\ReservationMailer;
 use Cake\Log\Log;
 
 /**
@@ -34,7 +35,16 @@ class ReservationsController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-        $this->set(compact('reservations'));
+        //Mail Text
+        $default_configuration = Configure::read('default_configuration');
+
+        $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+
+        $configuration = $configurationTable->find()
+        ->where(['name' => $default_configuration])->first();
+        
+
+        $this->set(compact('reservations','configuration'));
     }
 
      public function indexUser()
@@ -674,6 +684,34 @@ class ReservationsController extends AppController
         ->withStringBody(json_encode($datas));
 
         return $this->response;
+
+    }
+
+    public function reminderMail($reservation_id = null)
+    {
+
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+
+        $reservation = $this->Reservations->get($reservation_id, [
+            'contain' => ['Users','Resources'],
+        ]);
+
+
+
+
+        if($reservation)
+        {
+            $mailer = new ReservationMailer();
+            $mailer->sendReminderMail($reservation);
+
+            $reservation->set('last_mail_date', FrozenDate::now());
+
+            $this->Flash->success("Un mail de relance a été envoyé à l'utilisateur ".$reservation->user->username);
+            $this->redirect($this->referer());
+        }
+        else
+            $this->Flash->error("Erreur");
 
     }
 

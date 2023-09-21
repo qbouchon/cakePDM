@@ -42,6 +42,7 @@ CREATE TABLE reservations
 	end_date DATE NOT NULL,
 	is_back BOOLEAN DEFAULT 0,
 	back_date DATE,
+	last_mail_date DATE,
 	resource_id INT NOT NULL,
 	user_id INT NOT NULL,
 	FOREIGN KEY (resource_id) REFERENCES resources(id),
@@ -63,7 +64,8 @@ CREATE TABLE configuration
 	name VARCHAR(255) PRIMARY KEY NOT NULL,
 	home_text LONGTEXT,
 	home_picture VARCHAR(255),
-	home_picture_path VARCHAR(255)	
+	home_picture_path VARCHAR(255),
+	reminder_mail_text LONGTEXT,	
 );
 
 CREATE TABLE closing_dates 

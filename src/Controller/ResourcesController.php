@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Model\Entity\File;
 use App\Model\Table\FilesTable;
+use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
+use Cake\I18n\FrozenDate;
 
 /**
  * Resources Controller
@@ -57,8 +60,16 @@ class ResourcesController extends AppController
         //Authorization
         $this->Authorization->authorize($resource);
 
+        //Mail Text
+        $default_configuration = Configure::read('default_configuration');
 
-        $this->set(compact('resource'));
+        $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+
+        $configuration = $configurationTable->find()
+        ->where(['name' => $default_configuration])->first();
+
+
+        $this->set(compact('resource', 'configuration'));
     }
 
     /**

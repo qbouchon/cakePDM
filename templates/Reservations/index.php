@@ -4,7 +4,7 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Reservation> $reservations
  */
-use Cake\I18n\FrozenTime;
+use Cake\I18n\FrozenDate;
 ?>
 
 <?php
@@ -81,7 +81,7 @@ use Cake\I18n\FrozenTime;
                                     <?php foreach ($reservations as $reservation): ?>
 
                                         <?php
-                                            if($reservation->end_date <= FrozenTime::now() && !$reservation->is_back)
+                                            if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back)
                                                 echo '<tr class = "bg-danger bg-opacity-50 unbackResa">';
                                             else if ($reservation->is_back)
                                                 echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through isBack displaynone">';
@@ -122,17 +122,33 @@ use Cake\I18n\FrozenTime;
                                                         <?=__('Actions') ?>
                                                     </button>
                                                     <ul class="dropdown-menu">  
+
                                                         <?php 
-                                                            if($reservation->start_date > FrozenTime::now()): 
+                                                            if($reservation->start_date > FrozenDate::now()): 
                                                         ?>                            
                                                         <li><?= $this->Html->link(__('Edit'), ['action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']) ?></li>
                                                         <?php
                                                             endif;
                                                         ?>
 
+
+
+                                                        <?php
+                                                            if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back):
+                                                        ?>
+                                                                <button type="button" class="btn btn-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#reminderMailModal' . $reservation->id ?>">
+                                                                    Envoyer un mail de relance
+                                                                </button>
+                                                        <?php
+                                                            endif;
+                                                        ?>
+
+
+
                                                          <li>
                                                            <?= $reservation->is_back ? $this->Form->postLink(__('Définir comme non rendue'), ['action' => 'unSetBack', $reservation->id],['class' => 'dropdown-item']) : $this->Form->postLink(__('Définir comme rendue'), ['action' => 'setBack', $reservation->id],['class' => 'dropdown-item']) ?>
                                                         </li>
+
                                                         <li>
                                                              <button type="button" class="btn btn-danger text-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#deleteReservationModal' . $reservation->id ?>">
                                                                   <?= __('Supprimer'); ?>
@@ -143,7 +159,7 @@ use Cake\I18n\FrozenTime;
                                             </td>
                                         </tr>
 
-                                        <!-- DeleteResourceModal -->
+                                        <!-- DeleteReservationModal -->
                                         <div class="modal fade" id="<?= 'deleteReservationModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
                                           <div class="modal-dialog">
                                             <div class="modal-content">
@@ -170,6 +186,33 @@ use Cake\I18n\FrozenTime;
                                           </div>
                                         </div>
 
+
+                                        <!-- reminderMailModal -->
+                                        <?php
+                                             if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back):
+                                        ?>
+
+                                        <div class="modal fade" id="<?= 'reminderMailModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="reminderMailModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="reminderMailModalLabel"> Envoi d'un mail de relance </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                              </div>
+                                              <div class="modal-body">
+                                                    <?= $this->Form->textarea('Mail',['label'=> false, 'value' => $configuration->formatReminderMailText($reservation)]); ?>
+
+                                              </div>
+                                              <div class="modal-footer">  
+                                               <?=  $this->Html->link('Envoyer le mail', ['controller' => 'Reservations', 'action' => 'reminderMail', $reservation->id],['class' => 'btn btn-secondary'])  ?>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <?php
+                                            endif;
+                                        ?>
 
 
 
