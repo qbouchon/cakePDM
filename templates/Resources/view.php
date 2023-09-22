@@ -173,24 +173,27 @@
 
 
 
-                                                                    <!-- reminderMailModal -->
+                                                                     <!-- reminderMailModal -->
                                                                     <?php
-                                                                         if($reservation->end_date < FrozenDate::now() && !$reservation->is_back):
+                                                                         if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back):
                                                                     ?>
 
-                                                                    <div class="modal fade" id="<?= 'reminderMailModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="reminderMailModalLabel" aria-hidden="true">
+                                                                    <div class="modal fade modal-wide" id="<?= 'reminderMailModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="reminderMailModalLabel" aria-hidden="true">
                                                                       <div class="modal-dialog">
                                                                         <div class="modal-content">
                                                                           <div class="modal-header">
-                                                                            <h1 class="modal-title fs-5" id="reminderMailModalLabel">Envoi d'un mail de relance </h1>
+                                                                            <h1 class="modal-title fs-5" id="reminderMailModalLabel"> Envoi d'un mail de relance </h1>
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                           </div>
                                                                           <div class="modal-body">
-                                                                                <?= $this->Form->textarea('Mail',['label'=> false, 'value' => $configuration->formatReminderMailText($reservation)]); ?>
+                                                                                <?= $this->Form->create(null, ['url' => ['controller' => 'Reservations', 'action' => 'reminderMail', $reservation->id]]) ?>
+                                                                                 <?= $this->Form->control('mailObject',['label'=> 'Objet :', 'value' => $configuration->formatReminderMailObject($reservation)]); ?>
+                                                                                <?= $this->Form->textarea('mail',['label'=> false, 'value' => $configuration->formatReminderMailText($reservation)]); ?>
 
                                                                           </div>
                                                                           <div class="modal-footer">  
-                                                                           <?=  $this->Html->link('Envoyer le mail', ['controller' => 'Reservations', 'action' => 'reminderMail', $reservation->id],['class' => 'btn btn-secondary'])  ?>
+                                                                            <?= $this->Form->submit('Envoyer le mail', ['class' => 'btn btn-secondary']) ?>
+                                                                            <?= $this->Form->end() ?>
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                                                           </div>
                                                                         </div>
