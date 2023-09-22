@@ -200,11 +200,13 @@ use Cake\I18n\FrozenDate;
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                               </div>
                                               <div class="modal-body">
-                                                    <?= $this->Form->textarea('Mail',['label'=> false, 'value' => $configuration->formatReminderMailText($reservation)]); ?>
+                                                    <?= $this->Form->create(null, ['url' => ['controller' => 'Reservations', 'action' => 'reminderMail', $reservation->id]]) ?>
+                                                    <?= $this->Form->textarea('mail',['label'=> false, 'value' => $configuration->formatReminderMailText($reservation)]); ?>
 
                                               </div>
                                               <div class="modal-footer">  
-                                               <?=  $this->Html->link('Envoyer le mail', ['controller' => 'Reservations', 'action' => 'reminderMail', $reservation->id],['class' => 'btn btn-secondary'])  ?>
+                                                <?= $this->Form->submit('Envoyer le mail', ['class' => 'btn btn-secondary']) ?>
+                                                <?= $this->Form->end() ?>
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                               </div>
                                             </div>

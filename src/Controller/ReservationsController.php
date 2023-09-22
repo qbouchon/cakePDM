@@ -403,6 +403,7 @@ class ReservationsController extends AppController
 
 
 
+
         if ($start && $end) {
 
 
@@ -460,6 +461,7 @@ class ReservationsController extends AppController
                                  'isBack' => $reservation->is_back,
                                  'picture' => $reservation->resource->picture_path,
                                  'tooltip' => $tooltip
+                       
 
 
                             ];
@@ -697,13 +699,13 @@ class ReservationsController extends AppController
             'contain' => ['Users','Resources'],
         ]);
 
+        $mailText = $this->request->getData('mail');
 
-
-
-        if($reservation)
+   
+        if($reservation && $mailText)
         {
             $mailer = new ReservationMailer();
-            $mailer->sendReminderMail($reservation);
+            $mailer->sendReminderMail($reservation,$mailText);
 
             $reservation->set('last_mail_date', FrozenDate::now());
 
