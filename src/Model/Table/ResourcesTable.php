@@ -120,8 +120,8 @@ class ResourcesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-       //$rules->add($rules->existsIn('domain_id', 'Domains',['allowNullable' => true]), ['errorField' => 'domain_id']);
-
-        return $rules;
+      
+      return $rules;
+      
     }
 }

@@ -73,26 +73,7 @@ class ReservationsController extends AppController
              $this->Authorization->skipAuthorization();
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Reservation id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    // public function view($id = null)
-    // {
-    //     $reservation = $this->Reservations->get($id, [
-    //         'contain' => ['Resources', 'Users'],
-    //     ]);
-
-    //     //authorization
-    //     $this->Authorization->authorize($reservation);
-
-
-    //     $this->set(compact('reservation'));
-    // }
-
+      
     /**
      * Add method
      *

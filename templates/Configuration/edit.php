@@ -44,8 +44,7 @@
                             <div class="mt-4">
                                 <?= $this->Form->control('home_text',['label'=>'Personnaliser le texte d\'accueil']); ?>
                             </div>
-
-                            
+                         
 
                             <div class="text-center">
                                 <?= $this->Form->button(__('Enregistrer')) ?>

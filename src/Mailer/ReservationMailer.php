@@ -9,9 +9,6 @@ class ReservationMailer extends Mailer
     public function sendReminderMail($reservation,$mailText,$mailObject)
     {
 
-
-
-       
         
         $this->setTransport('mailtrap')
             ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM')

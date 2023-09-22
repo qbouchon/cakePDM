@@ -26,8 +26,7 @@
 
                                         $relatedFilesContent = '';
 
-
-                            
+                  
 
                                     //création de la liste des fichiers associés à la resource
                                     if(!empty($resource->files)):
@@ -54,40 +53,42 @@
                                 
                                 <div class="col-lg-6 col-md-6 col-sm-1">  
                                     <div class='card resources-card'>
+
                                         <span class='title-wrapper'>
-                                                        <h3 class='resources-card-title text-center mt-2 mb-3 mx-2'><?= $resource->name ?></h3>
-                                                    </span>  
+                                                <h3 class='resources-card-title text-center mt-2 mb-3 mx-2'><?= $resource->name ?></h3>
+                                        </span>  
+
                                          <?= $this->Html->image('resources/'.$resource->picture_path,['class'=>'resources-card-img-top mx-auto']) ?>
-                                                <div class='tile-content resources-tile-content'>
-                                                                                           
-                                                </div>
+
+                                        <div class='tile-content resources-tile-content'>   
+                                        </div>
                                                 
-                                                 <div class='card-body p-1 resources-card-body mt-2 ms-3'>
+                                                    <div class='card-body p-1 resources-card-body mt-2 ms-3'>
 
-                                                    <?= $resource->max_duration > 0 ? '<i>Durée max de réservation : </i>' . $resource->max_duration . ' jour(s).' : ''; ?> 
+                                                        <?= $resource->max_duration > 0 ? '<i>Durée max de réservation : </i>' . $resource->max_duration . ' jour(s).' : ''; ?> 
 
-                                                       <?=  $relatedFilesContent ?>
+                                                        <?=  $relatedFilesContent ?>
 
-                                                       <div class="text-center">
+                                                        <div class="text-center">
+
                                                             <?php 
+                                                          
+                                                                    echo $this->Html->link("Détails", ['controller' => 'Resources', 'action' => 'view', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto me-1 mb-1']);
 
-                                                            
-                                                                echo $this->Html->link("Détails", ['controller' => 'Resources', 'action' => 'view', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto me-1 mb-1']);
-
-                                                                if($this->getRequest()->getAttribute('identity')->get('admin'))
-                                                                {
-                                                                    echo $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'addForUser', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto mb-1']);
-                                                                }
-                                                                else
-                                                                    echo $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto mb-1']);
+                                                                    if($this->getRequest()->getAttribute('identity')->get('admin'))
+                                                                    {
+                                                                        echo $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'addForUser', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto mb-1']);
+                                                                    }
+                                                                    else
+                                                                        echo $this->Html->link("Réserver", ['controller' => 'Reservations', 'action' => 'add', $resource->id],['class' => 'btn btn-secondary mt-3 mx-auto mb-1']);
                                                             ?>
-    
-                                                       </div>
+        
+                                                        </div>
                                                   
-                                                </div>
+                                                    </div>
                                                
                                          
-                                     </div>
+                                    </div>
                                 </div>
 
                 <?php

@@ -16,17 +16,16 @@
             <fieldset>
 
                     <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded">
-                            <h4 class="font-weight-bold"><?= __('Personnaliser le mail de relance') ?></h4>
 
+                            <h4 class="font-weight-bold"><?= __('Personnaliser le mail de relance') ?></h4>
                             
-                             <div class="mt-4">
+                            <div class="mt-4">
                                 <?= $this->Form->control('reminder_mail_object',['label'=>'Objet du mail']); ?>
                             </div>
 
                             <div class="mt-4">
                                 <?= $this->Form->control('reminder_mail_text',['label'=>false]); ?>
                             </div>
-
                             
 
                             <div class="text-center">

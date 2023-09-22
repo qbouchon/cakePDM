@@ -8,14 +8,13 @@
 
         <div class="row mt-2">
 
-
             <?= $this->Form->create($domain, ['type' => 'file']) ?>
-
-            
+          
 
                 <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded">  
 
                     <fieldset>  
+
                             <h3 class="text-center"><?= $domain->name." <i>(édition)</i>" ?></h3>
 
                             <?= $this->Form->control('name',['label'=>'Nom du Domaine']); ?> 
@@ -51,7 +50,9 @@
                                 <?= 
                                 $this->Form->end() ?>
                             </div>
-                     </fieldset>
+
+                    </fieldset>
+                    
                 </div>
            
         </div>
