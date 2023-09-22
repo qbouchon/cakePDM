@@ -6,7 +6,7 @@ use Cake\Mailer\Mailer;
 
 class ReservationMailer extends Mailer
 {
-    public function sendReminderMail($reservation,$mailText)
+    public function sendReminderMail($reservation,$mailText,$mailObject)
     {
 
 
@@ -16,7 +16,7 @@ class ReservationMailer extends Mailer
         $this->setTransport('mailtrap')
             ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM')
             ->setTo($reservation->user->email)
-            ->setSubject('! Une de vos réservations est arrivée à son terme')
+            ->setSubject($mailObject)
              ->viewBuilder()
              
                 ->setTemplate('reservation_reminder');

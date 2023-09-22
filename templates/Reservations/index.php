@@ -192,7 +192,7 @@ use Cake\I18n\FrozenDate;
                                              if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back):
                                         ?>
 
-                                        <div class="modal fade" id="<?= 'reminderMailModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="reminderMailModalLabel" aria-hidden="true">
+                                        <div class="modal fade modal-wide" id="<?= 'reminderMailModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="reminderMailModalLabel" aria-hidden="true">
                                           <div class="modal-dialog">
                                             <div class="modal-content">
                                               <div class="modal-header">
@@ -201,6 +201,7 @@ use Cake\I18n\FrozenDate;
                                               </div>
                                               <div class="modal-body">
                                                     <?= $this->Form->create(null, ['url' => ['controller' => 'Reservations', 'action' => 'reminderMail', $reservation->id]]) ?>
+                                                     <?= $this->Form->control('mailObject',['label'=> 'Objet :', 'value' => $configuration->formatReminderMailObject($reservation)]); ?>
                                                     <?= $this->Form->textarea('mail',['label'=> false, 'value' => $configuration->formatReminderMailText($reservation)]); ?>
 
                                               </div>

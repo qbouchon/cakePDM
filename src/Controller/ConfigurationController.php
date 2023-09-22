@@ -97,6 +97,7 @@ class ConfigurationController extends AppController
             
             if(!$configuration->getErrors) {
 
+                $configuration->set('reminder_mail_object',$this->request->getData('reminder_mail_object'));
                 $configuration->set('reminder_mail_text',$this->request->getData('reminder_mail_text'));
 
 

@@ -700,12 +700,12 @@ class ReservationsController extends AppController
         ]);
 
         $mailText = $this->request->getData('mail');
-
+        $mailObject = $this->request->getData('mailObject');
    
         if($reservation && $mailText)
         {
             $mailer = new ReservationMailer();
-            $mailer->sendReminderMail($reservation,$mailText);
+            $mailer->sendReminderMail($reservation,$mailText, $mailObject);
 
             $reservation->set('last_mail_date', FrozenDate::now());
 

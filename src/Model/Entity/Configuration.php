@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string|null $home_picture
  * @property string|null $home_picture_path
  * @property string|null $reminder_mail_text
+ * @property string|null $reminder_mail_oject
  */
 class Configuration extends Entity
 {
@@ -31,7 +32,8 @@ class Configuration extends Entity
         'home_text' => true,
         'home_picture' => true,
         'home_picture_path' => true,
-        'reminder_mail_text' => true
+        'reminder_mail_text' => true,
+        'reminder_mail_object' => true
     ];
 
 
@@ -94,10 +96,6 @@ class Configuration extends Entity
     public function formatReminderMailText($reservation)
     {
 
-            $start = 
-
-
-
             $mailText = str_replace('$firstname', $reservation->user->firstname, $this->reminder_mail_text);
             $mailText = str_replace('$lastname', $reservation->user->lastname, $mailText);
             $mailText = str_replace('$resource', $reservation->resource->name, $mailText);
@@ -106,6 +104,21 @@ class Configuration extends Entity
             $mailText = str_replace('$login', $reservation->user->username, $mailText);
 
             return $mailText;
+    }
+
+
+    //Remplace les variables de l'objet du mail par les valeurs correspondantes à la reservation
+    public function formatReminderMailObject($reservation)
+    {
+
+            $mailObject = str_replace('$firstname', $reservation->user->firstname, $this->reminder_mail_object);
+            $mailObject = str_replace('$lastname', $reservation->user->lastname, $mailObject);
+            $mailObject = str_replace('$resource', $reservation->resource->name, $mailObject);
+            $mailObject = str_replace('$start', $reservation->start_date->format('d-m-Y'), $mailObject);
+            $mailObject = str_replace('$end', $reservation->end_date->format('d-m-Y'), $mailObject);
+            $mailObject = str_replace('$login', $reservation->user->username, $mailObject);
+
+            return $mailObject;
     }
 
 

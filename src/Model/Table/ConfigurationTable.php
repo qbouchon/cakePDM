@@ -63,6 +63,10 @@ class ConfigurationTable extends Table
             ->scalar('reminder_mail_text')
             ->maxLength('reminder_mail_text', 4294967295)
             ->allowEmptyString('reminder_mail_text');
+        $validator
+            ->scalar('reminder_mail_oject')
+            ->maxLength('reminder_mail_oject', 255)
+            ->allowEmptyString('reminder_mail_oject');
 
         $validator
             ->scalar('home_picture')

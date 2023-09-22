@@ -19,7 +19,9 @@
                             <h4 class="font-weight-bold"><?= __('Personnaliser le mail de relance') ?></h4>
 
                             
-                           
+                             <div class="mt-4">
+                                <?= $this->Form->control('reminder_mail_object',['label'=>'Objet du mail']); ?>
+                            </div>
 
                             <div class="mt-4">
                                 <?= $this->Form->control('reminder_mail_text',['label'=>false]); ?>

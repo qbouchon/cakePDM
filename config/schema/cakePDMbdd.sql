@@ -65,7 +65,8 @@ CREATE TABLE configuration
 	home_text LONGTEXT,
 	home_picture VARCHAR(255),
 	home_picture_path VARCHAR(255),
-	reminder_mail_text LONGTEXT,	
+	reminder_mail_text LONGTEXT,
+	reminder_mail_object VARCHAR(255),
 );
 
 CREATE TABLE closing_dates 
