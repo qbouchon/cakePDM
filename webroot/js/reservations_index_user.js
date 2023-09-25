@@ -5,14 +5,14 @@ var today = new Date();
 $(document).ready(function() {
 
     // Gestion des vues
-    if(!localStorage.getItem('viewAdmin') || localStorage.getItem('viewAdmin') == 'list')
+    if(!localStorage.getItem('viewUser') || localStorage.getItem('viewUser') == 'list')
     {
 
         $('#calendarView').addClass('displaynone');
         $('#listView').removeClass('displaynone');
 
     }
-    else if (localStorage.getItem('viewAdmin') == 'calendar')
+    else if (localStorage.getItem('viewUser') == 'calendar')
     {
       
         $('#calendarView').removeClass('displaynone');
@@ -26,7 +26,7 @@ $(document).ready(function() {
         $('#calendarView').removeClass('displaynone');
         $('#listView').addClass('displaynone');
         createCalendar();
-        localStorage.setItem('viewAdmin','calendar');
+        localStorage.setItem('viewUser','calendar');
 
     });
 
@@ -35,7 +35,7 @@ $(document).ready(function() {
         $('#calendarView').addClass('displaynone');
         $('#listView').removeClass('displaynone');
         calendar.destroy();
-        localStorage.setItem('viewAdmin','list');
+        localStorage.setItem('viewUser','list');
         
     });
 
