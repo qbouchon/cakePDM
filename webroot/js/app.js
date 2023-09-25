@@ -152,18 +152,14 @@ $( document ).ready(function() {
                                         content: 'Cette ressource n\'a pas été retournée.',
                                         duration: 0,
                                         allowHTML:true,
-                                        followCursor: 'initial',
-                                        
-
+                                        followCursor: 'initial',                             
     }); 
 
     tippy('.unbackResaUser', {
                                         content: 'Ressource à retourner au CREST. Merci de contacter un administrateur si vous l\'avez déjà fait.',
                                         duration: 0,
                                         allowHTML:true,
-                                        followCursor: 'initial',
-                                        
-
+                                        followCursor: 'initial',                             
     }); 
 
       tippy('.isBack', {
@@ -171,44 +167,31 @@ $( document ).ready(function() {
                                         duration: 0,
                                         allowHTML:true,
                                         followCursor: 'initial',
-                                        
-
     }); 
 
      tippy('.calendarViewButton', {
                                         content: 'Passer en vue calendrier',
                                         duration: 0,
                                         allowHTML:true,
-                                      
-                                        
-
     }); 
 
     tippy('.listViewButton', {
                                         content: 'Passer en vue liste',
                                         duration: 0,
                                         allowHTML:true,
-                                      
-                                        
-
+                          
     }); 
 
     tippy('.reservationAddButton', {
                                         content: 'Créer une nouvelle réservation',
                                         duration: 0,
-                                        allowHTML:true,
-                                      
-                                        
-
+                                        allowHTML:true,                          
     }); 
 
     tippy('.resourceAddButton', {
                                         content: 'Créer une nouvelle ressource',
                                         duration: 0,
                                         allowHTML:true,
-                                      
-                                        
-
     }); 
 
     tippy('.domainAddButton', {
@@ -216,8 +199,6 @@ $( document ).ready(function() {
                                         duration: 0,
                                         allowHTML:true,
                                       
-                                        
-
     }); 
 
     tippy('.closingDatesAddButton', {
@@ -225,17 +206,12 @@ $( document ).ready(function() {
                                         duration: 0,
                                         allowHTML:true,
                                       
-                                        
-
     }); 
 
     tippy('.userAddButton', {
                                         content: 'Créer un nouvel utilisateur',
                                         duration: 0,
                                         allowHTML:true,
-                                      
-                                        
-
     }); 
 
 
@@ -245,24 +221,19 @@ $( document ).ready(function() {
                                         duration: 0,
                                         allowHTML:true,
                                       
-                                        
-
     }); 
     tippy('.hidebackButton', {
                                         content: 'Cacher les réservations retournées',
                                         duration: 0,
                                         allowHTML:true,
                                       
-                                        
-
     }); 
 
     tippy('.addFileButton', {
                                         content: 'Ajouter un fichier',
                                         duration: 0,
                                         allowHTML:true,
-                                      
-                                        
+                               
     });
    
      
@@ -270,17 +241,41 @@ $( document ).ready(function() {
                                         content: 'Supprimer le fichier',
                                         duration: 0,
                                         allowHTML:true,
-                                      
-                                        
+                               
     });
 
    
     tippy('.deletePictureButton', {
                                         content: 'Supprimer l\'image',
                                         duration: 0,
-                                        allowHTML:true,
-                                      
-                                        
+                                        allowHTML:true,                                    
     });
+
+
+
+    var helpMailButtonContent =  '<i>'
+                    + 'Variables disponibles'
+                    + '<br/>'
+                    + '<b>$firstname :</b> prénom de l\'utilisateur'
+                    + '<br/>'
+                    + '<b>$lastname :</b> nom de l\'utilisateur'
+                    + '<br/>'
+                    + '<b>$login :</b> login de l\'utilisateur'
+                    + '<br/>'
+                    + '<b>$resource :</b> nom de la ressource'
+                    + '<br/>'
+                    + '<b>$start :</b> Date de début de réservation'
+                    + '<br/>'
+                    + '<b>$end :</b> Date de fin de réservation'
+                    + '<br/>'
+                    + '<i>'
+    tippy('.helpMailButton', {
+                                        content: helpMailButtonContent,
+                                        duration: 0,
+                                        allowHTML:true,
+                                        trigger: 'click',
+                           
+    });
+
 
 });

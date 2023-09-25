@@ -16,8 +16,10 @@
 
             <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded">
 
-                <h4 class="font-weight-bold mt-3"><?= __('Personnaliser le mail de relance') ?></h4>
-                
+                <div class ="d-flex align-items-center">
+                    <h4 class="font-weight-bold mx-auto mt-3"><?= __('Personnaliser le mail de relance') ?></h4>
+                    <i class="fa-solid helpMailButton fa-circle-question fa-xl mt-3"></i>
+                </div>
                 <div class="mt-4">
                     <?= $this->Form->control('reminder_mail_object',['label'=>'Objet du mail']); ?>
                 </div>
@@ -30,23 +32,6 @@
                     <?= $this->Form->button(__('Enregistrer')) ?>
                     <?= $this->Form->end() ?>
                 </div>
-
-                <i>
-                    Variables disponibles
-                    <br/>
-                    <b>$firstname :</b> prénom de l'utilisateur
-                    <br/>
-                    <b>$lastname :</b> nom de l'utilisateur
-                    <br/>
-                    <b>$login :</b> login de l'utilisateur
-                    <br/>
-                    <b>$resource :</b> nom de la ressource
-                    <br/>
-                    <b>$start :</b> Date de début de réservation
-                    <br/>
-                    <b>$end :</b> Date de fin de réservation
-                    <br/>
-                <i>
 
             </div>
 
