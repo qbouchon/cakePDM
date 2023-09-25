@@ -28,12 +28,12 @@ $( document ).ready(function() {
                                         if(maxDurationInt <= 0)
                                         {
                                             $('#maxDurationInfo').html("");
-                                            displayPicker(datesBetween(bookedDates), closingDates, false,);
+                                            displayPicker(bookedDates, closingDates, false,);
                                         }
                                         else
                                         {
                                             $('#maxDurationInfo').html("La durée maximale de réservation pour cette ressource est de " + maxDurationInt + " jour(s).");
-                                            displayPicker(datesBetween(bookedDates), closingDates, maxDurationInt);
+                                            displayPicker(bookedDates, closingDates, maxDurationInt);
                                         }
 
                                 }); 
@@ -90,27 +90,6 @@ $( document ).ready(function() {
         });
       
     }
-
-
-    //A déplacer côté serveur. Retour un tableau de toutes les dates entre les plages de dates.
-    function datesBetween(dateRanges) {
-         const datesArray = [];
-
-         dateRanges.forEach((range) => {
-                        const startDate = new Date(range[0]);
-                        const endDate = new Date(range[1]);
-                        
-                        // Loop through each date between the start and end dates
-                        let currentDate = new Date(startDate);
-                        while (currentDate <= endDate) {
-                          datesArray.push(currentDate.toISOString().slice(0, 10));
-                          currentDate.setDate(currentDate.getDate() + 1);
-                }
-        });
-
-        return datesArray;
-    }
-
 
 
     //Créer le picker au chargement de la page
@@ -175,8 +154,14 @@ function resetValidationmessages() {
 
 function checkSelectedDates() {
    
-        if($('#start_date').val()){
+        if($('#start_date').val())
+        {
              checkStartDate();
+             checkStartDateNotOnWeekend();
+        }
+        if($('#end_date').val())
+        {
+            checkEndDateNotOnWeekend();
         }
         if($('#start_date').val() && $('#end_date').val())
         {
@@ -277,6 +262,42 @@ function checkClosingDate()
             $("#endDateFeedback").show();
         }
         
+}
+
+function checkStartDateNotOnWeekend()
+{
+        var start_date = new Date($("#start_date").val());
+      
+        if(start_date.getDay() === 0)
+        {
+            $('#start_date').addClass('is-invalid');
+            $("#startDateFeedback").html("La date de début de réservation ne peut pas être un dimanche.");   
+            $("#startDateFeedback").show();
+        }
+        else if(start_date.getDay() === 6)
+        {
+            $('#start_date').addClass('is-invalid');
+            $("#startDateFeedback").html("La date de début de réservation ne peut pas être un samedi.");   
+            $("#startDateFeedback").show();
+        }
+}
+
+function checkEndDateNotOnWeekend()
+{
+        var end_date = new Date($("#end_date").val());
+      
+        if(end_date.getDay() === 0)
+        {
+            $('#end_date').addClass('is-invalid');
+            $("#endDateFeedback").html("La date de début de réservation ne peut pas être un dimanche.");   
+            $("#endDateFeedback").show();
+        }
+        else if(end_date.getDay() === 6)
+        {
+            $('#end_date').addClass('is-invalid');
+            $("#endDateFeedback").html("La date de début de réservation ne peut pas être un samedi.");   
+            $("#endDateFeedback").show();
+        }
 }
 
   

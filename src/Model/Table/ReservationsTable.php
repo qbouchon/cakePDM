@@ -87,14 +87,14 @@ class ReservationsTable extends Table
             ])
             ->add('start_date', 'notOnSaturday', [
             'rule' => function ($value, $context) {
-                $date = new FrozenTime($value);
+                $date = new FrozenDate($value);
                 return $date->format('N') != 6; // 6 represents Saturday
             },
             'message' => 'La date de début de réservation ne peut pas être un samedi.'
             ])
             ->add('start_date', 'notOnSunday', [
             'rule' => function ($value, $context) {
-                $date = new FrozenTime($value);
+                $date = new FrozenDate($value);
                 return $date->format('N') != 7; // 7 represents Sunday
             },
             'message' => 'La date de début ne peut pas être un dimanche.'
@@ -121,14 +121,14 @@ class ReservationsTable extends Table
             ])
             ->add('end_date', 'notOnSaturday', [
             'rule' => function ($value, $context) {
-                $date = new FrozenTime($value);
+                $date = new FrozenDate($value);
                 return $date->format('N') != 6; // 6 represents Saturday
             },
             'message' => 'La date de fin de réservation ne peut pas être un samedi.'
             ])
             ->add('end_date', 'notOnSunday', [
             'rule' => function ($value, $context) {
-                $date = new FrozenTime($value);
+                $date = new FrozenDate($value);
                 return $date->format('N') != 7; // 7 represents Sunday
             },
             'message' => 'La date de fin ne peut pas être un dimanche.'
@@ -196,7 +196,7 @@ class ReservationsTable extends Table
             return true;
     }
 
-    //Check if the duration of reservation is not greater than the maximum duration for the specific resource
+    //Check if the duration of reservation is not greater than the maximum duration for the specific resource. à refactorer avec FrozenDate si possible
     public function checkReservationDuration($value, $context)
     {
         $start_date = new FrozenTime($context['data']['start_date']);

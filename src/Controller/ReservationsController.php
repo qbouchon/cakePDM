@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\I18n\FrozenTime;
 use Cake\I18n\FrozenDate;
 use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;

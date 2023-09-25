@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\I18n\FrozenDate;
 
 /**
  * Resource Entity
@@ -284,7 +285,13 @@ class Resource extends Entity
         {
             foreach($this->reservations as $reservation)
             {
-                    $dates[] = [$reservation->start_date,$reservation->end_date];
+                    $currentDate = new FrozenDate($reservation->start_date);
+                    $endDate = new FrozenDate($reservation->end_date);
+                    while($currentDate <= $endDate)
+                    {
+                        $dates[] = $currentDate;
+                        $currentDate = $currentDate->addDays(1);
+                    }
             }
         }
         
@@ -302,7 +309,19 @@ class Resource extends Entity
             foreach($this->reservations as $reservation)
             {
                 if(!$reservation->is_back)
-                    $dates[] = [$reservation->start_date,$reservation->end_date];
+                {
+                    
+                    //On push toutes les dates entre start_date et end_date
+                    $currentDate = new FrozenDate($reservation->start_date);
+                    $endDate = new FrozenDate($reservation->end_date);
+                    while($currentDate <= $endDate)
+                    {
+                        $dates[] = $currentDate;
+                        $currentDate = $currentDate->addDays(1);
+                    }
+
+                   
+                }
 
             }
         }
@@ -321,8 +340,17 @@ class Resource extends Entity
             foreach($this->reservations as $reservation)
             {
                 if(!$reservation->is_back && $reservation->id != $reservationToExclude->id)
-                    $dates[] = [$reservation->start_date,$reservation->end_date];
+                {
 
+                    //On push toutes les dates entre start_date et end_date
+                    $currentDate = new FrozenDate($reservation->start_date);
+                    $endDate = new FrozenDate($reservation->end_date);
+                    while($currentDate <= $endDate)
+                    {
+                        $dates[] = $currentDate;
+                        $currentDate = $currentDate->addDays(1);
+                    }
+                }
             }
         }
         
