@@ -7,14 +7,14 @@ $( document ).ready(function() {
     // -------------------------------------- Gestion des bouttons pour l'upload/supp d'images et de fichiers  ----------------------------------------------------
     //init reset button visibility
     if($('#rAddPicture').val())
-        $('#rResetPicture').removeClass('invisible');
+        $('#rResetPicture').removeClass('displaynone');
 
     //Gestion d'un boutton pour supprimer l'mage ajouté
     $('#rResetPicture').click(function() {
 
     	$('#rAddPicture').val("");
-    	$('#rResetPicture').addClass('invisible');
-        $('#PictureManagementBlock').removeClass('invisible');
+    	$('#rResetPicture').addClass('displaynone');
+        $('#PictureManagementBlock').removeClass('displaynone');
 
     });
 
@@ -22,13 +22,13 @@ $( document ).ready(function() {
 
         if($('#rAddPicture').val())
         {
-            $('#rResetPicture').removeClass('invisible');
-            $('#PictureManagementBlock').addClass('invisible');
+            $('#rResetPicture').removeClass('displaynone');
+            $('#PictureManagementBlock').addClass('displaynone');
         }
         else
         {
-    	    $('#rResetPicture').addClass('invisible');
-            $('#cancelDeletePicture').addClass('invisible');
+    	    $('#rResetPicture').addClass('displaynone');
+            $('#cancelDeletePicture').addClass('displaynone');
         }
 
     });
@@ -42,9 +42,17 @@ $( document ).ready(function() {
                             +'<label class="form-label" for"File'+inputCount+'">Importer un fichier (image, pdf, document office, openoffice, libreoffice)</label>'
                             +'<input id="File'+inputCount+'" class="form-control mb-3 iFile" type="file" name="files[]" accept="*">'
                             +'</div>'                   
-                            +'<div id="rFile'+inputCount+'" class="rResetFile invisible" data-toggle="File'+inputCount+'"><button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button></div>'
+                            +'<div id="rFile'+inputCount+'" class="rResetFile displaynone" data-toggle="File'+inputCount+'"><button class="btn deleteFileButton fa-solid fa-xmark fa-xl"></button></div>'
                             +'</div>';
         $('#inputFileDiv').append(appendContent);
+
+        //Création du tooltip
+        tippy('#rFile'+inputCount, {
+                                        content: 'Supprimer le fichier',
+                                        duration: 0,
+                                        allowHTML:true,                                                                           
+        });
+
         inputCount++;
     });
 
@@ -53,9 +61,9 @@ $( document ).ready(function() {
     $('#rDeletePicture').click(function() {
 
        $('#deletePictureToggler').prop('checked',true);
-       $('#cancelDeletePicture').html('<i>Le fichier sera supprimé à la validation du formulaire</i> <a href="#" class="link-danger d-inline">Annuler</a>');
-       $('#cancelDeletePicture').toggleClass('invisible');
-       $('#PictureManagement').toggleClass('invisible');
+       $('#cancelDeletePicture').html('<i>Le fichier sera supprimé à la validation du formulaire</i> <a href="#" class="link-danger">Annuler</a>');
+       $('#cancelDeletePicture').toggleClass('displaynone');
+       $('#PictureManagement').toggleClass('displaynone');
 
     });
 
@@ -65,8 +73,8 @@ $( document ).ready(function() {
         e.preventDefault()
         $('#deletePictureToggler').prop('checked',false);
         $('#cancelDeletePicture').html("");
-        $('#cancelDeletePicture').toggleClass('invisible');
-        $('#PictureManagement').toggleClass('invisible');
+        $('#cancelDeletePicture').toggleClass('displaynone');
+        $('#PictureManagement').toggleClass('displaynone');
 
     });
 
@@ -76,14 +84,14 @@ $( document ).ready(function() {
 
     //init reset button visibility pour le premier input file
     if($('#iFile').val())
-        $('#rFile').removeClass('invisible');
+        $('#rFile').removeClass('displaynone');
 
 
     $(document).on('click','.rResetFile', function() {
 
         idInput = '#'+$(this).attr('data-toggle');
         $(idInput).val("");
-        $(this).addClass("invisible");
+        $(this).addClass("displaynone");
 
     });
 
@@ -95,11 +103,11 @@ $( document ).ready(function() {
         
         if($(this).val())
         {
-            $(idResetFile).removeClass("invisible");
+            $(idResetFile).removeClass("displaynone");
         }
         else
         {
-            $(idResetFile).addClass("invisible");
+            $(idResetFile).addClass("displaynone");
         }
 
 
@@ -114,9 +122,9 @@ $( document ).ready(function() {
        deleteFileTogglerId = '#deleteFileToggler'+rId;
 
        $(deleteFileTogglerId).prop('disabled',false);
-       $(cancelDeleteFileId).html('<i>Le fichier sera supprimé à la validation du formulaire</i> <a href="#" class="link-danger d-inline">Annuler</a>');
-       $(cancelDeleteFileId).toggleClass('invisible');
-       $(FileManagementId).toggleClass('invisible');
+       $(cancelDeleteFileId).html('<i>Le fichier sera supprimé à la validation du formulaire</i> <a href="#" class="link-danger">Annuler</a>');
+       $(cancelDeleteFileId).toggleClass('displaynone');
+       $(FileManagementId).toggleClass('displaynone');
 
     });
 
@@ -130,8 +138,8 @@ $( document ).ready(function() {
 
         $(deleteFileTogglerId).prop('disabled',true);
         $(cancelDeleteFileId).html("");
-        $(cancelDeleteFileId).toggleClass('invisible');
-        $(FileManagementId).toggleClass('invisible');
+        $(cancelDeleteFileId).toggleClass('displaynone');
+        $(FileManagementId).toggleClass('displaynone');
 
     });
 
@@ -249,7 +257,30 @@ $( document ).ready(function() {
 
     }); 
 
+    tippy('.addFileButton', {
+                                        content: 'Ajouter un fichier',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+    });
    
      
+    tippy('.deleteFileButton', {
+                                        content: 'Supprimer le fichier',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+    });
+
    
+    tippy('.deletePictureButton', {
+                                        content: 'Supprimer l\'image',
+                                        duration: 0,
+                                        allowHTML:true,
+                                      
+                                        
+    });
+
 });

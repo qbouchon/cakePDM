@@ -21,8 +21,8 @@
                 <div class='d-flex align-items-center'>
                     <?= $this->Form->control('picture',['type' => 'file', 'value' =>$domain->picture, 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']); ?>
 
-                    <div id='rResetPicture' class = invisible>
-                        <button class="btn fa-solid fa-xmark fa-xl"> </button>
+                    <div id='rResetPicture' class = displaynone>
+                        <button class="btn fa-solid fa-xmark fa-xl deletePictureButton"> </button>
                     </div> 
                 </div>
 
@@ -31,11 +31,13 @@
                         if($domain->picture)
                         {
                             echo '<div id="PictureManagementBlock">';
-                            echo '<div id="cancelDeletePicture" class="invisible d-inline"></div>';
-                            echo '<div id="PictureManagement" class="d-inline">';
+                            echo '<div id="cancelDeletePicture" class="displaynone"></div>';
+                            echo '<div id="PictureManagement" class="">';
+                            echo '<div class="d-inline d-flex align-items-center">';
                             echo 'fichier actuel : '.$domain->picture;
-                            echo '<div id="rDeletePicture" class="d-inline"><button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button></div>';
-                            echo '<input type="checkbox" id="deletePictureToggler" name="deletePicture" class="invisible">';
+                            echo '<div id="rDeletePicture" class="d-inline"><button class="btn deletePictureButton fa-solid fa-xmark fa-xl" ></button></div>';
+                            echo '<input type="checkbox" id="deletePictureToggler" name="deletePicture" class="displaynone">';
+                            echo '</div>';
                             echo '</div>';
                             echo '</div>';
                         }

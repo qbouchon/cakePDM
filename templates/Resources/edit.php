@@ -23,8 +23,8 @@
 
                     <div class='d-flex align-items-center'>
                         <?=  $this->Form->control('picture',['type' => 'file',  'class'=>'d-inline', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']); ?>
-                        <div id='rResetPicture' class = invisible>
-                            <button class="btn fa-solid fa-xmark fa-xl"></button>
+                        <div id='rResetPicture' class = "displaynone">
+                            <button class="btn deletePictureButton fa-solid fa-xmark fa-xl"></button>
                         </div>                       
                     </div>
 
@@ -33,11 +33,13 @@
                         if($resource->picture)
                         {
                             echo '<div id="PictureManagementBlock">';
-                            echo '<div id="cancelDeletePicture" class="invisible d-inline"></div>';
-                            echo '<div id="PictureManagement" class="d-inline">';
+                            echo '<div id="cancelDeletePicture" class="displaynone"></div>';
+                            echo '<div id="PictureManagement" class="">';
+                            echo '<div class="d-inline d-flex align-items-center">';
                             echo 'fichier actuel : '.$resource->picture;
-                            echo '<div id="rDeletePicture" class="d-inline"><button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer" > </button></div>';
-                            echo '<input type="checkbox" id="deletePictureToggler" name="deletePicture" class="invisible">';
+                            echo '<div id="rDeletePicture" class="d-inline"><button class="btn deletePictureButton fa-solid fa-xmark fa-xl" ></button></div>';
+                            echo '<input type="checkbox" id="deletePictureToggler" name="deletePicture" class="displaynone">';
+                            echo '</div>';
                             echo '</div>';
                             echo '</div>';
                         }
@@ -63,15 +65,15 @@
                     <!-- Pour ajouter d'autres fichiers -->
                     <div class="d-flex align-items-center">
                         <?= $this->Form->control('files[]', ['type' => 'file', 'id'=>'File', 'class'=>'iFile d-inline', 'label' => 'Importer un fichier (image, pdf, document office, openoffice, libreoffice)', 'accept' => '*']) ?>  
-                        <div id="rFile" class ="rResetFile invisible" data-toggle="File">
-                            <button class="btn fa-solid fa-xmark fa-xl" data-toggle="tooltip" data-placement="top" title="Supprimer"> </button>
+                        <div id="rFile" class ="rResetFile displaynone" data-toggle="File">
+                            <button class="btn deleteFileButton fa-solid fa-xmark fa-xl"> </button>
                         </div>
                     </div>
 
                     <div  id="inputFileDiv" class=""></div>
 
-                    <div class="d-flex justify-content-center">    
-                        <button id="addFileInput" class="btn fa-solid fa-plus fa-2xl" data-toggle="tooltip" data-placement="top" title='Ajouter un autre fichier'> </button> 
+                    <div class="d-flex justify-content-center mb-3">    
+                        <i id="addFileInput" class=" addButton addFileButton fa-solid fa-plus fa-xl" ></i> 
                     </div>  
                         
                     <!-- Gestion des fichiers -->
@@ -80,21 +82,26 @@
                         if(!empty($resource->files))
                         {
                                                       
-                            echo '<h4 class="mb-3 d-flex">Fichier(s) attaché(s) :</h4>';
-                            echo '<li>';
+                            echo '<h4 class="mb-3">Fichier(s) attaché(s) :</h4>';
+                            echo '<ul>';
 
                             foreach ($resource->files as $file)
                             {
-                                echo '<ul><div id="cancelDeleteFile'.$file->id.'" data-toggle ="'.$file->id.'" class="cancelDeleteFile invisible d-inline"></div>';
-                                echo '<div id="FileManagement'.$file->id.'" class="d-flex d-inline">';
+                                
+                                echo '<li><div id="cancelDeleteFile'.$file->id.'" data-toggle ="'.$file->id.'" class="cancelDeleteFile displaynone"></div>';
+                                
+                                echo '<div id="FileManagement'.$file->id.'" class="">';
+                                echo '<div class="d-flex d-inline">';
                                 echo $file->name;
-                                echo '<div id="rDeleteFile'.$file->id.'" data-toggle ="'.$file->id.'"class= "rDeleteFile d-inline"><button data-toggle="tooltip" data-placement="top" title="Supprimer" class="btn fa-solid fa-xmark fa-xl"> </button></div>';
-                                //echo '<input type="checkbox" id="deleteFileToggler'.$file->id.'" name="deleteFile[]" class="invisible">';
+                                echo '<div id="rDeleteFile'.$file->id.'" data-toggle ="'.$file->id.'"class= "rDeleteFile"><button class="btn deleteFileButton fa-solid fa-xmark fa-xl"> </button></div>';
+                                //echo '<input type="checkbox" id="deleteFileToggler'.$file->id.'" name="deleteFile[]" class="displaynone">';
                                 echo $this->Form->hidden('deleteFile[]', ['val' => $file->id, 'disabled' => 'true', 'id' => 'deleteFileToggler'.$file->id]);
-                                echo '</div></ul>';                                
+                                echo '</div>'; 
+                                echo '</div></li>'; 
+                                                            
                             }
                             
-                            echo '</li>';
+                            echo '</ul>';
                         }
                     ?>
         
