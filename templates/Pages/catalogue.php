@@ -6,7 +6,7 @@
 ?>
 <div class="container">
     <div class="domains index content">
-        <h3 class="text-center font-weight-bold"><?= __('Catalogue') ?></h3>
+        <h3 class="text-center font-weight-bold mb-4"><?= __('Catalogue') ?></h3>
     <div>
 </div>
         
