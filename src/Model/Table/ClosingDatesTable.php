@@ -74,7 +74,7 @@ class ClosingDatesTable extends Table
     }
 
 
-//Check if start_date before end_date
+    //Check if start_date before end_date
     public function checkDates($value, $context)
     {
         $start_date = new FrozenTime($context['data']['start_date']);

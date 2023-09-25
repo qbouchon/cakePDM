@@ -61,10 +61,11 @@ class Resource extends Entity
     }
 
 
-    public function setRandomColor(){
+    // //PLus utilisée
+    // public function setRandomColor(){
 
-        $this->set('color',sprintf('#%02X%02X%02X', rand(0, 255), rand(0, 255), rand(0, 255)));
-    }
+    //     $this->set('color',sprintf('#%02X%02X%02X', rand(0, 255), rand(0, 255), rand(0, 255)));
+    // }
 
 
 
@@ -91,7 +92,6 @@ class Resource extends Entity
             else {
 
                 finfo_close( $fileInfo );
-
 
                 //Si une image est déjà présente, on la supprime
                 if($this->picture_path)
@@ -193,7 +193,6 @@ class Resource extends Entity
 
                 if($rFileName)
                 {
-
                     //sauvegarde sur le server
                     $rF->moveTo($rTargetPath);
 
@@ -211,7 +210,6 @@ class Resource extends Entity
                     {
                         echo 'file entity unsaved';
                     }          
-
                 }
 
             }
@@ -224,22 +222,22 @@ class Resource extends Entity
     public function deleteFilesByIds($filesToDeleteIds, $filesTable){
 
 
-         if(!empty($filesToDeleteIds))
+        if(!empty($filesToDeleteIds))
+        {
+            foreach($filesToDeleteIds as $dFId)
             {
-                foreach($filesToDeleteIds as $dFId)
+                //supp le fichier en physique
+                $fileToDelete = $filesTable->get($dFId);
+                $fileToDeletePath = WWW_ROOT.'resourcesfiles'.DS.$fileToDelete->file_path;
+                if(file_exists($fileToDeletePath))
                 {
-                    //supp le fichier en physique
-                    $fileToDelete = $filesTable->get($dFId);
-                    $fileToDeletePath = WWW_ROOT.'resourcesfiles'.DS.$fileToDelete->file_path;
-                    if(file_exists($fileToDeletePath))
-                    {
-                        unlink($fileToDeletePath);
-                    }
-
-                    $filesTable->delete($fileToDelete);
+                    unlink($fileToDeletePath);
                 }
 
+                $filesTable->delete($fileToDelete);
             }
+
+        }
 
     }
 
@@ -247,36 +245,36 @@ class Resource extends Entity
     public function deleteFiles($filesToDelete, $filesTable){
 
          if(!empty($filesToDelete))
+        {
+            foreach($filesToDelete as $fileToDelete)
             {
-                foreach($filesToDelete as $fileToDelete)
+                //supp le fichier en physique
+                $fileToDeletePath = WWW_ROOT.'resourcesfiles'.DS.$fileToDelete->file_path;
+                if(file_exists($fileToDeletePath))
                 {
-                    //supp le fichier en physique
-                    $fileToDeletePath = WWW_ROOT.'resourcesfiles'.DS.$fileToDelete->file_path;
-                    if(file_exists($fileToDeletePath))
-                    {
-                        unlink($fileToDeletePath);
-                    }
-
-                    $filesTable->delete($fileToDelete);
+                    unlink($fileToDeletePath);
                 }
 
+                $filesTable->delete($fileToDelete);
             }
+
+        }
 
     }
 
     public function deleteReservations($reservationsToDelete, $reservationsTable)
     {
         if(!empty($reservationsToDelete))
+        {
+            foreach($reservationsToDelete as $reservationToDelete)
             {
-                foreach($reservationsToDelete as $reservationToDelete)
-                {
-                    $reservationsTable->delete($reservationToDelete);
-                }
-
+                $reservationsTable->delete($reservationToDelete);
             }
+
+        }
     }
 
-    //Renvoie toutes les dates de réservations, peu importe si la ressource a été rendue ou non (utile pour les stats)
+    //Renvoie toutes les dates de réservations, peu importe si la ressource a été rendue ou non 
     public function getReservationsDates()
     {
         $dates = [];
@@ -294,11 +292,10 @@ class Resource extends Entity
         return $dates;
     }
 
-    //Renvoie les dates de réservation pour les ressources non retournées (utile pour créer des réservations)
+    //Renvoie les dates de réservation pour les ressources non retournées
     public function getCurrentReservationsDates()
     {
         $dates = [];
-
 
         if(!empty($this->reservations))
         {
@@ -310,11 +307,10 @@ class Resource extends Entity
             }
         }
         
-
         return $dates;
     }
 
-     //Renvoie les dates de réservation pour les ressources non retournées sauf celle de la reservation passée en paramètre
+    //Renvoie les dates de réservation pour les ressources non retournées sauf celle de la reservation passée en paramètre
     public function getCurrentReservationsDatesESR($reservationToExclude)
     {
         $dates = [];
@@ -337,17 +333,10 @@ class Resource extends Entity
     public function getReservationsCount()
     {
        
-
-
-
-             if(!empty($this->reservations))
-                {
-                    return count($this->reservations);
-                }
-                else
-                    return 0;
-
-  
+        if(!empty($this->reservations))
+            return count($this->reservations);
+        else
+            return 0;
 
     }
 

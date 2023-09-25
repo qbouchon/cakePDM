@@ -22,9 +22,10 @@ class FilesController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
+
         $file = $this->Files->get($id);
 
-         //Authorization
+        //Authorization
         $this->Authorization->authorize($file);
 
 
@@ -35,11 +36,11 @@ class FilesController extends AppController
             unlink($fileToDeletePath);
         }
 
-        if ($this->Files->delete($file)) {
+        if ($this->Files->delete($file))
             $this->Flash->success(__('The file has been deleted.'));
-        } else {
+        else
             $this->Flash->error(__('The file could not be deleted. Please, try again.'));
-        }
+        
         return $this->redirect(['action' => 'index']);
     }
 

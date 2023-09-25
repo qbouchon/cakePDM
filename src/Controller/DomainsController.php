@@ -45,18 +45,6 @@ class DomainsController extends AppController
         $this->set(compact('domain'));
     }
 
-     public function resources($id = null)
-    {
-        $domain = $this->Domains->get($id, [
-            'contain' => ['Resources' => ['Files']],
-        ]);
-
-        //Authorization
-        $this->Authorization->authorize($domain);
-
-        $this->set(compact('domain'));
-    }
-
     /**
      * Add method
      *
@@ -75,19 +63,19 @@ class DomainsController extends AppController
             $domain->set('description',$this->request->getData('description'));
 
 
-            if(!$domain->getErrors) {
-
+            if(!$domain->getErrors)
                 $domain->addPicture($this->request->getData('picture'));
-            }
+            
             
             
             if ($this->Domains->save($domain)) {
                 $this->Flash->success(__('The domain has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
+
             $this->Flash->error(__('The domain could not be saved. Please, try again.'));
         }
+
         $this->set(compact('domain'));
     }
 
@@ -135,8 +123,6 @@ class DomainsController extends AppController
                 $this->Flash->error(__('The domain could not be saved. Please, try again.'));
 
             }
-
-
             
         }
         $this->set(compact('domain'));
@@ -154,10 +140,8 @@ class DomainsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $domain = $this->Domains->get($id, ['contain' => ['Resources']]);
 
-
         //Authorization
         $this->Authorization->authorize($domain);
-
 
         //Gestion de la suppression de l'image sur le serveur
         if($domain->picture_path)
@@ -169,13 +153,25 @@ class DomainsController extends AppController
         $domain->removeResources($domain->resources,$this->getTableLocator()->get('Resources'));
 
 
-
-        if ($this->Domains->delete($domain)) {
+        if ($this->Domains->delete($domain))
             $this->Flash->success(__('The domain has been deleted.'));
-        } else {
+        else 
             $this->Flash->error(__('The domain could not be deleted. Please, try again.'));
-        }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    //Affiche les ressources d'un domaine donné
+    public function resources($id = null)
+    {
+        $domain = $this->Domains->get($id, [
+            'contain' => ['Resources' => ['Files']],
+        ]);
+
+        //Authorization
+        $this->Authorization->authorize($domain);
+
+        $this->set(compact('domain'));
     }
 }

@@ -2,8 +2,9 @@ $( document ).ready(function() {
     
     //init TinyMCE (Editeur de texte)
     tinymce.init({selector: 'textarea', promotion: false});
+    
 
-
+    // -------------------------------------- Gestion des bouttons pour l'upload/supp d'images et de fichiers  ----------------------------------------------------
     //init reset button visibility
     if($('#rAddPicture').val())
         $('#rResetPicture').removeClass('invisible');

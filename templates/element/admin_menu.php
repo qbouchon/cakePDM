@@ -18,6 +18,7 @@
                                                 
 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRessources" aria-expanded="false" aria-controls="collapseRessources">
     <div class="sb-nav-link-icon"><i class="fa-solid fa-suitcase-rolling"></i></i></div>
+    <div class="nav-item">Ressources & Domaines</div>
     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 </a>
 <div class="collapse" id="collapseRessources" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">

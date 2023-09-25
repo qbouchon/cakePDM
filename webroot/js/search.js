@@ -1,32 +1,36 @@
 function search() {
-  var input, filter, table, tr;
-  input = $("#searchBox");
-  filter = input.val().toUpperCase();
-  table = $("#searchTable");
-  tr = table.find("tr");
 
-  tr.each(function (index) {
-    if (index === 0) { // Skip the header row
-      return true; // Equivalent to "continue" in a jQuery loop
-    }
+    var input, filter, table, tr;
+    input = $("#searchBox");
+    filter = input.val().toUpperCase();
+    table = $("#searchTable");
+    tr = table.find("tr");
 
-    var displayRow = false;
-    var row = $(this);
+    tr.each(function (index){
 
-    row.find("td:not(:last-child)").each(function () {
-      var td = $(this);
-      var txtValue = td.text();
+        if (index === 0)
+            return true; 
 
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        displayRow = true;
-        return false; // Exit the inner loop if a match is found
-      }
+        var displayRow = false;
+        var row = $(this);
+
+        row.find("td:not(:last-child)").each(function () {
+
+            var td = $(this);
+            var txtValue = td.text();
+
+            if (txtValue.toUpperCase().indexOf(filter) > -1) 
+            {
+                displayRow = true;
+                return false; 
+            }
+
+        });
+
+          if (displayRow)
+              row.show();
+          else
+              row.hide();
+      
     });
-
-    if (displayRow) {
-      row.show();
-    } else {
-      row.hide();
-    }
-  });
 }

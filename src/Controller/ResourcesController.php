@@ -23,7 +23,6 @@ class ResourcesController extends AppController
      */
     public function index()
     {
-
         //Authorisation. Trouver une meilleure pratique
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
@@ -46,7 +45,6 @@ class ResourcesController extends AppController
      */
     public function view($id = null)
     {
-
         $resource = $this->Resources->get($id, [
             'contain' => ['Domains', 'Files', 
                             
@@ -79,7 +77,6 @@ class ResourcesController extends AppController
      */
     public function add()
     {
-
         $resource = $this->Resources->newEmptyEntity();
         
         //Authorization
@@ -98,11 +95,11 @@ class ResourcesController extends AppController
                 $resource->set('max_duration', $this->request->getData('max_duration'));
 
                 
-                //Deprécié
-                if($this->request->getData('color')) // && $this->request->getData('color') != '#ffffff')
-                    $resource->set('color', $this->request->getData('color'));
-                else
-                    $resource->setRandomColor();
+                //Deprécié il n'y a plus que 2 couleurs pour afficher les ressources (voir getReservationsBetween de reservation controller)
+                // if($this->request->getData('color')) // && $this->request->getData('color') != '#ffffff')
+                //     $resource->set('color', $this->request->getData('color'));
+                // else
+                //     $resource->setRandomColor();
                 
 
                 if( $this->request->getData('domain_id'))
@@ -163,10 +160,12 @@ class ResourcesController extends AppController
                 if( $this->request->getData('domain_id'))
                     $resource->set('domain', $this->getTableLocator()->get('Domains')->get($this->request->getData('domain_id')));
 
-                 if($this->request->getData('color') && $this->request->getData('color') != '#FFFFFF')
-                    $resource->set('color', $this->request->getData('color'));
-                else
-                    $resource->setRandomColor();
+
+                //Deprécié il n'y a plus que 2 couleurs pour afficher les ressources (voir getReservationsBetween de reservation controller)
+                // if($this->request->getData('color') && $this->request->getData('color') != '#FFFFFF')
+                //     $resource->set('color', $this->request->getData('color'));
+                // else
+                //     $resource->setRandomColor();
 
                 //Gestion de la suppression de l'image
                 if(!empty($this->request->getData('deletePicture')))
@@ -177,13 +176,11 @@ class ResourcesController extends AppController
                 //gestion de la suppression des fichiers
                 $resource->deleteFilesByIds($this->request->getData('deleteFile'),$this->getTableLocator()->get('Files'));
 
-
                 //gestion de l'upload de l'image
                 $resource->addPicture($this->request->getData('picture'));
 
                 //Gestion de l'upload de fichiers
                 $resource->addFiles($this->request->getData('files'),$this->getTableLocator()->get('Files'));
-
 
 
                 if ($this->Resources->save($resource)) {
@@ -233,12 +230,11 @@ class ResourcesController extends AppController
         //Suppression des réservations
         $resource->deleteReservations($resource->reservations, $this->getTableLocator()->get('Reservations') );
 
-        if ($this->Resources->delete($resource)) {
+        if ($this->Resources->delete($resource))
             $this->Flash->success(__('La ressource '. $resource->name .' a été supprimée'));
-        } else {
+        else 
             $this->Flash->error(__('La ressource '. $resource->name .' n\'a pas pu être supprimée'));
-        }
-
+    
         return $this->redirect(['action' => 'index']);
     }
 
@@ -251,14 +247,12 @@ class ResourcesController extends AppController
         //Authorization
         $this->Authorization->authorize($resource);
 
+        $resource->set('archive',true);
 
-            $resource->set('archive',true);
-
-        if ($this->Resources->save($resource)) {
+        if ($this->Resources->save($resource)) 
             $this->Flash->success(__('Ressource '.$resource->name.' archivée'));
-        } else {
+         else 
             $this->Flash->error(__('TLa resource '.$resource->name.' n\'a pas pu être archivée.'));
-        }
 
         return $this->redirect($this->referer());
     }
@@ -272,14 +266,12 @@ class ResourcesController extends AppController
         //Authorization
         $this->Authorization->authorize($resource);
 
+        $resource->set('archive',false);
 
-            $resource->set('archive',false);
-
-        if ($this->Resources->save($resource)) {
+        if ($this->Resources->save($resource))
             $this->Flash->success(__('Ressource '.$resource->name.' désarchivée'));
-        } else {
+        else
             $this->Flash->error(__('La resource '.$resource->name.' n\'a pas pu être désarchivée.'));
-        }
 
         return $this->redirect($this->referer());
     }
@@ -288,7 +280,6 @@ class ResourcesController extends AppController
 
     public function getCurrentReservationsDates($id = null, $id_reservation = null)
     {
-
         $resource = $this->Resources->get($id, ['contain' => 'Reservations'
         ]);
 
@@ -313,17 +304,14 @@ class ResourcesController extends AppController
 
     public function getMaxDuration($id = null)
     {
-
         $resource = $this->Resources->get($id);
 
         //Authorization
         $this->Authorization->authorize($resource);
 
         $md = $resource->max_duration;
- 
-            
-        
-         // Convert the data to JSON format and send it as the response
+              
+        // Convert the data to JSON format and send it as the response
         $this->autoRender = false;
         $this->response->getBody()->write(json_encode($md));
         $this->response = $this->response->withType('application/json');

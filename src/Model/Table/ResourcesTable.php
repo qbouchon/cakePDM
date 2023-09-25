@@ -121,7 +121,7 @@ class ResourcesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
       
-      return $rules;
+        return $rules;
       
     }
 }

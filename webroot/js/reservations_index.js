@@ -4,6 +4,7 @@ var today = new Date();
 
 $(document).ready(function() {
 
+    // Gestion des vues 
     if(!localStorage.getItem('viewAdmin') || localStorage.getItem('viewAdmin') == 'list')
     {
 
@@ -28,13 +29,12 @@ $(document).ready(function() {
     }
     else if(localStorage.getItem('displayBack') == 'hide')
     {
-         $('#displayBack').removeClass("displaynone");
+        $('#displayBack').removeClass("displaynone");
         $('#hideBack').addClass("displaynone");
         $(".isBack").addClass("displaynone");
     }
 
-
-    
+   
     $('#toggleCalendar').click(function(){
 
         $('#calendarView').removeClass('displaynone');
@@ -72,11 +72,7 @@ $(document).ready(function() {
     });
 
 
-   
-    
 
-
-    
 
 });
 
@@ -149,7 +145,7 @@ function createCalendar()
                                      }
                                         
 
-                                    });
+                });
 
 
      calendar.setOption('eventSources', [
@@ -157,12 +153,6 @@ function createCalendar()
                               url: webrootUrl + '/reservations/upcoming-reservations/reservations_between'
                            },
      ]);
-
-
- 
-
-
-
 
 
     restoreCalendarState(calendar);
@@ -234,34 +224,31 @@ function createEventModal(event) {
 
 function saveCalendarStatAndSubmitForm() {
 
-        saveCalendarState(calendar);
-        document.getElementById('setBackForm').submit();
+    saveCalendarState(calendar);
+    document.getElementById('setBackForm').submit();
     
 }
 
 function saveCalendarStatAndSubmitDeleteForm() {
 
-       
-
-        var confirmation = confirm("Voulez-vous vairment supprimer cette réservation ?");
-         if(confirmation)
-         {
-             saveCalendarState(calendar);
-             document.getElementById('deleteForm').submit();
-         }
+    var confirmation = confirm("Voulez-vous vairment supprimer cette réservation ?");
+    
+    if(confirmation)
+    {
+         saveCalendarState(calendar);
+         document.getElementById('deleteForm').submit();
+    }
             
 }
 
 function saveCalendarState(){
-
-
 
     const calendarState = {
         view: calendar.view.type,
         date: calendar.getDate(),
     };
 
-        localStorage.setItem('calendarState', JSON.stringify(calendarState));
+    localStorage.setItem('calendarState', JSON.stringify(calendarState));
 
 }
 

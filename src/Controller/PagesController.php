@@ -81,15 +81,12 @@ class PagesController extends AppController
         $this->loadModel('Configuration');
         $default_configuration = Configure::read('default_configuration');
         $configuration = $this->Configuration->find()
-        ->where(['name' => $default_configuration])->first();
+                    ->where(['name' => $default_configuration])->first();
 
         //On renvoit l'user
         $user = $this->Authentication->getIdentity();
 
         $this->set(compact('page', 'subpage', 'domains','configuration','user'));
-
-
-
 
         try {
             return $this->render(implode('/', $path));

@@ -1,6 +1,6 @@
 var  resourcesChart;
 
- $(document).ready(function() {
+$(document).ready(function() {
 
         createResourcesChart();
 
@@ -17,10 +17,6 @@ var  resourcesChart;
     
 
 });
-
-
-
-
 
 function createResourcesChart(){
 
@@ -39,18 +35,9 @@ function createResourcesChart(){
 
         displayChart(datas);
 
-
     });
 
 }
-
-
-
-
-
-
-
-
 
 
 function displayChart(datas)

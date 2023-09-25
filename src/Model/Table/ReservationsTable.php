@@ -174,12 +174,7 @@ class ReservationsTable extends Table
     public function checkStartDate($value, $context)
     {
         $today = FrozenDate::now();
-        // debug('today' . $today->i18nFormat('yyyy-MM-dd'));
-        // echo $today;
-        // debug($this->start_date);
-        // die;
         $start_date = new FrozenDate($context['data']['start_date']);
-
 
         if($start_date<$today)
             return false; 
@@ -221,32 +216,28 @@ class ReservationsTable extends Table
         $start_date = new FrozenDate($context['data']['start_date']);
         $end_date = new FrozenDate($context['data']['end_date']);
         $resource = $this->Resources->get($context['data']['resource_id'],['contain' => 'Reservations']);
-        // debug($context['data']);
-        // die;
 
-         //Dans le cas où on est en train d'éditer une réservation, on ne veut pas checker les dates de cette réservation
+        //Dans le cas où on est en train d'éditer une réservation, on ne veut pas checker les dates de cette réservation
         if (isset($context['data']['id']) && $context['data']['id'])
-        {
-                
+        {               
             foreach($resource->reservations as $reservation)
             {
                    
-                if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back && $reservation->id != $context['data']['id']){
-                            return false;
-                }
-
+                if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back && $reservation->id != $context['data']['id'])
+                    return false;
+                
             }
         }
         else
+        {
             foreach($resource->reservations as $reservation)
-            {
-                   
-                if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back){
-                            return false;
-                }
-
+            {                 
+                if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back)
+                    return false;
+                
             }
         
+        }
 
         return true;
     }
@@ -263,14 +254,13 @@ class ReservationsTable extends Table
         $closingDatesTable = TableRegistry::getTableLocator()->get('ClosingDates');
 
         $closingDates = $closingDatesTable->find()
-                  ->where([
-                                'start_date >=' => $now  //Inutile de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
-                    ])
-                  ->toArray();
+                        ->where([
+                                 'start_date >=' => $now  //Inutile de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
+                        ])
+                        ->toArray();
 
                   foreach($closingDates as $closingDate)
                   {
-                     
                         $sDate = new FrozenDate($closingDate->start_date);
                         $eDate = new FrozenDate($closingDate->end_date);
 
@@ -300,14 +290,13 @@ class ReservationsTable extends Table
         $closingDatesTable = TableRegistry::getTableLocator()->get('ClosingDates');
 
         $closingDates = $closingDatesTable->find()
-                  ->where([
-                                'start_date >=' => $now  //Inutile de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
-                    ])
-                  ->toArray();
+                        ->where([
+                            'start_date >=' => $now  //Inutile de checker les dates passées, un utilisateur ne peut pas créer de réservation dans le passé                     
+                        ])
+                        ->toArray();
 
                   foreach($closingDates as $closingDate)
-                  {
-                     
+                  {                    
                         $sDate = new FrozenDate($closingDate->start_date);
                         $eDate = new FrozenDate($closingDate->end_date);
 

@@ -4,8 +4,8 @@ var today = new Date();
 
 $(document).ready(function() {
 
-
-   if(!localStorage.getItem('viewAdmin') || localStorage.getItem('viewAdmin') == 'list')
+    // Gestion des vues
+    if(!localStorage.getItem('viewAdmin') || localStorage.getItem('viewAdmin') == 'list')
     {
 
         $('#calendarView').addClass('displaynone');
@@ -20,9 +20,6 @@ $(document).ready(function() {
 
         createCalendar();
     }
-    
-
-
 
     $('#toggleCalendar').click(function(){
 
@@ -41,9 +38,6 @@ $(document).ready(function() {
         localStorage.setItem('viewAdmin','list');
         
     });
-
-
-    
 
 });
 
@@ -126,19 +120,12 @@ function createCalendar()
      ]);
 
 
- 
-
-
-
-
-
     restoreCalendarState(calendar);
 
     calendar.render();
 
     cleanCalendarState(calendar);
-     
-   
+      
 }
 
 function createEventModal(event) {
@@ -197,27 +184,24 @@ function saveCalendarStatAndSubmitForm() {
 
 function saveCalendarStatAndSubmitDeleteForm() {
 
-       
+    var confirmation = confirm("Voulez-vous vairment supprimer cette réservation ?");
 
-        var confirmation = confirm("Voulez-vous vairment supprimer cette réservation ?");
-         if(confirmation)
-         {
-             saveCalendarState(calendar);
-             document.getElementById('deleteForm').submit();
-         }
+    if(confirmation)
+    {
+         saveCalendarState(calendar);
+         document.getElementById('deleteForm').submit();
+    }
             
 }
 
 function saveCalendarState(){
-
-
 
     const calendarState = {
         view: calendar.view.type,
         date: calendar.getDate(),
     };
 
-        localStorage.setItem('calendarState', JSON.stringify(calendarState));
+    localStorage.setItem('calendarState', JSON.stringify(calendarState));
 
 }
 
@@ -225,7 +209,8 @@ function restoreCalendarState(calendar) {
 
     const storedState = localStorage.getItem('calendarState');
 
-    if (storedState) {
+    if (storedState) 
+    {
         const calendarState = JSON.parse(storedState);
 
         // Restore the calendar state

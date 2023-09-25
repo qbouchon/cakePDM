@@ -1,230 +1,175 @@
-  :root{
-  /*Uga colors*/
-  --uga-blue: #162a42;
-  --uga-orange: #ff4e02;
-  --uga-card-bg-tile: #1670cc;
-  --uga-card-bg-body: #1670cc;
+:root{
+/*Uga colors*/
+--uga-blue: #162a42;
+--uga-orange: #ff4e02;
+--uga-card-bg-tile: #1670cc;
+--uga-card-bg-body: #1670cc;
 
-  --uga-resources-card-bg-tile: #ef4540;
-  --uga-resources-card-bg-body: #ef4540;
-  --uga-resources-card-bg-active: #1670cc;
-  }
+--uga-resources-card-bg-tile: #ef4540;
+--uga-resources-card-bg-body: #ef4540;
+--uga-resources-card-bg-active: #1670cc;
+}
 
-    .domain-card {
-      position: relative;
-      transition: transform 0.3s ease;
-      --bs-card-inner-border-radius: 0;
-      margin-bottom: 1rem;
-    }
-    .domain-card-img-top {
-      object-fit: cover;
-      height: 200px; 
-    }
-
-    .domain-tile-content {
-      position: absolute;
-      top: 20px;
-      left: 0;
-      background-color: var(--uga-card-bg-tile); 
-      color: #fff;
-      padding-top: 4px;
-      padding-left: 4px;
-      padding-right: 6px;
-      display: inline;
-      white-space: nowrap;
-    }
-
-/*     .domain-card{
-      transition: transform 0.3s ease; 
-    }*/
-
-    .domain-card:hover {
-      transform: translateY(-10px); 
-    }
-
-    .domain-card:hover .domain-card-body {
-
-      background-color: var(--uga-orange);
-    }
+/*-------------------------------------- global ------------------------------------*/
+body {
+    background: rgba(0, 0, 0, 0.03);    
+}
 
 
-    .domain-card:active .domain-card-body {
+h3 {
 
-      background-color: var(--uga-orange);
-    }
+  color: var(--uga-orange);
+  font-weight: bold;
 
-    .domain-card-body {
-      background-color: var(--uga-card-bg-body);
-    }
+}
 
-    .domain-card-spacing {
-      margin-top: 20px;
-    }
+.displaynone {
+  display: none;
+}
 
-  .fa-xmark{
-      color: #ff4e02;
-    }
+/*----------------------------------------Pour les cards (catalogue, ressources) -------------------------*/
+.domain-card {
+  position: relative;
+  transition: transform 0.3s ease;
+  --bs-card-inner-border-radius: 0;
+  margin-bottom: 1rem;
+}
+.domain-card-img-top {
+  object-fit: cover;
+  height: 200px; 
+}
+
+.domain-tile-content {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  background-color: var(--uga-card-bg-tile); 
+  color: #fff;
+  padding-top: 4px;
+  padding-left: 4px;
+  padding-right: 6px;
+  display: inline;
+  white-space: nowrap;
+}
+
+.domain-card:hover {
+  transform: translateY(-10px); 
+}
+
+.domain-card:hover .domain-card-body {
+
+  background-color: var(--uga-orange);
+}
 
 
-  .resources-card-img-top {
-    object-fit: cover;
-    ma-height: 300px; 
-    max-width: 400px;
-    }
+.domain-card:active .domain-card-body {
 
-     .resources-card-title {
+  background-color: var(--uga-orange);
+}
+
+.domain-card-body {
+  background-color: var(--uga-card-bg-body);
+}
+
+.domain-card-spacing {
+  margin-top: 20px;
+}
+
+.fa-xmark{
+  color: #ff4e02;
+}
+
+
+.resources-card-img-top {
+object-fit: cover;
+ma-height: 300px; 
+max-width: 400px;
+}
+
+ .resources-card-title {
 /*      font-size: 14px;*/
-    }
+}
 
 
-
-    .resources-card {
+.resources-card {
 /*      flex-direction: column;*/
-      position: relative;
-      transition: transform 0.3s ease;
-      --bs-card-inner-border-radius: 0;
-      margin-bottom: 1rem;
-      transition: box-shadow 0.3s;
-    }
+    position: relative;
+    transition: transform 0.3s ease;
+    --bs-card-inner-border-radius: 0;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.3s;
+}
 
-     .resources-card:hover {
+.resources-card:hover {
 
-       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-
-     }
-
-    .resources-card:hover .resources-card-body {
-
-
-     background-color: #ffffff /* var(--uga-resources-card-bg-active);*/
-     
-    }
-
-
-    .resources-card:active .resources-card-body {
-
-      background-color: #ffffff /*var(--uga-resources-card-bg-active);*/
-    }
-
-    .resources-card-body {
-      background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
-    }
-
-
-
-  body {
-    background: rgba(0, 0, 0, 0.03);
-/*    font-size: 90%;*/
-    
-  }
-
-
-    h3 {
-      color: var(--uga-orange);
-      font-weight: bold;
-/*      margin-top: 1rem;*/
-    }
-
-    .addButton, .reservationAddButton, .userAddButton, .resourceAddButton, .domainAddButton, .closingDatesAddButton .calendarViewButton, .listViewButton, .hidebackButton, .viewbackButton {
-      color: var(--uga-blue);
-      transition: transform 0.1s ease;
-       --bs-btn-active-border-color: transparent;
-        --bs-btn-active-color: --uga-orange;
-        --bs-btn-active-shadow: inset 0 3px px rgba(0, 0, 0, 0);
-
-
-    }
-
-    .addButton:hover, .reservationAddButton:hover, .userAddButton:hover, .resourceAddButton:hover, .domainAddButton:hover, .closingDatesAddButton:hover, .calendarViewButton:hover, .listViewButton:hover, .hidebackButton:hover, .viewbackButton:hover{
-      color: var(--uga-orange);
-      transform: scale(1.3);
-    }
-
-
-
-
-    .btn-secondary {
-            --bs-btn-color: #fff;
-            --bs-btn-bg: var(--uga-blue);
-            --bs-btn-border-color: var(--uga-blue);
-            --bs-btn-hover-color: #ffffff;
-            --bs-btn-hover-bg: var(--uga-orange);
-            --bs-btn-hover-border-color: var(--uga-orange);
-            --bs-btn-focus-shadow-rgb: 130, 138, 145;
-            --bs-btn-active-color: #ffffff;
-            --bs-btn-active-bg: var(--uga-orange);
-            --bs-btn-active-border-color: var(--uga-orange);
-            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-            --bs-btn-disabled-color: #fff;
-            --bs-btn-disabled-bg: #6c757d;
-            --bs-btn-disabled-border-color: #6c757d;
-
-    }
-
-
-
-
-
-/*Calendar*/
-/*.day-0{
-
-  width: 9%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
 }
 
-.day-1{
-   width: 19%;
-}
-.day-2{
-   width: 29%;
-}
-.day-3{
-   width: 39%;
-}
-.day-4{
-   width: 49%;
-}
-.day-5{
-   width: 59%;
-}
-.day-6{
-   width: 69%;
-}
-.resourceCell{
-  width: 30%;
-}
-.calendarCell{
-  width: 10%;
+.resources-card:hover .resources-card-body {
+
+    background-color: #ffffff /* var(--uga-resources-card-bg-active);*/
+
 }
 
-.squareCell {
-    padding: 0;
+.resources-card:active .resources-card-body {
+
+background-color: #ffffff /*var(--uga-resources-card-bg-active);*/
 }
 
-.squareCell:before {
-    content: "";
-    display: block;
-    padding-top: 50%; 
+.resources-card-body {
+background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 }
-*/
-/*fullCalendar*/
+
+
+/*------------------------------------------Pour les bouttons ------------------------------------------*/
+
+.addButton, .reservationAddButton, .userAddButton, .resourceAddButton, .domainAddButton, .closingDatesAddButton .calendarViewButton, .listViewButton, .hidebackButton, .viewbackButton {
+    color: var(--uga-blue);
+    transition: transform 0.1s ease;
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-active-color: --uga-orange;
+    --bs-btn-active-shadow: inset 0 3px px rgba(0, 0, 0, 0);
+}
+
+.addButton:hover, .reservationAddButton:hover, .userAddButton:hover, .resourceAddButton:hover, .domainAddButton:hover, .closingDatesAddButton:hover, .calendarViewButton:hover, .listViewButton:hover, .hidebackButton:hover, .viewbackButton:hover{
+    color: var(--uga-orange);
+    transform: scale(1.3);
+}
+
+
+.btn-secondary {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: var(--uga-blue);
+        --bs-btn-border-color: var(--uga-blue);
+        --bs-btn-hover-color: #ffffff;
+        --bs-btn-hover-bg: var(--uga-orange);
+        --bs-btn-hover-border-color: var(--uga-orange);
+        --bs-btn-focus-shadow-rgb: 130, 138, 145;
+        --bs-btn-active-color: #ffffff;
+        --bs-btn-active-bg: var(--uga-orange);
+        --bs-btn-active-border-color: var(--uga-orange);
+        --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        --bs-btn-disabled-color: #fff;
+        --bs-btn-disabled-bg: #6c757d;
+        --bs-btn-disabled-border-color: #6c757d;
+
+}
+
+/*-----------------------------------------------fullCalendar ----------------------------------------------*/
+
 #fullCalendar a {
   text-decoration: none; 
-  color: inherit;
-
-    
+  color: inherit;   
 }
 
 #fullCalendar {
   font-size: 90%;
 }
 
-.fc-event {
-  
+.fc-event {  
   cursor: pointer;
-  transition: transform 0s ease-in-out;
-  
-
+  transition: transform 0s ease-in-out;  
 }
 
 .fc-event-container:{
@@ -233,7 +178,6 @@
 
 .fc-event:hover {
      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2 );
-/*       transform: translateY(-1px);*/
 }
 
 .fc .fc-daygrid-event {
@@ -241,13 +185,10 @@
 }
 
 .fc-direction-ltr .fc-daygrid-event.fc-event-start, .fc-direction-rtl .fc-daygrid-event.fc-event-end {
-
   margin-left: 10px; 
-
 }
 
 .fc-direction-ltr .fc-daygrid-event.fc-event-end, .fc-direction-rtl .fc-daygrid-event.fc-event-start {
-
   margin-right: 10px; 
 }
 
@@ -261,12 +202,7 @@
 }
 
 
-.displaynone {
-  display: none;
-}
-
-
-/*datepicker*/
+/* ------------------------------------------------ datepicker -----------------------------*/
 
 
 #picker {

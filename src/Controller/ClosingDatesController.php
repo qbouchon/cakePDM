@@ -23,7 +23,6 @@ class ClosingDatesController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-
         $closingDates = $this->paginate($this->ClosingDates);
 
         $this->set(compact('closingDates'));
@@ -40,6 +39,7 @@ class ClosingDatesController extends AppController
     {   
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
+
         $this->redirect(['action'=>'index']);
     }
 
@@ -56,15 +56,20 @@ class ClosingDatesController extends AppController
 
 
         $closingDate = $this->ClosingDates->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $closingDate = $this->ClosingDates->patchEntity($closingDate, $this->request->getData());
-            if ($this->ClosingDates->save($closingDate)) {
-                $this->Flash->success(__('The closing date has been saved.'));
 
+        if ($this->request->is('post')) {
+
+            $closingDate = $this->ClosingDates->patchEntity($closingDate, $this->request->getData());
+
+            if ($this->ClosingDates->save($closingDate)) {
+
+                $this->Flash->success(__('The closing date has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
+
             $this->Flash->error(__('The closing date could not be saved. Please, try again.'));
         }
+
         $this->set(compact('closingDate'));
     }
 
@@ -84,15 +89,19 @@ class ClosingDatesController extends AppController
         $closingDate = $this->ClosingDates->get($id, [
             'contain' => [],
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $closingDate = $this->ClosingDates->patchEntity($closingDate, $this->request->getData());
-            if ($this->ClosingDates->save($closingDate)) {
-                $this->Flash->success(__('The closing date has been saved.'));
 
+            if ($this->ClosingDates->save($closingDate)) {
+
+                $this->Flash->success(__('The closing date has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
+
             $this->Flash->error(__('The closing date could not be saved. Please, try again.'));
         }
+
         $this->set(compact('closingDate'));
     }
 
@@ -111,12 +120,12 @@ class ClosingDatesController extends AppController
 
         $this->request->allowMethod(['post', 'delete']);
         $closingDate = $this->ClosingDates->get($id);
-        if ($this->ClosingDates->delete($closingDate)) {
-            $this->Flash->success(__('The closing date has been deleted.'));
-        } else {
-            $this->Flash->error(__('The closing date could not be deleted. Please, try again.'));
-        }
 
+        if ($this->ClosingDates->delete($closingDate))
+            $this->Flash->success(__('The closing date has been deleted.'));
+        else
+            $this->Flash->error(__('The closing date could not be deleted. Please, try again.'));
+        
         return $this->redirect(['action' => 'index']);
     }
 
@@ -131,41 +140,37 @@ class ClosingDatesController extends AppController
             if($start && $end)
             {
 
-                 $closingDates = $this->ClosingDates->find()
-                  ->where([
+                $closingDates = $this->ClosingDates->find()
+                ->where([
                                 'start_date >=' => $start,
                                 'end_date <=' => $end
-                    ])
-                  ->toArray();
+                ])
+                ->toArray();
 
-                 $closingDatesTab = [];
+                $closingDatesTab = [];
 
-                  foreach($closingDates as $closingDate)
-                  {
+                foreach($closingDates as $closingDate)
+                {
                      
-                        $sDate = new FrozenDate($closingDate->start_date);
-                        $eDate = new FrozenDate($closingDate->end_date);
+                    $sDate = new FrozenDate($closingDate->start_date);
+                    $eDate = new FrozenDate($closingDate->end_date);
 
-                        while($sDate != $eDate)
-                        {
-                            array_push($closingDatesTab, $sDate);
-                            $sDate = $sDate->addDay(1);
-                        }
-                  }
+                    while($sDate != $eDate)
+                    {
+                        array_push($closingDatesTab, $sDate);
+                        $sDate = $sDate->addDay(1);
+                    }
+                }
+        
+                // Convertir les données en format JSON et les envoyer en réponse
+                $this->autoRender = false;
+                $this->response = $this->response->withType('application/json')->withStringBody(json_encode($closingDatesTab));
 
-         
-
-                    // Convertir les données en format JSON et les envoyer en réponse
-                        $this->autoRender = false;
-                        $this->response = $this->response->withType('application/json')
-                            ->withStringBody(json_encode($closingDatesTab));
-
-                        return $this->response;
+                return $this->response;
 
             }
             else
-            {
-           
+            {          
                     $this->Flash->error(__('Erreur dans la récupération des dates de fermeture'));
                     return $this->redirect($this->referer());
             }
@@ -179,41 +184,34 @@ class ClosingDatesController extends AppController
         $this->Authorization->skipAuthorization();
 
         $now = FrozenDate::now();
+        $closingDates = $this->ClosingDates->find()
+                ->where([
+                        'start_date >=' => $now                       
+                ])
+                ->toArray();
 
-     
+        $closingDatesTab = [];
 
-           
+        foreach($closingDates as $closingDate)
+        {
+             
+            $sDate = new FrozenDate($closingDate->start_date);
+            $eDate = new FrozenDate($closingDate->end_date);
 
-                 $closingDates = $this->ClosingDates->find()
-                  ->where([
-                                'start_date >=' => $now                       
-                    ])
-                  ->toArray();
+            while($sDate <= $eDate)
+            {
+                array_push($closingDatesTab, $sDate);
+                $sDate = $sDate->addDays(1);
+            }
+        }
 
-                 $closingDatesTab = [];
+ 
 
-                  foreach($closingDates as $closingDate)
-                  {
-                     
-                        $sDate = new FrozenDate($closingDate->start_date);
-                        $eDate = new FrozenDate($closingDate->end_date);
+        // Convertir les données en format JSON et les envoyer en réponse
+        $this->autoRender = false;
+        $this->response = $this->response->withType('application/json')->withStringBody(json_encode($closingDatesTab));
 
-                        while($sDate <= $eDate)
-                        {
-                            array_push($closingDatesTab, $sDate);
-                            $sDate = $sDate->addDays(1);
-                        }
-                  }
-
-         
-
-                    // Convertir les données en format JSON et les envoyer en réponse
-                        $this->autoRender = false;
-                        $this->response = $this->response->withType('application/json')
-                            ->withStringBody(json_encode($closingDatesTab));
-
-                        return $this->response;
-
+        return $this->response;
           
     }
 }
