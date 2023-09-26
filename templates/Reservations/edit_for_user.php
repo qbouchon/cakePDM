@@ -14,6 +14,7 @@
 <!-- js pour la gestion du datepicker -->
 <?= $this->Html->script('reservation_edit'); ?>
 
+<?php $this->assign('title', 'CREST - Réservations'); ?>
 
 <div class="container">   
 

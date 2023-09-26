@@ -4,6 +4,10 @@
  * @var iterable<\App\Model\Entity\Domain> $domains
  */
 ?>
+
+<?php $this->assign('title', 'CREST - Domaines'); ?>
+
+
 <?= $this->Html->script('search'); ?>
 
 <div class="container">

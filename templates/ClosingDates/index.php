@@ -5,11 +5,13 @@
  */
 ?>
 <?= $this->Html->script('search'); ?>
+<?php $this->assign('title', 'CREST - Dates de fermetures'); ?>
+
 
 <div class="container">
     <div class="users index content">
 
-        <h3 class="text-center font-weight-bold"><?= __('Dates de fermetures') ?></h3>
+        <h3 class="text-center font-weight-bold"><?= __('Dates de fermeture') ?></h3>
 
         <div class="d-flex align-items-center justify-content-between mb-1">
             <div >

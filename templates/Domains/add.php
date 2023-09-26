@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\Domain $domain
  */
 ?>
+
+<?php $this->assign('title', 'CREST - Domaines'); ?>
+
+
 <div class="container">   
 
    <div class="row mt-2">

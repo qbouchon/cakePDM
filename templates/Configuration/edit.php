@@ -4,6 +4,9 @@
  * @var \App\Model\Entity\Configuration $configuration
  */
 ?>
+
+<?php $this->assign('title', 'CREST - Configuration'); ?>
+
 <div class="container">   
 
      <div class="row mt-2">   

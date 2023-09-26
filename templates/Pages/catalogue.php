@@ -4,6 +4,8 @@
  * @var iterable<\App\Model\Entity\Domain> $domains
  */
 ?>
+<?php $this->assign('title', 'CREST - Catalogue'); ?>
+
 <div class="container">
     <div class="domains index content">
         <h3 class="text-center font-weight-bold mb-4"><?= __('Catalogue') ?></h3>

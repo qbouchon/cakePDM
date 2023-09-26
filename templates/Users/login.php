@@ -3,6 +3,9 @@
  * @var \App\View\AppView $this
  */
 ?>
+
+<?php $this->assign('title', 'CREST - Login'); ?>
+
 <div class="container">                
           <div class="row mt-2">
                 <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded"> 

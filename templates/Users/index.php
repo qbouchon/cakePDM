@@ -6,6 +6,8 @@
 ?>
 <?= $this->Html->script('search'); ?>
 
+<?php $this->assign('title', 'CREST - Utilisateurs'); ?>
+
 <div class="container">
     <div class="users index content">
             <h3 class="text-center font-weight-bold"><?= __('Users') ?></h3>

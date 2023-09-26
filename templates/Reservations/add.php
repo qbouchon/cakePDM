@@ -8,6 +8,7 @@
     use Cake\I18n\FrozenDate;
 ?>
 
+<?php $this->assign('title', 'CREST - Réservations'); ?>
 
 <!-- js pour la gestion du datepicker -->
 <?= $this->Html->script('reservation_add'); ?>

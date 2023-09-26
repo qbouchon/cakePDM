@@ -4,6 +4,7 @@
  * @var iterable<\App\Model\Entity\Domain> $domains
  */
 ?>
+<?php $this->assign('title', 'CREST - Accueil'); ?>
 
 <div class="container">
     <div class = row>

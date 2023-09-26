@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\ClosingDate $closingDate
  */
 ?>
+<?php $this->assign('title', 'CREST - Dates de fermetures'); ?>
+
 <div class="container">   
 
         <div class="row mt-2">

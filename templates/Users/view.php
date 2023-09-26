@@ -5,6 +5,9 @@
  */
 use Cake\I18n\FrozenDate;
 ?>
+
+<?php $this->assign('title', 'CREST - Utilisateurs'); ?>
+
 <div class="container">
 
         <div class="row mt-2">

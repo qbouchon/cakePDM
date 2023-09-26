@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\Domain $domain
  */
 ?>
+
+<?php $this->assign('title', 'CREST - Catalogue'); ?>
+
+
 <div class="row">   
     <div class="column-responsive column-80">
         <div class="domains view content">

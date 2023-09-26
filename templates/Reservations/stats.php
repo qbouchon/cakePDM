@@ -7,6 +7,7 @@
 
 
 <?= $this->Html->script('stats'); ?>
+<?php $this->assign('title', 'CREST - Stats'); ?>
 
 
 <div class="container bg-white">

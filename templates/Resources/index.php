@@ -7,6 +7,9 @@
 ?>
 <?= $this->Html->script('search'); ?>
 
+<?php $this->assign('title', 'CREST - Ressources'); ?>
+
+
 <div class="container">
     <div class="resources index content">
 

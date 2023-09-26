@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\ClosingDate $closingDate
  */
 ?>
+
+<?php $this->assign('title', 'CREST - Dates de fermetures'); ?>
+
+
 <div class="row">
     
     <div class="column-responsive column-80">

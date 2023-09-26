@@ -6,6 +6,9 @@
  */
 
 ?>
+
+<?php $this->assign('title', 'CREST - Ressources'); ?>
+
 <div class="container">   
 
    <div class="row mt-2">

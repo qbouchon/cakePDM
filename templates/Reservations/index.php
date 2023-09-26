@@ -17,10 +17,12 @@ use Cake\I18n\FrozenDate;
 <?= $this->Html->script('search'); ?>
 <?= $this->Html->script('reservations_index'); ?>
 
+<?php $this->assign('title', 'CREST - Réservations'); ?>
+
 <div class="container">
     <div class="reservations index content">
 
-            <h3 class="text-center font-weight-bold"><?= __('Reservations') ?></h3>
+            <h3 class="text-center font-weight-bold"><?= __('Réservations') ?></h3>
 
             <!-- Vue calendrier -->
             <div id='calendarView' class='displaynone'>

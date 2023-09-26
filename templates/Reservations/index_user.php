@@ -18,6 +18,8 @@ use Cake\I18n\FrozenTime;
 <?= $this->Html->script('search'); ?>
 <?= $this->Html->script('reservations_index_user'); ?>
 
+<?php $this->assign('title', 'CREST - Réservations'); ?>
+
 
 
 <div class="container">
