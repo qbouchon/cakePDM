@@ -57,7 +57,6 @@ $(document).ready(function() {
  
         $(".isBack").removeClass("displaynone");
         $(this).addClass("displaynone");
-        //$(this).removeAttr("style");
         $('#hideBack').removeClass("displaynone");
          localStorage.setItem('displayBack','display');
 
@@ -67,7 +66,7 @@ $(document).ready(function() {
  
         $(".isBack").addClass("displaynone");
         $(this).addClass("displaynone");
-        $(this).removeAttr("style");
+        $(this).removeAttr("style"); //Style ajouté par la recherche
         $('#displayBack').removeClass("displaynone");
         localStorage.setItem('displayBack','hide');
 

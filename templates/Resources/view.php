@@ -13,7 +13,12 @@
 
         <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded text-center">
 
-            <h3 class="text-center mb-2"><?= h($resource->name) ?></h3>
+            <div class='d-flex justify-content-between align-items-center'>
+                <i onclick="history.back();" class="backButton fa-solid fa-left-long fa-xl"></i>
+                <h3 class="text-center mb-2"><?= h($resource->name) ?></h3>
+                <div></div>
+            </div>
+
 
                 <table class="table table-bordered table-hover table-sm table-responsive table-light ">
                     <tr>

@@ -7,13 +7,17 @@
 <div class="row">   
     <div class="column-responsive column-80">
         <div class="domains view content">
-
-            <h3 class="text-center"><?= 'Liste des ressources du domaine '.h($domain->name) ?></h3>
+            
+            
             
             <div class="related ">
                 <div class="container h-100 d-flex flex-column">
+                    <div class='d-flex justify-content-between align-items-center'>
+                        <?= $this->Html->link('<i class="ms-1 backCatalogueButton fa-solid fa-left-long fa-2xl"></i>', ['controller' => 'Pages', 'action' => 'catalogue'],['class' => 'ms-3 backButton','escape' =>false]); ?>  
+                        <h3 class="text-center  mb-3"><?= 'Liste des ressources du domaine '.h($domain->name) ?></h3>
+                        <div></div>
+                    </div>  
 
-                    <?= $this->Html->link('Retour à la liste des domaines', ['controller' => 'Pages', 'action' => 'catalogue']); ?>          
                     <div class = "row card-spacing">
 
                         <!-- liste des resources non archivées du domaine -->

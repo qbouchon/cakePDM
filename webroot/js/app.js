@@ -277,5 +277,16 @@ $( document ).ready(function() {
                            
     });
 
+    
+    tippy('.backButton', {
+                                        content: 'Retour',
+                                        duration: 0,
+                                        allowHTML:true,                                    
+    });
 
+     tippy('.backCatalogueButton', {
+                                        content: 'Retour à la liste des domaines',
+                                        duration: 0,
+                                        allowHTML:true,                                    
+    });
 });
