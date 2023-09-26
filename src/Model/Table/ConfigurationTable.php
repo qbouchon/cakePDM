@@ -77,6 +77,27 @@ class ConfigurationTable extends Table
             ->scalar('home_picture_path')
             ->maxLength('home_picture_path', 255)
             ->allowEmptyString('home_picture_path');
+        $validator
+            ->boolean('send_mail_resa_admin')
+            ->allowEmptyString('send_mail_resa_admin');
+        $validator
+            ->boolean('send_mail_edit_resa_admin')
+            ->allowEmptyString('send_mail_edit_resa_admin');
+        $validator
+            ->boolean('send_mail_delete_resa_admin')
+            ->allowEmptyString('send_mail_delete_resa_admin');
+        $validator
+            ->boolean('send_mail_resa_user')
+            ->allowEmptyString('send_mail_resa_user');
+        $validator
+            ->boolean('send_mail_edit_resa_user')
+            ->allowEmptyString('send_mail_edit_resa_user');
+        $validator
+            ->boolean('send_mail_delete_resa_user')
+            ->allowEmptyString('send_mail_delete_resa_user');
+        $validator
+            ->boolean('send_mail_back_resa_user')
+            ->allowEmptyString('send_mail_back_resa_user');
 
         return $validator;
     }

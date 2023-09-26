@@ -162,7 +162,7 @@ $( document ).ready(function() {
                                         followCursor: 'initial',                             
     }); 
 
-      tippy('.isBack', {
+    tippy('.isBack', {
                                         content: 'Cette ressource à été rendue.',
                                         duration: 0,
                                         allowHTML:true,
@@ -284,9 +284,55 @@ $( document ).ready(function() {
                                         allowHTML:true,                                    
     });
 
-     tippy('.backCatalogueButton', {
+    tippy('.backCatalogueButton', {
                                         content: 'Retour à la liste des domaines',
                                         duration: 0,
                                         allowHTML:true,                                    
+    });
+
+    tippy('.editMailButton', {
+                                        content: 'Editer le mail',
+                                        duration: 0,
+                                        allowHTML:true,                                    
+    });
+
+     
+
+    // ---------------------------------------------------------------------- gestion des bouttons d'édition des mails (config->mail) ------------------------------------------------------------------
+
+    $("#display_edit_send_mail_resa_admin").on('click', function(){
+
+        $('#edit_send_mail_resa_admin').toggleClass('displaynone');
+        
+    });
+
+    $("#display_edit_send_mail_edit_resa_admin").on('click', function(){
+
+        $('#edit_send_mail_edit_resa_admin').toggleClass('displaynone');
+    });
+
+    $("#display_edit_send_mail_delete_resa_admin").on('click', function(){
+
+        $('#edit_send_mail_delete_resa_admin').toggleClass('displaynone');
+    });
+
+    $("#display_edit_send_mail_resa_user").on('click', function(){
+
+        $('#edit_send_mail_resa_user').toggleClass('displaynone');
+    });
+
+    $("#display_edit_send_mail_edit_resa_user").on('click', function(){
+
+        $('#edit_send_mail_edit_resa_user').toggleClass('displaynone');
+    });
+
+    $("#display_edit_send_mail_delete_resa_user").on('click', function(){
+
+        $('#edit_send_mail_delete_resa_user').toggleClass('displaynone');
+    });
+
+    $("#display_edit_send_mail_back_resa_user").on('click', function(){
+
+        $('#edit_send_mail_back_resa_user').toggleClass('displaynone');
     });
 });

@@ -32,11 +32,78 @@
                 <div class="mt-4">
                     <?= $this->Form->control('reminder_mail_text',['label'=>false]); ?>
                 </div>
-                
-                <div class="text-center">
+                <h4 class="font-weight-bold"><?= __('Envois de mails automatiques') ?></h4>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <?= $this->Form->control('send_mail_resa_admin',['label'=>'Envoyer un mail aux administrateurs à chaque nouvelle réservation d\'un utilisateur']); ?>
+                    <i id='display_edit_send_mail_resa_admin' class="fa-solid fa-pen-to-square fa-lg editMailButton mb-3"></i>
+                </div>
+                <div id='edit_send_mail_resa_admin' class='displaynone'>
+                    <?= $this->Form->control('send_mail_resa_admin_object',['label'=>'Objet du mail']); ?>
+                    <?= $this->Form->control('send_mail_resa_admin_text',['label'=>false]); ?>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <?= $this->Form->control('send_mail_edit_resa_admin',['label'=>'Envoyer un mail aux administrateurs à chaque modification de réservation']); ?>
+                    <i id='display_edit_send_mail_edit_resa_admin' class="fa-solid fa-pen-to-square fa-lg editMailButton  mb-3"></i>
+                </div>
+                <div id='edit_send_mail_edit_resa_admin' class='displaynone'>
+                    <?= $this->Form->control('send_mail_edit_resa_admin_object',['label'=>'Objet du mail']); ?>
+                    <?= $this->Form->control('send_mail_edit_resa_admin_text',['label'=>false]); ?>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <?= $this->Form->control('send_mail_delete_resa_admin',['label'=>'Envoyer un mail aux administrateurs à chaque suppression de  réservation']); ?>
+                    <i id='display_edit_send_mail_delete_resa_admin' class="fa-solid fa-pen-to-square fa-lg editMailButton  mb-3"></i>
+                </div>
+                <div id='edit_send_mail_delete_resa_admin' class='displaynone'>
+                    <?= $this->Form->control('send_mail_delete_resa_admin_object',['label'=>'Objet du mail']); ?>
+                    <?= $this->Form->control('send_mail_delete_resa_admin_text',['label'=>false]); ?>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <?= $this->Form->control('send_mail_resa_user',['label'=>'Envoyer un mail de confirmation à l\'utilisateur lors d\'une demande de réservation']); ?>
+                    <i id='display_edit_send_mail_resa_user' class="fa-solid fa-pen-to-square fa-lg editMailButton  mb-3"></i>
+                </div>
+                <div id='edit_send_mail_resa_user' class='displaynone'>
+                    <?= $this->Form->control('send_mail_resa_user_object',['label'=>'Objet du mail']); ?>
+                    <?= $this->Form->control('send_mail_resa_user_text',['label'=>false]); ?>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <?= $this->Form->control('send_mail_edit_resa_user',['label'=>'Envoyer un mail de confirmation à l\'utilisateur lors de la modification d\'une de ses réservation']); ?>
+                    <i id='display_edit_send_mail_edit_resa_user' class="fa-solid fa-pen-to-square fa-lg editMailButton  mb-3"></i>
+                </div>
+                <div id='edit_send_mail_edit_resa_user' class='displaynone'>
+                    <?= $this->Form->control('send_mail_edit_resa_user_object',['label'=>'Objet du mail']); ?>
+                    <?= $this->Form->control('send_mail_edit_resa_user_text',['label'=>false]); ?>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <?= $this->Form->control('send_mail_delete_resa_user',['label'=>'Envoyer un mail de confirmation à l\'utilisateur lors de la suppression d\'une de ses réservation']); ?>
+                    <i id='display_edit_send_mail_delete_resa_user' class="fa-solid fa-pen-to-square fa-lg editMailButton  mb-3"></i>
+                </div>
+                <div id='edit_send_mail_delete_resa_user' class='displaynone'>
+                    <?= $this->Form->control('send_mail_delete_resa_user_object',['label'=>'Objet du mail']); ?>
+                    <?= $this->Form->control('send_mail_delete_resa_user_text',['label'=>false]); ?>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <?= $this->Form->control('send_mail_back_resa_user',['label'=>'Envoyer un mail de confirmation à l\'utilisateur lorsqu\'une de ses réservation a été marquée comme retournée']); ?>
+                    <i id='display_edit_send_mail_back_resa_user' class="fa-solid fa-pen-to-square fa-lg editMailButton mb-3"></i>
+                </div>
+                <div id='edit_send_mail_back_resa_user' class='displaynone'>
+                    <?= $this->Form->control('send_mail_back_resa_user_object',['label'=>'Objet du mail']); ?>
+                    <?= $this->Form->control('send_mail_back_resa_user_text',['label'=>false]); ?>
+                </div>
+
+                <div class="text-center mt-10">
                     <?= $this->Form->button(__('Enregistrer')) ?>
                     <?= $this->Form->end() ?>
                 </div>
+
+               
+
 
             </div>
 

@@ -104,6 +104,18 @@ class ReservationsController extends AppController
 
                 $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
 
+                //--------------------------------------Envoi des mails  
+                $mailer = new ReservationMailer();
+
+                $default_configuration = Configure::read('default_configuration');
+                $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+                $configuration = $configurationTable->find()
+                        ->where(['name' => $default_configuration])->first();
+
+                if($configuration->send_mail_resa_admin)        
+                    $mailer->sendMailResaAdmin($reservation);  
+                //---------------------------------fin envoie mails
+
                 return $this->redirect(['action' => 'indexUser']);
             }
 

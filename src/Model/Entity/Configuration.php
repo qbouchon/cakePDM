@@ -15,6 +15,29 @@ use Cake\ORM\Entity;
  * @property string|null $home_picture_path
  * @property string|null $reminder_mail_text
  * @property string|null $reminder_mail_oject
+ * @property bool|null $send_mail_resa_admin
+ * @property bool|null $send_mail_edit_resa_admin
+ * @property bool|null $send_mail_delete_resa_admin
+ * @property bool|null $send_mail_resa_user
+ * @property bool|null $send_mail_edit_resa_user
+ * @property bool|null $send_mail_delete_resa_user
+ * 
+ * @property string|null $send_mail_resa_admin_object
+ * @property string|null $send_mail_resa_admin_text
+ * @property string|null $send_mail_edit_admin_object
+ * @property string|null $send_mail_edit_admin_text
+ * @property string|null $send_mail_delete_resa_admin_object
+ * @property string|null $send_mail_delete_resa_admin_text
+ * @property string|null $send_mail_resa_user_object
+ * @property string|null $send_mail_resa_user_text
+ * @property string|null $send_mail_edit_resa_user_object
+ * @property string|null $send_mail_edit_resa_user_text
+ * @property string|null $send_mail_delete_resa_user_object
+ * @property string|null $send_mail_delete_resa_user_text
+
+ * 
+
+ * 
  */
 class Configuration extends Entity
 {
@@ -33,7 +56,14 @@ class Configuration extends Entity
         'home_picture' => true,
         'home_picture_path' => true,
         'reminder_mail_text' => true,
-        'reminder_mail_object' => true
+        'reminder_mail_object' => true,
+        'send_mail_resa_admin' => true,
+        'send_mail_edit_resa_admin' => true,
+        'send_mail_delete_resa_admin' => true,
+        'send_mail_resa_user' => true,
+        'send_mail_edit_resa_user' => true,
+        'send_mail_delete_resa_user' => true,
+        'send_mail_back_resa_user' => true,
     ];
 
 
@@ -119,6 +149,18 @@ class Configuration extends Entity
             $mailObject = str_replace('$login', $reservation->user->username, $mailObject);
 
             return $mailObject;
+    }
+
+    public function formatContent($reservation, $content)
+    {
+        $formatObject = str_replace('$firstname', $reservation->user->firstname, $content);
+        $formatObject = str_replace('$lastname', $reservation->user->lastname, $formatObject);
+        $formatObject = str_replace('$resource', $reservation->resource->name, $formatObject);
+        $formatObject = str_replace('$start', $reservation->start_date->format('d-m-Y'), $formatObject);
+        $formatObject = str_replace('$end', $reservation->end_date->format('d-m-Y'), $formatObject);
+        $formatObject = str_replace('$login', $reservation->user->username, $formatObject);
+
+        return $formatObject;
     }
 
 

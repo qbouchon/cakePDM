@@ -54,7 +54,6 @@ class ConfigurationController extends AppController
            
             if(!$configuration->getErrors) 
             {
-
                 $configuration->set('home_text',$this->request->getData('home_text'));
 
                 //Gestion de la suppression de l'image
@@ -98,6 +97,35 @@ class ConfigurationController extends AppController
 
                 $configuration->set('reminder_mail_object',$this->request->getData('reminder_mail_object'));
                 $configuration->set('reminder_mail_text',$this->request->getData('reminder_mail_text'));
+
+                $configuration->set('send_mail_resa_admin',$this->request->getData('send_mail_resa_admin'));
+                $configuration->set('send_mail_resa_admin_object',$this->request->getData('send_mail_resa_admin_object'));
+                $configuration->set('send_mail_resa_admin_text',$this->request->getData('send_mail_resa_admin_text'));
+
+                $configuration->set('send_mail_edit_resa_admin',$this->request->getData('send_mail_edit_resa_admin'));
+                $configuration->set('send_mail_edit_resa_admin_object',$this->request->getData('send_mail_edit_resa_admin_object'));
+                $configuration->set('send_mail_edit_resa_admin_text',$this->request->getData('send_mail_edit_resa_admin_text'));
+
+                $configuration->set('send_mail_delete_resa_admin',$this->request->getData('send_mail_delete_resa_admin'));
+                $configuration->set('send_mail_delete_resa_admin_object',$this->request->getData('send_mail_delete_resa_admin_object'));
+                $configuration->set('send_mail_delete_resa_admin_text',$this->request->getData('send_mail_delete_resa_admin_text'));
+
+                $configuration->set('send_mail_resa_user',$this->request->getData('send_mail_resa_user'));
+                $configuration->set('send_mail_resa_user_object',$this->request->getData('send_mail_resa_user_object'));
+                $configuration->set('send_mail_resa_user_text',$this->request->getData('send_mail_resa_user_text'));
+
+                $configuration->set('send_mail_edit_resa_user',$this->request->getData('send_mail_edit_resa_user'));
+                $configuration->set('send_mail_edit_resa_user_object',$this->request->getData('send_mail_edit_resa_user_object'));
+                $configuration->set('send_mail_edit_resa_user_text',$this->request->getData('send_mail_edit_resa_user_text'));
+
+                $configuration->set('send_mail_delete_resa_user',$this->request->getData('send_mail_delete_resa_user'));
+                $configuration->set('send_mail_delete_resa_user_object',$this->request->getData('send_mail_delete_resa_user_object'));
+                $configuration->set('send_mail_delete_resa_user_text',$this->request->getData('send_mail_delete_resa_user_text'));
+
+                $configuration->set('send_mail_back_resa_user',$this->request->getData('send_mail_back_resa_user'));
+                $configuration->set('send_mail_back_resa_user_object',$this->request->getData('send_mail_back_resa_user_object'));
+                $configuration->set('send_mail_back_resa_user_text',$this->request->getData('send_mail_back_resa_user_text'));
+
 
                 if ($this->Configuration->save($configuration)) 
                 {
