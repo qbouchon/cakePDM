@@ -57,6 +57,7 @@ $(document).ready(function() {
  
         $(".isBack").removeClass("displaynone");
         $(this).addClass("displaynone");
+        //$(this).removeAttr("style");
         $('#hideBack').removeClass("displaynone");
          localStorage.setItem('displayBack','display');
 
@@ -66,6 +67,7 @@ $(document).ready(function() {
  
         $(".isBack").addClass("displaynone");
         $(this).addClass("displaynone");
+        $(this).removeAttr("style");
         $('#displayBack').removeClass("displaynone");
         localStorage.setItem('displayBack','hide');
 
