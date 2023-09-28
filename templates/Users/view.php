@@ -51,6 +51,7 @@ use Cake\I18n\FrozenDate;
                                 <div class="table-responsive ">
                                     <table class="table table-bordered table-hover table-sm table-responsive table-light">
                                         <tr>
+                                            <th><?= __('N°') ?></th>
                                             <th><?= __('Ressource') ?></th>
                                             <th><?= __('Date de début') ?></th>
                                             <th><?= __('Date de fin') ?></th>     
@@ -67,8 +68,8 @@ use Cake\I18n\FrozenDate;
                                                 else
                                                     echo '<tr class="bg-white">';
                                             ?>
-                        
-                                
+                                        
+                                            <td class="text-center"><?= $reservation->id ?></td>
                                             <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
                         
                         

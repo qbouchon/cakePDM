@@ -87,6 +87,7 @@
 
                                 <table class="table table-bordered table-hover table-sm table-responsive table-light">
                                     <tr>
+                                        <th><?= __('N°') ?></th>
                                         <th><?= __('Utilisateur') ?></th>
                                         <th><?= __('Date de début') ?></th>
                                         <th><?= __('Date de fin') ?></th>
@@ -107,7 +108,7 @@
                                                 else
                                                     echo '<tr class="bg-white">';
                                             ?>
-                                                   
+                                                    <td><?= $reservation->id ?></td>
                                                     <td><?= h($reservation->user->firstname).' '.h($reservation->user->lastname).' ('.h($reservation->user->username).')' ?></td>
                                                     <td><?= h($reservation->start_date) ?></td>
                                                     <td><?= h($reservation->end_date) ?></td>

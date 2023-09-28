@@ -75,6 +75,7 @@ use Cake\I18n\FrozenDate;
 
                         <thead>
                             <tr class="bg-white">
+                                <th scope="col" class="text-center"><?= $this->Paginator->sort('id','N°') ?></th>
                                 <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id','Ressource') ?></th>
                                 <th scope="col" class="text-center"><?= $this->Paginator->sort('user_id', 'Utilisateur') ?></th>
                                 <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date', 'Date de début') ?></th>
@@ -97,7 +98,8 @@ use Cake\I18n\FrozenDate;
                                 else
                                     echo '<tr class="bg-white">';
                             ?>     
-                                
+                                <td class="text-center"><?= h($reservation->id) ?></td>
+
                                 <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
 
                                 <td class="text-center"><?= $reservation->has('user') ? $this->Html->link($reservation->user->firstname.' '.$reservation->user->lastname.' ('.$reservation->user->username.')', ['controller' => 'Users', 'action' => 'view', $reservation->user->id]) : '' ?></td>

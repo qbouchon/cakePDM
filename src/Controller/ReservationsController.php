@@ -428,19 +428,19 @@ class ReservationsController extends AppController
                 if($endDate <= $today)
                 {
                      $color = '#CD6161';
-                     $tooltip = '<div class=""><b>Réservation non rendue</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                     $tooltip = '<div class=""><b>Réservation n°'.$reservation->id.' (non rendue)</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
                 }
                 else
                 {
                     if($startDate >= $today)
                     {
                         $color = '#3073b3';  //Changement de couleur ?                                 
-                        $tooltip = '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                        $tooltip = '<div class=""><b>Réservation n°'.$reservation->id.'</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
                     }
                     else
                     {
                         $color = '#3073b3';                                   
-                        $tooltip = '<div class=""><b>Réservation en cours</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                        $tooltip = '<div class=""><b>Réservation n°'.$reservation->id.' (en cours)</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
                     }
                         
                 }
@@ -544,19 +544,19 @@ class ReservationsController extends AppController
                 if($endDate <= $today)
                 {
                      $color = '#CD6161';
-                     $tooltip = '<div class=""><b>Réservation non rendue</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
+                     $tooltip = '<div class=""><b>Réservation n°'.$reservation->id.' (non rendue)</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b> par : <b>'.$reservation->user->username.'</b>';
                 }
                 else
                 {
                     if($startDate >= $today)
                     {
                         $color = '#3073b3';  //Changement de couleur ?                                 
-                        $tooltip = '<div class=""><b>Réservation</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b>';
+                        $tooltip = '<div class=""><b>Réservation n°'.$reservation->id.'</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b>';
                     }
                     else
                     {
                         $color = '#3073b3';                                   
-                        $tooltip = '<div class=""><b>Réservation en cours</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b>';
+                        $tooltip = '<div class=""><b>Réservation n°'.$reservation->id.' (en cours)</b></div>'.$reservation->resource->name.'<br> Du  <b>'.$formattedStartDate.'</b> au <b>'.$formattedEndDate.'</b>';
                     }
                         
                 }
