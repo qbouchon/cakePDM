@@ -30,7 +30,7 @@
                                                                   
                             <?php
                                 echo $this->Form->control('resource_id', ['options' => $resources, 'id'=>'resourceInput', 'label' => 'Ressource']);
-                                echo $this->Form->control('user_id', ['options' => $users, 'label' => 'Utilisateur']);
+                                echo $this->Form->control('user_id', ['options' => $users, 'label' => 'Utilisateur', 'disabled' => 'true']); //Borderline de pouvoir changer l'user. disabled->true pour quand même garder un affichage de l'utilisateur
                             ?>
                             
                             <div id='maxDurationInfo' class='fst-italic'></div>

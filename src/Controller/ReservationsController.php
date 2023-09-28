@@ -110,10 +110,47 @@ class ReservationsController extends AppController
                 $configuration = $configurationTable->find()
                         ->where(['name' => $default_configuration])->first();
 
-                if($configuration->send_mail_resa_admin)        
-                    $mailer->sendMailResaAdmin($reservation);
-                if($configuration->send_mail_resa_user)
-                    $mailer->sendMailResaUser($reservation);
+                if($configuration->send_mail_resa_admin){
+                    try{
+                                $mailer->sendMailResaAdmin($reservation); 
+                                $success = true;
+                        }
+                        catch(\Exception $e){
+
+                            if($this->Authentication->getIdentity()->get('admin'))
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation')); 
+                        }
+                        catch(\Error $e){ 
+
+                            if($this->Authentication->getIdentity()->get('admin'))
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation'));  
+                        }
+
+                        if($this->Authentication->getIdentity()->get('admin') && $success)
+                            $this->Flash->success(__('Un mail de confirmation a été envoyé aux admins'));   
+                }     
+
+                if($configuration->send_mail_resa_user){
+
+                    try{
+                        $mailer->sendMailResaUser($reservation); 
+                        $success = true;
+                    }
+                    catch(\Exception $e){
+
+                        if($this->Authentication->getIdentity()->get('admin'))
+                            $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur')); 
+                    }
+                    catch(\Error $e){ 
+
+                        if($this->Authentication->getIdentity()->get('admin'))
+                            $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'));  
+                    }
+
+                    if($this->Authentication->getIdentity()->get('admin') && $success)
+                        $this->Flash->success(__('Un mail de confirmation vous a été envoyé'));   
+
+                }
                 //---------------------------------fin envoie mails
 
                 return $this->redirect(['action' => 'indexUser']);
@@ -169,12 +206,48 @@ class ReservationsController extends AppController
                     $configuration = $configurationTable->find()
                             ->where(['name' => $default_configuration])->first();
 
+                    if($configuration->send_mail_resa_admin){
+                    try{
+                                $mailer->sendMailResaAdmin($reservation); 
+                                $success = true;
+                        }
+                        catch(\Exception $e){
+
+                            if($this->Authentication->getIdentity()->get('admin'))
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation')); 
+                        }
+                        catch(\Error $e){ 
+
+                            if($this->Authentication->getIdentity()->get('admin'))
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation'));  
+                        }
+
+                        if($this->Authentication->getIdentity()->get('admin') && $success)
+                            $this->Flash->success(__('Un mail de confirmation a été envoyé aux admins'));   
+                    }     
+
                     if($configuration->send_mail_resa_user)
                     {
-                        $mailer->sendMailResaUser($reservation);
-                        $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));
+                        
+                        try{
+                                $mailer->sendMailResaUser($reservation); 
+                                $success = true;
+                        }
+                        catch(\Exception $e){
+
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur')); 
+                        }
+                        catch(\Error $e){ 
+
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'));  
+                        }
+
+                        if($success)
+                            $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));            
                     }
-                //---------------------------------fin envoie mails  
+
+                    //Ajouter un mail au admins ? 
+                    //---------------------------------fin envoie mails  
 
                     return $this->redirect(['action' => 'index']);
                 }
@@ -235,12 +308,49 @@ class ReservationsController extends AppController
 
                     
                     if($configuration->send_mail_edit_resa_admin)
-                        $mailer->sendMailEditResaAdmin($reservation);        
+                    {
+                        try{
+                                $mailer->sendMailEditResaAdmin($reservation); 
+                                $success = true;
+                        }
+                        catch(\Exception $e){
+
+                            if($this->Authentication->getIdentity()->get('admin'))
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation aux admins')); 
+                        }
+                        catch(\Error $e){ 
+
+                            if($this->Authentication->getIdentity()->get('admin'))
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation aux admins'));  
+                        }
+
+                        if($this->Authentication->getIdentity()->get('admin') && $success)
+                            $this->Flash->success(__('Un mail de confirmation a été envoyé aux admins'));            
+                    }
+
                     if($configuration->send_mail_edit_resa_user)
-                        $mailer->sendMailEditResaUser($reservation);
-                        // $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));
+                    {
+
+                        try{
+                                $mailer->sendMailEditResaUser($reservation); 
+                                $success = true;
+                        }
+                        catch(\Exception $e){
+
+                            if($this->Authentication->getIdentity()->get('admin'))
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation')); 
+                        }
+                        catch(\Error $e){ 
+
+                            if($this->Authentication->getIdentity()->get('admin'))
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation'));  
+                        }
+
+                        if($this->Authentication->getIdentity()->get('admin') && $success)
+                            $this->Flash->success(__('Un mail de confirmation vous a été envoyé'));
+                    }          
                     
-                //---------------------------------fin envoie mails  
+                //---------------------------------fin envoi mails  
 
                 return $this->redirect($this->referer());
             }
@@ -256,7 +366,7 @@ class ReservationsController extends AppController
     public function editForUser($id = null)
     {
         $reservation = $this->Reservations->get($id, [
-            'contain' => [],
+            'contain' => ['Users'],
         ]);
         
          //authorization
@@ -268,8 +378,8 @@ class ReservationsController extends AppController
             $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
             $reservation->set('resource', $resource);
 
-            $user = $this->Reservations->Users->get($this->request->getData('user_id'));
-            $reservation->set('user',$user);
+            // $user = $this->Reservations->Users->get($this->request->getData('user_id'));
+            // $reservation->set('user',$user);
 
                         if ($this->Reservations->save($reservation)) {
 
@@ -282,17 +392,53 @@ class ReservationsController extends AppController
                             $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
                             $configuration = $configurationTable->find()
                                     ->where(['name' => $default_configuration])->first();
-
-                            
+                    
                            
                             if($configuration->send_mail_edit_resa_user)
                             {
-                                $mailer->sendMailEditResaUser($reservation);
-                                $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));
+
+                                $success = false;
+                                try{
+                                        $mailer->sendMailEditResaUser($reservation); 
+                                        $success = true;
+                                }
+                                catch(\Exception $e){
+
+                                        $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur')); 
+                                }
+                                catch(\Error $e){ 
+
+                                        $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'));  
+                                }
+
+                                if($success)
+                                    $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));      
+                              
+                            }
+
+                            if($configuration->send_mail_edit_resa_admin)
+                            {
+
+                                    $success = false;
+                                    try{
+                                            $mailer->sendMailEditResaAdmin($reservation); 
+                                            $success = true;
+                                    }
+                                    catch(\Exception $e){
+
+                                        $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation aux admins')); 
+                                    }
+                                    catch(\Error $e){ 
+
+                                        $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation aux admins'));  
+                                    }
+
+                                    if($success)
+                                        $this->Flash->success(__('Un mail de confirmation a été envoyé aux admins'));        
                             }
                            
                     
-                            //---------------------------------fin envoie mails
+                            //---------------------------------fin envoi mails
 
                             return $this->redirect($this->referer());
                         }
@@ -336,16 +482,50 @@ class ReservationsController extends AppController
        
             if($configuration->send_mail_delete_resa_user)
             {
-                $mailer->sendMailDeleteResaUser($reservation);  
-                if($this->Authentication->getIdentity()->get('admin'))
-                    $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));            
+                $success = false;
+                try{
+                        $mailer->sendMailDeleteResaUser($reservation); 
+                        $success = true;
+                }
+                catch(\Exception $e){
+
+                    if($this->Authentication->getIdentity()->get('admin'))
+                        $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation')); 
+                }
+                catch(\Error $e){ 
+
+                    if($this->Authentication->getIdentity()->get('admin'))
+                        $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation'));  
+                }
+
+                if($this->Authentication->getIdentity()->get('admin') && $success)
+                    $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));               
             }
+
             if($configuration->send_mail_delete_resa_admin)
             {
-                $mailer->sendMailDeleteResaAdmin($reservation);
+                
+                $success = false;
+                try{
+                        $mailer->sendMailDeleteResaAdmin($reservation);
+                        $success = true;
+                }
+                catch(\Exception $e){
+
+                    if($this->Authentication->getIdentity()->get('admin'))
+                        $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confrmation aux admins')); 
+                }
+                catch(\Error $e){ 
+
+                    if($this->Authentication->getIdentity()->get('admin'))
+                        $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confrmation aux admins'));  
+                }
+
+                if($this->Authentication->getIdentity()->get('admin') && $success)
+                    $this->Flash->success(__('Un mail de confirmation a été envoyé aux admins'));   
             }
            
-            //---------------------------------fin envoie mails
+            //---------------------------------fin envoi mails
         }
         else
             $this->Flash->error(__("Erreur lors de la suppression de la réservation."));
@@ -383,10 +563,22 @@ class ReservationsController extends AppController
        
             if($configuration->send_mail_back_resa_user)
             {
-                $mailer->sendMailBackResaUser($reservation); 
-                $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));             
+                $success = false;
+                try{
+                     $mailer->sendMailBackResaUser($reservation); 
+                     $success = true;
+                }
+                catch(\Exception $e) {
+                    $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmatio nà l\'utilisateur'));   
+                }
+                catch (\Error $e) {
+                    $this->Flash->error(__('Erreur lors de la tentative d\'envoi de mail de confirmation à l\'utilisateur'));  
+                }
+
+                if($success)
+                    $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));             
             }         
-            //---------------------------------fin envoie mails
+            //---------------------------------fin envoi mails
         }
         else 
             $this->Flash->error(__('Erreur lors de la tentative de définir la reservation comme rendue'));   
@@ -423,10 +615,22 @@ class ReservationsController extends AppController
        
             if($configuration->send_mail_back_resa_user)
             {
-                $mailer->sendMailBackResaUser($reservation);
-                $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));              
+                $success = false;
+                try{
+                     $mailer->sendMailBackResaUser($reservation); 
+                     $success = true;
+                }
+                catch(\Exception $e) {
+                    $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmatio nà l\'utilisateur'));   
+                }
+                catch (\Error $e) {
+                    $this->Flash->error(__('Erreur lors de la tentative d\'envoi de mail de confirmation à l\'utilisateur'));  
+                }
+
+                if($success)
+                    $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));             
             }         
-            //---------------------------------fin envoie mails
+            //---------------------------------fin envoi mails
         }
         else
             $this->Flash->error(__('Erreur lors de la tentative de définir la reservation comme non rendue'));
