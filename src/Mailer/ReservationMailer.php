@@ -141,6 +141,74 @@ class ReservationMailer extends Mailer
             ->send();
     }   
 
+    public function sendMailEdiResaUser($reservation)
+    {
+        $default_configuration = Configure::read('default_configuration');
+        $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+        $configuration = $configurationTable->find()
+                ->where(['name' => $default_configuration])->first();
+
+        $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_edit_resa_user_object);
+        $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_edit_resa_user_text);
+
+        $this->setTransport('mailtrap')
+            ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+            ->setTo($reservation->user->email)
+            ->setSubject($mailObject)
+            ->viewBuilder()            
+            ->setTemplate('default');
+       
+        $this->setEmailFormat('html')
+            ->setViewVars(['content' => $mailText])
+            ->send();
+    }   
+
+    public function sendMailDeleteResaUser($reservation)
+    {
+        $default_configuration = Configure::read('default_configuration');
+        $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+        $configuration = $configurationTable->find()
+                ->where(['name' => $default_configuration])->first();
+
+        $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_delete_resa_user_object);
+        $mailText =  $configuration->formatContent($reservation, $configuration->send_mail__delete_resa_user_text);
+
+        $this->setTransport('mailtrap')
+            ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+            ->setTo($reservation->user->email)
+            ->setSubject($mailObject)
+            ->viewBuilder()            
+            ->setTemplate('default');
+       
+        $this->setEmailFormat('html')
+            ->setViewVars(['content' => $mailText])
+            ->send();
+    }   
+
+
+    public function sendMailBackResaUser($reservation)
+    {
+        $default_configuration = Configure::read('default_configuration');
+        $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+        $configuration = $configurationTable->find()
+                ->where(['name' => $default_configuration])->first();
+
+        $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_back_resa_user_object);
+        $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_back_resa_user_text);
+
+        $this->setTransport('mailtrap')
+            ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+            ->setTo($reservation->user->email)
+            ->setSubject($mailObject)
+            ->viewBuilder()            
+            ->setTemplate('default');
+       
+        $this->setEmailFormat('html')
+            ->setViewVars(['content' => $mailText])
+            ->send();
+    }   
+
+
 }
 
 ?>

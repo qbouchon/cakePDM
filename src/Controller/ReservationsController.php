@@ -156,9 +156,27 @@ class ReservationsController extends AppController
                 $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
                 $reservation->set('resource', $resource);
 
+                $user = $this->Reservations->Users->get($this->request->getData('user_id'));
+                $reservation->set('user',$user);
+
                 if ($this->Reservations->save($reservation)) {
 
-                    $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));  
+                    $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
+
+                    //--------------------------------------Envoi des mails  
+                    $mailer = new ReservationMailer();
+
+                    $default_configuration = Configure::read('default_configuration');
+                    $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+                    $configuration = $configurationTable->find()
+                            ->where(['name' => $default_configuration])->first();
+
+                    if($configuration->send_mail_resa_user)
+                    {
+                        $mailer->sendMailResaUser($reservation);
+                        $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));
+                    }
+                //---------------------------------fin envoie mails  
 
                     return $this->redirect(['action' => 'index']);
                 }

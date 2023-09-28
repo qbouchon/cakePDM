@@ -264,6 +264,8 @@ $( document ).ready(function() {
                     + '<br/>'
                     + '<b>$resource :</b> nom de la ressource'
                     + '<br/>'
+                    + '<b>$id :</b> N° de réservation'
+                    + '<br/>'
                     + '<b>$start :</b> Date de début de réservation'
                     + '<br/>'
                     + '<b>$end :</b> Date de fin de réservation'
