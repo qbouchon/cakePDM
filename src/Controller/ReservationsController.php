@@ -113,7 +113,9 @@ class ReservationsController extends AppController
                         ->where(['name' => $default_configuration])->first();
 
                 if($configuration->send_mail_resa_admin)        
-                    $mailer->sendMailResaAdmin($reservation);  
+                    $mailer->sendMailResaAdmin($reservation);
+                if($configuration->send_mail_resa_user)
+                    $mailer->sendMailResaUser($reservation);
                 //---------------------------------fin envoie mails
 
                 return $this->redirect(['action' => 'indexUser']);
