@@ -317,13 +317,34 @@ class ReservationsController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $reservation = $this->Reservations->get($id);
+        $reservation = $this->Reservations->get($id, ['contain' => ['Resources','Users']]);
 
          //authorization
         $this->Authorization->authorize($reservation);
 
         if ($this->Reservations->delete($reservation))
+        {
             $this->Flash->success(__('La réservation a été supprimée'));
+
+            //--------------------------------------Envoi des mails  
+            $mailer = new ReservationMailer();
+
+            $default_configuration = Configure::read('default_configuration');
+            $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+            $configuration = $configurationTable->find()
+                    ->where(['name' => $default_configuration])->first();
+       
+            if($configuration->send_mail_delete_resa_user)
+            {
+                $mailer->sendMailDeleteResaUser($reservation);              
+            }
+            if($configuration->send_mail_delete_resa_admin)
+            {
+                $mailer->sendMailDeleteResaAdmin($reservation);
+            }
+           
+            //---------------------------------fin envoie mails
+        }
         else
             $this->Flash->error(__("Erreur lors de la suppression de la réservation."));
     

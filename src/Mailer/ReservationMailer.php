@@ -171,7 +171,7 @@ class ReservationMailer extends Mailer
                 ->where(['name' => $default_configuration])->first();
 
         $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_delete_resa_user_object);
-        $mailText =  $configuration->formatContent($reservation, $configuration->send_mail__delete_resa_user_text);
+        $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_delete_resa_user_text);
 
         $this->setTransport('mailtrap')
             ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
