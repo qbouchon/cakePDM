@@ -134,6 +134,11 @@ class Configuration extends Entity
             $mailText = str_replace('$login', $reservation->user->username, $mailText);
             $mailText = str_replace('$id', strval($reservation->id), $mailText);
 
+            if($reservation->is_back)
+                $mailText = str_replace('$back', 'rendue', $mailText);
+            else
+                $mailText = str_replace('$back', 'non rendue', $mailText);
+
             return $mailText;
     }
 
@@ -150,6 +155,11 @@ class Configuration extends Entity
             $mailObject = str_replace('$login', $reservation->user->username, $mailObject);
             $mailObject = str_replace('$id', strval($reservation->id), $mailObject);
 
+            if($reservation->is_back)
+                $mailObject = str_replace('$back', 'rendue', $mailObject);
+            else
+                $mailObject = str_replace('$back', 'non rendue', $mailObject);
+
 
             return $mailObject;
     }
@@ -163,6 +173,11 @@ class Configuration extends Entity
         $formatObject = str_replace('$end', $reservation->end_date->format('d-m-Y'), $formatObject);
         $formatObject = str_replace('$login', $reservation->user->username, $formatObject);
         $formatObject = str_replace('$id', strval($reservation->id), $formatObject);
+
+        if($reservation->is_back)
+            $formatObject = str_replace('$back', 'rendue', $formatObject);
+        else
+            $formatObject = str_replace('$back', 'non rendue', $formatObject);
 
         return $formatObject;
     }

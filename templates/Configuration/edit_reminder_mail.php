@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between align-items-center">
-                    <?= $this->Form->control('send_mail_back_resa_user',['label'=>'Envoyer un mail de confirmation à l\'utilisateur lorsqu\'une de ses réservation a été marquée comme retournée']); ?>
+                    <?= $this->Form->control('send_mail_back_resa_user',['label'=>'Envoyer un mail de confirmation à l\'utilisateur lorsqu\'une de ses réservation a été marquée comme rendue (ou non rendue)']); ?>
                     <i id='display_edit_send_mail_back_resa_user' class="fa-solid fa-pen-to-square fa-lg editMailButton mb-3"></i>
                 </div>
                 <div id='edit_send_mail_back_resa_user' class='displaynone'>

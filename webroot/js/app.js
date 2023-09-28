@@ -270,6 +270,8 @@ $( document ).ready(function() {
                     + '<br/>'
                     + '<b>$end :</b> Date de fin de réservation'
                     + '<br/>'
+                    + '<b>$back :</b> rendue/non rendue'
+                    + '<br/>'
                     + '<i>'
     tippy('.helpMailButton', {
                                         content: helpMailButtonContent,

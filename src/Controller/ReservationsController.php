@@ -336,7 +336,9 @@ class ReservationsController extends AppController
        
             if($configuration->send_mail_delete_resa_user)
             {
-                $mailer->sendMailDeleteResaUser($reservation);              
+                $mailer->sendMailDeleteResaUser($reservation);  
+                if($this->Authentication->getIdentity()->get('admin'))
+                    $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));            
             }
             if($configuration->send_mail_delete_resa_admin)
             {
@@ -367,8 +369,25 @@ class ReservationsController extends AppController
 
         $reservation->set('back_date', $today->i18nFormat('yyyy-MM-dd'));
 
-        if ($this->Reservations->save($reservation)) 
+        if ($this->Reservations->save($reservation)){
+
             $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme rendue le ' . $today ));
+
+            //--------------------------------------Envoi des mails  
+            $mailer = new ReservationMailer();
+
+            $default_configuration = Configure::read('default_configuration');
+            $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+            $configuration = $configurationTable->find()
+                    ->where(['name' => $default_configuration])->first();
+       
+            if($configuration->send_mail_back_resa_user)
+            {
+                $mailer->sendMailBackResaUser($reservation); 
+                $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));             
+            }         
+            //---------------------------------fin envoie mails
+        }
         else 
             $this->Flash->error(__('Erreur lors de la tentative de définir la reservation comme rendue'));   
 
@@ -391,7 +410,24 @@ class ReservationsController extends AppController
         $reservation->set('back_date', null);
 
         if ($this->Reservations->save($reservation))
+        {
             $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme non rendue' ));
+
+            //--------------------------------------Envoi des mails  
+            $mailer = new ReservationMailer();
+
+            $default_configuration = Configure::read('default_configuration');
+            $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+            $configuration = $configurationTable->find()
+                    ->where(['name' => $default_configuration])->first();
+       
+            if($configuration->send_mail_back_resa_user)
+            {
+                $mailer->sendMailBackResaUser($reservation);
+                $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));              
+            }         
+            //---------------------------------fin envoie mails
+        }
         else
             $this->Flash->error(__('Erreur lors de la tentative de définir la reservation comme non rendue'));
 
