@@ -13,7 +13,7 @@ class ReservationMailer extends Mailer
 
         
         $this->setTransport('mailtrap')
-            ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+            ->setSender('no-reply@crest.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
             ->viewBuilder()            
@@ -43,7 +43,7 @@ class ReservationMailer extends Mailer
         foreach($admins as $admin)
         {
             $this->setTransport('mailtrap')
-                ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+                ->setSender('no-reply@crest.fr','CREST - CakePDM') //Remplacer Mail
                 ->setTo($admin->email)
                 ->setSubject($mailObject)
                 ->viewBuilder()            
@@ -74,7 +74,7 @@ class ReservationMailer extends Mailer
         foreach($admins as $admin)
         {
             $this->setTransport('mailtrap')
-                ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+                ->setSender('no-reply@crest.fr','CREST - CakePDM') //Remplacer Mail
                 ->setTo($admin->email)
                 ->setSubject($mailObject)
                 ->viewBuilder()            
@@ -105,7 +105,7 @@ class ReservationMailer extends Mailer
         foreach($admins as $admin)
         {
             $this->setTransport('mailtrap')
-                ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+                ->setSender('no-reply@crest.fr','CREST - CakePDM') //Remplacer Mail
                 ->setTo($admin->email)
                 ->setSubject($mailObject)
                 ->viewBuilder()            
@@ -130,7 +130,7 @@ class ReservationMailer extends Mailer
         $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_resa_user_text);
 
         $this->setTransport('mailtrap')
-            ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+            ->setSender('no-reply@crest.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
             ->viewBuilder()            
@@ -152,7 +152,7 @@ class ReservationMailer extends Mailer
         $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_edit_resa_user_text);
 
         $this->setTransport('mailtrap')
-            ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+            ->setSender('no-reply@crest.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
             ->viewBuilder()            
@@ -174,7 +174,7 @@ class ReservationMailer extends Mailer
         $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_delete_resa_user_text);
 
         $this->setTransport('mailtrap')
-            ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+            ->setSender('no-reply@crest.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
             ->viewBuilder()            
@@ -197,7 +197,7 @@ class ReservationMailer extends Mailer
         $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_back_resa_user_text);
 
         $this->setTransport('mailtrap')
-            ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
+            ->setSender('no-reply@crest.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
             ->viewBuilder()            
@@ -205,7 +205,7 @@ class ReservationMailer extends Mailer
        
         $this->setEmailFormat('html')
             ->setViewVars(['content' => $mailText])
-            ->send();
+            ->deliver();
     }   
 
 
