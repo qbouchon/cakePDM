@@ -96,8 +96,6 @@ class ReservationsController extends AppController
             $reservation->set('user_id',$user->id);
 
             $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
-
-
             $reservation->set('resource', $resource);
             
             if ($this->Reservations->save($reservation)) {
@@ -216,9 +214,33 @@ class ReservationsController extends AppController
            
             $reservation = $this->Reservations->patchEntity($reservation, $this->request->getData());
 
+            $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
+            $reservation->set('resource', $resource);
+
+            $user = $this->Reservations->Users->get($this->Authentication->getIdentity()->get('id'));
+            $reservation->set('user',$user);
+            $reservation->set('user_id',$user->id);
+
             if ($this->Reservations->save($reservation)) {
 
                 $this->Flash->success(__('La réservation a été modifiée'));
+
+                 //--------------------------------------Envoi des mails  
+                    $mailer = new ReservationMailer();
+
+                    $default_configuration = Configure::read('default_configuration');
+                    $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+                    $configuration = $configurationTable->find()
+                            ->where(['name' => $default_configuration])->first();
+
+                    
+                    if($configuration->send_mail_edit_resa_admin)
+                        $mailer->sendMailEditResaAdmin($reservation);        
+                    if($configuration->send_mail_edit_resa_user)
+                        $mailer->sendMailEditResaUser($reservation);
+                        // $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));
+                    
+                //---------------------------------fin envoie mails  
 
                 return $this->redirect($this->referer());
             }
@@ -246,9 +268,31 @@ class ReservationsController extends AppController
             $resource = $this->Reservations->Resources->get($this->request->getData('resource_id'),['contain' => 'Reservations']);
             $reservation->set('resource', $resource);
 
+            $user = $this->Reservations->Users->get($this->request->getData('user_id'));
+            $reservation->set('user',$user);
+
                         if ($this->Reservations->save($reservation)) {
 
                             $this->Flash->success(__('La réservation a été modifiée'));
+
+                            //--------------------------------------Envoi des mails  
+                            $mailer = new ReservationMailer();
+
+                            $default_configuration = Configure::read('default_configuration');
+                            $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+                            $configuration = $configurationTable->find()
+                                    ->where(['name' => $default_configuration])->first();
+
+                            
+                           
+                            if($configuration->send_mail_edit_resa_user)
+                            {
+                                $mailer->sendMailEditResaUser($reservation);
+                                $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));
+                            }
+                           
+                    
+                            //---------------------------------fin envoie mails
 
                             return $this->redirect($this->referer());
                         }

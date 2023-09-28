@@ -65,7 +65,7 @@ class ReservationMailer extends Mailer
         $configuration = $configurationTable->find()
                 ->where(['name' => $default_configuration])->first();
 
-        $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_adit_resa_admin_object);
+        $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_edit_resa_admin_object);
         $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_edit_resa_admin_text);
 
         $userTable =  TableRegistry::getTableLocator()->get('Users');
@@ -141,7 +141,7 @@ class ReservationMailer extends Mailer
             ->send();
     }   
 
-    public function sendMailEdiResaUser($reservation)
+    public function sendMailEditResaUser($reservation)
     {
         $default_configuration = Configure::read('default_configuration');
         $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
