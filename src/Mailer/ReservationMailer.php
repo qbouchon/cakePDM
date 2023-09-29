@@ -11,18 +11,38 @@ class ReservationMailer extends Mailer
     public function sendReminderMail($reservation,$mailText,$mailObject)
     {
 
-        
-        $this->setTransport('mailtrap')
+        $this->setTransport('queue')
             ->setSender('no-reply@crest.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
             ->viewBuilder()            
             ->setTemplate('default');
+
            
         $this->setEmailFormat('html')
-            ->setViewVars(['content' => $mailText])
-            ->send();
+            ->setViewVars(['content' => $mailText]);
+            // ->deliver();
 
+        $queuedJobsTable = TableRegistry::getTableLocator()->get('Queue.QueuedJobs');
+        $queuedJobsTable->createJob(
+                                    'Queue.Email',
+                                    ['settings' => $this]
+        );
+
+        // $data = [
+        //     'settings' => [
+        //             'to' => 'test@gmail.com', //$reservation->user->email,
+        //             'from' =>'no-reply@crest.fr', //Configure::read('Config.adminEmail'),
+        //             'subject' => $mailObject,
+        //             'template' => 'default',
+        // ],  
+        //     'vars' => [
+        //             'content' => $mailText,       
+        //     ],
+        //     'transport' => 'queue', // Specify the desired transport here
+        // ];
+        // $queuedJobsTable = TableRegistry::getTableLocator()->get('Queue.QueuedJobs');
+        // $queuedJobsTable->createJob('Queue.Email', $this);
            
     }
 
@@ -51,7 +71,7 @@ class ReservationMailer extends Mailer
            
             $this->setEmailFormat('html')
                 ->setViewVars(['content' => $mailText])
-                ->send();
+                ->deliver();
 
         }  
 
@@ -82,7 +102,7 @@ class ReservationMailer extends Mailer
            
             $this->setEmailFormat('html')
                 ->setViewVars(['content' => $mailText])
-                ->send();
+                ->deliver();
 
         }  
 
@@ -113,7 +133,7 @@ class ReservationMailer extends Mailer
            
             $this->setEmailFormat('html')
                 ->setViewVars(['content' => $mailText])
-                ->send();
+                ->deliver();
 
         }  
 
@@ -138,7 +158,7 @@ class ReservationMailer extends Mailer
        
         $this->setEmailFormat('html')
             ->setViewVars(['content' => $mailText])
-            ->send();
+            ->deliver();
     }   
 
     public function sendMailEditResaUser($reservation)
@@ -160,7 +180,7 @@ class ReservationMailer extends Mailer
        
         $this->setEmailFormat('html')
             ->setViewVars(['content' => $mailText])
-            ->send();
+            ->deliver();
     }   
 
     public function sendMailDeleteResaUser($reservation)
@@ -182,7 +202,7 @@ class ReservationMailer extends Mailer
        
         $this->setEmailFormat('html')
             ->setViewVars(['content' => $mailText])
-            ->send();
+            ->deliver();
     }   
 
 

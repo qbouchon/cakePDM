@@ -231,22 +231,20 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => MailTransport::class,
-            /*
-             * The keys host, port, timeout, username, password, client and tls
-             * are used in SMTP transports
-             */
-            'host' => 'localhost',
-            'port' => 25,
-            'timeout' => 30,
-            /*
-             * It is recommended to set these options through your environment or app_local.php
-             */
-            //'username' => null,
-            //'password' => null,
-            'client' => null,
-            'tls' => false,
-            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            // 'className' => MailTransport::class,
+
+            // 'host' => 'localhost',
+            // 'port' => 25,
+            // 'timeout' => 30,
+
+            // 'client' => null,
+            // 'tls' => false,
+            // 'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'host' => 'sandbox.smtp.mailtrap.io',
+            'port' => 2525,
+            'username' => 'eeaeaaa9fe2251',
+            'password' => 'aad7fdd1ff2feb',
+            'className' => 'Smtp'
         ],
         'uga' => [
                'host' => 'smtps.univ-grenoble-alpes.fr',
@@ -258,10 +256,14 @@ return [
         'mailtrap' => [
                'host' => 'sandbox.smtp.mailtrap.io',
                'port' => 2525,
-               'username' => '01d8cd478051cd',
-               'password' => '3330f57a291922',
+               'username' => 'eeaeaaa9fe2251',
+               'password' => 'aad7fdd1ff2feb',
                'className' => 'Smtp'
         ],
+        'queue' => [
+        'className' => 'Queue.Queue',
+        'transport' => 'mailtrap',
+    ],
 
     ],
       
@@ -277,7 +279,7 @@ return [
      */
     'Email' => [
         'default' => [
-            'transport' => 'default',
+            'transport' => 'queue',
             'from' => 'you@localhost',
             /*
              * Will by default be set to config value of App.encoding, if that exists otherwise to UTF-8.
@@ -395,6 +397,12 @@ return [
             'file' => 'queries',
             'url' => env('LOG_QUERIES_URL', null),
             'scopes' => ['queriesLog'],
+        ],
+        'queue' => [
+        'className' => FileLog::class,
+        'type' => 'queue',
+        'levels' => ['info'],
+        'scopes' => ['queue'],
         ],
     ],
 

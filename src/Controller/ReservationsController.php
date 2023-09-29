@@ -563,21 +563,21 @@ class ReservationsController extends AppController
        
             if($configuration->send_mail_back_resa_user)
             {   
-                $mailer->sendMailBackResaUser($reservation);
-                // $success = false;
-                // try{
-                //      $mailer->sendMailBackResaUser($reservation); 
-                //      $success = true;
-                // }
-                // catch(\Exception $e) {
-                //     $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'.$e));   
-                // }
-                // catch (\Error $e) {
-                //     $this->Flash->error(__('Erreur lors de la tentative d\'envoi de mail de confirmation à l\'utilisateur'));  
-                // }
+              
+                $success = false;
+                try{
+                     $mailer->sendMailBackResaUser($reservation); 
+                     $success = true;
+                }
+                catch(\Exception $e) {
+                    $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'.$e));   
+                }
+                catch (\Error $e) {
+                    $this->Flash->error(__('Erreur lors de la tentative d\'envoi de mail de confirmation à l\'utilisateur'));  
+                }
 
-                // if($success)
-                //     $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));             
+                if($success)
+                    $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));             
             }         
             //---------------------------------fin envoi mails
         }
@@ -616,21 +616,21 @@ class ReservationsController extends AppController
        
             if($configuration->send_mail_back_resa_user)
             {
-                $mailer->sendMailBackResaUser($reservation); 
-                // $success = false;
-                // try{
-                //      $mailer->sendMailBackResaUser($reservation); 
-                //      $success = true;
-                // }
-                // catch(\Exception $e) {
-                //     $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'.$e));   
-                // }
-                // catch (\Error $e) {
-                //     $this->Flash->error(__('Erreur lors de la tentative d\'envoi de mail de confirmation à l\'utilisateur'));  
-                // }
+                
+                $success = false;
+                try{
+                     $mailer->sendMailBackResaUser($reservation); 
+                     $success = true;
+                }
+                catch(\Exception $e) {
+                    $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'.$e));   
+                }
+                catch (\Error $e) {
+                    $this->Flash->error(__('Erreur lors de la tentative d\'envoi de mail de confirmation à l\'utilisateur'));  
+                }
 
-                // if($success)
-                //     $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));             
+                if($success)
+                    $this->Flash->success(__('Un mail de confirmation a été envoyé à ' . $reservation->user->firstname . ' ' . $reservation->user->lastname));             
             }         
             //---------------------------------fin envoi mails
         }
