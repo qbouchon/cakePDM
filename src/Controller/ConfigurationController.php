@@ -78,7 +78,7 @@ class ConfigurationController extends AppController
         $this->set(compact('configuration'));
     }
 
-    public function editReminderMail()
+    public function editMails()
     {
         //Authorisation. Trouver une meilleure pratique
         if($this->Authentication->getIdentity()->get('admin'))
@@ -126,15 +126,38 @@ class ConfigurationController extends AppController
                 $configuration->set('send_mail_back_resa_user_object',$this->request->getData('send_mail_back_resa_user_object'));
                 $configuration->set('send_mail_back_resa_user_text',$this->request->getData('send_mail_back_resa_user_text'));
 
+                $configuration->set('mail_protocol',$this->request->getData('mail_protocol'));
+                $configuration->set('mail_host',$this->request->getData('mail_host'));
+                $configuration->set('mail_port',$this->request->getData('mail_port'));
+                $configuration->set('mail_username',$this->request->getData('mail_username'));
+                $configuration->set('mail_password',$this->request->getData('mail_password'));
+
+                // Application de la configuration de mail
+                if($configuration->mail_protocol && $configuration->mail_host && $configuration->mail_port && $configuration->mail_username && $configuration->mail_password)
+                {
+                    $emailConfig = [
+                                        'default' => [
+                                        'host' => $configuration->mail_host,
+                                        'port' =>  $configuration->mail_port,
+                                        'username' => $configuration->mail_username,
+                                        'password' => $configuration->mail_password,
+                                        'transport' => $configuration->mail_protocol,
+                                        ],
+                                    ];
+
+                    Configure::write('Email', $emailConfig);
+
+                }
+
 
                 if ($this->Configuration->save($configuration)) 
                 {
-                    $this->Flash->success(__('The configuration has been saved.'));
+                    $this->Flash->success(__('la configuration a été sauvegardée'));
 
                     return $this->redirect($this->referer());
                 }
 
-                $this->Flash->error(__('The configuration could not be saved. Please, try again.'));
+                $this->Flash->error(__('Problème lors de la sauvegarde de la configuration'));
             }
         }
 

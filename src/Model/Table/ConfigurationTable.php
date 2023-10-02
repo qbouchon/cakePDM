@@ -98,6 +98,30 @@ class ConfigurationTable extends Table
         $validator
             ->boolean('send_mail_back_resa_user')
             ->allowEmptyString('send_mail_back_resa_user');
+        $validator
+            ->scalar('home_picture')
+            ->maxLength('home_picture', 255)
+            ->allowEmptyString('home_picture');
+        $validator
+            ->scalar('mail_protocol')
+            ->maxLength('mail_protocol', 255)
+            ->allowEmptyString('mail_protocol');
+        $validator
+            ->scalar('mail_host')
+            ->maxLength('mail_host', 255)
+            ->allowEmptyString('mail_host');
+        $validator
+            ->scalar('mail_port')
+            ->maxLength('mail_port', 255)
+            ->allowEmptyString('mail_port');
+        $validator
+            ->scalar('mail_username')
+            ->maxLength('mail_username', 255)
+            ->allowEmptyString('mail_username');
+        $validator
+            ->scalar('mail_password')
+            ->maxLength('mail_password', 255)
+            ->allowEmptyString('mail_password');
 
         return $validator;
     }

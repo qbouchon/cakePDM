@@ -97,6 +97,60 @@
                     <?= $this->Form->control('send_mail_back_resa_user_text',['label'=>false]); ?>
                 </div>
 
+                <h4 class="font-weight-bold mb-2"><?= __('Paramètres du serveur') ?></h4>
+                    <div class='row mt-3'>
+                        <div class="col">
+                                <div class="row">
+                                    <div class="col-4 text-end">
+                                        <label>Protocole</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <?= $this->Form->control('mail_protocol',['label'=>false]); ?>
+                                    </div>
+                                </div>
+                                <div class="row  text-end">
+                                    <div class="col-4">
+                                        <label>Host</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <?= $this->Form->control('mail_host',['label'=>false]); ?>
+                                    </div>
+                                </div>
+                                  <div class="row  text-end">
+                                    <div class="col-4">
+                                        <label>Port</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <?= $this->Form->control('mail_port',['label'=>false]); ?>
+                                    </div>
+                                </div>   
+                              
+                                <div class="row  text-end">
+                                    <div class="col-4">
+                                        <label>Utilisateur</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <?= $this->Form->control('mail_username',['label'=>false]); ?>
+                                    </div>
+                                </div>
+                                   <div class="row  text-end">
+                                    <div class="col-4">
+                                        <label>Mot de passe</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <?= $this->Form->control('mail_password',['label'=>false]); ?> 
+                                    </div>             
+                                </div>
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+     
+
+
+
+
+
                 <div class="text-center mt-10">
                     <?= $this->Form->button(__('Enregistrer')) ?>
                     <?= $this->Form->end() ?>

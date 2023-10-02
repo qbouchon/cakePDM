@@ -11,8 +11,12 @@ class ReservationMailer extends Mailer
     public function sendReminderMail($reservation,$mailText,$mailObject)
     {
 
-        
-        $this->setTransport('mailtrap')
+        $default_configuration = Configure::read('default_configuration');
+        $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+        $configuration = $configurationTable->find()
+                ->where(['name' => $default_configuration])->first();
+
+        $this->setTransport($configuration->createTransport())
             ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
@@ -42,7 +46,7 @@ class ReservationMailer extends Mailer
 
         foreach($admins as $admin)
         {
-            $this->setTransport('mailtrap')
+            $this->setTransport($configuration->createTransport())
                 ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
                 ->setTo($admin->email)
                 ->setSubject($mailObject)
@@ -73,7 +77,7 @@ class ReservationMailer extends Mailer
 
         foreach($admins as $admin)
         {
-            $this->setTransport('mailtrap')
+            $this->setTransport($configuration->createTransport())
                 ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
                 ->setTo($admin->email)
                 ->setSubject($mailObject)
@@ -104,7 +108,7 @@ class ReservationMailer extends Mailer
 
         foreach($admins as $admin)
         {
-            $this->setTransport('mailtrap')
+            $this->setTransport($configuration->createTransport())
                 ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
                 ->setTo($admin->email)
                 ->setSubject($mailObject)
@@ -129,7 +133,7 @@ class ReservationMailer extends Mailer
         $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_resa_user_object);
         $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_resa_user_text);
 
-        $this->setTransport('mailtrap')
+        $this->setTransport($configuration->createTransport())
             ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
@@ -151,7 +155,7 @@ class ReservationMailer extends Mailer
         $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_edit_resa_user_object);
         $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_edit_resa_user_text);
 
-        $this->setTransport('mailtrap')
+        $this->setTransport($configuration->createTransport())
             ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
@@ -173,7 +177,7 @@ class ReservationMailer extends Mailer
         $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_delete_resa_user_object);
         $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_delete_resa_user_text);
 
-        $this->setTransport('mailtrap')
+        $this->setTransport($configuration->createTransport())
             ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)
@@ -196,7 +200,7 @@ class ReservationMailer extends Mailer
         $mailObject = $configuration->formatContent($reservation, $configuration->send_mail_back_resa_user_object);
         $mailText =  $configuration->formatContent($reservation, $configuration->send_mail_back_resa_user_text);
 
-        $this->setTransport('mailtrap')
+        $this->setTransport($configuration->createTransport())
             ->setSender('quentin.bouchon@univ-grenoble-alpes.fr','CREST - CakePDM') //Remplacer Mail
             ->setTo($reservation->user->email)
             ->setSubject($mailObject)

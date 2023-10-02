@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Mailer\TransportFactory;
 
 /**
  * Configuration Entity
@@ -21,7 +22,6 @@ use Cake\ORM\Entity;
  * @property bool|null $send_mail_resa_user
  * @property bool|null $send_mail_edit_resa_user
  * @property bool|null $send_mail_delete_resa_user
- * 
  * @property string|null $send_mail_resa_admin_object
  * @property string|null $send_mail_resa_admin_text
  * @property string|null $send_mail_edit_admin_object
@@ -34,6 +34,13 @@ use Cake\ORM\Entity;
  * @property string|null $send_mail_edit_resa_user_text
  * @property string|null $send_mail_delete_resa_user_object
  * @property string|null $send_mail_delete_resa_user_text
+ * @property string|null $mail_protocol
+ * @property string|null $mail_host
+ * @property string|null $mail_port
+ * @property string|null $mail_username
+ * @property string|null $mail_password
+ * 
+ * 
 
  * 
 
@@ -64,6 +71,12 @@ class Configuration extends Entity
         'send_mail_edit_resa_user' => true,
         'send_mail_delete_resa_user' => true,
         'send_mail_back_resa_user' => true,
+        'mail_protocol' => true,
+        'mail_host' => true,
+        'mail_port' => true,
+        'mail_username' => true,
+        'mail_password' => true,
+        
     ];
 
 
@@ -180,6 +193,20 @@ class Configuration extends Entity
             $formatObject = str_replace('$back', 'non rendue', $formatObject);
 
         return $formatObject;
+    }
+
+    // à refactorer (voir reservationMailer)
+    public function createTransport()
+    {
+        TransportFactory::setConfig('crestTransport', [
+               'host' => $this->mail_host,
+               'port' => $this->mail_port,
+               'username' => $this->mail_username,
+               'password' => $this->mail_password,
+               'className' => $this->mail_protocol
+        ]);
+
+        return 'crestTransport';
     }
 
 

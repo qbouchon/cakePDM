@@ -54,6 +54,6 @@
         <?= $this->Html->link(__('Dates de fermeture'), ['controller'=>'ClosingDates','action' => 'index'], ['class' => 'nav-link']) ?>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
-         <?= $this->Html->link(__('Mails'), ['controller'=>'configuration','action' => 'editReminderMail'], ['class' => 'nav-link']) ?>
+         <?= $this->Html->link(__('Mails'), ['controller'=>'configuration','action' => 'editMails'], ['class' => 'nav-link']) ?>
     </nav>                                              
 </div>

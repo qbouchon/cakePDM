@@ -88,6 +88,12 @@ CREATE TABLE configuration
 	send_mail_back_resa_user BOOLEAN DEFAULT 0,
 	send_mail_back_resa_user_object VARCHAR(255),
 	send_mail_back_resa_user_text LONGTEXT DEFAULT 0,
+	mail_protocol VARCHAR(255),
+	mail_host VARCHAR(255),
+	mail_port VARCHAR(255),
+	mail_username VARCHAR(255),
+	mail_password VARCHAR(255),
+
 );
 
 CREATE TABLE closing_dates 
