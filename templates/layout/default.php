@@ -93,10 +93,10 @@
         
         <nav class="sb-topnav navbar navbar-expand navbar-dark navbar-uga bg-uga">
             <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 ms-2 me-4 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="flex icon fas fa-bars fa-2x "></i></button>
+            <button class="btn btn-link btn-sm order-1 order-lg-0 ms-2 me-4 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="flex icon fas fa-bars fa-2xl "></i></button>
             <!-- Navbar Brand-->
             <!-- <a class="ps-2 h3 text-white text-decoration-none " href="/">CREST</a> -->
-            <?= $this->Html->Link('CREST', ['controller'=>'pages','action'=>'display'],['class'=>'ps-2 h3 text-white text-decoration-none font-weight-bold']); ?>
+            <?= $this->Html->Link('CREST', ['controller'=>'pages','action'=>'display'],['class'=>'h3 text-white text-decoration-none font-weight-bold']); ?>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 invisible">
                 <div class="input-group">
@@ -112,8 +112,8 @@
         
 
         <!-- side menu -->
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
+        <div id="layoutSidenav" >
+            <div id="layoutSidenav_nav" class="crest-nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
@@ -136,7 +136,7 @@
                     </div>
                                 
                     <div class="sb-sidenav-footer">
-                         <?= $this->Html->image("logo_UI_blanc3.png", ['class' => 'img-fluid']); ?>
+                         <?= $this->Html->image("logo_UI_blanc3.png", ['class' => 'img-fluid sidenav-logo']); ?>
                          <!-- <div id="signature" class="small text-center">cakePDM@ptitbouchon 2023</div> -->
                     </div>
 

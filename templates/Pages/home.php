@@ -20,7 +20,7 @@
                        
                         <!-- Affichage des tuiles des domaines.-->      
                         
-                        <div class="col-lg-3 col-md-6 col-sm-12">  
+                        <div class="col-xxl-3 col-lg-3 col-md-6 col-sm-12"> 
                             <div class='card domain-card'>
                                 <div class='tile-content domain-tile-content'>
                                     <span class='title-wrapper domain-title-wrapper'>

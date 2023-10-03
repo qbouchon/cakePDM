@@ -138,7 +138,7 @@
                                         <label>Mot de passe</label>
                                     </div>
                                     <div class="col-8">
-                                        <?= $this->Form->control('mail_password',['label'=>false]); ?> 
+                                        <?= $this->Form->control('mail_password',['label'=>false, 'type' => 'password']); ?> 
                                     </div>             
                                 </div>
                         </div>
@@ -146,9 +146,6 @@
                         </div>
                     </div>
      
-
-
-
 
 
                 <div class="text-center mt-10">

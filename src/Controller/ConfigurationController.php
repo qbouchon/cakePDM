@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 use Cake\Core\Configure;
+use Cake\Utility\Security;
 
 /**
  * Configuration Controller
@@ -132,23 +133,7 @@ class ConfigurationController extends AppController
                 $configuration->set('mail_username',$this->request->getData('mail_username'));
                 $configuration->set('mail_password',$this->request->getData('mail_password'));
 
-                // Application de la configuration de mail
-                if($configuration->mail_protocol && $configuration->mail_host && $configuration->mail_port && $configuration->mail_username && $configuration->mail_password)
-                {
-                    $emailConfig = [
-                                        'default' => [
-                                        'host' => $configuration->mail_host,
-                                        'port' =>  $configuration->mail_port,
-                                        'username' => $configuration->mail_username,
-                                        'password' => $configuration->mail_password,
-                                        'transport' => $configuration->mail_protocol,
-                                        ],
-                                    ];
-
-                    Configure::write('Email', $emailConfig);
-
-                }
-
+                
 
                 if ($this->Configuration->save($configuration)) 
                 {

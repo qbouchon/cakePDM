@@ -12,7 +12,8 @@
 
 /*-------------------------------------- global ------------------------------------*/
 body {
-    background: rgba(0, 0, 0, 0.03);    
+    background: rgba(0, 0, 0, 0.03);
+/*    font-size: 100%;    */
 }
 
 
@@ -27,6 +28,17 @@ h3 {
 
 .displaynone {
   display: none;
+}
+
+@media (max-width: 1400px) {
+
+    .btn{
+      font-size: 0.65rem;
+    }
+
+    .dropdown-item {
+      font-size: 0.65rem;
+    }
 }
 
 /*----------------------------------------Pour les cards (catalogue, ressources) -------------------------*/
@@ -52,6 +64,7 @@ h3 {
   padding-right: 6px;
   display: inline;
   white-space: nowrap;
+  font-size: 1.4rem;
 }
 
 .domain-card:hover {
@@ -123,6 +136,29 @@ background-color: #ffffff /*var(--uga-resources-card-bg-active);*/
 background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 }
 
+/*Cartes pour petit écran*/
+  @media (max-width: 1400px) {
+
+            .domain-card-img-top {
+                  object-fit: cover;
+                  height: 150px; 
+            }
+
+            .domain-tile-content {
+                    position: absolute;
+                    top: 20px;
+                    left: 0;
+                    background-color: var(--uga-card-bg-tile); 
+                    color: #fff;
+                    padding-top: 4px;
+                    padding-left: 4px;
+                    padding-right: 6px;
+                    display: inline;
+                    white-space: nowrap;
+                    font-size: 1rem;
+            }
+
+  }
 
 /*------------------------------------------Pour les bouttons ------------------------------------------*/
 
