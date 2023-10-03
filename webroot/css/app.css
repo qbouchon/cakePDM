@@ -26,6 +26,15 @@ h3 {
 
 }
 
+h4 {
+
+  color: var(--uga-blue);
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom:  2px;
+
+}
+
 
 .displaynone {
   display: none;
@@ -109,8 +118,8 @@ h3 {
 
 .resources-card-img-top {
 object-fit: cover;
-ma-height: 300px; 
-max-width: 400px;
+max-height: 200px; 
+max-width: 300px;
 }
 
  .resources-card-title {
@@ -170,6 +179,12 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
                     font-size: 1rem;
             }
 
+            .resources-card-img-top {
+              object-fit: cover;
+              ma-height: 150px; 
+              max-width: 200px;
+              }
+
   }
 
 /*------------------------------------------Pour les bouttons ------------------------------------------*/
@@ -220,7 +235,12 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 }
 
 #fullCalendar {
-  font-size: 90%;
+  font-size: 0.9rem;
+  
+}
+
+.fc-view-harness {
+  background-color: #ffffff;
 }
 
 .fc-event {  
@@ -233,11 +253,11 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 }
 
 .fc-event:hover {
-     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2 );
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2 );
 }
 
 .fc .fc-daygrid-event {
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .fc-direction-ltr .fc-daygrid-event.fc-event-start, .fc-direction-rtl .fc-daygrid-event.fc-event-end {
@@ -257,7 +277,24 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
   margin-top: 0.3em;
 }
 
+.fc-daygrid-day-number {
+    font-weight: bold;
+    font-size: 0.7rem;
 
+
+}
+
+.fc-event-title {
+
+   font-weight: bold;
+}
+
+@media (max-width: 1400px) {
+
+    #fullCalendar {
+      font-size: 0.65rem; 
+    }
+}
 /* ------------------------------------------------ datepicker -----------------------------*/
 
 

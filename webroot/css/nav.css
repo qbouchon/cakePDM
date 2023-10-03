@@ -3638,7 +3638,7 @@ textarea.form-control-lg {
 .nav-link {
   display: block;
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
-  font-size: var(--bs-nav-link-font-size);
+  font-size: 1rem;
   font-weight: var(--bs-nav-link-font-weight);
   color: var(--bs-nav-link-color);
   text-decoration: none;
@@ -10994,7 +10994,7 @@ body {
 }
 .sb-sidenav .sb-sidenav-menu .nav .sb-sidenav-menu-heading {
   padding: 1.75rem 1rem 0.75rem;
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
 }

@@ -24,7 +24,7 @@
                             <div class='card domain-card'>
                                 <div class='tile-content domain-tile-content'>
                                     <span class='title-wrapper domain-title-wrapper'>
-                                        <h4><?= $domain->name ?></h4>
+                                        <div><?= $domain->name ?></div>
                                     </span>                                         
                                 </div>
                                  <div class='card-body domain-card-body rounded-top p-1'>

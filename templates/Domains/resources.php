@@ -58,11 +58,11 @@
 
                                         <!-- Affichage des tuiles des resources.-->      
                                         
-                                        <div class="col-lg-6 col-md-6 col-sm-1">  
+                                        <div class="col-lg-4 col-md-6 col-sm-12">  
                                             <div class='card resources-card'>
 
                                                 <span class='title-wrapper'>
-                                                        <h3 class='resources-card-title text-center mt-2 mb-3 mx-2'><?= $resource->name ?></h3>
+                                                        <h4 class='resources-card-title text-center mt-2 mb-3 mx-2'><?= $resource->name ?></h4>
                                                 </span>  
 
                                                  <?= $this->Html->image('resources/'.$resource->picture_path,['class'=>'resources-card-img-top mx-auto']) ?>
