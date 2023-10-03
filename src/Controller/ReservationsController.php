@@ -30,7 +30,7 @@ class ReservationsController extends AppController
             
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
-                'maxLimit' => 10
+                'maxLimit' => 12
 
             ];
         }
@@ -39,7 +39,7 @@ class ReservationsController extends AppController
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
                 'conditions' => ['Reservations.is_back' => false],
-                'maxLimit' => 10
+                'maxLimit' => 12
             
             ];
         }

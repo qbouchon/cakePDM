@@ -23,7 +23,7 @@ class ClosingDatesController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-        $closingDates = $this->paginate($this->ClosingDates);
+        $closingDates = $this->paginate($this->ClosingDates, ['maxLimit' => 12]);
 
         $this->set(compact('closingDates'));
     }

@@ -38,7 +38,7 @@ class UsersController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-        $users = $this->paginate($this->Users);
+        $users = $this->paginate($this->Users, ['maxLimit' => 12]);
 
         $this->set(compact('users'));
     }

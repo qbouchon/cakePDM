@@ -37,6 +37,7 @@ class DomainsController extends AppController
     {
         $domain = $this->Domains->get($id, [
             'contain' => ['Resources'],
+            'maxLimit' => 12
         ]);
 
         //Authorization

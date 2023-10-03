@@ -29,7 +29,8 @@ class ResourcesController extends AppController
 
         $this->paginate = [
             'contain' => ['Domains'],
-            'order' => ['Resources.archive' => 'asc']
+            'order' => ['Resources.archive' => 'asc'],
+            'maxLimit' => 12
         ];
         $resources = $this->paginate($this->Resources->find());
 
