@@ -20,20 +20,6 @@ $(document).ready(function() {
 
         createCalendar();
     }
-
-    if(!localStorage.getItem('displayBack') || localStorage.getItem('displayBack') == 'display')
-    {
-        $('#hideBack').removeClass("displaynone");
-        $('#displayBack').addClass("displaynone");
-        $(".isBack").removeClass("displaynone");
-    }
-    else if(localStorage.getItem('displayBack') == 'hide')
-    {
-        $('#displayBack').removeClass("displaynone");
-        $('#hideBack').addClass("displaynone");
-        $(".isBack").addClass("displaynone");
-    }
-
    
     $('#toggleCalendar').click(function(){
 
@@ -52,27 +38,6 @@ $(document).ready(function() {
         localStorage.setItem('viewAdmin','list');
         
     });
-
-     $('#displayBack').click(function(){
- 
-        $(".isBack").removeClass("displaynone");
-        $(this).addClass("displaynone");
-        $('#hideBack').removeClass("displaynone");
-         localStorage.setItem('displayBack','display');
-
-    });
-
-    $('#hideBack').click(function(){
- 
-        $(".isBack").addClass("displaynone");
-        $(this).addClass("displaynone");
-        $(this).removeAttr("style"); //Style ajouté par la recherche
-        $('#displayBack').removeClass("displaynone");
-        localStorage.setItem('displayBack','hide');
-
-    });
-
-
 
 
 });

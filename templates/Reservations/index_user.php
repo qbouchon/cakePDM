@@ -48,8 +48,22 @@ use Cake\I18n\FrozenTime;
                         <!-- Controls -->
                         <div >
                             
-                            <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn reservationAddButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une réservation','escape' =>false]); ?>
+                            <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn reservationAddButton','escape' =>false]); ?>
                             <a id='toggleCalendar' class='btn calendarViewButton'><i class="text-center fa-regular fa-calendar-days fa-xl "></i></a>
+
+                            <?php
+                                    
+                                    if($this->request->getQuery('viewBack') == true)
+                                    {
+                                        echo $this->Html->link('<i class="fa-solid fa-eye-slash"></i>' , ['action'=>'indexUser','?'=>  array_merge($this->request->getQuery(), ['viewBack' => false])],['fullBase' => true , 'id' => 'hideBack', 'class'=>'btn hidebackButton','escape' =>false]); 
+                                            
+                                    }
+                                    else
+                                    {
+                                        echo $this->Html->link('<i class="fa-solid fa-eye"></i>' , ['action'=>'indexUser','?'=>  array_merge($this->request->getQuery(), ['viewBack' => true])],['id' => 'displayBack', 'class'=>'btn viewbackButton','escape' =>false]);
+                                    }
+                            ?>
+                   
                         </div>
                         <!-- Search bar -->
                         <div>
@@ -80,15 +94,14 @@ use Cake\I18n\FrozenTime;
 
                            <tbody> 
                             <!-- Pour l'utilisateur, on n'affiche que les réservations en cours -->
-                            <?php foreach ($reservations as $reservation):
-                                    if(!$reservation->is_back): 
-
-                            ?>
+                            <?php foreach ($reservations as $reservation): ?>
 
                             <!-- Gestion des couleurs -->
                             <?php
                                     if($reservation->end_date <= FrozenTime::now() && !$reservation->is_back)
                                         echo '<tr class = "bg-danger bg-opacity-50 unbackResaUser">';
+                                    else if ($reservation->is_back)
+                                        echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through isBack">';
                                     else
                                         echo '<tr class="bg-white">';
                             ?>
@@ -165,7 +178,7 @@ use Cake\I18n\FrozenTime;
                             </div>
 
                             <?php 
-                                     endif;
+                                    
                                 endforeach; 
                             ?>
                             </tbody>

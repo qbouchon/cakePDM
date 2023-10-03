@@ -29,7 +29,8 @@ use Cake\I18n\FrozenDate;
 
                 <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'addForUser' ],[ 'class' => 'text-center  btn reservationAddButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une réservation','escape' =>false]); ?>
 
-                <a id='toggleList' class='btn listViewButton '><i class="fa-solid fa-table-list fa-xl "></i></a>
+                <a id='toggleList' class='btn listViewButton'><i class="fa-solid fa-table-list fa-xl "></i></a>
+                
                
                 <div id='fullCalendar'>
                 </div>
@@ -48,10 +49,21 @@ use Cake\I18n\FrozenDate;
 
                     <!-- Controls -->
                     <div >
-                        <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'addForUser' ],[ 'class' => 'text-center  btn reservationAddButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une réservation','escape' =>false]); ?>
+                        <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'addForUser' ],[ 'class' => 'text-center  btn reservationAddButton','escape' =>false]); ?>
                         <a id='toggleCalendar' class='btn calendarViewButton'><i class="text-center fa-regular fa-calendar-days fa-xl "></i></a>
-                        <a id='displayBack' class='btn viewbackButton '><i class="fa-solid fa-eye"></i></a>
-                        <a id='hideBack' class='btn hidebackButton '><i class="fa-solid fa-eye-slash"></i></a>
+                        
+                        <?php
+                                
+                                if($this->request->getQuery('viewBack') == true)
+                                {
+                                    echo $this->Html->link('<i class="fa-solid fa-eye-slash"></i>' , ['action'=>'index','?'=>  array_merge($this->request->getQuery(), ['viewBack' => false])],['fullBase' => true , 'id' => 'hideBack', 'class'=>'btn hidebackButton','escape' =>false]); 
+                                        
+                                }
+                                else
+                                {
+                                    echo $this->Html->link('<i class="fa-solid fa-eye"></i>' , ['action'=>'index','?'=>  array_merge($this->request->getQuery(), ['viewBack' => true])],['id' => 'displayBack', 'class'=>'btn viewbackButton','escape' =>false]);
+                                }
+                        ?>
                    
                     </div>
 
@@ -94,7 +106,7 @@ use Cake\I18n\FrozenDate;
                                 if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back)
                                     echo '<tr class = "bg-danger bg-opacity-50 unbackResa">';
                                 else if ($reservation->is_back)
-                                    echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through isBack displaynone">';
+                                    echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through isBack">';
                                 else
                                     echo '<tr class="bg-white">';
                             ?>     

@@ -42,7 +42,7 @@
 
                                                 foreach($resource->files as $file):
 
-                                                    $relatedFilesContent .= '<li>'.$this->Html->link($file->name,[ 'controller' => 'Files','action' => 'download',$file->id, ],['target' => '_blank']).'</li>';
+                                                    $relatedFilesContent .= '<li>'.$this->Html->link($file->name,[ 'controller' => 'Files','action' => 'download',$file->id],['target' => '_blank']).'</li>';
 
                                                 endforeach;
 

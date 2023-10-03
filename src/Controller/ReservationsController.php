@@ -8,6 +8,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
 use App\Mailer\ReservationMailer;
 use Cake\Log\Log;
+use Cake\Http\Exception\NotFoundException;
 
 /**
  * Reservations Controller
@@ -24,11 +25,40 @@ class ReservationsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Resources', 'Users'],
-            // 'order' => ['Reservations.is_back' => 'asc', 'Reservations.id' => 'desc']
-        ];
-        $reservations = $this->paginate($this->Reservations);
+       
+        if($this->request->getQuery('viewBack') == true){
+            
+            $this->paginate = [
+                'contain' => ['Resources', 'Users'],
+                'maxLimit' => 10
+
+            ];
+        }
+        else{
+
+            $this->paginate = [
+                'contain' => ['Resources', 'Users'],
+                'conditions' => ['Reservations.is_back' => false],
+                'maxLimit' => 10
+            
+            ];
+        }
+      
+        try{
+
+            $reservations = $this->paginate($this->Reservations);
+        }
+        catch (NotFoundException $e){  
+
+           //on redirige sur la dernière page du paginator (il y a peut-être plus simple)
+           $lastpage = $this->request->getAttribute('paging');
+           $page = $lastpage['Reservations']['pageCount'];
+
+           $this->request = $this->request->withQueryParams(['page' =>$page ]);
+           $reservations = $this->paginate($this->Reservations);
+        }
+       
+
 
         //Authorisation. Trouver une meilleure pratique
         if($this->Authentication->getIdentity()->get('admin'))
@@ -51,12 +81,40 @@ class ReservationsController extends AppController
 
         $user = $this->Reservations->Users->get($this->Authentication->getIdentity()->get('id'));
 
-        $this->paginate = [
-            'contain' => ['Resources', 'Users'],
-            'order' => ['Reservations.is_back' => 'asc', 'Reservations.start_date' => 'desc'],
-            'conditions' => ['Reservations.user_id' => $user->id, 'Reservations.is_back' => false]
-        ];
-        $reservations = $this->paginate($this->Reservations);
+        if($this->request->getQuery('viewBack') == true){
+
+            $this->paginate = [
+                'contain' => ['Resources', 'Users'],
+                'conditions' => ['Reservations.user_id' => $user->id],
+                 'maxLimit' => 10
+            ];
+
+        }
+        else{
+
+            $this->paginate = [
+                'contain' => ['Resources', 'Users'],
+                'conditions' => ['Reservations.user_id' => $user->id, 'Reservations.is_back' => false],
+                 'maxLimit' => 10
+            
+            ];
+        }
+
+
+        try{
+            
+            $reservations = $this->paginate($this->Reservations);
+        }
+        catch (NotFoundException $e)
+        {
+           //on redirige sur la dernière page du paginator (il y a peut-être plus simple)
+           $lastpage = $this->request->getAttribute('paging');
+           $page = $lastpage['Reservations']['pageCount'];
+
+           $this->request = $this->request->withQueryParams(['page' =>$page ]);
+           $reservations = $this->paginate($this->Reservations);
+        }
+
 
         //authorization
         $this->Authorization->skipAuthorization();
