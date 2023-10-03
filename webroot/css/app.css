@@ -26,10 +26,12 @@ h3 {
 
 }
 
+
 .displaynone {
   display: none;
 }
 
+/*Pour petits écran*/
 @media (max-width: 1400px) {
 
     .btn{
@@ -39,6 +41,16 @@ h3 {
     .dropdown-item {
       font-size: 0.65rem;
     }
+
+    .form-control {
+      font-size: 0.65rem;
+    }
+
+    .form-select {
+      font-size: 0.65rem;
+    }
+
+
 }
 
 /*----------------------------------------Pour les cards (catalogue, ressources) -------------------------*/

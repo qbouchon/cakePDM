@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     
     //init TinyMCE (Editeur de texte)
-    tinymce.init({selector: 'textarea', promotion: false});
+    tinymce.init({selector: 'textarea', promotion: false,  plugins: 'autoresize'});
     
 
     // -------------------------------------- Gestion des bouttons pour l'upload/supp d'images et de fichiers  ----------------------------------------------------
