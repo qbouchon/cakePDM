@@ -48,8 +48,6 @@
                             <div id="endDateFeedback" class="invalid-feedback">
                             </div> 
                                    
-                            <?= $this->Form->control('is_back',['label' => 'Ressource retournée']) ?>
-
                             <div class="text-center">
                                 <?= $this->Form->button(__('Modifier'),['class' => ' mt-3']) ?>
                                 <?= $this->Form->end() ?>

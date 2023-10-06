@@ -5,7 +5,7 @@
  * @var iterable<\App\Model\Entity\Reservation> $reservations
  */
 
-use Cake\I18n\FrozenTime;
+use Cake\I18n\FrozenDate;
 ?>
 
 <?php
@@ -98,7 +98,7 @@ use Cake\I18n\FrozenTime;
 
                             <!-- Gestion des couleurs -->
                             <?php
-                                    if($reservation->end_date <= FrozenTime::now() && !$reservation->is_back)
+                                    if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back)
                                         echo '<tr class = "bg-danger bg-opacity-50 unbackResaUser">';
                                     else if ($reservation->is_back)
                                         echo '<tr class = "bg-secondary bg-opacity-50 text-decoration-line-through isBack">';
@@ -112,32 +112,20 @@ use Cake\I18n\FrozenTime;
 
                                 <td class="text-center"><?= h($reservation->end_date) ?></td>
 
-                                <!-- à remettre au propre; On laisse aux admins la possibilité de gérer leurs résas (pas forcément pertinent)-->
                                 <?php 
-                                    if($reservation->start_date > FrozenTime::now() || $this->getRequest()->getAttribute('identity')->get('admin')):
+                                    if($reservation->start_date > FrozenDate::now()):
                                 ?>
                                         
                                 <td class="actions d-flex justify-content-center">
                                     <div class="dropdown">
 
-                                        <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                           <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
                                             <?=__('Actions') ?>
                                         </button>
 
                                         <ul class="dropdown-menu">                               
                                                     <li>
-                                                        <?php
-
-                                                            if($this->getRequest()->getAttribute('identity')->get('admin'))
-                                                            {
-                                                                if($reservation->start_date > FrozenTime::now())
-                                                                    echo $this->Html->link(__('Edit'), ['action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']);
-                                                            }
-                                                            else
-                                                                echo $this->Html->link(__('Edit'), ['action' => 'edit', $reservation->id],['class' => 'dropdown-item']);
-
-                                                        ?>
-
+                                                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $reservation->id],['class' => 'dropdown-item']); ?>
                                                     </li>
                                                 
                                                     <li>

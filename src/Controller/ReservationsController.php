@@ -161,15 +161,20 @@ class ReservationsController extends AppController
                 $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
 
                 //--------------------------------------Envoi des mails  
-                $mailer = new ReservationMailer();
+            
 
                 $default_configuration = Configure::read('default_configuration');
                 $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
                 $configuration = $configurationTable->find()
                         ->where(['name' => $default_configuration])->first();
+                $mailer = new ReservationMailer();
+                $mailer->setTransport($configuration->createTransport());
 
                 if($configuration->send_mail_resa_admin){
-                    try{
+
+                    $success = false;
+
+                    try{                                
                                 $mailer->sendMailResaAdmin($reservation); 
                                 $success = true;
                         }
@@ -190,6 +195,8 @@ class ReservationsController extends AppController
 
                 if($configuration->send_mail_resa_user){
 
+                    $success = false;
+
                     try{
                         $mailer->sendMailResaUser($reservation); 
                         $success = true;
@@ -197,19 +204,19 @@ class ReservationsController extends AppController
                     catch(\Exception $e){
 
                         if($this->Authentication->getIdentity()->get('admin'))
-                            $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur')); 
+                            $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'.$e->getMessage())); 
                     }
                     catch(\Error $e){ 
 
                         if($this->Authentication->getIdentity()->get('admin'))
-                            $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'));  
+                            $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation à l\'utilisateur'.$e->getMessage()));  
                     }
 
                     if($this->Authentication->getIdentity()->get('admin') && $success)
                         $this->Flash->success(__('Un mail de confirmation vous a été envoyé'));   
 
                 }
-                //---------------------------------fin envoie mails
+                //---------------------------------fin envoi mails
 
                 return $this->redirect(['action' => 'indexUser']);
             }
@@ -257,27 +264,31 @@ class ReservationsController extends AppController
                     $this->Flash->success(__('La reservation pour la ressource '.$resource->name.' du '.$reservation->start_date.' au '.$reservation->end_date.' a bien été enregistrée'));
 
                     //--------------------------------------Envoi des mails  
-                    $mailer = new ReservationMailer();
 
                     $default_configuration = Configure::read('default_configuration');
                     $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
                     $configuration = $configurationTable->find()
                             ->where(['name' => $default_configuration])->first();
+                    $mailer = new ReservationMailer();
+                    $mailer->setTransport($configuration->createTransport());
 
                     if($configuration->send_mail_resa_admin){
-                    try{
+
+                         $success = false;
+
+                        try{
                                 $mailer->sendMailResaAdmin($reservation); 
                                 $success = true;
                         }
                         catch(\Exception $e){
 
                             if($this->Authentication->getIdentity()->get('admin'))
-                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation')); 
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation'.$e->getMessage())); 
                         }
                         catch(\Error $e){ 
 
                             if($this->Authentication->getIdentity()->get('admin'))
-                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation'));  
+                                $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmation'.$e->getMessage()));  
                         }
 
                         if($this->Authentication->getIdentity()->get('admin') && $success)
@@ -286,7 +297,8 @@ class ReservationsController extends AppController
 
                     if($configuration->send_mail_resa_user)
                     {
-                        
+                        $success = false;
+
                         try{
                                 $mailer->sendMailResaUser($reservation); 
                                 $success = true;
@@ -305,7 +317,7 @@ class ReservationsController extends AppController
                     }
 
                     //Ajouter un mail au admins ? 
-                    //---------------------------------fin envoie mails  
+                    //---------------------------------fin envoi mails  
 
                     return $this->redirect(['action' => 'index']);
                 }
@@ -356,17 +368,18 @@ class ReservationsController extends AppController
 
                 $this->Flash->success(__('La réservation a été modifiée'));
 
-                 //--------------------------------------Envoi des mails  
-                    $mailer = new ReservationMailer();
-
+                    //--------------------------------------Envoi des mails  
                     $default_configuration = Configure::read('default_configuration');
                     $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
                     $configuration = $configurationTable->find()
                             ->where(['name' => $default_configuration])->first();
-
+                    $mailer = new ReservationMailer();
+                    $mailer->setTransport($configuration->createTransport());
                     
                     if($configuration->send_mail_edit_resa_admin)
                     {
+                        $success = false;
+
                         try{
                                 $mailer->sendMailEditResaAdmin($reservation); 
                                 $success = true;
@@ -388,6 +401,7 @@ class ReservationsController extends AppController
 
                     if($configuration->send_mail_edit_resa_user)
                     {
+                        $success = false;
 
                         try{
                                 $mailer->sendMailEditResaUser($reservation); 
@@ -444,18 +458,18 @@ class ReservationsController extends AppController
                             $this->Flash->success(__('La réservation a été modifiée'));
 
                             //--------------------------------------Envoi des mails  
-                            $mailer = new ReservationMailer();
-
                             $default_configuration = Configure::read('default_configuration');
                             $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
                             $configuration = $configurationTable->find()
                                     ->where(['name' => $default_configuration])->first();
-                    
+                            $mailer = new ReservationMailer();
+                            $mailer->setTransport($configuration->createTransport());
                            
                             if($configuration->send_mail_edit_resa_user)
                             {
 
                                 $success = false;
+
                                 try{
                                         $mailer->sendMailEditResaUser($reservation); 
                                         $success = true;
@@ -478,6 +492,7 @@ class ReservationsController extends AppController
                             {
 
                                     $success = false;
+
                                     try{
                                             $mailer->sendMailEditResaAdmin($reservation); 
                                             $success = true;
@@ -531,16 +546,17 @@ class ReservationsController extends AppController
             $this->Flash->success(__('La réservation a été supprimée'));
 
             //--------------------------------------Envoi des mails  
-            $mailer = new ReservationMailer();
-
             $default_configuration = Configure::read('default_configuration');
             $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
             $configuration = $configurationTable->find()
                     ->where(['name' => $default_configuration])->first();
-       
+            $mailer = new ReservationMailer();
+            $mailer->setTransport($configuration->createTransport());
+
             if($configuration->send_mail_delete_resa_user)
             {
                 $success = false;
+
                 try{
                         $mailer->sendMailDeleteResaUser($reservation); 
                         $success = true;
@@ -564,6 +580,7 @@ class ReservationsController extends AppController
             {
                 
                 $success = false;
+
                 try{
                         $mailer->sendMailDeleteResaAdmin($reservation);
                         $success = true;
@@ -612,19 +629,20 @@ class ReservationsController extends AppController
             $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme rendue le ' . $today ));
 
             //--------------------------------------Envoi des mails  
-            $mailer = new ReservationMailer();
-
             $default_configuration = Configure::read('default_configuration');
             $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
             $configuration = $configurationTable->find()
                     ->where(['name' => $default_configuration])->first();
+            $mailer = new ReservationMailer();
+            $mailer->setTransport($configuration->createTransport());
        
             if($configuration->send_mail_back_resa_user)
             {
                 $success = false;
+
                 try{
-                     $mailer->sendMailBackResaUser($reservation); 
-                     $success = true;
+                        $mailer->sendMailBackResaUser($reservation); 
+                        $success = true;
                 }
                 catch(\Exception $e) {
                     $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmatio nà l\'utilisateur'));   
@@ -664,19 +682,22 @@ class ReservationsController extends AppController
             $this->Flash->success(__('la reservation pour ' . $reservation->resource->name . ' du ' . $reservation->start_date . ' au ' . $reservation->end_date . ' par ' . $reservation->user->username . ' a été marquée comme non rendue' ));
 
             //--------------------------------------Envoi des mails  
-            $mailer = new ReservationMailer();
+           
 
             $default_configuration = Configure::read('default_configuration');
             $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
             $configuration = $configurationTable->find()
                     ->where(['name' => $default_configuration])->first();
+            $mailer = new ReservationMailer();
+            $mailer->setTransport($configuration->createTransport());
        
             if($configuration->send_mail_back_resa_user)
             {
                 $success = false;
+
                 try{
-                     $mailer->sendMailBackResaUser($reservation); 
-                     $success = true;
+                        $mailer->sendMailBackResaUser($reservation); 
+                        $success = true;
                 }
                 catch(\Exception $e) {
                     $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmatio nà l\'utilisateur'));   
@@ -1069,15 +1090,28 @@ class ReservationsController extends AppController
         $mailText = $this->request->getData('mail');
         $mailObject = $this->request->getData('mailObject');
    
-        if($reservation && $mailText)
+        if($reservation)
         {
-            $mailer = new ReservationMailer();
-            $mailer->sendReminderMail($reservation,$mailText, $mailObject);
+            $success = false;
+            try{
 
-            $reservation->set('last_mail_date', FrozenDate::now());
-
-            $this->Flash->success("Un mail de relance a été envoyé à l'utilisateur ".$reservation->user->username);
-            $this->redirect($this->referer());
+                $mailer = new ReservationMailer();
+                $mailer->sendReminderMail($reservation,$mailText, $mailObject);
+                $reservation->set('last_mail_date', FrozenDate::now());
+                $success = true;
+            }
+            catch(\Exception $e) {
+                 $this->Flash->error(__('Erreur lors de la tentative d\'envoi du mail de confirmatio nà l\'utilisateur'));   
+            }
+            catch (\Error $e) {
+                $this->Flash->error(__('Erreur lors de la tentative d\'envoi de mail de confirmation à l\'utilisateur'));  
+            }
+            if($success)
+            {
+                $this->Flash->success("Un mail de relance a été envoyé à l'utilisateur ".$reservation->user->username);
+                $this->redirect($this->referer());
+            }
+            
         }
         else
             $this->Flash->error("Erreur");
