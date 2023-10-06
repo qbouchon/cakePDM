@@ -134,10 +134,10 @@ function createEventModal(event) {
     if(startDate > today)
     {
         var editButton = '<a href="'+webrootUrl+'/reservations/edit/'+event.id+'" type="button" class="btn btn-secondary">Editer</a>';
-        var deleteForm = '<form id="deleteForm" action="'+webrootUrl+'reservations/delete/'+event.id+'" method="post">'
+        var deleteForm = '<form id="deleteForm'+event.id+'" action="'+webrootUrl+'reservations/delete/'+event.id+'" method="post">'
                        +                '<input type="hidden" name="_csrfToken" autocomplete="off" value="'+csrfToken+'">'                   
                        +            '</form>'
-                       +           '<button  class="btn btn-danger deleteFormButton" onClick="saveCalendarStatAndSubmitDeleteForm()">Supprimer</button>';
+                       +           '<button  class="btn btn-danger deleteFormButton" onClick="saveCalendarStatAndSubmitDeleteForm('+event.id+')">Supprimer</button>';
     }
     else{
 
