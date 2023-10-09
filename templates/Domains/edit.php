@@ -17,7 +17,13 @@
 
             <fieldset>  
 
-                <h3 class="text-center"><?= $domain->name." <i>(édition)</i>" ?></h3>
+                <div class='d-flex justify-content-between align-items-center'>
+                    <i onclick="history.back();" class="backButton fa-solid fa-left-long fa-xl"></i>
+                    <h3 class="text-center"><?= $domain->name." <i>(édition)</i>" ?></h3>
+                    <div></div>
+                </div>
+                
+                
 
                 <?= $this->Form->control('name',['label'=>'Nom du Domaine']); ?> 
                 

@@ -10,9 +10,8 @@
 
 
      <div class="row mt-2">   
- 
+        
             <h3 class="text-center font-weight-bold mb-3"><?= __('Configuration') ?></h3>
-
 
             <?= $this->Form->create($configuration, ['type' => 'file']) ?>
            

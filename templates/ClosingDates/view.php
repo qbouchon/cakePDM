@@ -12,6 +12,13 @@
     
     <div class="column-responsive column-80">
         <div class="closingDates view content">
+
+            <div class='d-flex justify-content-between align-items-center'>
+                <i onclick="history.back();" class="backButton fa-solid fa-left-long fa-xl"></i>              
+                <h3 class="text-center"><?= h($closingDate->name) ?></h3>
+                <div></div>
+            </div>
+
             <h3 class="text-center"><?= h($closingDate->name) ?></h3>
             <table class="table table-bordered table-hover table-sm table-responsive">
                 <tr>

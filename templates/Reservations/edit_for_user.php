@@ -26,7 +26,11 @@
 
                         <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded">
 
-                            <h3 class="text-center"><?= __('Editer une réservation') ?></h3>
+                            <div class='d-flex justify-content-between align-items-center'>
+                                <i onclick="history.back();" class="backButton fa-solid fa-left-long fa-xl"></i>
+                                <h3 class="text-center"><?= __('Editer une réservation') ?></h3>
+                                <div></div>
+                            </div>                     
                                                                   
                             <?php
                                 echo $this->Form->control('resource_id', ['options' => $resources, 'id'=>'resourceInput', 'label' => 'Ressource']);

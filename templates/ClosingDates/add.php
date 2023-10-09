@@ -13,7 +13,13 @@
                     <div class="closingDates form content">
                         <?= $this->Form->create($closingDate) ?>
                         <fieldset>
-                            <h3 class="text-center"><?= __('Ajouter des dates de fermeture') ?></h3>
+
+                            <div class='d-flex justify-content-between align-items-center'>
+                                <i onclick="history.back();" class="backButton fa-solid fa-left-long fa-xl"></i>
+                                 <h3 class="text-center"><?= __('Ajouter des dates de fermeture') ?></h3>
+                                <div></div>
+                            </div>
+                                                    
                             <?php
                                 echo $this->Form->control('name',['label' =>'Nom']);
                                 echo $this->Form->control('start_date',['label' =>'Date de début']);
