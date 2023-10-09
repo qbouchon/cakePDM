@@ -30,7 +30,8 @@ class ReservationsController extends AppController
             
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
-                'maxLimit' => 12
+                'maxLimit' => 12,
+                'order' => ['Reservations.id' => 'desc']
 
             ];
         }
@@ -39,7 +40,8 @@ class ReservationsController extends AppController
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
                 'conditions' => ['Reservations.is_back' => false],
-                'maxLimit' => 12
+                'maxLimit' => 12,
+                'order' => ['Reservations.id' => 'desc']
             
             ];
         }
@@ -86,7 +88,8 @@ class ReservationsController extends AppController
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
                 'conditions' => ['Reservations.user_id' => $user->id],
-                 'maxLimit' => 10
+                'maxLimit' => 10,
+                'order' => ['Reservations.id' => 'desc']
             ];
 
         }
@@ -95,7 +98,8 @@ class ReservationsController extends AppController
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
                 'conditions' => ['Reservations.user_id' => $user->id, 'Reservations.is_back' => false],
-                 'maxLimit' => 10
+                'maxLimit' => 10,
+                'order' => ['Reservations.id' => 'desc']
             
             ];
         }
@@ -441,7 +445,7 @@ class ReservationsController extends AppController
             'contain' => ['Users'],
         ]);
         
-         //authorization
+        //authorization
         $this->Authorization->authorize($reservation);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
