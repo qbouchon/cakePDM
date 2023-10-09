@@ -888,7 +888,7 @@ class ReservationsController extends AppController
                     'display' => 'background',
                     'tooltip' => '<div class=""><b>Fermeture du CREST : </b></div>'.$closingDate->name,
                     'type' => 'backgroundEvent',
-                    'color' => '#bf7a77'
+                    'color' => '#b52f2a'
 
                 ];
 
@@ -1006,7 +1006,7 @@ class ReservationsController extends AppController
                     'display' => 'background',
                     'tooltip' => '<div class=""><b>Fermeture du CREST : </b></div>'.$closingDate->name,
                     'type' => 'backgroundEvent',
-                    'color' => '#bf7a77'
+                    'color' => '#b52f2a'
 
                 ];
 

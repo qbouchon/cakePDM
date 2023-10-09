@@ -230,9 +230,10 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 
 /*-----------------------------------------------fullCalendar ----------------------------------------------*/
 
+
 #fullCalendar a {
   text-decoration: none; 
-  color: inherit;   
+ 
 }
 
 #fullCalendar {
@@ -269,8 +270,12 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
   margin-right: 10px; 
 }
 
-.fc .fc-daygrid-day.fc-day-past {
-  background-color: rgba(100,100,100,.15);
+.fc .fc-daygrid-day.fc-day-past{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.fc-theme-standard td, .fc-theme-standard th {
+  border: 1px solid #cfcfcf;
 }
 
 .fc .fc-toolbar.fc-header-toolbar {
@@ -281,14 +286,38 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 .fc-daygrid-day-number {
     font-weight: bold;
     font-size: 0.7rem;
-
-
+    color : var(--uga-blue);
 }
+
+.fc-col-header-cell-cushion {
+   color : var(--uga-blue);
+}
+
+/*.fc .fc-daygrid-day-top {
+    display: block;
+    text-align: center;
+}
+*/
 
 .fc-event-title {
-
    font-weight: bold;
 }
+
+/*.fc-daygrid-week-number{
+  font-size: 0.80rem; 
+
+}*/
+.fc .fc-daygrid-day.fc-day-today{
+
+  background-color: rgba(0,0,0,0);
+
+}
+
+.fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number{
+
+  color: var(--uga-orange);
+}
+
 
 @media (max-width: 1400px) {
 
