@@ -58,12 +58,33 @@
                                             
                                             <li><?= $this->Html->link(__('Edit'), ['action' => 'edit', $closingDate->id],['class' => 'dropdown-item']) ?></li>
                                             
-                                            <li><?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $closingDate->id], ['class' => 'dropdown-item btn text-danger','confirm' => __('Are you sure you want to delete # {0}?', $closingDate->id)]) ?></li>  
+                                            <button type="button" class="btn btn-danger text-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#deleteClosingDateModal' . $closingDate->id ?>">
+                                              <?= __('Supprimer'); ?>
+                                            </button>
                                         </ul>
                                     </div>
                                 </td>
 
                             </tr>
+
+                            <!-- DeleteClosingDateModal -->
+                            <div class="modal fade" id="<?= 'deleteClosingDateModal' . $closingDate->id ?>" tabindex="-1" aria-labelledby="deleteClosingDateModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="deleteClosingDateModalLabel"><?= 'Suppression de "' . $closingDate->name  .'"'?> </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Etes-vous sûr de vouloir supprimer les dates de fermeture du <b> <?= $closingDate->start_date ?> </b> au <b> <?= $closingDate->end_date ?> </b>
+                                        </div>
+                                        <div class="modal-footer">  
+                                            <?= $this->Form->postLink(__('Supprimer'), ['action' => 'delete', $closingDate->id], ['class' => 'btn btn-danger']) ?>    
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                     <?php endforeach; ?>
                     
