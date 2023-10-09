@@ -92,11 +92,13 @@
     <div class="sb-nav-fixed">
         
         <nav class="sb-topnav navbar navbar-expand navbar-dark navbar-uga bg-uga">
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 ms-2 me-4 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="flex icon fas fa-bars fa-2xl "></i></button>
-            <!-- Navbar Brand-->
-            <!-- <a class="ps-2 h3 text-white text-decoration-none " href="/">CREST</a> -->
-            <?= $this->Html->Link('CREST', ['controller'=>'pages','action'=>'display'],['class'=>'h3 text-white text-decoration-none font-weight-bold']); ?>
+
+            <div class="d-flex align-items-center ">
+                <!-- Sidebar Toggle-->
+                <button class="btn btn-link btn-sm order-1 order-lg-0 ms-2 me-4 me-lg-0 text-white" id="sidebarToggle" href="#!"><i class="flex icon fas fa-bars fa-2xl "></i></button>
+                <?= $this->Html->Link('CREST', ['controller'=>'pages','action'=>'display'],['class'=>' crest-title text-white text-decoration-none font-weight-bold']); ?>
+            </div>
+
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 invisible">
                 <div class="input-group">
