@@ -1113,6 +1113,11 @@ class ReservationsController extends AppController
             if($success)
             {
                 $this->Flash->success("Un mail de relance a été envoyé à l'utilisateur ".$reservation->user->username);
+
+                if(!$this->Reservations->save($reservation))
+                    $this->Flash->error("Erreur lors de la mise à jour de la date d'envoi de mail de relance");
+                
+
                 $this->redirect($this->referer());
             }
             

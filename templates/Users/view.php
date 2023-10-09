@@ -69,59 +69,51 @@ use Cake\I18n\FrozenDate;
                                                     echo '<tr class="bg-white">';
                                             ?>
                                         
-                                            <td class="text-center"><?= $reservation->id ?></td>
-                                            <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
-                        
-                        
-                        
-                        
-                        
-                                            <td class="text-center"><?= h($reservation->start_date) ?></td>
-                                                            
-                                                            
-                                                            <td class="text-center"><?= h($reservation->end_date) ?></td>
-                                                            
-                                                            
+                                                        <td class="text-center"><?= $reservation->id ?></td>
+                                                        <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
+                                    
+                                 
+                                                        <td class="text-center"><?= h($reservation->start_date) ?></td>
+                                                                                                                                   
+                                                        <td class="text-center"><?= h($reservation->end_date) ?></td>
 
-                                                            
+                                                        <td class="actions d-flex justify-content-center">
+                                                            <div class="dropdown">
+                                                                <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                                                    <?=__('Actions') ?>
+                                                                </button>
+                                                                <ul class="dropdown-menu">  
+                                                                    <?php 
+                                                                        if($reservation->start_date > FrozenDate::now()): 
+                                                                    ?>                            
+                                                                    <li><?= $this->Html->link(__('Edit'), ['controller' => 'Reservations' , 'action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']) ?></li>
+                                                                    <?php
+                                                                        endif;
+                                                                    ?>
 
-                                                            <td class="actions d-flex justify-content-center">
-                                                                <div class="dropdown">
-                                                                    <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                                        <?=__('Actions') ?>
-                                                                    </button>
-                                                                    <ul class="dropdown-menu">  
-                                                                        <?php 
-                                                                            if($reservation->start_date > FrozenDate::now()): 
-                                                                        ?>                            
-                                                                        <li><?= $this->Html->link(__('Edit'), ['controller' => 'Reservations' , 'action' => 'editForUser', $reservation->id],['class' => 'dropdown-item']) ?></li>
-                                                                        <?php
-                                                                            endif;
-                                                                        ?>
-
-                                                                        <?php
-                                                                            if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back):
-                                                                        ?>
-                                                                            <button type="button" class="btn btn-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#reminderMailModal' . $reservation->id ?>">
-                                                                                Envoyer un mail de relance
-                                                                            </button>
-                                                                        <?php
-                                                                            endif;
-                                                                        ?>
+                                                                    <?php
+                                                                        if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back):
+                                                                    ?>
+                                                                        <button type="button" class="btn btn-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#reminderMailModal' . $reservation->id ?>">
+                                                                            Envoyer un mail de relance
+                                                                        </button>
+                                                                    <?php
+                                                                        endif;
+                                                                    ?>
 
 
-                                                                         <li>
-                                                                           <?= $reservation->is_back ? $this->Form->postLink(__('Définir comme non rendue'), ['controller' => 'Reservations' , 'action' => 'unSetBack', $reservation->id],['class' => 'dropdown-item']) : $this->Form->postLink(__('Définir comme rendue'), ['controller' => 'Reservations' , 'action' => 'setBack', $reservation->id],['class' => 'dropdown-item']) ?>
-                                                                        </li>
-                                                                        <li>
-                                                                             <button type="button" class="btn btn-danger text-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#deleteReservationModal' . $reservation->id ?>">
-                                                                                  <?= __('Supprimer'); ?>
-                                                                            </button>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                                     <li>
+                                                                       <?= $reservation->is_back ? $this->Form->postLink(__('Définir comme non rendue'), ['controller' => 'Reservations' , 'action' => 'unSetBack', $reservation->id],['class' => 'dropdown-item']) : $this->Form->postLink(__('Définir comme rendue'), ['controller' => 'Reservations' , 'action' => 'setBack', $reservation->id],['class' => 'dropdown-item']) ?>
+                                                                    </li>
+                                                                    <li>
+                                                                         <button type="button" class="btn btn-danger text-danger dropdown-item" data-bs-toggle="modal" data-bs-target="<?= '#deleteReservationModal' . $reservation->id ?>">
+                                                                              <?= __('Supprimer'); ?>
+                                                                        </button>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
 
                                                         <!-- DeleteResourceModal -->
                                                         <div class="modal fade" id="<?= 'deleteReservationModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
@@ -152,35 +144,43 @@ use Cake\I18n\FrozenDate;
 
 
 
-                                                            <!-- reminderMailModal -->
-                                                            <?php
-                                                                 if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back):
-                                                            ?>
+                                                        <!-- reminderMailModal -->
+                                                        <?php
+                                                             if($reservation->end_date <= FrozenDate::now() && !$reservation->is_back):
+                                                        ?>
 
-                                                            <div class="modal fade modal-wide" id="<?= 'reminderMailModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="reminderMailModalLabel" aria-hidden="true">
-                                                              <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                  <div class="modal-header">
-                                                                    <h1 class="modal-title fs-5" id="reminderMailModalLabel"> Envoi d'un mail de relance </h1>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                  </div>
-                                                                  <div class="modal-body">
-                                                                        <?= $this->Form->create(null, ['url' => ['controller' => 'Reservations', 'action' => 'reminderMail', $reservation->id]]) ?>
-                                                                         <?= $this->Form->control('mailObject',['label'=> 'Objet :', 'value' => $configuration->formatReminderMailObject($reservation)]); ?>
-                                                                        <?= $this->Form->textarea('mail',['label'=> false, 'value' => $configuration->formatReminderMailText($reservation)]); ?>
+                                                        <div class="modal fade modal-wide" id="<?= 'reminderMailModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="reminderMailModalLabel" aria-hidden="true">
+                                                          <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                              <div class="modal-header">
+                                                                <h1 class="modal-title fs-5" id="reminderMailModalLabel"> Envoi d'un mail de relance </h1>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                              </div>
+                                                              <div class="modal-body text-start">
+                                                                   <?php
+                                                                        if($reservation->last_mail_date):
+                                                                    ?>
+                                                                        <div class='mb-3 fst-italic'>Dernier mail envoyé le : <?= $reservation->last_mail_date ?></div>
+                                                                    <?php
+                                                                        endif;
+                                                                    ?>
 
-                                                                  </div>
-                                                                  <div class="modal-footer">  
-                                                                    <?= $this->Form->submit('Envoyer le mail', ['class' => 'btn btn-secondary']) ?>
-                                                                    <?= $this->Form->end() ?>
-                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                                  </div>
-                                                                </div>
+                                                                    <?= $this->Form->create(null, ['url' => ['controller' => 'Reservations', 'action' => 'reminderMail', $reservation->id]]) ?>
+                                                                    <?= $this->Form->control('mailObject',['label'=> 'Objet :', 'value' => $configuration->formatReminderMailObject($reservation)]); ?>
+                                                                    <?= $this->Form->textarea('mail',['label'=> false, 'value' => $configuration->formatReminderMailText($reservation)]); ?>
+
+                                                              </div>
+                                                              <div class="modal-footer">  
+                                                                <?= $this->Form->submit('Envoyer le mail', ['class' => 'btn btn-secondary']) ?>
+                                                                <?= $this->Form->end() ?>
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                                                               </div>
                                                             </div>
-                                                            <?php
-                                                                endif;
-                                                            ?>
+                                                          </div>
+                                                        </div>
+                                                        <?php
+                                                            endif;
+                                                        ?>
 
 
                                         <?php endforeach; ?>

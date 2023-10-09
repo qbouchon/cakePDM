@@ -209,10 +209,17 @@ use Cake\I18n\FrozenDate;
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="reminderMailModalLabel"> Envoi d'un mail de relance </h1>
+                                            <h1 class="modal-title fs-5" id="reminderMailModalLabel"> Envoi d'un mail de relance </h1>                                      
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
+                                            <?php
+                                                if($reservation->last_mail_date):
+                                            ?>
+                                                <div class='mb-3 fst-italic'>Dernier mail envoyé le : <?= $reservation->last_mail_date ?></div>
+                                            <?php
+                                                endif;
+                                            ?>
                                             <?= $this->Form->create(null, ['url' => ['controller' => 'Reservations', 'action' => 'reminderMail', $reservation->id]]) ?>
                                             <?= $this->Form->control('mailObject',['label'=> 'Objet :', 'value' => $configuration->formatReminderMailObject($reservation)]); ?>
                                             <?= $this->Form->textarea('mail',['label'=> false, 'value' => $configuration->formatReminderMailText($reservation)]); ?>
