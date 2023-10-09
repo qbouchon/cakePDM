@@ -1,4 +1,5 @@
 <?= $this->Html->script('../fullcalendar/index.global.min.js');?>
+<?= $this->Html->script('../fullcalendar/locales/fr.global.js');?>
 <?php
 /**
  * @var \App\View\AppView $this

@@ -291,6 +291,8 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 
 .fc-col-header-cell-cushion {
    color : var(--uga-blue);
+   text-transform: capitalize;
+
 }
 
 /*.fc .fc-daygrid-day-top {
@@ -303,10 +305,7 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
    font-weight: bold;
 }
 
-/*.fc-daygrid-week-number{
-  font-size: 0.80rem; 
 
-}*/
 .fc .fc-daygrid-day.fc-day-today{
 
   background-color: rgba(0,0,0,0);
@@ -316,8 +315,16 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 .fc .fc-daygrid-day.fc-day-today .fc-daygrid-day-number{
 
   color: var(--uga-orange);
+
 }
 
+{
+    text-transform: capitalize;
+}
+
+#fullCalendar td{
+  height: 100px;
+}
 
 @media (max-width: 1400px) {
 
@@ -325,6 +332,8 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
       font-size: 0.65rem; 
     }
 }
+
+
 /* ------------------------------------------------ datepicker -----------------------------*/
 
 

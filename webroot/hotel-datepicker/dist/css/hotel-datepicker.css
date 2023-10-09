@@ -199,8 +199,9 @@ datepicker__buttons {
 }
 
 .datepicker__month-day--today {
-  background-color: #000;
-  color: #fff;
+/*  background-color: #000;*/
+  color: rgba(246, 140, 64, 1);
+  font-weight: bold;
 }
 
 .datepicker__month-day--first-day-selected,
