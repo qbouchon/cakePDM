@@ -13,8 +13,18 @@ use Cake\I18n\FrozenDate;
         <div class="row mt-2">
 
                 <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded text-center">
-                            <h3 class="text-center mb-2"><?= h($user->firstname.' ' . $user->lastname . ' (' . $user->username) . ')' ?></h3>
+
+
+                            <div class='d-flex justify-content-between align-items-center'>
+                                <i onclick="history.back();" class="backButton fa-solid fa-left-long fa-xl"></i>
+                                <h3 class="text-center mb-2"><?= h($user->firstname.' ' . $user->lastname . ' (' . $user->username) . ')' ?></h3>
+                                <div></div>
+                            </div>
                                         <table class="table table-bordered table-hover table-sm table-responsive table-light ">
+                                            <tr>
+                                                <th><?= __('Id') ?></th>
+                                                <td><?= $this->Number->format($user->id) ?></td>
+                                            </tr>
                                             <tr>
                                                 <th><?= __('Firstname') ?></th>
                                                 <td><?= h($user->firstname) ?></td>
@@ -33,15 +43,11 @@ use Cake\I18n\FrozenDate;
                                             </tr>
                                             <tr>
                                                 <th><?= __('admin') ?></th>
-                                                <td><?= h($user->admin) ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th><?= __('Id') ?></th>
-                                                <td><?= $this->Number->format($user->id) ?></td>
-                                            </tr>
+                                                <td><?= $user->admin ? __('Oui') : __('Non'); ?></td>
+                                            </tr>                                     
                                             <tr>
                                                 <th><?= __('Active') ?></th>
-                                                <td><?= $user->active ? __('Yes') : __('No'); ?></td>
+                                                <td><?= $user->active ? __('Oui') : __('Non'); ?></td>
                                             </tr>
                                         </table>
 
