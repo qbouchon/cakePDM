@@ -54,7 +54,7 @@
                     if($resource->description):
                 ?>
                     <div class="text">
-                        <strong><?= __('Description') ?></strong>
+                        <h4><?= __('Description') ?></h4>
                         <blockquote>
                             <div id="description">
                                <?= $resource->description ?>
