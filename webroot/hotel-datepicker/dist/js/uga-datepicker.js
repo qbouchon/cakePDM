@@ -76,7 +76,7 @@ var HotelDatepicker = (function (fecha) {
           "checkin-disabled": "Indisponible",
           "checkout-disabled": "Indisponible",
           "day-names-short": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-          "day-names": ["Dimanche", "Lundi", "Mardi", "Mercredi", "jeudi", "Vendredi", "Samedi"],
+          "day-names": ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
           "month-names-short": ["Jan", "Fev", "Mar", "Avr", "Mai", "Jun", "Jul", "Aou", "Sep", "Oct", "Nov", "Dec"],
           "month-names": ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
           "error-more": "La durée de réservation ne peut pas être supérieur à 1 jour",

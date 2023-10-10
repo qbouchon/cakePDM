@@ -15,27 +15,31 @@ $( document ).ready(function() {
 
                 var getMaxDurationUrl =  webrootUrl+"resources/"+resourceId+"/max_duration";
 
-                var getClosingDateUrl = webrootUrl+"closing-dates/dates/"
+                var getClosingDateUrl = webrootUrl+"closing-dates/dates/";
+
+                var getClosingDaysUrl = webrootUrl+"configuration/closing-days"
 
                 $.get(getDateUrl, function(bookedDates) {
                          $.get(getMaxDurationUrl, function(maxDuration) {
                                 $.get(getClosingDateUrl, function(closingDates) {
+                                     $.get(getClosingDaysUrl, function(closingDays) {
 
-                                        var maxDurationInt = parseInt(maxDuration);
-                                        
-                                        
-                                        //Côté serveur max duration = 0 signifie qu'il n'y a pas de limite dans la durée de réservation
-                                        if(maxDurationInt <= 0)
-                                        {
-                                            $('#maxDurationInfo').html("");
-                                            displayPicker(bookedDates, closingDates, false,);
-                                        }
-                                        else
-                                        {
-                                            $('#maxDurationInfo').html("La durée maximale de réservation pour cette ressource est de " + maxDurationInt + " jour(s).");
-                                            displayPicker(bookedDates, closingDates, maxDurationInt);
-                                        }
+                                            var maxDurationInt = parseInt(maxDuration);
+                                            
+                                            
+                                            //Côté serveur max duration = 0 signifie qu'il n'y a pas de limite dans la durée de réservation
+                                            if(maxDurationInt <= 0)
+                                            {
+                                                $('#maxDurationInfo').html("");
+                                                displayPicker(bookedDates, closingDates, false, closingDays);
+                                            }
+                                            else
+                                            {
+                                                $('#maxDurationInfo').html("La durée maximale de réservation pour cette ressource est de " + maxDurationInt + " jour(s).");
+                                                displayPicker(bookedDates, closingDates, maxDurationInt, closingDays);
+                                            }
 
+                                     });
                                 }); 
                         });                
                 });
@@ -44,7 +48,7 @@ $( document ).ready(function() {
     }
 
 
-    function displayPicker(bookedDates, closingDates, maxDuration)
+    function displayPicker(bookedDates, closingDates, maxDuration, closingDays)
     {
         var today = new Date();
         var tomorrowDate = new Date(today);
@@ -52,8 +56,8 @@ $( document ).ready(function() {
         var tomorrowString = tomorrowDate.toISOString().split('T')[0];
 
         picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
-            noCheckInDaysOfWeek: ['Samedi','Dimanche','Mercredi','Vendredi'],
-            noCheckOutDaysOfWeek: ['Samedi','Dimanche','Mercredi','Vendredi'],
+            noCheckInDaysOfWeek: closingDays,
+            noCheckOutDaysOfWeek: closingDays,
             noCheckInDates: closingDates,
             noCheckOutDates: closingDates,
             disabledDates: bookedDates,
