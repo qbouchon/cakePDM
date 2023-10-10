@@ -240,4 +240,28 @@ class Configuration extends Entity
     }
 
 
+
+    //Renvoi les jours de fermeture du CREST pour le picker. Bricollage avec le nom des jours pour feet les besoins du picker
+    //Manque d'adaptabilité
+    public function getClosingDays()
+    {
+        $closingDays =[];
+
+        if(!$this->open_monday)
+            $closingDays[]= 'Lundi';
+        if(!$this->open_tuesday)
+            $closingDays[]= 'Mardi';
+        if(!$this->open_wednesday)
+            $closingDays[]= 'Mercredi';
+        if(!$this->open_thursday)
+            $closingDays[]= 'Jeudi';
+        if(!$this->open_friday)
+            $closingDays[]= 'Vendredi';
+        
+        $closingDays[] = 'Samedi';
+        $closingDays[] = 'Dimanche';
+
+        return $closingDays;
+    }
+
 }
