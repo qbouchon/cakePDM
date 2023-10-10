@@ -159,17 +159,16 @@ function resetValidationmessages() {
 }
 
 
-
 function checkSelectedDates() {
-
+   
         if($('#start_date').val())
         {
              checkStartDate();
-             checkStartDateNotOnWeekend();
+             checkStartClosingDays();
         }
         if($('#end_date').val())
         {
-            checkEndDateNotOnWeekend();
+            checkEndClosingDays()
         }
         if($('#start_date').val() && $('#end_date').val())
         {
@@ -177,6 +176,7 @@ function checkSelectedDates() {
             checkReservationDuration();
             checkOverlapeReservation();
             checkClosingDate();
+          
         }
 
 }
@@ -185,10 +185,11 @@ function checkSelectedDates() {
 function checkStartDate()
 {
         var today = new Date();
+
         var start_date = new Date($("#start_date").val());
 
         if(start_date<today)
-        {               
+        {                 
             $('#start_date').addClass('is-invalid');
             $("#startDateFeedback").html("Vous ne pouvez pas réserver une ressource avant la date de la demande");
             $("#startDateFeedback").show();   
@@ -204,7 +205,7 @@ function checkDates()
         var end_date = new Date($("#end_date").val());
 
         if(end_date < start_date)
-        {
+        {        
             $('#start_date').addClass('is-invalid');
             $("#startDateFeedback").html("La date de début de réservation doit être avant la date de fin.");  
             $("#startDateFeedback").show();
@@ -221,7 +222,7 @@ function checkReservationDuration()
         var durationInDays = (end_date - start_date) / (24 * 60 * 60 * 1000);
 
         if(durationInDays >= max_duration && max_duration > 0) //On considère 0 et les valeurs négatives comme une possibilité de réservation illimitée
-        { 
+        {             
             $('#end_date').addClass('is-invalid');
             $("#endDateFeedback").html("La Reservation dépasse la durée maximal d\'emprunt pour cette ressource");  
             $("#endDateFeedback").show();
@@ -234,21 +235,18 @@ function checkOverlapeReservation()
 {
         var start_date = $("#start_date").val();
         var end_date = $("#end_date").val();     
-
-                   
-        if(picker.disabledDates.includes(start_date)){
-            
+                 
+        if(picker.disabledDates.includes(start_date))
+        {           
             $('#start_date').addClass('is-invalid');
             $("#startDateFeedback").html("La ressource n\'est pas disponible à ces date");  
             $("#startDateFeedback").show();
-
         }
-        if(picker.disabledDates.includes(end_date)){
-             
+        if(picker.disabledDates.includes(end_date))
+        {
             $('#end_date').addClass('is-invalid');
             $("#endDateFeedback").html("La ressource n\'est pas disponible à ces date");  
             $("#endDateFeedback").show();
-
         }
 
 }
@@ -258,56 +256,93 @@ function checkClosingDate()
 {
         var start_date = $("#start_date").val();
         var end_date = $("#end_date").val();  
-        
-        if(picker.noCheckInDates.includes(start_date) || picker.noCheckOutDates.includes(start_date))
+
+
+        if(picker.noCheckInDates.includes(start_date) || picker.noCheckOutDates.includes(start_date) )
         {                   
-                    $('#start_date').addClass('is-invalid');
-                    $("#startDateFeedback").html("Le CREST est fermé à ces date");   
-                    $("#startDateFeedback").show();
+            $('#start_date').addClass('is-invalid');
+            $("#startDateFeedback").html("Le CREST est fermé à ces date");   
+            $("#startDateFeedback").show();
         }
-        if(picker.noCheckInDates.includes(end_date) || picker.noCheckOutDates.includes(end_date))
-        {                   
-                    $('#end_date').addClass('is-invalid');
-                    $("#endDateFeedback").html("Le CREST est fermé à cette date");
-                    $("#endDateFeedback").show();
+        if(picker.noCheckInDates.includes(end_date) || picker.noCheckOutDates.includes(end_date) )
+        {                    
+            $('#end_date').addClass('is-invalid');
+            $("#endDateFeedback").html("Le CREST est fermé à cette date");
+            $("#endDateFeedback").show();
         }
         
 }
 
-function checkStartDateNotOnWeekend()
+
+function checkStartClosingDays()
 {
         var start_date = new Date($("#start_date").val());
-      
-        if(start_date.getDay() === 0)
-        {
+        
+        if(picker.noCheckInDaysOfWeek.includes(getDayName(start_date.getDay())) || picker.noCheckOutDaysOfWeek.includes(getDayName(start_date.getDay())))
+        {                   
             $('#start_date').addClass('is-invalid');
-            $("#startDateFeedback").html("La date de début de réservation ne peut pas être un dimanche.");   
+            $("#startDateFeedback").html("Hors des jours d'ouverture du CREST");   
             $("#startDateFeedback").show();
         }
-        else if(start_date.getDay() === 6)
-        {
-            $('#start_date').addClass('is-invalid');
-            $("#startDateFeedback").html("La date de début de réservation ne peut pas être un samedi.");   
-            $("#startDateFeedback").show();
+     
+
+}
+
+function checkEndClosingDays()
+{
+        var end_date = new Date($("#end_date").val());
+
+        if(picker.noCheckInDaysOfWeek.includes(getDayName(end_date.getDay())) || picker.noCheckOutDaysOfWeek.includes(getDayName(end_date.getDay())))
+        {                    
+            $('#end_date').addClass('is-invalid');
+            $("#endDateFeedback").html("Hors des jours d'ouverture du CREST");
+            $("#endDateFeedback").show();
         }
 }
 
-function checkEndDateNotOnWeekend()
+//Comme le datepicker prend les disbledDayOfWeek sous forme de chaine de character on doit bricoller un peu.
+function getDayNumber(dayName)
 {
-        var end_date = new Date($("#end_date").val());
-      
-        if(end_date.getDay() === 0)
-        {
-            $('#end_date').addClass('is-invalid');
-            $("#endDateFeedback").html("La date de début de réservation ne peut pas être un dimanche.");   
-            $("#endDateFeedback").show();
-        }
-        else if(end_date.getDay() === 6)
-        {
-            $('#end_date').addClass('is-invalid');
-            $("#endDateFeedback").html("La date de début de réservation ne peut pas être un samedi.");   
-            $("#endDateFeedback").show();
-        }
+   switch(dayName.toLowerCase()) {
+        case "lundi":
+            return 1;
+        case "mardi":
+            return 2;
+        case "mercredi":
+            return 3;
+        case "jeudi":
+            return 4;
+        case "vendredi":
+            return 5;
+        case "samedi":
+            return 6;
+        case "dimanche":
+            return 0;
+        default:
+            return null;
+    }
+}
+
+function getDayName(dayNumber)
+{
+    switch(dayNumber){
+        case 0:
+            return "Dimanche";
+        case 1:
+            return "Lundi";
+        case 2:
+            return "Mardi";
+        case 3:
+            return "Mercredi";
+        case 4:
+            return "Jeudi";
+        case 5:
+            return "Vendredi";
+        case 6:
+            return "Samedi";
+        default:
+            return null;
+    }
 }
 
   

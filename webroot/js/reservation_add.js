@@ -161,11 +161,11 @@ function checkSelectedDates() {
         if($('#start_date').val())
         {
              checkStartDate();
-             checkStartDateNoCheckinOutDaysOfWeek();
+             checkStartClosingDays();
         }
         if($('#end_date').val())
         {
-            checkEndDateNoCheckinOutDaysOfWeek()
+            checkEndClosingDays()
         }
         if($('#start_date').val() && $('#end_date').val())
         {
@@ -271,28 +271,28 @@ function checkClosingDate()
 }
 
 
-function checkStartDateNoCheckinOutDaysOfWeek()
+function checkStartClosingDays()
 {
         var start_date = new Date($("#start_date").val());
         
         if(picker.noCheckInDaysOfWeek.includes(getDayName(start_date.getDay())) || picker.noCheckOutDaysOfWeek.includes(getDayName(start_date.getDay())))
         {                   
             $('#start_date').addClass('is-invalid');
-            $("#startDateFeedback").html("Le CREST est fermé à ces date");   
+            $("#startDateFeedback").html("Hors des jours d'ouverture du CREST");   
             $("#startDateFeedback").show();
         }
      
 
 }
 
-function checkEndDateNoCheckinOutDaysOfWeek()
+function checkEndClosingDays()
 {
         var end_date = new Date($("#end_date").val());
 
         if(picker.noCheckInDaysOfWeek.includes(getDayName(end_date.getDay())) || picker.noCheckOutDaysOfWeek.includes(getDayName(end_date.getDay())))
         {                    
             $('#end_date').addClass('is-invalid');
-            $("#endDateFeedback").html("Le CREST est fermé à cette date");
+            $("#endDateFeedback").html("Hors des jours d'ouverture du CREST");
             $("#endDateFeedback").show();
         }
 }

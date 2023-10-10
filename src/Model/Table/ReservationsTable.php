@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\FrozenTime;
 use Cake\I18n\FrozenDate;
+use Cake\Core\Configure;
 
 /**
  * Reservations Model
@@ -85,20 +86,11 @@ class ReservationsTable extends Table
                 'rule' => [$this, 'checkClosingDateStart'],
                 'message' => "Le Crest est fermé à cette date",
             ])
-            ->add('start_date', 'notOnSaturday', [
-            'rule' => function ($value, $context) {
-                $date = new FrozenDate($value);
-                return $date->format('N') != 6; // 6 represents Saturday
-            },
-            'message' => 'La date de début de réservation ne peut pas être un samedi.'
-            ])
-            ->add('start_date', 'notOnSunday', [
-            'rule' => function ($value, $context) {
-                $date = new FrozenDate($value);
-                return $date->format('N') != 7; // 7 represents Sunday
-            },
-            'message' => 'La date de début ne peut pas être un dimanche.'
+            ->add('start_date', 'checkClosingDaysStart', [
+                'rule' => [$this, 'checkClosingDaysStart'],
+                'message' => "Hors des jours d'ouverture du CREST",
             ]);
+
 
 
  
@@ -119,20 +111,11 @@ class ReservationsTable extends Table
                 'rule' => [$this, 'checkClosingDateEnd'],
                 'message' => "Le Crest est fermé à cette date",
             ])
-            ->add('end_date', 'notOnSaturday', [
-            'rule' => function ($value, $context) {
-                $date = new FrozenDate($value);
-                return $date->format('N') != 6; // 6 represents Saturday
-            },
-            'message' => 'La date de fin de réservation ne peut pas être un samedi.'
-            ])
-            ->add('end_date', 'notOnSunday', [
-            'rule' => function ($value, $context) {
-                $date = new FrozenDate($value);
-                return $date->format('N') != 7; // 7 represents Sunday
-            },
-            'message' => 'La date de fin ne peut pas être un dimanche.'
+            ->add('end_date', 'checkClosingDaysEnd', [
+                'rule' => [$this, 'checkClosingDaysEnd'],
+                'message' => "Hors des jours d'ouverture du CREST",
             ]);
+  
 
          
 
@@ -314,5 +297,108 @@ class ReservationsTable extends Table
 
 
     }
+
+    public function checkClosingDaysStart($value, $context)
+    {
+
+        $start_date = new FrozenDate($context['data']['start_date']);
+        $day_number = $start_date->format('N');
+
+        $dayStringF = '';
+
+        switch ($day_number) {
+            case 0:
+                $dayStringF = 'Dimanche';
+                break;
+            case 1:
+                $dayStringF = 'Lundi';
+                break;
+            case 2:
+                $dayStringF = 'Mardi';
+                break;
+            case 3:
+                $dayStringF = 'Mercredi';
+                break;
+            case 4:
+                $dayStringF = 'Jeudi';
+                break;
+            case 5:
+                $dayStringF = 'Vendredi';
+                break;
+            case 6:
+                $dayStringF = 'Samedi';
+                break;
+            default:
+                $dayStringF = 'unknown';
+                break;
+        }
+
+
+        $default_configuration = Configure::read('default_configuration');
+        $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+        $configuration = $configurationTable->find()
+                ->where(['name' => $default_configuration])->first();
+
+        $closingDays = $configuration->getClosingDays();
+
+        if(in_array($dayStringF, $closingDays))
+            return false;
+        else
+            return true;
+
+
+    }
+
+
+    public function checkClosingDaysEnd($value, $context)
+    {
+
+        $end_date = new FrozenDate($context['data']['end_date']);
+        $day_number = $end_date->format('N');
+        $dayStringF = '';
+
+        switch ($day_number) {
+            case 0:
+                $dayStringF = 'Dimanche';
+                break;
+            case 1:
+                $dayStringF = 'Lundi';
+                break;
+            case 2:
+                $dayStringF = 'Mardi';
+                break;
+            case 3:
+                $dayStringF = 'Mercredi';
+                break;
+            case 4:
+                $dayStringF = 'Jeudi';
+                break;
+            case 5:
+                $dayStringF = 'Vendredi';
+                break;
+            case 6:
+                $dayStringF = 'Samedi';
+                break;
+            default:
+                $dayStringF = 'unknown';
+                break;
+        }
+
+
+        $default_configuration = Configure::read('default_configuration');
+        $configurationTable = TableRegistry::getTableLocator()->get('Configuration');
+        $configuration = $configurationTable->find()
+                ->where(['name' => $default_configuration])->first();
+
+        $closingDays = $configuration->getClosingDays();
+
+        if(in_array($dayStringF, $closingDays))
+            return false;
+        else
+            return true;
+
+
+    }
+
 
 }
