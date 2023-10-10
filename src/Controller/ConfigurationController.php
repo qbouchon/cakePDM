@@ -149,7 +149,7 @@ class ConfigurationController extends AppController
         $this->set(compact('configuration'));
     }
 
-      public function editOpeningDays()
+    public function editOpeningDays()
     {
 
          //Authorisation. Trouver une meilleure pratique
@@ -193,6 +193,38 @@ class ConfigurationController extends AppController
         }
 
         $this->set(compact('configuration'));
+    }
+
+
+    //Renvoi les jours de fermeture du CREST pour le picker. Bricollage avec le nom des jours pour feet les besoins du picker
+    public function getClosingDays()
+    {
+        $this->Authorization->skipAuthorization();
+        $default_configuration = Configure::read('default_configuration');
+        $configuration = $this->Configuration->find()
+                    ->where(['name' => $default_configuration])->first();
+        
+        $closingDays =[];
+        if(!$configuration->open_monday)
+            $closingDays[]= 'Lundi';
+        if(!$configuration->open_tuesday)
+            $closingDays[]= 'Mardi';
+        if(!$configuration->open_wednesday)
+            $closingDays[]= 'Mercredi';
+        if(!$configuration->open_thursday)
+            $closingDays[]= 'Jeudi';
+        if(!$configuration->open_friday)
+            $closingDays[]= 'Vendredi';
+        
+        $closingDays[] = 'Samedi';
+        $closingDays[] = 'Dimanche';
+
+
+        // Convertir les données en format JSON et les envoyer en réponse
+        $this->autoRender = false;
+        $this->response = $this->response->withType('application/json')->withStringBody(json_encode($closingDays));
+
+        return $this->response;
     }
    
 }
