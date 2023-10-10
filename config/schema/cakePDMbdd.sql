@@ -93,6 +93,22 @@ CREATE TABLE configuration
 	mail_port VARCHAR(255),
 	mail_username VARCHAR(255),
 	mail_password VARCHAR(255),
+    open_monday BOOLEAN DEFAULT 1,
+    open_tuesday BOOLEAN DEFAULT 1,
+    open_wednesday BOOLEAN DEFAULT 1,
+    open_thursday BOOLEAN DEFAULT 1,
+    open_friday BOOLEAN DEFAULT 1,
+    start_hour_monday VARCHAR(255),
+	end_hour_monday VARCHAR(255),
+  	start_hour_tuesday VARCHAR(255),
+  	end_hour_tuesday VARCHAR(255),
+  	start_hour_wednesday VARCHAR(255),
+ 	end_hour_wednesday VARCHAR(255),
+  	start_hour_thursday VARCHAR(255),
+  	end_hour_thursday VARCHAR(255),
+  	start_hour_friday VARCHAR(255),
+  	end_hour_friday VARCHAR(255),
+
 
 );
 

@@ -149,5 +149,50 @@ class ConfigurationController extends AppController
         $this->set(compact('configuration'));
     }
 
+      public function editOpeningDays()
+    {
+
+         //Authorisation. Trouver une meilleure pratique
+        if($this->Authentication->getIdentity()->get('admin'))
+            $this->Authorization->skipAuthorization();
+        
+        $default_configuration = Configure::read('default_configuration');
+        $configuration = $this->Configuration->find()
+                    ->where(['name' => $default_configuration])->first();
+
+
+        if ($this->request->is(['patch', 'post', 'put'])) 
+        {
+           
+            if(!$configuration->getErrors) 
+            {
+                $configuration->set('open_monday', $this->request->getData('open_monday'))
+                                ->set('start_hour_monday', $this->request->getData('start_hour_monday'))
+                                ->set('end_hour_monday', $this->request->getData('end_hour_monday'))
+                                ->set('open_tuesday', $this->request->getData('open_tuesday'))
+                                ->set('start_hour_tuesday', $this->request->getData('start_hour_tuesday'))
+                                ->set('end_hour_tuesday', $this->request->getData('end_hour_tuesday'))
+                                ->set('open_wednesday', $this->request->getData('open_wednesday'))
+                                ->set('start_hour_wednesday', $this->request->getData('start_hour_wednesday'))
+                                ->set('end_hour_wednesday', $this->request->getData('end_hour_wednesday'))
+                                ->set('open_thursday', $this->request->getData('open_thursday'))
+                                ->set('start_hour_thursday', $this->request->getData('start_hour_thursday'))
+                                ->set('end_hour_thursday', $this->request->getData('end_hour_thursday'))
+                                ->set('open_friday', $this->request->getData('open_friday'))
+                                ->set('start_hour_friday', $this->request->getData('start_hour_friday'))
+                                ->set('end_hour_friday', $this->request->getData('end_hour_friday'));
+
+                if ($this->Configuration->save($configuration)) 
+                {
+                    $this->Flash->success(__('The configuration has been saved.'));
+                    return $this->redirect($this->referer());
+                }
+
+                $this->Flash->error(__('The configuration could not be saved. Please, try again.'));
+            }
+        }
+
+        $this->set(compact('configuration'));
+    }
    
 }

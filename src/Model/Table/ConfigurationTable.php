@@ -122,6 +122,46 @@ class ConfigurationTable extends Table
             ->scalar('mail_password')
             ->maxLength('mail_password', 255)
             ->allowEmptyString('mail_password');
+        $validator
+            ->add('start_hour_monday', 'custom', [
+                'rule' => function ($value, $context) {
+                    if ($context['data']['open_monday'] == true) {
+                        return !empty($value);
+                    }
+                    return true;
+                },
+                'message' => 'L\'heure d\'ouverture doit être définie.',
+            ])
+            ->add('end_hour_monday', 'custom', [
+                'rule' => function ($value, $context) {
+                    if ($context['data']['open_monday'] == true) {
+                        return !empty($value);
+                    }
+                    return true;
+                },
+                'message' => 'L\'heure de fermeture doit être définie.',
+            ])
+            ->allowEmptyString('start_hour_monday')
+            ->allowEmptyString('end_hour_monday')
+            ->allowEmptyString('start_hour_tuesday')
+            ->allowEmptyString('end_hour_tuesday')
+            ->allowEmptyString('start_hour_wednesday')
+            ->allowEmptyString('end_hour_wednesday')
+            ->allowEmptyString('start_hour_thursday')
+            ->allowEmptyString('end_hour_thursday')
+            ->allowEmptyString('start_hour_friday')
+            ->allowEmptyString('end_hour_friday')
+            ->maxLength('start_hour_monday', 5)
+            ->maxLength('end_hour_monday', 5)
+            ->maxLength('start_hour_tuesday', 5)
+            ->maxLength('end_hour_tuesday', 5)
+            ->maxLength('start_hour_wednesday', 5)
+            ->maxLength('end_hour_wednesday', 5)
+            ->maxLength('start_hour_thursday', 5)
+            ->maxLength('end_hour_thursday', 5)
+            ->maxLength('start_hour_friday', 5)
+            ->maxLength('end_hour_friday', 5);
+
 
         return $validator;
     }

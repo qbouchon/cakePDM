@@ -39,6 +39,21 @@ use Cake\Mailer\TransportFactory;
  * @property string|null $mail_port
  * @property string|null $mail_username
  * @property string|null $mail_password
+ * @property bool|null $open_monday
+ * @property bool|null $open_tuesday
+ * @property bool|null $open_wednesday
+ * @property bool|null $open_thursday
+ * @property bool|null $open_friday
+ * @property string|null $start_hour_monday
+ * @property string|null $end_hour_monday
+ * @property string|null $start_hour_tuesday
+ * @property string|null $end_hour_tuesday
+ * @property string|null $start_hour_wednesday
+ * @property string|null $end_hour_wednesday
+ * @property string|null $start_hour_thursday
+ * @property string|null $end_hour_thursday
+ * @property string|null $start_hour_friday
+ * @property string|null $end_hour_friday
  * 
  * 
 
@@ -76,6 +91,21 @@ class Configuration extends Entity
         'mail_port' => true,
         'mail_username' => true,
         'mail_password' => true,
+        'open_monday' => true,
+        'open_tuesday' => true,
+        'open_wednesday' => true,
+        'open_thursday' => true,
+        'open_friday' => true,
+        'start_hour_monday' => true,
+        'end_hour_monday' => true,
+        'start_hour_tuesday' => true,
+        'end_hour_tuesday' => true,
+        'start_hour_wednesday' => true,
+        'end_hour_wednesday' => true,
+        'start_hour_thursday' => true,
+        'end_hour_thursday' => true,
+        'start_hour_friday' => true,
+        'end_hour_friday' => true,
         
     ];
 
