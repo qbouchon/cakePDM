@@ -50,8 +50,8 @@ $( document ).ready(function() {
         var tomorrowString = tomorrowDate.toISOString().split('T')[0];
 
         picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
-            noCheckInDaysOfWeek: ['Samedi','Dimanche'],
-            noCheckOutDaysOfWeek: ['Samedi','Dimanche'],
+            noCheckInDaysOfWeek: ['Samedi','Dimanche','Mercredi','Vendredi'],
+            noCheckOutDaysOfWeek: ['Samedi','Dimanche','Mercredi','Vendredi'],
             noCheckInDates: closingDates,
             noCheckOutDates: closingDates,
             disabledDates: bookedDates,

@@ -355,7 +355,8 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 .datepicker__month-day--no-checkout,
 .datepicker__month-day--day-of-week-disabled {
 
-   background-color:rgba(100,100,100,.2);
+/*   background-color:rgba(100,100,100,.2);*/
+   color: #e8ebf4 ;
 /*   opacity: 50%;*/
 }
 
@@ -370,4 +371,17 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
   border-color: var(--uga-orange);
 
 
+}
+
+
+td[d="7"] {
+    display: none;
+}
+
+td[d="6"] {
+    display: none;
+}
+
+.datepicker__week-name-disabled {
+  color: #e8ebf4;
 }

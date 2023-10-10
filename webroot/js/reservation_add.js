@@ -52,8 +52,8 @@ $( document ).ready(function() {
         var tomorrowString = tomorrowDate.toISOString().split('T')[0];
 
         picker = new HotelDatepicker(document.getElementById('picker'),document.getElementById('start_date'),document.getElementById('end_date'), {
-            noCheckInDaysOfWeek: ['Samedi','Dimanche'],
-            noCheckOutDaysOfWeek: ['Samedi','Dimanche'],
+            noCheckInDaysOfWeek: ['Samedi','Dimanche','Mercredi','Vendredi'],
+            noCheckOutDaysOfWeek: ['Samedi','Dimanche','Mercredi','Vendredi'],
             noCheckInDates: closingDates,
             noCheckOutDates: closingDates,
             disabledDates: bookedDates,
@@ -157,11 +157,11 @@ function checkSelectedDates() {
         if($('#start_date').val())
         {
              checkStartDate();
-             checkStartDateNotOnWeekend();
+             checkStartDateNoCheckinOutDaysOfWeek();
         }
         if($('#end_date').val())
         {
-            checkEndDateNotOnWeekend();
+            checkEndDateNoCheckinOutDaysOfWeek()
         }
         if($('#start_date').val() && $('#end_date').val())
         {
@@ -169,6 +169,7 @@ function checkSelectedDates() {
             checkReservationDuration();
             checkOverlapeReservation();
             checkClosingDate();
+          
         }
 
 }
@@ -248,14 +249,15 @@ function checkClosingDate()
 {
         var start_date = $("#start_date").val();
         var end_date = $("#end_date").val();  
-        
-        if(picker.noCheckInDates.includes(start_date) || picker.noCheckOutDates.includes(start_date))
+
+
+        if(picker.noCheckInDates.includes(start_date) || picker.noCheckOutDates.includes(start_date) )
         {                   
             $('#start_date').addClass('is-invalid');
             $("#startDateFeedback").html("Le CREST est fermé à ces date");   
             $("#startDateFeedback").show();
         }
-        if(picker.noCheckInDates.includes(end_date) || picker.noCheckOutDates.includes(end_date))
+        if(picker.noCheckInDates.includes(end_date) || picker.noCheckOutDates.includes(end_date) )
         {                    
             $('#end_date').addClass('is-invalid');
             $("#endDateFeedback").html("Le CREST est fermé à cette date");
@@ -264,40 +266,74 @@ function checkClosingDate()
         
 }
 
-function checkStartDateNotOnWeekend()
+
+function checkStartDateNoCheckinOutDaysOfWeek()
 {
         var start_date = new Date($("#start_date").val());
-      
-        if(start_date.getDay() === 0)
-        {
+        
+        if(picker.noCheckInDaysOfWeek.includes(getDayName(start_date.getDay())) || picker.noCheckOutDaysOfWeek.includes(getDayName(start_date.getDay())))
+        {                   
             $('#start_date').addClass('is-invalid');
-            $("#startDateFeedback").html("La date de début de réservation ne peut pas être un dimanche.");   
+            $("#startDateFeedback").html("Le CREST est fermé à ces date");   
             $("#startDateFeedback").show();
         }
-        else if(start_date.getDay() === 6)
-        {
-            $('#start_date').addClass('is-invalid');
-            $("#startDateFeedback").html("La date de début de réservation ne peut pas être un samedi.");   
-            $("#startDateFeedback").show();
-        }
+     
+
 }
 
-function checkEndDateNotOnWeekend()
+function checkEndDateNoCheckinOutDaysOfWeek()
 {
         var end_date = new Date($("#end_date").val());
-      
-        if(end_date.getDay() === 0)
-        {
+
+        if(picker.noCheckInDaysOfWeek.includes(getDayName(end_date.getDay())) || picker.noCheckOutDaysOfWeek.includes(getDayName(end_date.getDay())))
+        {                    
             $('#end_date').addClass('is-invalid');
-            $("#endDateFeedback").html("La date de début de réservation ne peut pas être un dimanche.");   
-            $("#endDateFeedback").show();
-        }
-        else if(end_date.getDay() === 6)
-        {
-            $('#end_date').addClass('is-invalid');
-            $("#endDateFeedback").html("La date de début de réservation ne peut pas être un samedi.");   
+            $("#endDateFeedback").html("Le CREST est fermé à cette date");
             $("#endDateFeedback").show();
         }
 }
 
-  
+//Comme le datepicker prend les disbledDayOfWeek sous forme de chaine de character on doit bricoller un peu.
+function getDayNumber(dayName)
+{
+   switch(dayName.toLowerCase()) {
+        case "lundi":
+            return 1;
+        case "mardi":
+            return 2;
+        case "mercredi":
+            return 3;
+        case "jeudi":
+            return 4;
+        case "vendredi":
+            return 5;
+        case "samedi":
+            return 6;
+        case "dimanche":
+            return 0;
+        default:
+            return null;
+    }
+}
+
+function getDayName(dayNumber)
+{
+    switch(dayNumber){
+        case 0:
+            return "Dimanche";
+        case 1:
+            return "Lundi";
+        case 2:
+            return "Mardi";
+        case 3:
+            return "Mercredi";
+        case 4:
+            return "Jeudi";
+        case 5:
+            return "Vendredi";
+        case 6:
+            return "Samedi";
+        default:
+            return null;
+    }
+}

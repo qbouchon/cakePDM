@@ -168,15 +168,32 @@ var HotelDatepicker = (function (fecha) {
         });
       }
       getWeekDayNames() {
+
+
+
+
         let week = "";
 
         // Start from monday if we passed that option
         if (this.startOfWeek === "monday") {
           for (let i = 0; i < 5; i++) {
-            week += '<th class="datepicker__week-name">' + this.lang("day-names-short")[(1 + i) % 7] + "</th>";
+
+            let shortDayString = this.lang("day-names-short")[(1 + i) % 7];
+            let LongDayString = this.lang("day-names")[(1 + i) % 7];
+
+            // alert(LongDayString);
+            // alert(this.noCheckInDaysOfWeek[0]);
+
+            //Simplement pour l'affichage des noms de jour en gris. Trouver meilleur méthode
+            if(this.noCheckInDaysOfWeek.includes(LongDayString) || this.noCheckOutDaysOfWeek.includes(LongDayString))
+              week += '<th class="datepicker__week-name datepicker__week-name-disabled">' + shortDayString + "</th>";
+            else
+              week += '<th class="datepicker__week-name">' + shortDayString + "</th>";
           }
           return week;
         }
+
+
 
         // Otherwise start from sunday (default)
         for (let i = 0; i < 5; i++) {
@@ -813,7 +830,7 @@ var HotelDatepicker = (function (fecha) {
             }
           }
           if (this.noCheckInDaysOfWeek.length > 0) {
-            if (this.noCheckInDaysOfWeek.indexOf(fecha__namespace.format(_day.time, "dddd")) > -1) {
+            if (this.noCheckInDaysOfWeek.indexOf(fecha__namespace.format(_day.time, "dddd")) > -1) {              
               isNoCheckIn = true;
               isFirstEnabledDate = false;
             }

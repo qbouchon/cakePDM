@@ -416,10 +416,3 @@ datepicker__buttons {
   }
 }
 
-td[d="7"] {
-    display: none;
-}
-
-td[d="6"] {
-    display: none;
-}
