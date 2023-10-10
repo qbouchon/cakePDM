@@ -841,7 +841,7 @@ var HotelDatepicker = (function (fecha) {
             }
           }
         }
-        const classes = ["datepicker__month-day", "datepicker__month-day--" + _day.type, "datepicker__month-day--" + (_day.valid ? "valid" : "invalid"), isToday ? "datepicker__month-day--today" : "", isDisabled ? "datepicker__month-day--disabled" : "", isDisabled && this.enableCheckout && this.isFirstDisabledDate === 1 ? "datepicker__month-day--checkout-enabled" : "", isDayBeforeDisabledDate ? "datepicker__month-day--before-disabled-date" : "", isStartDate || isFirstEnabledDate ? "datepicker__month-day--checkin-only" : "", isNoCheckIn ? "datepicker__month-day--no-checkin" : "", isNoCheckOut ? "datepicker__month-day--no-checkout" : "", isDayOfWeekDisabled ? "datepicker__month-day--day-of-week-disabled" : ""];
+        const classes = ["datepicker__month-day", "datepicker__month-day--" + _day.type, "datepicker__month-day--" + (_day.valid ? "valid" : "invalid"), isToday ? "datepicker__month-day--today" : "", isDisabled && !isNoCheckIn && !isNoCheckOut ? "datepicker__month-day--disabled" : "", isDisabled && this.enableCheckout && this.isFirstDisabledDate === 1 ? "datepicker__month-day--checkout-enabled" : "", isDayBeforeDisabledDate ? "datepicker__month-day--before-disabled-date" : "", isStartDate || isFirstEnabledDate ? "datepicker__month-day--checkin-only" : "", isNoCheckIn ? "datepicker__month-day--no-checkin" : "", isNoCheckOut ? "datepicker__month-day--no-checkout" : "", isDayOfWeekDisabled ? "datepicker__month-day--day-of-week-disabled" : ""];
         return classes;
       }
       checkAndSetDayClasses() {
