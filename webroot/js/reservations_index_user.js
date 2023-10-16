@@ -182,14 +182,14 @@ function saveCalendarStatAndSubmitForm() {
     
 }
 
-function saveCalendarStatAndSubmitDeleteForm() {
+function saveCalendarStatAndSubmitDeleteForm(id) {
 
     var confirmation = confirm("Voulez-vous vairment supprimer cette réservation ?");
 
     if(confirmation)
     {
          saveCalendarState(calendar);
-         document.getElementById('deleteForm').submit();
+         document.getElementById('deleteForm'+id).submit();
     }
             
 }

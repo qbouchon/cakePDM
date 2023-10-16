@@ -147,7 +147,7 @@ use Cake\I18n\FrozenDate;
 
                             </tr>
 
-                            <!-- DeleteResourceModal -->
+                            <!-- DeleteReservationodal -->
                             <div class="modal fade" id="<?= 'deleteReservationModal' . $reservation->id ?>" tabindex="-1" aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
