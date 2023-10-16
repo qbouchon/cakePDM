@@ -218,7 +218,6 @@ function checkSelectedDates() {
         }
         if($('#start_date').val() && $('#end_date').val())
         {
-            alert("check");
             checkDates();
             checkReservationDuration();
             checkOverlapeReservation();
@@ -285,16 +284,8 @@ function checkOverlapeReservation()
 
         it_date = new Date(start_date);
 
-        console.log("testover");
-
         while(it_date < end_date)
         {   
-            console.log('while');
-            console.log(it_date);
-            console.log(end_date);
-
-            console.log(formatDate(it_date));
-
 
             if(picker.disabledDates.includes(formatDate(it_date)))
             {   
