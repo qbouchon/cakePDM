@@ -225,6 +225,26 @@ class Configuration extends Entity
         return $formatObject;
     }
 
+
+    public function getFormattedHomeText()
+    {
+        $openingDays = $this->getOpeningDays();
+        $openingDaysContent = '<div><b>Horaires d\'ouverture du CREST :</b></div>';
+
+        if($openingDays)
+        {
+            foreach($openingDays as $day => $hours)
+            {
+                   $openingDaysContent .= '<div>'.$day.' : '.$hours[0].'-'.$hours[1].'</div>';
+            }
+
+        }
+
+        $formattedHomeText = str_replace('$horaires', $openingDaysContent, $this->home_text);
+
+        return $formattedHomeText;
+    }
+
     // à refactorer (voir reservationMailer)
     public function createTransport()
     {

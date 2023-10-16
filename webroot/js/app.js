@@ -272,7 +272,7 @@ $( document ).ready(function() {
                     + '<br/>'
                     + '<b>$back :</b> rendue/non rendue'
                     + '<br/>'
-                    + '<i>'
+                    + '<i>';
     tippy('.helpMailButton', {
                                         content: helpMailButtonContent,
                                         duration: 0,
@@ -300,6 +300,23 @@ $( document ).ready(function() {
                                         allowHTML:true,                                    
     });
 
+
+
+    var helpMailButtonContent =  '<i>'
+                    + 'Variables disponibles :'
+                    + '<br/>'
+                    + '<b>$horaires :</b> affiche les horaires'
+                    + '<i>';
+
+
+    tippy('.helpHomeEditButton', {
+                                        content: helpMailButtonContent,
+                                        duration: 0,
+                                        allowHTML:true,    
+                                        trigger: 'click',                                
+    });
+
+    
      
 
     // ---------------------------------------------------------------------- gestion des bouttons d'édition des mails (config->mail) ------------------------------------------------------------------

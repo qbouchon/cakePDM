@@ -18,7 +18,11 @@
             <fieldset>
 
                 <div class = "col-8 px-5 pt-1 pb-4 mx-auto bg-white rounded">
-                        <h4 class="font-weight-bold mt-3"><?= __('Personnaliser l\'accueil') ?></h4>
+
+                        <div class='d-flex justify-content-between align-items-center'>
+                            <h4 class="font-weight-bold mt-3"><?= __('Personnaliser l\'accueil') ?></h4>
+                            <i class="fa-solid helpHomeEditButton fa-circle-question fa-xl mt-3"></i>
+                        </div>
 
                         <div class='d-flex align-items-center'>
                             <?= $this->Form->control('home_picture',['type' => 'file', 'value' =>$configuration->home_picture, 'id'=>'rAddPicture', 'label' => 'Ajouter une image d\'entête (.png, .jpg, .jpeg)', 'accept' => 'image/*']); ?>

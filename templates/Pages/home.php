@@ -11,7 +11,7 @@
         <div class = 'col-12 px-2 pt-1 pb-4 mx-auto bg-white rounded home-content'>
             <?= $this->Html->image('home/'.$configuration->home_picture_path,['class'=>'img-fluid mb-4 mt-2']); ?>
 
-            <?= $configuration->home_text; ?>
+            <?= $configuration->getFormattedHomeText(); ?>
 
             <div class="container h-100 d-flex flex-column home-content ">          
                 <div class = "row card-spacing card-deck">
