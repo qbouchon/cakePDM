@@ -9,7 +9,7 @@
         "avolle/cakephp-font-awesome": "^1.1",
         "cakephp/authentication": "^2.10",
         "cakephp/authorization": "^2.3",
-        "cakephp/cakephp": "4.4.*",
+        "cakephp/cakephp": "4.5.*",
         "cakephp/localized": "^4.1",
         "cakephp/migrations": "^3.2",
         "cakephp/plugin-installer": "^1.3",
