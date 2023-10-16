@@ -5,14 +5,14 @@ $(document).ready(function() {
         createResourcesChart();
 
         $("#start").on('change',function(){
-          resourcesChart.destroy();
-          createResourcesChart();
+
+          updateChart();
         });
 
 
         $("#end").on('change',function(){
-          resourcesChart.destroy();
-          createResourcesChart();
+
+          updateChart();
         });
     
 
@@ -37,6 +37,7 @@ function createResourcesChart(){
 
     });
 
+
 }
 
 
@@ -55,5 +56,29 @@ function displayChart(datas)
           }
         }
       });
+
+      console.log(resourcesChart.data);
+}
+
+function updateChart()
+{
+  var start = $('#start').val();
+    var end = $('#end').val();
+
+    if(!start)
+      start = 0;
+    if(!end)
+      end= 0;
+
+    var url = webrootUrl + 'reservations/stats/reservations_count/'+start+'/'+end;
+
+    $.get(url, function(datas){
+
+        resourcesChart.data = datas;
+        //console.log(resourcesChart.data);
+        resourcesChart.update();
+
+    });
+
 }
 
