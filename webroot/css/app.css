@@ -45,6 +45,11 @@ h4 {
   display: none;
 }
 
+
+.tiny-input {
+  max-width: 50%;
+}
+
 /*Pour petits écran*/
 @media (max-width: 1400px) {
 
@@ -65,13 +70,17 @@ h4 {
     }
 
     .crest-title {
-    font-size: 1.2rem;
-   margin-bottom: 3px;
+        font-size: 1.2rem;
+        margin-bottom: 3px;
+    } 
+
+    .tiny-input {
+       max-width: 60%;
+
+    }
 }
 
 
-
-}
 
 /*----------------------------------------Pour les cards (catalogue, ressources) -------------------------*/
 .domain-card {
