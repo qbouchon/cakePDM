@@ -79,19 +79,7 @@ $( document ).ready(function() {
         $('#loadingAnimation').addClass('displaynone');
 
         //Création des tooltips
-        tippy('.datepicker__month-day--no-checkin', {
-                                    content: 'Le CREST est fermé à cette date.',
-                                    duration: 0,
-                                    allowHTML:true,
-                                                                      
-        });
-
-        tippy('.datepicker__month-day--disabled', {
-                                    content: 'La ressource est indisponible à cette date',
-                                    duration: 0,
-                                    allowHTML:true,
-                                                                  
-        });
+        createDisabledDayTooltips();
       
     }
 
@@ -113,6 +101,24 @@ $( document ).ready(function() {
                                     trigger: 'click',
                                                                       
                 });
+        });
+    }
+
+    function createDisabledDayTooltips()
+    {
+        
+        tippy('.datepicker__month-day--no-checkin', {
+                                    content: 'Le CREST est fermé à cette date.',
+                                    duration: 0,
+                                    allowHTML:true,
+                                                                      
+        });
+
+        tippy('.datepicker__month-day--disabled', {
+                                    content: 'La ressource est indisponible à cette date',
+                                    duration: 0,
+                                    allowHTML:true,
+                                                                  
         });
     }
 
@@ -161,7 +167,12 @@ $( document ).ready(function() {
         resetValidationmessages();
         checkSelectedDates();
     });
-    
+     
+    //Tooltips needs to be create for new dates on month change. the event is throw in ugaDatePicker
+    $( document ).on('OnMonthChange', function(){
+      
+        createDisabledDayTooltips()
+    })
 
 
 });

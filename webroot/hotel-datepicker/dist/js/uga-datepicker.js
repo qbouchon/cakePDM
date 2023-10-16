@@ -1523,6 +1523,17 @@ var HotelDatepicker = (function (fecha) {
         this.setDayIndexes();
         this.showSelectedDays();
         this.disableNextPrevButtons();
+
+        //Add event for tippy
+        const evt = document.createEvent("Event");
+        evt.initEvent("OnMonthChange", true, true);
+        this.input.dispatchEvent(evt);
+
+
+
+
+
+
         return true;
       }
       goToPreviousMonth(e) {
@@ -1550,6 +1561,13 @@ var HotelDatepicker = (function (fecha) {
         this.setDayIndexes();
         this.showSelectedDays();
         this.disableNextPrevButtons();
+
+        //Add event for tippy
+        const evt = document.createEvent("Event");
+        evt.initEvent("OnMonthChange", true, true);
+        this.input.dispatchEvent(evt);
+
+
         return true;
       }
       isSingleMonth() {
