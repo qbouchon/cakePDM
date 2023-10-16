@@ -209,7 +209,7 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 
 /*------------------------------------------Pour les bouttons ------------------------------------------*/
 
-.addButton, .reservationAddButton, .userAddButton, .resourceAddButton, .domainAddButton, .closingDatesAddButton .calendarViewButton, .listViewButton, .hidebackButton, .viewbackButton, .helpMailButton, .backButton, .backCatalogueButton, .editMailButton{
+.addButton, .reservationAddButton, .userAddButton, .resourceAddButton, .domainAddButton, .closingDatesAddButton .calendarViewButton, .listViewButton, .hidebackButton, .viewbackButton, .helpMailButton, .backButton, .backCatalogueButton, .editMailButton, .openingDaysButton{
     color: var(--uga-blue);
     transition: transform 0.1s ease;
     --bs-btn-active-border-color: transparent;
@@ -218,7 +218,7 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
     cursor: pointer;
 }
 
-.addButton:hover, .reservationAddButton:hover, .userAddButton:hover, .resourceAddButton:hover, .domainAddButton:hover, .closingDatesAddButton:hover, .calendarViewButton:hover, .listViewButton:hover, .hidebackButton:hover, .viewbackButton:hover, .helpMailButton:hover
+.addButton:hover, .reservationAddButton:hover, .userAddButton:hover, .resourceAddButton:hover, .domainAddButton:hover, .closingDatesAddButton:hover, .calendarViewButton:hover, .listViewButton:hover, .hidebackButton:hover, .viewbackButton:hover, .helpMailButton:hover, .openingDaysButton:hover
 {
     color: var(--uga-orange);
     transform: scale(1.3);

@@ -95,7 +95,31 @@ $( document ).ready(function() {
 
     }
 
+    function createOpeningDaysToolTip(){
 
+        var getOpeningDaysUrl = webrootUrl+"configuration/opening-days";
+
+        $.get(getOpeningDaysUrl, function(openingDays){
+
+                var openingDaysContent = '<div class="text-center"><b>Horaires</b></div>';
+
+                for (const day in openingDays) {
+                         openingDaysContent+='<div>'+day+' : '+openingDays[day][0]+'-'+openingDays[day][1]+'</div>'            }
+                
+                tippy('.openingDaysButton', {
+                                    content: openingDaysContent,
+                                    duration: 0,
+                                    allowHTML:true,
+                                    trigger: 'click',
+                                                                      
+                });
+        });
+    }
+
+
+
+    //Créer le toolTip avec les horaires d'ouverture
+    createOpeningDaysToolTip();
 
     //Créer le picker au chargement de la page
     createPicker($("#resourceInput").val());

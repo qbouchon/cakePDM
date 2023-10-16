@@ -26,7 +26,7 @@
                             <div class='d-flex justify-content-between align-items-center'>
                                 <i onclick="history.back();" class="backButton fa-solid fa-left-long fa-xl"></i>
                                 <h3 class="text-center mb-2"><?= __('Créer une réservation pour un utilisateur') ?></h3>
-                                <div></div>
+                                <i class="fa-solid fa-clock openingDaysButton fa-xl mt-3"></i>
                             </div>
                                 
                               

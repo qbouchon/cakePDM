@@ -195,7 +195,7 @@ class ConfigurationController extends AppController
         $this->set(compact('configuration'));
     }
 
-
+    //Renvoi les jours de fermeture du CREST pour le picker.
     public function closingDays()
     {
         $this->Authorization->skipAuthorization();
@@ -209,6 +209,24 @@ class ConfigurationController extends AppController
         // Convertir les données en format JSON et les envoyer en réponse
         $this->autoRender = false;
         $this->response = $this->response->withType('application/json')->withStringBody(json_encode($closingDays));
+
+        return $this->response;
+    }
+
+    //Renvoi les horaires d'ouverture pour affichage
+    public function openingDays()
+    {
+         $this->Authorization->skipAuthorization();
+        $default_configuration = Configure::read('default_configuration');
+        $configuration = $this->Configuration->find()
+                    ->where(['name' => $default_configuration])->first();
+        
+        $openingDays = $configuration->getOpeningDays();
+
+
+        // Convertir les données en format JSON et les envoyer en réponse
+        $this->autoRender = false;
+        $this->response = $this->response->withType('application/json')->withStringBody(json_encode($openingDays));
 
         return $this->response;
     }

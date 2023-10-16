@@ -264,4 +264,33 @@ class Configuration extends Entity
         return $closingDays;
     }
 
+    //Renvoie les horaires poour affichage  
+    public function getOpeningDays()
+    {
+        $openingDays = [];
+
+        if($this->open_monday)
+        {
+            $openingDays['Lundi'] = [$this->start_hour_monday, $this->end_hour_monday];
+        }
+        if($this->open_tuesday)
+        {
+            $openingDays['Mardi'] = [$this->start_hour_tuesday, $this->end_hour_tuesday];
+        }
+        if($this->open_wednesday)
+        {
+            $openingDays['Mercredi'] = [$this->start_hour_wednesday, $this->end_hour_wednesday];
+        }
+        if($this->open_thursday)
+        {
+            $openingDays['Jeudi'] = [$this->start_hour_thursday, $this->end_hour_thursday];
+        }
+        if($this->open_friday)
+        {
+            $openingDays['Vendredi'] = [$this->start_hour_friday, $this->end_hour_friday];
+        }
+
+        return $openingDays;
+    }
+
 }
