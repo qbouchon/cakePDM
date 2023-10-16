@@ -48,7 +48,7 @@
 
 <div class="collapse" id="collapseConfiguration" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
     <nav class="sb-sidenav-menu-nested nav">
-        <?= $this->Html->link(__('Ecran d\'accueil'), ['controller'=>'configuration','action' => 'edit'], ['class' => 'nav-link']) ?>
+        <?= $this->Html->link(__('Ecran d\'accueil'), ['controller'=>'configuration','action' => 'editHome'], ['class' => 'nav-link']) ?>
     </nav>
     <nav class="sb-sidenav-menu-nested nav">
         <?= $this->Html->link(__('Dates de fermeture'), ['controller'=>'ClosingDates','action' => 'index'], ['class' => 'nav-link']) ?>
