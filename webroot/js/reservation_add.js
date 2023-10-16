@@ -179,6 +179,17 @@ $( document ).ready(function() {
 
  // ------------------------------------------------------------------------- Validators pour les dates entrées à la main -------------------------------------------------------------------
 
+
+
+function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+}
+
+
+
 function resetValidationmessages() {
         $('#startDateFeedback').html('');
         $('#endDateFeedback').html('');
@@ -268,20 +279,36 @@ function checkReservationDuration()
 //Check if there is no overlape reservation for the resource
 function checkOverlapeReservation()
 {
-        var start_date = $("#start_date").val();
-        var end_date = $("#end_date").val();     
-                 
-        if(picker.disabledDates.includes(start_date))
-        {           
-            $('#start_date').addClass('is-invalid');
-            $("#startDateFeedback").html("La ressource n\'est pas disponible à ces date");  
-            $("#startDateFeedback").show();
-        }
-        if(picker.disabledDates.includes(end_date))
-        {
-            $('#end_date').addClass('is-invalid');
-            $("#endDateFeedback").html("La ressource n\'est pas disponible à ces date");  
-            $("#endDateFeedback").show();
+        var start_date = new Date($("#start_date").val());
+        var end_date = new Date($("#end_date").val());     
+
+        it_date = new Date(start_date);
+
+        console.log("testover");
+
+        while(it_date < end_date)
+        {   
+            console.log('while');
+            console.log(it_date);
+            console.log(end_date);
+
+            console.log(formatDate(it_date));
+
+
+            if(picker.disabledDates.includes(formatDate(it_date)))
+            {   
+                
+                $('#start_date').addClass('is-invalid');
+                $('#end_date').addClass('is-invalid');
+                $("#startDateFeedback").html("Il y a déjà une réservation entre ces dates");  
+                $("#startDateFeedback").show();
+                $("#endDateFeedback").html("Il y a déjà une réservation entre ces dates");  
+                $("#endDateFeedback").show();
+                break;
+            }
+
+            it_date.setDate(it_date.getDate() + 1); 
+           
         }
 
 }
@@ -378,4 +405,5 @@ function getDayName(dayNumber)
         default:
             return null;
     }
+
 }
