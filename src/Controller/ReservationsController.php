@@ -26,10 +26,29 @@ class ReservationsController extends AppController
     public function index()
     {
        
+        $conditions = [];
+        $search = $this->request->getData('searchField');
+        if($search)
+        {
+             $conditions['OR'] = [
+                        
+                        'CONVERT(Reservations.id, CHAR) LIKE' => '%' . $search . '%',
+                        'Resources.name LIKE' => '%' . $search . '%',
+                        'Users.firstname LIKE' => '%' . $search . '%',
+                        'Users.lastname LIKE' => '%' . $search . '%',
+                        'Users.username LIKE' => '%' . $search . '%',
+                        'DATE_FORMAT(Reservations.start_date, "%d/%m") LIKE'  => '%' . $search . '%',
+                        'DATE_FORMAT(Reservations.end_date, "%d/%m") LIKE'  => '%' . $search . '%',
+                        'Reservations.is_back = 1 AND "oui" LIKE' => '%' . $search . '%', 
+                        'Reservations.is_back = 0 AND "non" LIKE' => '%' . $search . '%',
+                        'DATE_FORMAT(Reservations.back_date, "%d/%m") LIKE' => '%' . $search . '%',
+                ];
+        }
         if($this->request->getQuery('viewBack') == true){
             
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
+                'conditions' => $conditions,
                 'maxLimit' => 12,
                 'order' => ['Reservations.id' => 'desc']
 
@@ -37,9 +56,11 @@ class ReservationsController extends AppController
         }
         else{
 
+            $conditions = array_merge(['Reservations.is_back' => false], $conditions);
+
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
-                'conditions' => ['Reservations.is_back' => false],
+                'conditions' => $conditions,
                 'maxLimit' => 12,
                 'order' => ['Reservations.id' => 'desc']
             

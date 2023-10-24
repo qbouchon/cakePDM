@@ -70,12 +70,18 @@ use Cake\I18n\FrozenDate;
 
                     <!-- Search bar -->
                     <div>
-                        <div class="input-group">                        
-                            <input type="text" class="form-control border-right-0" id="searchBox" onkeyup="search()" placeholder="Rechercher">   
-                                <span class="input-group-text bg-white border-left-0">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                        </div>
+                        <fieldset>
+                                <?= $this->Form->create(null, ['url' => ['action' => 'index', '?' => $this->request->getQuery()]]); ?>
+
+                                <div class="input-group">                        
+                                    <input type="text" class="form-control border-right-0" id="searchBox" name="searchField" onkeyup="search()" placeholder="Rechercher">   
+                                        <span class="input-group-text bg-white border-left-0">
+                                            <!-- <i class="fa fa-search"></i> -->
+                                             <?= $this->Form->button('<i class="fa fa-search"></i>', ['escapeTitle' =>false, 'class' => 'searchButton']); ?>                                       
+                                        </span>
+                                </div>
+                                <?= $this->Form->end() ?>
+                        </fieldset>
                            
                     </div>
 

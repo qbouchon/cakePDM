@@ -247,6 +247,25 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 
 }
 
+.searchButton {
+        --bs-btn-color: var(--uga-blue);
+        --bs-btn-bg: none;
+        --bs-btn-border-color:none;
+        --bs-btn-hover-color: var(--uga-orange);
+        --bs-btn-hover-bg:none;
+        --bs-btn-hover-border-color: none;
+        --bs-btn-focus-shadow-rgb: none;
+        --bs-btn-active-color:none;
+        --bs-btn-active-bg:none;
+        --bs-btn-active-border-color:none;
+        --bs-btn-active-shadow: none;
+        --bs-btn-disabled-color: none;
+        --bs-btn-disabled-bg: none;
+        --bs-btn-disabled-border-color: none;
+        --bs-btn-padding-x: 0;
+        --bs-btn-padding-y: 0;
+}
+
 /*-----------------------------------------------fullCalendar ----------------------------------------------*/
 
 

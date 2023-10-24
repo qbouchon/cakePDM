@@ -316,8 +316,16 @@ $( document ).ready(function() {
                                         trigger: 'click',                                
     });
 
+
+    tippy('.searchButton', {
+                                        content: 'Rechercher dans toutes les pages',
+                                        duration: 0,
+                                        allowHTML:true,                                    
+    });
+
+
     
-     
+
 
     // ---------------------------------------------------------------------- gestion des bouttons d'édition des mails (config->mail) ------------------------------------------------------------------
 
