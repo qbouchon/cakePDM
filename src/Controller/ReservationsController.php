@@ -27,7 +27,8 @@ class ReservationsController extends AppController
     {
        
         $conditions = [];
-        $search = $this->request->getData('searchField');
+        $search = $this->request->getQuery('searchField');
+
         if($search)
         {
              $conditions['OR'] = [
@@ -103,12 +104,34 @@ class ReservationsController extends AppController
     {
 
         $user = $this->Reservations->Users->get($this->Authentication->getIdentity()->get('id'));
+        $conditions = [];
+        $search = $this->request->getQuery('searchField');
 
+        if($search)
+        {
+             $conditions['OR'] = [
+                        
+                        'CONVERT(Reservations.id, CHAR) LIKE' => '%' . $search . '%',
+                        'Resources.name LIKE' => '%' . $search . '%',
+                        'Users.firstname LIKE' => '%' . $search . '%',
+                        'Users.lastname LIKE' => '%' . $search . '%',
+                        'Users.username LIKE' => '%' . $search . '%',
+                        'DATE_FORMAT(Reservations.start_date, "%d/%m") LIKE'  => '%' . $search . '%',
+                        'DATE_FORMAT(Reservations.end_date, "%d/%m") LIKE'  => '%' . $search . '%',
+                        'Reservations.is_back = 1 AND "oui" LIKE' => '%' . $search . '%', 
+                        'Reservations.is_back = 0 AND "non" LIKE' => '%' . $search . '%',
+                        'DATE_FORMAT(Reservations.back_date, "%d/%m") LIKE' => '%' . $search . '%',
+                ];
+        }
+
+        $conditions = array_merge(['Reservations.user_id' => $user->id], $conditions);
+        
         if($this->request->getQuery('viewBack') == true){
 
+            
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
-                'conditions' => ['Reservations.user_id' => $user->id],
+                'conditions' => $conditions,
                 'maxLimit' => 10,
                 'order' => ['Reservations.id' => 'desc']
             ];
@@ -116,9 +139,11 @@ class ReservationsController extends AppController
         }
         else{
 
+            $conditions = array_merge(['Reservations.is_back' => false], $conditions);
+
             $this->paginate = [
                 'contain' => ['Resources', 'Users'],
-                'conditions' => ['Reservations.user_id' => $user->id, 'Reservations.is_back' => false],
+                'conditions' => $conditions,
                 'maxLimit' => 10,
                 'order' => ['Reservations.id' => 'desc']
             
