@@ -27,11 +27,31 @@ class ResourcesController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
+
+        $conditions = [];
+        $search = $this->request->getQuery('searchField');
+
+        if($search)
+        {
+             $conditions['OR'] = [
+                                
+                        'Resources.name LIKE' => '%' . $search . '%',
+                        'Resources.picture LIKE' => '%' . $search . '%',
+                        'Domains.name LIKE' => '%' . $search . '%',
+                        'CONVERT(Resources.max_duration, CHAR) LIKE' => '%' . $search . '%',
+                        'CONVERT(Resources.archive, CHAR) LIKE'  => '%' . $search . '%',
+                ];
+        }
+
         $this->paginate = [
             'contain' => ['Domains'],
+            'conditions' => $conditions,
             'order' => ['Resources.archive' => 'asc'],
             'maxLimit' => 12
         ];
+
+
+
         $resources = $this->paginate($this->Resources->find());
 
         $this->set(compact('resources'));
