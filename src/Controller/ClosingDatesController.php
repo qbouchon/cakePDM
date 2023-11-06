@@ -23,7 +23,24 @@ class ClosingDatesController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-        $closingDates = $this->paginate($this->ClosingDates, ['maxLimit' => 12]);
+        $conditions = [];
+        $search = $this->request->getQuery('searchField');
+
+        if($search)
+        {
+
+            //Pour gérer les char spéciaux dans la déscription (stockée en html en base)
+            $htmlText = htmlentities($search, ENT_HTML5, 'UTF-8');
+
+            $conditions['OR'] = [
+                                
+                        'ClosingDates.name LIKE' => '%' . $search . '%',
+                        'DATE_FORMAT(ClosingDates.start_date, "%d/%m") LIKE'  => '%' . $search . '%',
+                        'DATE_FORMAT(ClosingDates.end_date, "%d/%m") LIKE'  => '%' . $search . '%',              
+            ];
+        }
+
+        $closingDates = $this->paginate($this->ClosingDates, ['maxLimit' => 12, 'conditions' => $conditions]);
 
         $this->set(compact('closingDates'));
     }
