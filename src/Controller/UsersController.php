@@ -38,7 +38,33 @@ class UsersController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-        $users = $this->paginate($this->Users, ['maxLimit' => 12]);
+
+
+        $conditions = [];
+        $search = $this->request->getQuery('searchField');
+
+        if($search)
+        {
+
+            //Pour gérer les char spéciaux dans la déscription (stockée en html en base)
+            $htmlText = htmlentities($search, ENT_HTML5, 'UTF-8');
+
+            $conditions['OR'] = [
+                                
+                        'Users.firstname LIKE' => '%' . $search . '%',
+                        'Users.lastname LIKE' => '%' . $search . '%',
+                        'Users.username LIKE' => '%' . $search . '%',
+                        'Users.email LIKE' => '%' . $search . '%',
+                        'Users.active = 1 AND "oui" LIKE' => '%' . $search . '%',
+                        'Users.active = 0 AND "non" LIKE' => '%' . $search . '%',
+                        'Users.admin = 1 AND "oui" LIKE' => '%' . $search . '%',
+                        'Users.admin = 0 AND "non" LIKE' => '%' . $search . '%',
+
+            ];
+        }
+
+
+        $users = $this->paginate($this->Users, ['maxLimit' => 12, 'conditions' => $conditions]);
 
         $this->set(compact('users'));
     }

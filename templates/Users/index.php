@@ -16,16 +16,22 @@
                         <div >
                             <?= $this->Html->link('<i class=" text-center fas fa-plus fa-xl"></i>' , ['action'=>'add' ],[ 'class' => 'text-center  btn userAddButton','data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Créer une ressource','escape' =>false]); ?>
                         </div>
-                        <div>
-                             <div class="input-group">                        
-                                    <input type="text" class="form-control border-right-0" id="searchBox" onkeyup="search()" placeholder="Rechercher">   
-                                     <span class="input-group-text bg-white border-left-0">
-                                            <i class="fa fa-search"></i>
-                                    </span>
+                              <!-- Search bar -->
+                <div>
+                    <fieldset>
+                            <?= $this->Form->create(null, ['url' => ['action' => 'index'], 'type' => 'get']); ?>
 
+                            <div class="input-group">                        
+                                <?= $this->Form->input('searchField', ['type' => 'text', 'class' => 'form-control border-right-0', 'id' => 'searchBox', 'onkeyup' => 'search()', 'placeholder' => 'Rechercher', 'value' => $this->request->getQuery('searchField')]); ?>
+
+                                    <span class="input-group-text bg-white border-left-0">
+                                        <!-- <i class="fa fa-search"></i> -->
+                                         <?= $this->Form->button('<i class="fa fa-search"></i>', ['escapeTitle' =>false, 'class' => 'searchButton']); ?>                                       
+                                    </span>
                             </div>
-                           
-                        </div>
+                            <?= $this->Form->end() ?>
+                    </fieldset>               
+                </div>
             </div>
 
 
@@ -64,7 +70,7 @@
                                                                                                 <td class="text-center"><?= h($user->email) ?></td>
                                                                                 
                     
-                                                                                                <td class="text-center"><?= h($user->active) ?></td>
+                                                                                                <td class="text-center"><?= $user->active ? 'Oui' : 'Non' ?></td>
                                                                                 
                     
                                                                                                 <td class="text-center"><?= $user->admin ? 'Oui' : 'Non' ?></td>
