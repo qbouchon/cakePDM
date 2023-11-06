@@ -22,7 +22,31 @@ class DomainsController extends AppController
         if($this->Authentication->getIdentity()->get('admin'))
             $this->Authorization->skipAuthorization();
 
-        $domains = $this->paginate($this->Domains->find('all')->contain('Resources'));
+        $conditions = [];
+        $search = $this->request->getQuery('searchField');
+
+        if($search)
+        {
+
+            //Pour gérer les char spéciaux dans la déscription (stockée en html en base)
+            $htmlText = htmlentities($search, ENT_HTML5, 'UTF-8');
+
+            $conditions['OR'] = [
+                                
+                        'Domains.name LIKE' => '%' . $search . '%',
+                        'Domains.picture LIKE' => '%' . $search . '%',
+                        'Domains.description LIKE' => '%' . $htmlText . '%',
+                ];
+        }
+
+           $this->paginate = [
+            'contain' => ['Resources'],
+            'conditions' => $conditions,
+            'maxLimit' => 12
+        ];
+
+        $domains  = $this->paginate($this->Domains->find());
+      
         $this->set(compact('domains'));
     }
 
