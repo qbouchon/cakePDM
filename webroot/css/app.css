@@ -209,7 +209,7 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
 
 /*------------------------------------------Pour les bouttons ------------------------------------------*/
 
-.addButton, .reservationAddButton, .userAddButton, .resourceAddButton, .domainAddButton, .closingDatesAddButton .calendarViewButton, .listViewButton, .hidebackButton, .viewbackButton, .helpMailButton, .backButton, .backCatalogueButton, .editMailButton, .openingDaysButton, .helpHomeEditButton{
+.addButton, .reservationAddButton, .userAddButton, .resourceAddButton, .domainAddButton, .closingDatesAddButton .calendarViewButton, .listViewButton, .hidebackButton, .viewbackButton, .helpMailButton, .backButton, .backCatalogueButton, .editMailButton, .openingDaysButton, .helpHomeEditButton, #resetSearch{
     color: var(--uga-blue);
     transition: transform 0.1s ease;
     --bs-btn-active-border-color: transparent;
@@ -224,7 +224,7 @@ background-color: #ffffff/*var(--uga-resources-card-bg-body);*/
     transform: scale(1.3);
 }
 
-.backCatalogueButton:hover , .backButton:hover, .editMailButton:hover{
+.backCatalogueButton:hover , .backButton:hover, .editMailButton:hover, #resetSearch:hover{
     color: var(--uga-orange);
 }
 
@@ -412,4 +412,15 @@ td[d="6"] {
 
 .datepicker__week-name-disabled {
   color: #e8ebf4;
+}
+
+
+
+
+#resetSearch {
+
+  position: absolute;
+  top: 28%;
+  right: 50px;
+  z-index: 50000;
 }

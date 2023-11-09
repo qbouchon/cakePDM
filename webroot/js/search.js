@@ -34,6 +34,24 @@ function search() {
       
     // });
 
+    if($('#searchBox').val() != '')
+    {
+            $('#resetSearch').removeClass('displaynone');
+    }
 }
 
+$(document).ready(function() {
+    if($('#searchBox').val() != '')
+    {
+            $('#resetSearch').removeClass('displaynone');
 
+            tippy('#resetSearch', {
+                                        content: 'Réinitialiser',
+                                        duration: 0,
+                                        allowHTML:true,                                    
+            });
+    }
+
+
+
+});

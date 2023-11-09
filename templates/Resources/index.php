@@ -31,7 +31,9 @@
                         <?= $this->Form->create(null, ['url' => ['action' => 'index'], 'type' => 'get']); ?>
 
                         <div class="input-group">                        
-                            <?= $this->Form->input('searchField', ['type' => 'text', 'class' => 'form-control border-right-0', 'id' => 'searchBox', 'onkeyup' => 'search()', 'placeholder' => 'Rechercher', 'value' => $this->request->getQuery('searchField')]); ?>
+                                <?= $this->Form->input('searchField', ['type' => 'text', 'class' => 'form-control border-right-0', 'id' => 'searchBox', 'onkeyup' => 'search()', 'placeholder' => 'Rechercher', 'value' => $this->request->getQuery('searchField')]); ?>
+                                
+                                <?= $this->Html->link('<i class="fa-solid fa-xmark displaynone" id="resetSearch"></i>' , ['action'=>'index','?'=>  array_merge($this->request->getQuery(), ['searchField' => ''])],['escape' =>false]); ?>
 
                                 <span class="input-group-text bg-white border-left-0">
                                     <!-- <i class="fa fa-search"></i> -->
