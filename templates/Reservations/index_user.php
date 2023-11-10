@@ -124,6 +124,7 @@ use Cake\I18n\FrozenDate;
                                 <td class="text-center"><?= h($reservation->end_date) ?></td>
 
                                 <?php 
+                                    //Si la réservation n'a pas débuté
                                     if($reservation->start_date > FrozenDate::now()):
                                 ?>
                                         
@@ -148,10 +149,23 @@ use Cake\I18n\FrozenDate;
                                     </div>
                                 </td>
                                 <?php
+                                    //Si la réservationo est en cours
                                     else:
+                                        if($reservation->end_date < FrozenDate::now()):
+                                            if($reservation->is_back):
                                 ?>
-                                     <td class="text-center"><i>Réservation en cours</i></td>
+                                                <td class="text-center"><i>Réservation terminée</i></td>
                                 <?php
+                                            else:
+                                ?>
+                                                <td class="text-center"><i>Réservation à retourner</i></td>
+                                <?php
+                                            endif;
+                                        else:
+                                ?>
+                                            <td class="text-center"><i>Réservation en cours</i></td>
+                                <?php
+                                        endif;
                                     endif;
                                 ?>
 
