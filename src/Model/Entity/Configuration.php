@@ -182,6 +182,21 @@ class Configuration extends Entity
             else
                 $mailText = str_replace('$back', 'non rendue', $mailText);
 
+            //Horaires
+            $openingDays = $this->getOpeningDays();
+            $openingDaysContent = '';
+
+            if($openingDays)
+            {
+                foreach($openingDays as $day => $hours)
+                {
+                       $openingDaysContent .= '<div>'.$day.' : '.$hours[0].'-'.$hours[1].'</div>';
+                }
+
+            }
+
+            $mailText = str_replace('$horaires', $openingDaysContent , $mailText);
+
             return $mailText;
     }
 
@@ -204,32 +219,66 @@ class Configuration extends Entity
                 $mailObject = str_replace('$back', 'non rendue', $mailObject);
 
 
+
+            //Horaires
+            $openingDays = $this->getOpeningDays();
+            $openingDaysContent = '';
+
+            if($openingDays)
+            {
+                foreach($openingDays as $day => $hours)
+                {
+                       $openingDaysContent .= '<div>'.$day.' : '.$hours[0].'-'.$hours[1].'</div>';
+                }
+
+            }
+
+            $mailObject = str_replace('$horaires', $openingDaysContent , $mailObject);
+
+
             return $mailObject;
     }
 
     public function formatContent($reservation, $content)
     {
-        $formatObject = str_replace('$firstname', $reservation->user->firstname, $content);
-        $formatObject = str_replace('$lastname', $reservation->user->lastname, $formatObject);
-        $formatObject = str_replace('$resource', $reservation->resource->name, $formatObject);
-        $formatObject = str_replace('$start', $reservation->start_date->format('d-m-Y'), $formatObject);
-        $formatObject = str_replace('$end', $reservation->end_date->format('d-m-Y'), $formatObject);
-        $formatObject = str_replace('$login', $reservation->user->username, $formatObject);
-        $formatObject = str_replace('$id', strval($reservation->id), $formatObject);
+        $formatContent = str_replace('$firstname', $reservation->user->firstname, $content);
+        $formatContent = str_replace('$lastname', $reservation->user->lastname, $formatContent);
+        $formatContent = str_replace('$resource', $reservation->resource->name, $formatContent);
+        $formatContent = str_replace('$start', $reservation->start_date->format('d-m-Y'), $formatContent);
+        $formatContent = str_replace('$end', $reservation->end_date->format('d-m-Y'), $formatContent);
+        $formatContent = str_replace('$login', $reservation->user->username, $formatContent);
+        $formatContent = str_replace('$id', strval($reservation->id), $formatContent);
 
         if($reservation->is_back)
-            $formatObject = str_replace('$back', 'rendue', $formatObject);
+            $formatContent = str_replace('$back', 'rendue', $formatContent);
         else
-            $formatObject = str_replace('$back', 'non rendue', $formatObject);
+            $formatContent = str_replace('$back', 'non rendue', $formatContent);
 
-        return $formatObject;
+
+        //Horaires
+        $openingDays = $this->getOpeningDays();
+        $openingDaysContent = '';
+
+        if($openingDays)
+        {
+            foreach($openingDays as $day => $hours)
+            {
+                   $openingDaysContent .= '<div>'.$day.' : '.$hours[0].'-'.$hours[1].'</div>';
+            }
+
+        }
+
+        $formatContent = str_replace('$horaires', $openingDaysContent , $formatContent);
+
+
+        return $formatContent;
     }
 
 
     public function getFormattedHomeText()
     {
         $openingDays = $this->getOpeningDays();
-        $openingDaysContent = '<div><b>Horaires d\'ouverture du CREST :</b></div>';
+        $openingDaysContent = '';
 
         if($openingDays)
         {

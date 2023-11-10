@@ -272,6 +272,8 @@ $( document ).ready(function() {
                     + '<br/>'
                     + '<b>$back :</b> rendue/non rendue'
                     + '<br/>'
+                    + '<b>$horaires :</b> affiche les heures d\'ouverture'
+                    + '<br/>'
                     + '<i>';
     tippy('.helpMailButton', {
                                         content: helpMailButtonContent,
