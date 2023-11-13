@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "002313469b7ed6760d45469d3a932583",
+    "content-hash": "f870fa1bae1678968cc538b6a5796ab5",
     "packages": [
         {
             "name": "avolle/cakephp-font-awesome",
@@ -195,20 +195,20 @@
         },
         {
             "name": "cakephp/cakephp",
-            "version": "4.4.17",
+            "version": "4.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "9ff254d6d60720089dec1e10aa1907e24e39a98e"
+                "reference": "d3d5417b4274777ebd93916a6fa4551e06273725"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/9ff254d6d60720089dec1e10aa1907e24e39a98e",
-                "reference": "9ff254d6d60720089dec1e10aa1907e24e39a98e",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/d3d5417b4274777ebd93916a6fa4551e06273725",
+                "reference": "d3d5417b4274777ebd93916a6fa4551e06273725",
                 "shasum": ""
             },
             "require": {
-                "cakephp/chronos": "^2.2",
+                "cakephp/chronos": "^2.4.0-RC2",
                 "composer/ca-bundle": "^1.2",
                 "ext-intl": "*",
                 "ext-json": "*",
@@ -216,7 +216,7 @@
                 "laminas/laminas-diactoros": "^2.2.2",
                 "laminas/laminas-httphandlerrunner": "^1.1 || ^2.0",
                 "league/container": "^4.2.0",
-                "php": ">=7.4.0",
+                "php": ">=7.4.0,<9",
                 "psr/container": "^1.1 || ^2.0",
                 "psr/http-client": "^1.0",
                 "psr/http-server-handler": "^1.0",
@@ -265,6 +265,7 @@
             "autoload": {
                 "files": [
                     "src/Core/functions.php",
+                    "src/Error/functions.php",
                     "src/Collection/functions.php",
                     "src/I18n/functions.php",
                     "src/Routing/functions.php",
@@ -303,20 +304,20 @@
                 "issues": "https://github.com/cakephp/cakephp/issues",
                 "source": "https://github.com/cakephp/cakephp"
             },
-            "time": "2023-08-20T02:36:22+00:00"
+            "time": "2023-11-12T03:23:04+00:00"
         },
         {
             "name": "cakephp/chronos",
-            "version": "2.4.1",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/chronos.git",
-                "reference": "dd583900b26971e84d56c482d6c5fc16961bd103"
+                "reference": "96f28ddfceba2ff56e0d2405c28d789bd546ff55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/chronos/zipball/dd583900b26971e84d56c482d6c5fc16961bd103",
-                "reference": "dd583900b26971e84d56c482d6c5fc16961bd103",
+                "url": "https://api.github.com/repos/cakephp/chronos/zipball/96f28ddfceba2ff56e0d2405c28d789bd546ff55",
+                "reference": "96f28ddfceba2ff56e0d2405c28d789bd546ff55",
                 "shasum": ""
             },
             "require": {
@@ -361,7 +362,7 @@
                 "issues": "https://github.com/cakephp/chronos/issues",
                 "source": "https://github.com/cakephp/chronos"
             },
-            "time": "2023-09-12T03:12:29+00:00"
+            "time": "2023-10-17T08:00:24+00:00"
         },
         {
             "name": "cakephp/localized",
@@ -716,20 +717,20 @@
         },
         {
             "name": "laminas/laminas-diactoros",
-            "version": "2.25.2",
+            "version": "2.26.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-diactoros.git",
-                "reference": "9f3f4bf5b99c9538b6f1dbcc20f6fec357914f9e"
+                "reference": "6584d44eb8e477e89d453313b858daac6183cddc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-diactoros/zipball/9f3f4bf5b99c9538b6f1dbcc20f6fec357914f9e",
-                "reference": "9f3f4bf5b99c9538b6f1dbcc20f6fec357914f9e",
+                "url": "https://api.github.com/repos/laminas/laminas-diactoros/zipball/6584d44eb8e477e89d453313b858daac6183cddc",
+                "reference": "6584d44eb8e477e89d453313b858daac6183cddc",
                 "shasum": ""
             },
             "require": {
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0",
                 "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.1"
             },
@@ -809,7 +810,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-04-17T15:44:17+00:00"
+            "time": "2023-10-29T16:17:44+00:00"
         },
         {
             "name": "laminas/laminas-httphandlerrunner",
@@ -1279,16 +1280,16 @@
         },
         {
             "name": "psr/http-client",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-client.git",
-                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31"
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-client/zipball/0955afe48220520692d2d09f7ab7e0f93ffd6a31",
-                "reference": "0955afe48220520692d2d09f7ab7e0f93ffd6a31",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
                 "shasum": ""
             },
             "require": {
@@ -1325,9 +1326,9 @@
                 "psr-18"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-client/tree/1.0.2"
+                "source": "https://github.com/php-fig/http-client"
             },
-            "time": "2023-04-10T20:12:12+00:00"
+            "time": "2023-09-23T14:17:50+00:00"
         },
         {
             "name": "psr/http-factory",
@@ -6302,5 +6303,5 @@
         "php": ">=7.4"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
