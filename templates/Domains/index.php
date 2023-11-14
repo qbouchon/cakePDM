@@ -101,7 +101,7 @@
                                     <?php 
                                         if($domain->resources):
                                     ?>
-                                            En supprimant ce domaine, <b>toutes les ressources ci dessous deviendrons orphelines : </b>
+                                            En supprimant ce domaine, <b>toutes les ressources ci dessous deviendront orphelines : </b>
                                             <ul>
                                                 <?php 
 
