@@ -28,6 +28,13 @@
 
                 <?= $this->Form->control('name',['label'=> 'Nom']);?>
 
+                <?= $this->Form->control('domain_id', ['options' => $domains, 'empty' => true, 'label' => 'Domaine']); ?>
+
+                <?= $this->Form->label('Nombre d\'exemplaires :'); ?>
+                    <div class='col-2 mt-2'>
+                        <?= $this->Form->control('quantity', ['label' => false]); ?>
+                </div>
+
                 <div class='d-flex align-items-center'>
                     <?=  $this->Form->control('picture',['type' => 'file',  'class'=>'d-inline', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']); ?>
                     <div id='rResetPicture' class = "displaynone">
@@ -54,7 +61,7 @@
 
 
                 <?= $this->Form->control('description',['label' => 'Description']); ?>
-                <?= $this->Form->control('domain_id', ['options' => $domains, 'empty' => true, 'label' => 'Domaine']); ?>
+                
 
                 <div class="row d-flex align-items-center">
                     <?= $this->Form->label('Durée de réservation maximale (1 semaine = 7 jours)'); ?>

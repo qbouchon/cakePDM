@@ -45,6 +45,10 @@
                         <th><?= __('Archivée') ?></th>
                         <td><?= $resource->archive ? __('Oui') : __('Non'); ?></td>
                     </tr>
+                    <tr>
+                        <th><?= __('Quantité') ?></th>
+                        <td><?= $resource->quantity ?></td>
+                    </tr>
                     <?php
                         endif;
                     ?>

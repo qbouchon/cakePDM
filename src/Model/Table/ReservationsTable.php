@@ -199,25 +199,49 @@ class ReservationsTable extends Table
         $start_date = new FrozenDate($context['data']['start_date']);
         $end_date = new FrozenDate($context['data']['end_date']);
         $resource = $this->Resources->get($context['data']['resource_id'],['contain' => 'Reservations']);
+        $quantity = $context['data']['quantity'];
+
 
         //Dans le cas où on est en train d'éditer une réservation, on ne veut pas checker les dates de cette réservation
         if (isset($context['data']['id']) && $context['data']['id'])
         {               
-            foreach($resource->reservations as $reservation)
-            {
+            // foreach($resource->reservations as $reservation)
+            // {
                    
-                if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back && $reservation->id != $context['data']['id'])
-                    return false;
+            //     if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back && $reservation->id != $context['data']['id'])
+            //          return false;
+
                 
+            // }
+
+            $unavailableDates = $resource->getCurrentReservationsDates($quantity);
+            foreach($unavailableDates as $unavailableDate)
+            {
+                if($start_date <= $unavailableDate && $end_date >= $unavailableDate)
+                {
+                    echo 'false';
+                    die;
+                    return false;
+                }
             }
         }
         else
         {
-            foreach($resource->reservations as $reservation)
-            {                 
-                if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back)
-                    return false;
+            // foreach($resource->reservations as $reservation)
+            // {                 
+            //     if($reservation->start_date <= $end_date && $reservation->end_date >= $start_date && !$reservation->is_back)
+            //         return false;
                 
+            // }
+             $unavailableDates = $resource->getCurrentReservationsDates($quantity);
+            foreach($unavailableDates as $unavailableDate)
+            {
+                if($start_date <= $unavailableDate && $end_date >= $unavailableDate)
+                {
+                    // echo 'false';
+                    // die;
+                    return false;
+                }
             }
         
         }

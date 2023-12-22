@@ -17,6 +17,7 @@ use Cake\I18n\FrozenDate;
  * @property int|null $domain_id
  * @property int|null $max_duration
  * @property bool|null $archive
+ * @property int $quantity
  * @property string|null $color
  * 
  *
@@ -300,33 +301,90 @@ class Resource extends Entity
     }
 
     //Renvoie les dates de réservation pour les ressources non retournées
-    public function getCurrentReservationsDates()
+    // public function getCurrentReservationsDates()
+    // {
+    //     $dates = [];
+
+    //     if(!empty($this->reservations))
+    //     {
+    //         foreach($this->reservations as $reservation)
+    //         {
+    //             if(!$reservation->is_back)
+    //             {
+                    
+    //                 //On push toutes les dates entre start_date et end_date
+    //                 $currentDate = new FrozenDate($reservation->start_date);
+    //                 $endDate = new FrozenDate($reservation->end_date);
+    //                 while($currentDate <= $endDate)
+    //                 {
+    //                     $dates[] = $currentDate;
+    //                     $currentDate = $currentDate->addDays(1);
+    //                 }
+
+                   
+    //             }
+
+    //         }
+    //     }
+        
+    //     return $dates;
+    // }
+
+    //Renvoie les dates d'indisponibilité de la ressource en prenant en compte le nombre d'exemplaire de cette ressource et du nombre voulu $quantity
+    //On parcours toutes les reservations non rendues pour cette ressource, à chaque jour de reservation, on incrémente de la quantité de ressources reservées ($reservation->quantity) 
+    // Puis pour chaque date, on regarde si la quantité voulue est inférieur à la quantité restante de ressource.
+    // Si la quantité voulue est supérieure, alors la date apparaitera comme non réservable (il n'y a pas assez de ressource de ce type à cette date pour satisfaire la requête)
+    public function getCurrentReservationsDates($quantity)
     {
+
         $dates = [];
+        $unavailableDates = [];
+
+        if(!$quantity)
+            $quantity = 1;
+
 
         if(!empty($this->reservations))
         {
-            foreach($this->reservations as $reservation)
-            {
-                if(!$reservation->is_back)
-                {
-                    
-                    //On push toutes les dates entre start_date et end_date
-                    $currentDate = new FrozenDate($reservation->start_date);
-                    $endDate = new FrozenDate($reservation->end_date);
-                    while($currentDate <= $endDate)
-                    {
-                        $dates[] = $currentDate;
-                        $currentDate = $currentDate->addDays(1);
-                    }
 
-                   
+                foreach($this->reservations as $reservation)
+                {
+                     if(!$reservation->is_back)
+                     {
+                            $currentDate = new FrozenDate($reservation->start_date);
+                            $endDate = new FrozenDate($reservation->end_date);
+
+                            while($currentDate <= $endDate)
+                            {
+                                $formattedDate = $currentDate->format('Y-m-d');
+                                
+                                if(array_key_exists($formattedDate,$dates))
+                                    $dates[$formattedDate] += $reservation->quantity;
+                                else
+                                    $dates[$formattedDate] = $reservation->quantity;
+
+                                $currentDate = $currentDate->addDays(1);
+                            }
+                     }
                 }
 
-            }
+       
+                foreach($dates as $date => $occurences)
+                {
+                    //$this->quantity - $occurences = cb il reste d'exemplaire de cette ressource à cette date 
+                    $reste = $this->quantity - $occurences;
+                  
+                    if($quantity > $reste)
+                    {
+                        $unavailableDates[] =  $date;
+                    }
+                }
+
         }
+
+        return $unavailableDates;
+
         
-        return $dates;
     }
 
     //Renvoie les dates de réservation pour les ressources non retournées sauf celle de la reservation passée en paramètre

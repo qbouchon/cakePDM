@@ -43,6 +43,7 @@ class ReservationsController extends AppController
                         'Reservations.is_back = 1 AND "oui" LIKE' => '%' . $search . '%', 
                         'Reservations.is_back = 0 AND "non" LIKE' => '%' . $search . '%',
                         'DATE_FORMAT(Reservations.back_date, "%d/%m") LIKE' => '%' . $search . '%',
+                        'Reservations.quantity LIKE' => '%' . $search . '%',
                 ];
         }
         if($this->request->getQuery('viewBack') == true){
@@ -121,6 +122,7 @@ class ReservationsController extends AppController
                         'Reservations.is_back = 1 AND "oui" LIKE' => '%' . $search . '%', 
                         'Reservations.is_back = 0 AND "non" LIKE' => '%' . $search . '%',
                         'DATE_FORMAT(Reservations.back_date, "%d/%m") LIKE' => '%' . $search . '%',
+                        'Reservations.quantity LIKE' => '%' . $search . '%',
                 ];
         }
 

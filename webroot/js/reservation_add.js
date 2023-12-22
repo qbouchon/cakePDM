@@ -3,44 +3,76 @@ let picker;
 
 $( document ).ready(function() {
 
-    //Fonction de création du picker avec les dates d'indisponibilité de la resource
+
+
+
+    //these 2 fields reload the picker on change. We want to prevent them to be clicked when the picker is loadings
+    function disableResourceField()
+    {
+        $('#resourceInput').prop('disabled', true);
+    }
+
+    function disableQuantityField()
+    {
+        $('#quantitySelect').prop('disabled', true);
+    }
+
+    function enableResourceField()
+    {
+        $('#resourceInput').prop('disabled', false);
+    }
+
+    function  enableQuantityField()
+    {
+        $('#quantitySelect').prop('disabled', false);
+    }
+
+
+
+    //Fonction de création du picker avec les dates d'indisponibilité de la resource + modification des champs quantité et durée max en fonction de la resource selectionnée
     function createPicker(resourceId)
     {
 
                 $('#picker-container').append("<input class='invisible' id='picker' type='text' readonly='readonly'/>");
 
-                // requêtes Ajax pour la récupération des dates et de la durée de réservation maximale. ResourceController
+                // requêtes Ajax pour la récupération des dates et de la durée de réservation maximale. ResourceController todo : fusionner les requetes
 
-                var getDateUrl =  webrootUrl+"resources/"+resourceId+"/reservations/dates";
+                var getDateUrl =  webrootUrl+"resources/"+resourceId+"/reservations/dates?quantity="+$('#quantitySelect').val();
 
-                var getMaxDurationUrl =  webrootUrl+"resources/"+resourceId+"/max_duration";
+                var getMaxDurationUrl =  webrootUrl+"resources/"+resourceId+"/max_duration"; 
 
                 var getClosingDateUrl = webrootUrl+"closing-dates/dates/";
 
                 var getClosingDaysUrl = webrootUrl+"configuration/closing-days"
 
+                
+
                 $.get(getDateUrl, function(bookedDates) {
-                         $.get(getMaxDurationUrl, function(maxDuration) {
-                                $.get(getClosingDateUrl, function(closingDates) {
-                                     $.get(getClosingDaysUrl, function(closingDays) {
+                        $.get(getMaxDurationUrl, function(maxDuration) {
+                                
+                                    $.get(getClosingDateUrl, function(closingDates) {
+                                         $.get(getClosingDaysUrl, function(closingDays) {
 
-                                            var maxDurationInt = parseInt(maxDuration);
-                                            
-                                            
-                                            //Côté serveur max duration = 0 signifie qu'il n'y a pas de limite dans la durée de réservation
-                                            if(maxDurationInt <= 0)
-                                            {
-                                                $('#maxDurationInfo').html("");
-                                                displayPicker(bookedDates, closingDates, false, closingDays);
-                                            }
-                                            else
-                                            {
-                                                $('#maxDurationInfo').html("La durée maximale de réservation pour cette ressource est de " + maxDurationInt + " jour(s).");
-                                                displayPicker(bookedDates, closingDates, maxDurationInt, closingDays);
-                                            }
+                                                var maxDurationInt = parseInt(maxDuration);
+                                                
+                                                
+                                                //Côté serveur max duration = 0 signifie qu'il n'y a pas de limite dans la durée de réservation
+                                                if(maxDurationInt <= 0)
+                                                {
+                                                    $('#maxDurationInfo').html(""); //à déplacer
+                                                    displayPicker(bookedDates, closingDates, false, closingDays);
+                                                }
+                                                else
+                                                {
+                                                    $('#maxDurationInfo').html("La durée maximale de réservation pour cette ressource est de " + maxDurationInt + " jour(s)."); //à déplacer
+                                                    displayPicker(bookedDates, closingDates, maxDurationInt, closingDays);
+                                                }
 
-                                     });
-                                }); 
+                                               
+
+                                         });
+                                    });
+                                
                         });                
                 });
 
@@ -77,6 +109,9 @@ $( document ).ready(function() {
         });
 
         $('#loadingAnimation').addClass('displaynone');
+
+        enableQuantityField();
+        enableResourceField();
 
         //Création des tooltips
         createDisabledDayTooltips();
@@ -123,23 +158,76 @@ $( document ).ready(function() {
     }
 
 
+    function initQuantityField(callback)
+    {
+        var getQuantityUrl = webrootUrl+"resources/"+$('#resourceInput').val()+"/quantity";
 
+        $.get(getQuantityUrl, function(quantity) {
+
+            $('#quantitySelect').empty();
+
+            for(i=1; i<=quantity; i++)
+                $('#quantitySelect').append($('<option>').text(i).val(i));
+
+            callback();
+        });
+    }
+
+
+   // ------------------------------- INIT ------------------------------------------------------------------------
 
 
     //Créer le toolTip avec les horaires d'ouverture
     createOpeningDaysToolTip();
 
-    //Créer le picker au chargement de la page
-    createPicker($("#resourceInput").val());
+    //initialise le champs quantité en fonction de la resource selectionnée puis crée le picker
+    initQuantityField(function(){
+         createPicker($("#resourceInput").val());
+    });
+   
 
-    //Recrée le picker quand on change de ressource
+
+    // --------------------------------- On user Input ------------------------------------------------------------
+
+    //Recrée le picker et met à jour le champs quantité quand on change de ressource
     $('#resourceInput').on('change', function(){
-                   
+        
+        disableResourceField();
+        disableQuantityField();
         $('#picker').remove();
-        picker.destroy();
+        if(picker)
+            picker.destroy();
         resetValidationmessages();
         $('#loadingAnimation').removeClass('displaynone');
-        createPicker($(this).val());
+
+        // Récupération du nombre de resources disponibles
+        var getQuantityUrl = webrootUrl+"resources/"+$(this).val()+"/quantity";
+
+        $.get(getQuantityUrl, function(quantity) {
+            $('#quantitySelect').empty();
+            for(i=1; i<=quantity; i++)
+                $('#quantitySelect').append($('<option>').text(i).val(i));
+
+            createPicker($('#resourceInput').val());
+        });
+
+    });
+
+    //Recrée le picker quand on change de quantité souhaitée
+    $('#quantitySelect').on('change', function(){
+        
+        if( $('#quantitySelect').val() != "")
+        {
+            disableResourceField();
+            disableQuantityField();
+            $('#picker').remove();
+            if(picker)
+                picker.destroy();
+            resetValidationmessages();
+            $('#loadingAnimation').removeClass('displaynone');
+            createPicker($('#resourceInput').val());
+        }
+        
 
     });
 
@@ -177,7 +265,7 @@ $( document ).ready(function() {
 
 });
 
- // ------------------------------------------------------------------------- Validators pour les dates entrées à la main -------------------------------------------------------------------
+// ------------------------------------------------------------------------- Validators pour les dates entrées à la main -------------------------------------------------------------------
 
 
 

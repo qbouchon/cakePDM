@@ -16,6 +16,7 @@ use Cake\I18n\FrozenTime;
  * @property \Cake\I18n\FrozenDate|null $back_date
  * @property int $resource_id
  * @property int $user_id
+ * @property int quantity
  *
  * @property \App\Model\Entity\Resource $resource
  * @property \App\Model\Entity\User $user
@@ -40,6 +41,7 @@ class Reservation extends Entity
         'user_id' => true,
         'resource' => true,
         'user' => true,
+        'quantity' => true,
     ];
 
 

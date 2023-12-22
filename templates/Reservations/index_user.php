@@ -97,6 +97,7 @@ use Cake\I18n\FrozenDate;
                                 <tr class="bg-white">
                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('id','N°') ?></th>
                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('resource_id', 'Ressource') ?></th>
+                                    <th scope="col" class="text-center"><?= $this->Paginator->sort('quantity', 'Quantité') ?></th> 
                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('start_date', 'Date de début') ?></th>
                                     <th scope="col" class="text-center"><?= $this->Paginator->sort('end_date','Date de fin') ?></th> 
                                     <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
@@ -118,7 +119,7 @@ use Cake\I18n\FrozenDate;
                             ?>
                                 <td class="text-center"><?= h($reservation->id) ?></td>
                                 <td class="text-center"><?= $reservation->has('resource') ? $this->Html->link($reservation->resource->name, ['controller' => 'Resources', 'action' => 'view', $reservation->resource->id]) : '' ?></td>
-                                
+                                <td class="text-center"><?= h($reservation->quantity) ?></td>
                                 <td class="text-center"><?= h($reservation->start_date) ?></td>
 
                                 <td class="text-center"><?= h($reservation->end_date) ?></td>

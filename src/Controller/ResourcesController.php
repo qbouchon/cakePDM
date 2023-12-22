@@ -39,6 +39,7 @@ class ResourcesController extends AppController
                         'Resources.picture LIKE' => '%' . $search . '%',
                         'Domains.name LIKE' => '%' . $search . '%',
                         'CONVERT(Resources.max_duration, CHAR) LIKE' => '%' . $search . '%',
+                        'CONVERT(Resources.quantity, CHAR) LIKE' => '%' . $search . '%',
                         'CONVERT(Resources.archive, CHAR) LIKE'  => '%' . $search . '%',
                 ];
         }
@@ -114,6 +115,8 @@ class ResourcesController extends AppController
                 $resource->set('domain_id', $this->request->getData('domain_id'));
                 $resource->set('archive', $this->request->getData('archive'));
                 $resource->set('max_duration', $this->request->getData('max_duration'));
+                $resource->set('quantity', $this->request->getData('quantity'));
+                
 
                 
                 //Deprécié il n'y a plus que 2 couleurs pour afficher les ressources (voir getReservationsBetween de reservation controller)
@@ -177,6 +180,7 @@ class ResourcesController extends AppController
                 $resource->set('domain_id', $this->request->getData('domain_id'));
                 $resource->set('archive', $this->request->getData('archive'));
                 $resource->set('max_duration', $this->request->getData('max_duration'));
+                $resource->set('quantity', $this->request->getData('quantity'));
 
                 if( $this->request->getData('domain_id'))
                     $resource->set('domain', $this->getTableLocator()->get('Domains')->get($this->request->getData('domain_id')));
@@ -307,13 +311,18 @@ class ResourcesController extends AppController
         //Authorization
         $this->Authorization->authorize($resource);
 
+        $quantity = $this->request->getQuery("quantity");
+
         if($id_reservation)
         {
+
             $reservation = $this->Resources->Reservations->get($id_reservation);
             $dates = $resource->getCurrentReservationsDatesESR($reservation);
         }
         else
-            $dates = $resource->getCurrentReservationsDates();
+        {
+            $dates = $resource->getCurrentReservationsDates($quantity);
+        }
 
         // Convert the data to JSON format and send it as the response
         $this->autoRender = false;
@@ -331,6 +340,23 @@ class ResourcesController extends AppController
         $this->Authorization->authorize($resource);
 
         $md = $resource->max_duration;
+              
+        // Convert the data to JSON format and send it as the response
+        $this->autoRender = false;
+        $this->response->getBody()->write(json_encode($md));
+        $this->response = $this->response->withType('application/json');
+
+        return $this->response;
+    }
+
+    public function getQuantity($id = null)
+    {
+        $resource = $this->Resources->get($id);
+
+        //Authorization
+        $this->Authorization->authorize($resource);
+
+        $md = $resource->quantity;
               
         // Convert the data to JSON format and send it as the response
         $this->autoRender = false;

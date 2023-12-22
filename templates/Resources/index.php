@@ -58,6 +58,7 @@
                        <th scope="col" class="col text-center"><?= $this->Paginator->sort('domain_id','Domaine') ?></th>
                        <th scope="col" class="col text-center"><?= $this->Paginator->sort('max_duration','Durée Max') ?></th>
                        <th scope="col" class="col text-center"><?= $this->Paginator->sort('archive','Archivée') ?></th>
+                       <th scope="col" class="col text-center"><?= $this->Paginator->sort('quantity','Quantité') ?></th>
                        
                        <th class="actions text-center" scope="col"><?= __('Actions') ?></th>
                    </tr>
@@ -75,6 +76,7 @@
                             <td class="text-center"><?= $resource->has('domain') ? $this->Html->link($resource->domain->name, ['controller' => 'Domains', 'action' => 'view', $resource->domain->id]) : '' ?></td>
                             <td class="text-center"><?= $resource->max_duration > 0 ?  $resource->max_duration . ' jour(s)' : 'illimitée' ?></td>
                             <td class="text-center"><?= $resource->archive ? 'Oui' : 'Non' ?></td>
+                            <td class="text-center"><?= $resource->quantity  ?></td>
                             <td class="actions d-flex justify-content-center">
                                 <div class="dropdown">
                                     <button  class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">

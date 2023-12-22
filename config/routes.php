@@ -72,6 +72,8 @@ return static function (RouteBuilder $routes) {
          $builder->connect('/resources/:id/max_duration', ['controller' => 'Resources', 'action' => 'getMaxDuration'])
         ->setPass(['id']);
 
+         $builder->connect('/resources/:id/quantity', ['controller' => 'Resources', 'action' => 'getQuantity'])
+        ->setPass(['id']);
 
         $builder->connect('/error/denied', ['controller'=>'Error', 'action' => 'denied']);
 

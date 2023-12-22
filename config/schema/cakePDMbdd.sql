@@ -1,6 +1,6 @@
 CREATE TABLE users
 (
-	id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	firstname VARCHAR(100),
 	lastname VARCHAR(100),
 	username VARCHAR(50),
@@ -20,7 +20,6 @@ CREATE TABLE domains
 );
 
 
-
 CREATE TABLE resources
 (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -31,6 +30,7 @@ CREATE TABLE resources
 	domain_id INT,
 	max_duration INT unsigned DEFAULT 0,
 	archive BOOLEAN DEFAULT 0,
+	quantity INT DEFAULT 1,
 	color VARCHAR(7),
 	FOREIGN KEY (domain_id) REFERENCES domains(id) 
 );
@@ -45,6 +45,7 @@ CREATE TABLE reservations
 	last_mail_date DATE,
 	resource_id INT NOT NULL,
 	user_id INT NOT NULL,
+	quantity INT DEFAULT 1,
 	FOREIGN KEY (resource_id) REFERENCES resources(id),
 	FOREIGN KEY (user_id) REFERENCES users(id)
 );
@@ -107,9 +108,7 @@ CREATE TABLE configuration
   	start_hour_thursday VARCHAR(255),
   	end_hour_thursday VARCHAR(255),
   	start_hour_friday VARCHAR(255),
-  	end_hour_friday VARCHAR(255),
-
-
+  	end_hour_friday VARCHAR(255)
 );
 
 CREATE TABLE closing_dates 

@@ -3,6 +3,28 @@ let picker;
 $( document ).ready(function() {
 
 
+    //these 2 fields reload the picker on change. We want to prevent them to be clicked when the picker is loadings
+    function disableResourceField()
+    {
+        $('#resourceInput').prop('disabled', true);
+    }
+
+    function disableQuantityField()
+    {
+        $('#quantitySelect').prop('disabled', true);
+    }
+
+    function enableResourceField()
+    {
+        $('#resourceInput').prop('disabled', false);
+    }
+
+    function  enableQuantityField()
+    {
+        $('#quantitySelect').prop('disabled', false);
+    }
+
+
     //Fonction de création du picker avec les dates d'indisponibilité de la resource
     function createPicker(resourceId)
     {
@@ -80,8 +102,12 @@ $( document ).ready(function() {
 
         $('#loadingAnimation').addClass('displaynone');
 
+        enableQuantityField();
+        enableResourceField();
+
+
         //Création des tooltips
-       createDisabledDayTooltips();
+        createDisabledDayTooltips();
 
     }
 
@@ -125,17 +151,43 @@ $( document ).ready(function() {
         });
     }
 
+    function initQuantityField(callback)
+    {
+        var getQuantityUrl = webrootUrl+"resources/"+$('#resourceInput').val()+"/quantity";
 
+        $.get(getQuantityUrl, function(quantity) {
+
+            $('#quantitySelect').empty();
+
+            for(i=1; i<=quantity; i++)
+                $('#quantitySelect').append($('<option>').text(i).val(i));
+
+            callback();
+        });
+    }
+
+    // ------------------------------- INIT ------------------------------------------------------------------------
 
     //Créer le toolTip avec les horaires d'ouverture
     createOpeningDaysToolTip();
 
-    //Créer le picker au chargement de la page
-    createPicker($("#resourceInput").val());
+
+    //initialise le champs quantité en fonction de la resource selectionnée puis crée le picker
+    initQuantityField(function(){
+         createPicker($("#resourceInput").val());
+    });
+
+
+
+    // --------------------------------- On user Input ------------------------------------------------------------
+
 
     //Recrée le picker quand on change de ressource
     $('#resourceInput').on('change', function(){
              
+        disableResourceField();
+        disableQuantityField();
+
         var sDateValue = $('#start_date').val();    
         var eDateValue = $('#end_date').val(); 
         $('#picker').remove();
@@ -143,7 +195,18 @@ $( document ).ready(function() {
         $('#loadingAnimation').removeClass('displaynone');
         $('#start_date').val(sDateValue);
         $('#end_date').val(eDateValue);  //On remet les valeurs car picker.destroy() les reset
-        createPicker($(this).val());
+
+        // Récupération du nombre de resources disponibles
+        var getQuantityUrl = webrootUrl+"resources/"+$(this).val()+"/quantity";
+        $.get(getQuantityUrl, function(quantity) {
+            $('#quantitySelect').empty();
+            for(i=1; i<=quantity; i++)
+                $('#quantitySelect').append($('<option>').text(i).val(i));
+
+            createPicker($('#resourceInput').val());
+        });
+
+       
         
 
     });

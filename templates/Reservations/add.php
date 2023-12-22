@@ -34,6 +34,7 @@
                                     echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput', 'label' => 'Ressource']);
                                 ?>
 
+                                
                                 <div id='maxDurationInfo' class='fst-italic'>                                       
                                 </div>
 

@@ -32,8 +32,11 @@
                               
                             <?php
                                 //echo $this->Form->control('is_back');
-                                echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput', 'label' => 'Domaine']);
                                 echo $this->Form->control('user_id', ['options' => $users, 'label' => 'Utilisateur']);
+                                echo $this->Form->control('resource_id', ['options' => $resources, 'value' => $selected_resource_id, 'id'=>'resourceInput', 'label' => 'Ressource', 'disabled' => true]);
+                                
+                                echo $this->Form->control('quantity', ['options' =>[1,1], 'label' => 'Combien ?', 'id' => 'quantitySelect', 'disabled' => true]);
+                              
                             ?>
                           
                             <div id='maxDurationInfo' class='fst-italic'>                                       

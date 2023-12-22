@@ -76,7 +76,11 @@ class ResourcePolicy
     {
         return true;
     }
-     public function canGetMaxDuration(IdentityInterface $user, Resource $resource)
+    public function canGetMaxDuration(IdentityInterface $user, Resource $resource)
+    {
+        return true;
+    }
+    public function canGetQuantity(IdentityInterface $user, Resource $resource)
     {
         return true;
     }

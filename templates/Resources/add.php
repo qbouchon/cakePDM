@@ -35,6 +35,11 @@
                     <?= $this->Form->control('name', ['label' => 'Nom']); ?>
                     <?= $this->Form->control('domain_id', ['options' => $domains, 'empty' => true, 'label' => 'Domaine']); ?>
 
+                    <?= $this->Form->label('Nombre d\'exemplaires :'); ?>
+                    <div class='col-2 mt-2'>
+                        <?= $this->Form->control('quantity', ['label' => false]); ?>
+                    </div>
+
                     <!-- Gestion de l'upload d'image -->
                     <div class='d-flex align-items-center'>
                         <?php echo $this->Form->control('picture',['type' => 'file', 'class'=>'d-inline', 'id'=>'rAddPicture', 'label' => 'Importer une image (.png, .jpg, .jpeg)', 'accept' => 'image/*']); ?>
@@ -56,7 +61,7 @@
                     </div>
                     
                     <!-- $this->Form->control('color',['type'=>'color', 'value' => '#3788d8', 'label'=>'Couleur de la ressource pour l\'affichage dans le calendrier']); -->
-                    <?= $this->Form->control('archive', ['label' => 'Archiver cette resource (ne sera pas réservable)']); ?>
+                    <?= $this->Form->control('archive', ['label' => 'Archiver cette ressource (ne sera pas réservable)']); ?>
                      
                     <!-- Gestion de l'upload de fichiers -->
                     <div class="d-flex align-items-center">
